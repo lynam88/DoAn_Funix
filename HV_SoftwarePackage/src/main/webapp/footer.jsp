@@ -7,7 +7,8 @@
 				class="fab fa-youtube"></i> <i class="fab fa-google"></i>
 		</div>
 		<div class="col-lg-12">
-			2019 CopyRight Phan mem quan ly | Design by <a href="#">TruongBinIT</a>
+			2022 CopyRight Phần Mềm Quản Lý | Designed by <a href="#">Nam
+				Tran</a>
 		</div>
 	</div>
 </div>
@@ -113,11 +114,11 @@
 													"table tbody tr:last-child")
 													.index();
 											var row = '<tr>'
-													+ '<td><input type="text" class="form-control" name="name" id="name" placeholder="Nhập Tên"></td>'
-													+ '<td><input type="text" class="form-control" name="gioitinh" id="gioitinh" placeholder="Nhập Giới Tính"></td>'
-													+ '<td><input type="text" class="form-control" name="namsinh" id="namsinh" value="" placeholder="Nhập Ngày Sinh"></td>'
-													+ '<td><input type="text" class="form-control" name="diachi" id="diachi" value="" placeholder="Nhập Địa Chỉ"></td>'
-													+ '<td><input type="text" class="form-control" name="chucvu" id="chucvu" value="" placeholder="Nhập Chức Vụ"></td>'
+													+ '<td><input type="text" class="form-control" name="ID" id="ID" placeholder="ID"></td>'
+													+ '<td><input type="text" class="form-control" name="name" id="name" placeholder="Nhập Tên Đợt Quyên Góp"></td>'
+													+ '<td><textarea name="newcontent" id="newcontent"></textarea></td>'
+													+ '<td><input type="text" class="form-control" name="start_date" id="start_date" value="" placeholder="Ngày Bắt Đầu"></td>'
+													+ '<td><input type="text" class="form-control" name="end_date" id="end_date" value="" placeholder="Ngày Kết Thúc"></td>'
 													+ '<td>' + actions
 													+ '</td>' + '</tr>';
 											$("table").append(row);
@@ -125,8 +126,9 @@
 													.find(".add, .edit")
 													.toggle();
 											$('[data-toggle="tooltip"]')
-													.tooltip();
+													.tooltip();											
 										});
+						CKEDITOR.instances["newcontent"];
 						//Kiểm tra rỗng
 						$(document)
 								.on(
@@ -229,6 +231,12 @@
 	//Tool tip
 	$(document).ready(function() {
 		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+	//Ckeditor
+	var editor = '';
+	$(document).ready(function() {
+		editor = CKEDITOR.replace('content');
 	});
 </script>
 

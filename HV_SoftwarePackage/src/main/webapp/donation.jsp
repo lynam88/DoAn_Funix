@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +47,9 @@
 <!--===============================================================================================-->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+
+<script src="<c:url value='/ckeditor/ckeditor.js' />"></script>
+
 </head>
 
 <body onload="time()">
@@ -65,11 +68,11 @@
 		<form action=""></form>
 		<b>CHỨC NĂNG CHÍNH:</b><Br>
 		<button class="nv btn add-new" type="button" data-toggle="tooltip"
-			data-placement="top" title="Thêm đợt quyên góp">
+			data-placement="top" title="Thêm Đợt Quyên Góp">
 			<i class="fa fa-plus-square"></i>
 		</button>
 		<button class="nv" type="button" onclick="sortTable()"
-			data-toggle="tooltip" data-placement="top" title="Lọc Dữ Liệu">
+			data-toggle="tooltip" data-placement="top" title="Sắp Xếp Dữ Liệu">
 			<i class="fa fa-filter" aria-hidden="true"></i>
 		</button>
 		<button class="nv" data-toggle="tooltip" data-placement="top"
@@ -77,7 +80,7 @@
 			<i class="fas fa-file-export"></i>
 		</button>
 		<button class="nv cog" data-toggle="tooltip" data-placement="top"
-			title="Cài đặt">
+			title="Cài Đặt">
 			<i class="fas fa-cogs"></i>
 		</button>
 		<div class="table-title">
@@ -87,144 +90,23 @@
 		<table class="table table-bordered" id="myTable">
 			<thead>
 				<tr class="ex">
-					<th width="auto">Tên đợt quyên góp</th>
-					<th width="auto">Giới Tính</th>
-					<th>Ngày Sinh</th>
-					<th>Địa Chỉ</th>
-					<th>Chức Vụ</th>
+					<th width="5%;">ID</th>
+					<th width="30%;">Tên Đợt Quyên Góp</th>
+					<th width="45%;">Nội Dung</th>
+					<th width="10%;">Ngày Bắt Đầu</th>
+					<th width="10%;">Ngày Kết Thúc</th>
 					<th width="5px; !important">Tính Năng</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>Võ Trường</td>
-					<td>Nam</td>
-					<td>15/03/2000</td>
-					<td>Thông Tin Bảo Mật</td>
+					<td>1</td>
+					<td>Chung tay quyên góp hỗ trợ mái che và sân trường cho các
+						em học sinh tại vùng xa thuộc tỉnh Bình Thuận</td>
+					<td><textarea id="content" name="content"></textarea></td>
+					<td>20/10/2022</td>
 
-					<td>Admin</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Trần Khả Ái</td>
-					<td>Nữ</td>
-					<td>12/02/1999</td>
-					<td>155-157 Trần Quốc Thảo, Quận 3, Hồ Chí Minh</td>
-
-					<td>Phục Vụ</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Nguyễn Tấn Trung</td>
-					<td>Nam</td>
-					<td>07/10/1997</td>
-					<td>6 Nguyễn Lương Bằng, Tân Phú, Quận 7, Hồ Chí Minh</td>
-
-					<td>Dịch Vụ</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Trần Trúc An</td>
-					<td>Nữ</td>
-					<td>22/12/1999</td>
-					<td>Số 3 Hòa Bình, Phường 3, Quận 11, Hồ Chí Minh</td>
-
-					<td>Phục Vụ</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Phạm Thu Cúc</td>
-					<td>Nữ</td>
-					<td>02/06/1998</td>
-					<td>19 Đường Nguyễn Hữu Thọ, Tân Hưng, Quận 7, Hồ Chí Minh</td>
-
-					<td>Thu Ngân</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Nguyễn Thị Kim Ngân</td>
-					<td>Nữ</td>
-					<td>06/04/1998</td>
-					<td>Số 13, Tân Thuận Đông, Quận 7, Hồ Chí Minh</td>
-					<td>Phục Vụ</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Nguyễn Anh Tuấn</td>
-					<td>Nam</td>
-					<td>23/07/1996</td>
-					<td>59C Nguyễn Đình Chiểu, Quận 3, Hồ Chí Minh</td>
-					<td>Dịch Vụ</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Huỳnh Cẩm Thu</td>
-					<td>Nữ</td>
-					<td>19/01/1997</td>
-					<td>764 Võ Văn Kiệt, Phường 1, Quận 5, Hồ Chí Minh</td>
-					<td>Tư Vấn</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Nguyễn Xuân Ly</td>
-					<td>Nữ</td>
-					<td>30/10/1999</td>
-					<td>Đường Kênh T2 Ấp 6 Xã Hưng Long Huyện Bình Chánh, Hưng
-						Long, Bình Chánh, Hồ Chí Minh</td>
-					<td>Tư Vấn</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-				<tr>
-					<td>Hoàng Xuân Nam</td>
-					<td>Nữ</td>
-					<td>20/7/1989</td>
-					<td>37 Vạn Tượng, Phường 13, Quận 5, Hồ Chí Minh</td>
-					<td>QL Kho</td>
+					<td>20/12/2022</td>
 					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
 							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
 						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
@@ -236,11 +118,11 @@
 		</table>
 		<div id="pageNavPosition" class="text-right"></div>
 		<script type="text/javascript">
-            var pager = new Pager('myTable', 5);
-            pager.init();
-            pager.showPageNav('pager', 'pageNavPosition');
-            pager.showPage(1);
-        </script>
+			var pager = new Pager('myTable', 5);
+			pager.init();
+			pager.showPageNav('pager', 'pageNavPosition');
+			pager.showPage(1);
+		</script>
 	</div>
 	<hr class="hr1">
 
