@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<title>Quản Lý Đợt Quyên Góp</title>
+<title>Tạo Đợt Quyên Góp</title>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
 	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
@@ -47,88 +47,61 @@
 <!--===============================================================================================-->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <script src="<c:url value='/ckeditor/ckeditor.js' />"></script>
 
 </head>
 
 <body onload="time()">
-	<script type="text/javascript">
-		swal("Xin Chào Admin", "Chúc Bạn 1 Ngày Tốt Lành Nhé", "");
-	</script>
+
 	<%@ include file="header.jsp"%>
-	<div class="container-fluid al">
-		<div id="clock"></div>
-		<Br>
-		<p>
-			<b>TÌM KIẾM ĐỢT QUYÊN GÓP:</b>
-		</p>
-		<input type="text" id="myInput" onkeyup="myFunction()"
-			placeholder="Nhập từ khoá...">
+	<div class="container">
+		<div class="row">
 
+			<div class="col-md-8 col-md-offset-2">
 
-		<form action=""></form>
-		<b>CHỨC NĂNG CHÍNH:</b><Br>
-		<button onclick="window.open('./newpost.jsp', '_self');" class="nv btn add-new"
-			type="button" data-toggle="tooltip" data-placement="top"
-			title="Thêm Đợt Quyên Góp">
-			<i class="fa fa-plus-square"></i>
-		</button>
-		<button class="nv" type="button" onclick="sortTable()"
-			data-toggle="tooltip" data-placement="top" title="Sắp Xếp Dữ Liệu">
-			<i class="fa fa-filter" aria-hidden="true"></i>
-		</button>
-		<button class="nv" data-toggle="tooltip" data-placement="top"
-			title="Xuất File">
-			<i class="fas fa-file-export"></i>
-		</button>
-		<button class="nv cog" data-toggle="tooltip" data-placement="top"
-			title="Cài Đặt">
-			<i class="fas fa-cogs"></i>
-		</button>
-		<div class="table-title">
-			<div class="row"></div>
+				<h1 class="text-center" style="padding-top: 10%;">Tạo Đợt Quyên
+					Góp</h1>
+
+				<form action="" method="POST">
+
+					<div class="form-group">
+						<label for="title">Tiêu Đề Bài Viết <span class="require">*</span></label>
+						<input type="text" class="form-control" name="title" />
+					</div>
+
+					<div class="form-group">
+						<label for="thumbnail">Hình Đại Diện <span class="require">*</span></label>
+						<input type="text" class="form-control" name="thumbnail" />
+					</div>
+
+					<div class="form-group">
+						<label for="content">Nội dung</label>
+						<textarea rows="10" class="form-control" id="content" name="content"></textarea>
+					</div>
+
+					<div class="form-group">
+						<p>
+							<span class="require">*</span> bắt buộc
+						</p>
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Create</button>
+						<button class="btn btn-default">Cancel</button>
+					</div>
+
+				</form>
+			</div>
 
 		</div>
-		<table class="table table-bordered" id="myTable">
-			<thead>
-				<tr class="ex">
-					<th width="5%;">ID</th>
-					<th width="30%;">Tên Đợt Quyên Góp</th>
-					<th width="45%;">Nội Dung</th>
-					<th width="10%;">Ngày Bắt Đầu</th>
-					<th width="10%;">Ngày Kết Thúc</th>
-					<th width="5px; !important">Tính Năng</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Chung tay quyên góp hỗ trợ mái che và sân trường cho các
-						em học sinh tại vùng xa thuộc tỉnh Bình Thuận</td>
-					<td></td>
-					<td>20/10/2022</td>
-
-					<td>20/12/2022</td>
-					<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-							class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-						title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-							aria-hidden="true"></i></a> <a class="delete" title="Xóa"
-						data-toggle="tooltip"><i class="fa fa-trash-o"
-							aria-hidden="true"></i></a></td>
-				</tr>
-			</tbody>
-		</table>
-		<div id="pageNavPosition" class="text-right"></div>
-		<script type="text/javascript">
-			var pager = new Pager('myTable', 5);
-			pager.init();
-			pager.showPageNav('pager', 'pageNavPosition');
-			pager.showPage(1);
-		</script>
 	</div>
-	<hr class="hr1">
-
 	<%@ include file="footer.jsp"%>
 
 </body>
