@@ -12,7 +12,7 @@
 		</div>
 	</div>
 </div>
-<script src="jquery.min.js"></script>
+
 <script type="text/javascript">
 	//Tìm kiếm
 	function myFunction() {
@@ -96,116 +96,18 @@
 			}
 			return i;
 		}
-	}
-	
-	//Kiểm tra rỗng
-	$(document)
-			.on(
-					"click",
-					".add",
-					function() {
-						var empty = false;
-						var input = $(this).parents("tr")
-								.find('input[type="text"]');
-						input
-								.each(function() {
-									if (!$(this).val()) {
-										$(this).addClass(
-												"error");
-										swal(
-												"Thông Báo!",
-												"Dữ Liệu Trống Vui Lòng Kiểm Tra",
-												"error");
-										empty = true;
-									} else {
-										$(this)
-												.removeClass(
-														"error");
-										swal(
-												"Thông Báo!",
-												"Bạn Chưa Nhập Dữ Liệu",
-												"warning");
-									}
-								});
-						$(this).parents("tr")
-								.find(".error").first()
-								.focus();
-						if (!empty) {
-							input
-									.each(function() {
-										$(this)
-												.parent(
-														"td")
-												.html(
-														$(
-																this)
-																.val());
-										swal(
-												"Thành Công",
-												"Bạn Đã Cập Nhật Thành Công",
-												"success");
-									});
-							$(this).parents("tr").find(
-									".add, .edit").toggle();
-							$(".add-new").removeAttr(
-									"disabled");
-						}
-					});
-	// Sửa
-	$(document).on(
-			"click",
-			".edit",
-			function() {
-				$(this).parents("tr").find(
-						"td:not(:last-child)").each(
-						function() {
-							$(this).html(
-									'<input type="text" class="form-control" value="'
-											+ $(this)
-													.text()
-											+ '">');
-						});
-				$(this).parents("tr").find(".add, .edit")
-						.toggle();
-				$(".add-new").attr("disabled", "disabled");
-			});
-	jQuery(function() {
-		jQuery(".add").click(
-				function() {
-					swal("Thành Công!",
-							"Bạn Đã Sửa Thành Công",
-							"success");
-				});
-	});
-	// Xóa
-	$(document)
-			.on(
-					"click",
-					".delete",
-					function() {
-						$(this).parents("tr").remove();
-						swal("Thành Công!",
-								"Bạn Đã Xóa Thành Công",
-								"success");
-						$(".add-new")
-								.removeAttr("disabled");
-					});
-	});
+	}	
 	//Not use
 	jQuery(function() {
 		jQuery(".cog").click(function() {
 			swal("Sorry!", "Tính Năng Này Chưa Có", "error");
 		});
 	});
-	//Tool tip
-	$(document).ready(function() {
-		$('[data-toggle="tooltip"]').tooltip();
-	});
-
 	//Ckeditor
 	var editor = '';
 	$(document).ready(function() {
 		editor = CKEDITOR.replace('content');
+		editor = CKEDITOR.replace('thumbnail');
 	});
 </script>
 

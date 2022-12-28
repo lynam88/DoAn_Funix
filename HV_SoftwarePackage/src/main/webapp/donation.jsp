@@ -48,8 +48,6 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<script src="<c:url value='/ckeditor/ckeditor.js' />"></script>
-
 </head>
 
 <body onload="time()">
@@ -66,14 +64,13 @@
 		<input type="text" id="myInput" onkeyup="myFunction()"
 			placeholder="Nhập từ khoá...">
 
-
 		<form action=""></form>
 		<b>CHỨC NĂNG CHÍNH:</b><Br>
-		<button onclick="window.open('./newpost.jsp', '_self');" class="nv btn add-new"
+		<a href="${pageContext.request.contextPath}/URLController?action=add" class="nv btn add-new"
 			type="button" data-toggle="tooltip" data-placement="top"
 			title="Thêm Đợt Quyên Góp">
 			<i class="fa fa-plus-square"></i>
-		</button>
+		</a>
 		<button class="nv" type="button" onclick="sortTable()"
 			data-toggle="tooltip" data-placement="top" title="Sắp Xếp Dữ Liệu">
 			<i class="fa fa-filter" aria-hidden="true"></i>

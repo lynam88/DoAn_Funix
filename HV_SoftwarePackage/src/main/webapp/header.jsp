@@ -12,11 +12,11 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="./donation.jsp" data-toggle="tooltip"
+				<li class="active"><a href="${pageContext.request.contextPath}/URLController?action=donation" data-toggle="tooltip"
 					data-placement="bottom" title="ĐỢT QUYÊN GÓP">ĐỢT QUYÊN GÓP</a></li>
-				<li><a href="./user.jsp" data-toggle="tooltip" data-placement="bottom"
+				<li><a href="${pageContext.request.contextPath}/URLController?action=user" data-toggle="tooltip" data-placement="bottom"
 					title="NGƯỜI DÙNG">NGƯỜI DÙNG</a></li>
-				<li><a href="./donationDetail.jsp" data-toggle="tooltip" data-placement="bottom"
+				<li><a href="${pageContext.request.contextPath}/URLController?action=donationDetail" data-toggle="tooltip" data-placement="bottom"
 					title="CHI TIẾT ĐỢT QUYÊN GÓP">CHI TIẾT ĐỢT QUYÊN GÓP</a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom"
 					title="TÀI KHOẢN"><b>Tài Khoản</b> <span class="caret"></span>

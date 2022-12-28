@@ -48,17 +48,17 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<script src="<c:url value='/ckeditor/ckeditor.js' />"></script>
+<script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
 
 </head>
 
-<body onload="time()">
+<body>
 
 	<%@ include file="header.jsp"%>
 	<div class="container">
@@ -78,7 +78,7 @@
 
 					<div class="form-group">
 						<label for="thumbnail">Hình Đại Diện <span class="require">*</span></label>
-						<input type="text" class="form-control" name="thumbnail" />
+						<input type="text" class="form-control" id="thumbnail" name="thumbnail" />
 					</div>
 
 					<div class="form-group">
@@ -88,13 +88,13 @@
 
 					<div class="form-group">
 						<p>
-							<span class="require">*</span> bắt buộc
+							<span class="require">*</span> Bắt buộc
 						</p>
 					</div>
 
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary">Create</button>
-						<button class="btn btn-default">Cancel</button>
+						<button type="submit" class="btn btn-primary">Thêm Bài Viết</button>
+						<button class="btn btn-default">Hủy</button>
 					</div>
 
 				</form>
