@@ -55,7 +55,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/libraries/ckfinder/ckfinder.js"></script>
 </head>
 
 <body>

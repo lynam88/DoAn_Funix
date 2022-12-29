@@ -104,10 +104,13 @@
 		});
 	});
 	//Ckeditor
-	var editor = '';
+	var content = '';
+	var thumbnail = '';
 	$(document).ready(function() {
-		editor = CKEDITOR.replace('content');
-		editor = CKEDITOR.replace('thumbnail');
+		content = CKEDITOR.replace('content');
+		thumbnail = CKEDITOR.replace('thumbnail');
+		CKFinder.setupCKEditor(content, '${pageContext.request.contextPath}/libraries/ckfinder/');
+		CKFinder.setupCKEditor(thumbnail, '${pageContext.request.contextPath}/libraries/ckfinder/');
 	});
 </script>
 

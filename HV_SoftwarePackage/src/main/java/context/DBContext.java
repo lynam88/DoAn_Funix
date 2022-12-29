@@ -13,7 +13,7 @@ public Connection getConnection() throws Exception {
 }
 
 private final String serverName ="localhost";
-private final String dbName ="ShoppingDB";
+private final String dbName ="DonationDB";
 private final String portNumber ="1433";
 private final String instance ="";//LEAVE THIS ONLY EMPTY IF YOUR SQL IS A SINGLE INSTANCE
 private final String userID ="sa";
