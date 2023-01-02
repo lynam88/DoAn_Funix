@@ -3,39 +3,48 @@ package model;
 import java.sql.Date;
 
 public class Donations {
-	private int donationId;
-	private String donationName;
-	private String donationContent;
+	private int id;
+	private String name;
+	private String content;
 	private Date startDate;
 	private Date endDate;
-	private float totalNeeded;
+	private Float totalNeeded;
 	
 	public Donations() {
 		super();
+	}	
+
+	public Donations(String name, String content, Date startDate, Date endDate, Float totalNeeded) {
+		super();
+		this.name = name;
+		this.content = content;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.totalNeeded = totalNeeded;
 	}
 
-	public int getDonationId() {
-		return donationId;
+	public int getId() {
+		return id;
 	}
 
-	public void setDonationId(int donationId) {
-		this.donationId = donationId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getDonationName() {
-		return donationName;
+	public String getName() {
+		return name;
 	}
 
-	public void setDonationName(String donationName) {
-		this.donationName = donationName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDonationContent() {
-		return donationContent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setDonationContent(String donationContent) {
-		this.donationContent = donationContent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Date getStartDate() {
@@ -54,11 +63,13 @@ public class Donations {
 		this.endDate = endDate;
 	}
 
-	public float getTotalNeeded() {
+	public Float getTotalNeeded() {
 		return totalNeeded;
 	}
 
-	public void setTotalNeeded(float totalNeeded) {
-		this.totalNeeded = totalNeeded;
-	}	
+	public void setTotalNeeded(float f) {
+		this.totalNeeded = f;
+	}
+
+	
 }

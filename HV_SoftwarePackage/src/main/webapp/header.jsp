@@ -7,7 +7,7 @@
 				data-target="#myNavbar" style="position:relative; top:11px; padding-top:5px;">
 				<i class="fas fa-bars"></i>
 			</button>
-			<a class="navbar-brand" href="#"><i class="fa fa-home"
+			<a class="navbar-brand" href="/HV_SoftwarePackage/DonationController"><i class="fa fa-home"
 				aria-hidden="true"></i> QUẢN LÝ ĐỢT QUYÊN GÓP</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">

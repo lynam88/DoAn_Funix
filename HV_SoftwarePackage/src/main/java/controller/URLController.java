@@ -35,9 +35,12 @@ public class URLController extends HttpServlet {
 			page = "/error.jsp";
 		} else {
 			switch (action) {
-			case "add":
+			case "new":
 				page = "/newpost.jsp";
 				break;
+			case "delete":
+				page = "/donationDetail.jsp";
+				break;	
 			case "donation":
 				page = "/donation.jsp";
 				break;

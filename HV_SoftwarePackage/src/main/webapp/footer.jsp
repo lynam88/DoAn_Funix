@@ -97,20 +97,14 @@
 			return i;
 		}
 	}	
-	//Not use
-	jQuery(function() {
-		jQuery(".cog").click(function() {
-			swal("Sorry!", "Tính Năng Này Chưa Có", "error");
-		});
-	});
 	//Ckeditor
 	var content = '';
 	var thumbnail = '';
 	$(document).ready(function() {
 		content = CKEDITOR.replace('content');
 		thumbnail = CKEDITOR.replace('thumbnail');
-		CKFinder.setupCKEditor(content, '${pageContext.request.contextPath}/libraries/ckfinder/');
-		CKFinder.setupCKEditor(thumbnail, '${pageContext.request.contextPath}/libraries/ckfinder/');
+		CKFinder.setupCKEditor(content, '${pageContext.request.contextPath}/ckfinder/');
+		CKFinder.setupCKEditor(thumbnail, '${pageContext.request.contextPath}/ckfinder/');
 	});
 </script>
 
