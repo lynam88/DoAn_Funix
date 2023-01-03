@@ -14,6 +14,11 @@ public class Donations {
 		super();
 	}	
 
+	public Donations(int id) {
+		super();
+		this.id = id;
+	}
+
 	public Donations(String name, String content, Date startDate, Date endDate, Float totalNeeded) {
 		super();
 		this.name = name;

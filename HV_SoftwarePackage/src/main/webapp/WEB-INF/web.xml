@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HV_SoftwarePackage</display-name>
   <welcome-file-list>
-    <welcome-file>DonationController</welcome-file>
+    <welcome-file>ControllerServlet</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>ConnectorServlet</servlet-name>
@@ -27,26 +27,7 @@
 			/ckfinder/core/connector/java/connector.java
 		</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>DonationController</display-name>
-    <servlet-name>DonationController</servlet-name>
-    <servlet-class>controller.DonationController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DonationController</servlet-name>
-    <url-pattern>/DonationController</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>NewDonationController</display-name>
-    <servlet-name>NewDonationController</servlet-name>
-    <servlet-class>controller.NewDonationController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>NewDonationController</servlet-name>
-    <url-pattern>/NewDonationController</url-pattern>
-  </servlet-mapping>
+
   <servlet>
     <description></description>
     <display-name>ControllerServlet</display-name>
