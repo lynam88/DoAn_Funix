@@ -90,7 +90,7 @@
 					<form action="update" method="post">
 				</c:if>
 				<c:if test="${donations == null}">
-					<form action="insert" method="post">
+					<form action="ControllerServlet?action=insert" method="post">
 				</c:if>
 				
 				<c:if test="${donations != null}">
@@ -125,7 +125,7 @@
 
 				<div class="form-group">
 					<label for="content">Nội dung <span class="require">*</span></label>
-					<textarea rows="10" class="form-control" id="content"
+					<textarea rows="50" class="form-control" id="content"
 						name="content" value="<c:out value='${donations.content}'/>"></textarea>
 				</div>
 

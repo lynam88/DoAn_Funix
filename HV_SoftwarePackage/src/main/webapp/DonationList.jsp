@@ -66,7 +66,8 @@
 			placeholder="Nhập từ khoá...">
 
 		<form action=""></form>
-		<b>CHỨC NĂNG CHÍNH:</b><Br> <a href="ControllerServlet?action=new" class="nv btn add-new"
+		<b>CHỨC NĂNG CHÍNH:</b><Br> <a
+			href="ControllerServlet?action=new" class="nv btn add-new"
 			type="button" data-toggle="tooltip" data-placement="top"
 			title="Thêm Đợt Quyên Góp"> <i class="fa fa-plus-square"></i>
 		</a>
@@ -100,18 +101,16 @@
 			<tbody>
 				<c:forEach var="donation" items="${donationList}">
 					<tr>
-						<td><c:out value="${donation.id}"/></td>
-						<td><c:out value="${donation.name}"/></td>
-						<td><c:out value="${donation.content}"/></td>
-						<td><c:out value="${donation.startDate}"/></td>
-						<td><c:out value="${donation.endDate}"/></td>
-						<td><a class="add" title="Lưu Lại" data-toggle="tooltip"><i
-								class="fa fa-floppy-o" aria-hidden="true"></i></a> <a class="edit"
-							title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-								aria-hidden="true"></i></a> <a
-							href="/delete"
-							class="delete" title="Xóa" data-toggle="tooltip"><i
-								class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+						<td><c:out value="${donation.id}" /></td>
+						<td><c:out value="${donation.name}" /></td>
+						<td>${donation.content}</td>
+						<td><c:out value="${donation.startDate}" /></td>
+						<td><c:out value="${donation.endDate}" /></td>
+						<td><a class="edit" title="Sửa" data-toggle="tooltip"><i
+								class="fa fa-pencil" aria-hidden="true"></i></a> <a
+							href="ControllerServlet?action=delete&id=${donation.id}" class="delete" title="Xóa"
+							data-toggle="tooltip"><i class="fa fa-trash-o"
+								aria-hidden="true"></i></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

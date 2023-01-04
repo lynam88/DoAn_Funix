@@ -115,7 +115,7 @@ public class DonationsDAO {
 	public void deleteDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "DELETE FROM Donations WHERE dontation_id = ?";
+			String sql = "DELETE FROM Donations WHERE donation_id = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			stmt.setInt(1, d.getId());

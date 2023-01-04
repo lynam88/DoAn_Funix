@@ -23,6 +23,10 @@ public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO dao;
 
+	public void init() { 
+		dao = new DonationsDAO(); 
+    }
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
@@ -65,7 +69,6 @@ public class ControllerServlet extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		int page = 1;
 		int recordPerPage = 6;
-		String action = request.getParameter("action");
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
@@ -120,7 +123,7 @@ public class ControllerServlet extends HttpServlet {
 			String content = request.getParameter("content");
 			if (title == null || title.equals("") || content == null || content.equals("") || totalNeeded == null || totalNeeded.equals("")) {
 				session.setAttribute("error", "Xin điền vào đầy đủ các phần bắt buộc");
-				response.sendRedirect("newpost.jsp");
+				response.sendRedirect("DonationForm.jsp");
 				return;
 			}
 			if (startDate != "" || endDate != "") {
@@ -130,7 +133,7 @@ public class ControllerServlet extends HttpServlet {
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
 			if (startDate.compareTo(endDate) > 0) {
 				session.setAttribute("error", "Ngày Bắt Đầu phải trước Ngày Kết Thúc");
-				response.sendRedirect("newpost.jsp");
+				response.sendRedirect("DonationForm.jsp");
 				return;
 			} else {
 				Donations d = new Donations(title, content, start, end, totalNeededFloat);
