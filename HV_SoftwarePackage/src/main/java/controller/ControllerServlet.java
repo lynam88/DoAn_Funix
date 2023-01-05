@@ -23,10 +23,10 @@ public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO dao;
 
-	public void init() { 
-		dao = new DonationsDAO(); 
-    }
-	
+	public void init() {
+		dao = new DonationsDAO();
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
@@ -43,7 +43,7 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "new":
 				showNewForm(request, response);
-				break;				
+				break;
 			case "edit":
 				showEditForm(request, response);
 				break;
@@ -52,7 +52,7 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "delete":
 				deleteDonation(request, response);
-				break;			
+				break;
 			case "update":
 				updateDonation(request, response);
 				break;
@@ -110,7 +110,8 @@ public class ControllerServlet extends HttpServlet {
 
 	}
 
-	private void insertDonation(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void insertDonation(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		response.setContentType("text/htm;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		try {
@@ -121,33 +122,23 @@ public class ControllerServlet extends HttpServlet {
 			Date start = null, end = null;
 			String totalNeeded = request.getParameter("totalNeeded");
 			String content = request.getParameter("content");
-			if (title == null || title.equals("") || content == null || content.equals("") || totalNeeded == null || totalNeeded.equals("")) {
-				session.setAttribute("error", "Xin điền vào đầy đủ các phần bắt buộc");
-				response.sendRedirect("DonationForm.jsp");
-				return;
-			}
 			if (startDate != "" || endDate != "") {
 				start = (Date) Utils.convertStringToDate(startDate);
 				end = (Date) Utils.convertStringToDate(endDate);
 			}
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
-			if (startDate.compareTo(endDate) > 0) {
-				session.setAttribute("error", "Ngày Bắt Đầu phải trước Ngày Kết Thúc");
-				response.sendRedirect("DonationForm.jsp");
-				return;
-			} else {
-				Donations d = new Donations(title, content, start, end, totalNeededFloat);
-				dao.insertDonation(d);
-				response.sendRedirect("DonationController");
-				return;
-			}
+			Donations d = new Donations(title, content, start, end, totalNeededFloat);
+			dao.insertDonation(d);
+			response.sendRedirect("DonationList.jsp");
+			return;
 		} catch (Exception ex) {
 			response.getWriter().println(ex);
 			ex.printStackTrace();
 		}
 	}
 
-	private void updateDonation(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void updateDonation(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String startDate = request.getParameter("startDate");
@@ -168,16 +159,17 @@ public class ControllerServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 
-	private void deleteDonation(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void deleteDonation(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		Donations d = new Donations (id);
+		Donations d = new Donations(id);
 		try {
 			dao.deleteDonation(d);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("list");
+		response.sendRedirect("ControllerServlet?action=list");
 	}
 }

@@ -96,18 +96,25 @@
 			}
 			return i;
 		}
-	}	
+	}
 	//Ckeditor
 	var content = '';
 	var thumbnail = '';
-	$(document).ready(function() {
-		content = CKEDITOR.replace('content');
-		thumbnail = CKEDITOR.replace('thumbnail');
-		CKFinder.setupCKEditor(content, '${pageContext.request.contextPath}/ckfinder/');
-		CKFinder.setupCKEditor(thumbnail, '${pageContext.request.contextPath}/ckfinder/');
-	});
+	$(document).ready(
+			function() {
+				content = CKEDITOR.replace('content');
+				thumbnail = CKEDITOR.replace('thumbnail');
+				CKFinder.setupCKEditor(content,
+						'${pageContext.request.contextPath}/ckfinder/');
+				CKFinder.setupCKEditor(thumbnail,
+						'${pageContext.request.contextPath}/ckfinder/');
+				content.on('required', function(evt) {
+					alert('Xin điền vào Nội Dung Bài Viết');
+					evt.cancel();
+				});
+			});
 </script>
-
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
