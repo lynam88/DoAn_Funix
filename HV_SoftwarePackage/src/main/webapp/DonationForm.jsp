@@ -76,22 +76,11 @@
                     </c:if>
 				</h1>
 
-				<div class="text-center" style="color: red;">
-					<%
-					String error = (String) session.getAttribute("error");
-					if (error != null) {
-						out.println(error);
-						session.removeAttribute("error");
-					}
-					%>
-				</div>
-
 				<c:if test="${donations != null}">
 					<form action="update" method="post">
 				</c:if>
 				<c:if test="${donations == null}">
-					<form action="ControllerServlet?action=insert" name="newpost" id="newpost" 
-						onsubmit="return validate()" method="post">
+					<form action="ControllerServlet?action=insert" method="post">
 				</c:if>
 
 				<c:if test="${donations != null}">
@@ -101,31 +90,30 @@
 
 				<div class="form-group">
 					<label for="title">Tiêu Đề Bài Viết <span class="require">*</span></label>
-					<input type="text" class="form-control" name="title"
-						value="<c:out value='${donations.name}'/>" required
-						oninvalid="this.setCustomValidity('Xin điền vào đây')"
-						oninput="this.setCustomValidity('')" />
+					<input type="text" class="form-control" id="title" name="title"
+						value="<c:out value='${donations.name}'/>" />
+					<p id="title_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
 					<label for="title">Ngày Bắt Đầu </label> <input type="date"
-						class="form-control" name="startDate"
+						class="form-control" name="startDate" id="startDate"
 						value="<c:out value='${donations.startDate}'/>" />
 				</div>
 
 				<div class="form-group">
 					<label for="title">Ngày Kết Thúc </label> <input type="date"
-						class="form-control" name="endDate"
+						class="form-control" name="endDate" id="endDate"
 						value="<c:out value='${donations.endDate}'/>" />
+						<p id="date_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
 					<label for="title">Tổng Số Tiền Cần Quyên Góp <span
 						class="require">*</span></label> <input type="number" class="form-control"
-						name="totalNeeded"
-						value="<c:out value='${donations.totalNeeded}'/>" required
-						oninvalid="this.setCustomValidity('Xin điền vào đây')"
-						oninput="this.setCustomValidity('')" />
+						id="totalNeeded" name="totalNeeded"
+						value="<c:out value='${donations.totalNeeded}'/>" />
+					<p id="totalNeeded_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
@@ -135,9 +123,9 @@
 
 				<div class="form-group">
 					<label for="content">Nội dung <span class="require">*</span></label>
-					<textarea rows="30" class="form-control" required name="content"
-						value="<c:out value='${donations.content}'/>"
-						></textarea>
+					<textarea rows="30" class="form-control" id="content" name="content"
+						value="<c:out value='${donations.content}'/>"></textarea>
+					<p id="content_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
@@ -147,7 +135,8 @@
 				</div>
 
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Lưu Bài Viết</button>
+					<button type="submit" class="btn btn-primary"
+						onclick="return validateFunction()">Lưu Bài Viết</button>
 					<button class="btn btn-default">Hủy</button>
 				</div>
 

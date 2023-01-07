@@ -111,6 +111,19 @@ public class DonationsDAO {
 			ex.printStackTrace();
 		}
 	}
+	
+	public void resetId() throws Exception {
+		Connection connection = new DBContext().getConnection();
+		try {
+			String sql = " DBCC CHECKIDENT ('[Donations]', RESEED, 0)";;	
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.executeUpdate();
+			stmt.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
 
 	public void deleteDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
@@ -121,6 +134,7 @@ public class DonationsDAO {
 			stmt.setInt(1, d.getId());
 			stmt.executeUpdate();
 			stmt.close();
+			resetId();
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();

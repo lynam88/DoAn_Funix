@@ -129,7 +129,7 @@ public class ControllerServlet extends HttpServlet {
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
 			Donations d = new Donations(title, content, start, end, totalNeededFloat);
 			dao.insertDonation(d);
-			response.sendRedirect("DonationList.jsp");
+			response.sendRedirect("ControllerServlet?action=list");
 			return;
 		} catch (Exception ex) {
 			response.getWriter().println(ex);
