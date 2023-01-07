@@ -52,7 +52,7 @@ public class DonationsDAO {
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id) as rownb FROM donations) a"
+					"SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations) a"
 							+ " WHERE rownb >= " + start + "AND rownb <= " + total);
 			while (rs.next()) {
 				Donations d = new Donations();
@@ -100,9 +100,9 @@ public class DonationsDAO {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			stmt.setString(1, d.getName());
-			stmt.setString(2, d.getContent());
-			stmt.setDate(3, d.getStartDate());
-			stmt.setDate(4, d.getEndDate());
+			stmt.setString(2, d.getContent());		
+			stmt.setDate(3, new java.sql.Date(d.getStartDate().getTime()));
+			stmt.setDate(4, new java.sql.Date(d.getEndDate().getTime()));
 			stmt.setFloat(5, d.getTotalNeeded());
 			stmt.executeUpdate();
 			stmt.close();
@@ -149,8 +149,8 @@ public class DonationsDAO {
 
 			stmt.setString(1, d.getName());
 			stmt.setString(2, d.getContent());
-			stmt.setDate(3, d.getStartDate());
-			stmt.setDate(4, d.getEndDate());
+			stmt.setDate(3, new java.sql.Date(d.getStartDate().getTime()));
+			stmt.setDate(4, new java.sql.Date(d.getEndDate().getTime()));
 			stmt.setFloat(5, d.getTotalNeeded());
 			stmt.executeUpdate();
 			stmt.close();

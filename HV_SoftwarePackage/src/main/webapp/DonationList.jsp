@@ -62,7 +62,7 @@
 		<p>
 			<b>TÌM KIẾM ĐỢT QUYÊN GÓP:</b>
 		</p>
-		<input type="text" id="myInput" onkeyup="myFunction()"
+		<input type="text" id="myInput" onkeyup="titleSearch()"
 			placeholder="Nhập từ khoá...">
 
 		<form action=""></form>
@@ -106,10 +106,12 @@
 						<td>${donation.content}</td>
 						<td><c:out value="${donation.startDate}" /></td>
 						<td><c:out value="${donation.endDate}" /></td>
-						<td><a class="edit" title="Sửa" data-toggle="tooltip"><i
-								class="fa fa-pencil" aria-hidden="true"></i></a> <a
-							href="ControllerServlet?action=delete&id=${donation.id}" class="delete" title="Xóa"
-							data-toggle="tooltip"><i class="fa fa-trash-o"
+						<td><a class="edit"
+							href="ControllerServlet?action=edit&id=${donation.id}" title="
+							Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
+								aria-hidden="true"></i></a> <a class="delete"
+							href="ControllerServlet?action=delete&id=${donation.id}"
+							title="Xóa" data-toggle="tooltip"><i class="fa fa-trash-o"
 								aria-hidden="true"></i></a></td>
 					</tr>
 				</c:forEach>
@@ -118,9 +120,9 @@
 		<div class="row text-right" id="pageNavPosition">
 
 			<a class="page-link rounded-circle border-info"
-				href="/HV_SoftwarePackage/DonationController?page=${currentPage-1}"
+				href="/HV_SoftwarePackage/ControllerServlet?action=list&page=1"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-				class="sr-only">Previous</span>
+				class="sr-only">First Page</span>
 			</a>
 
 			<c:forEach var="i" begin="1" end="${noOfPage}">
@@ -131,16 +133,16 @@
 					</c:when>
 					<c:otherwise>
 						<a class="btn btn-outline-info rounded-circle"
-							href="/HV_SoftwarePackage/DonationController?page=${i}">${i}</a>
+							href="/HV_SoftwarePackage/ControllerServlet?action=list&page=${i}">${i}</a>
 					</c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 
 			<a class="page-link rounded-circle border-info"
-				href="/HV_SoftwarePackage/DonationController?page=${currentPage+1}"
+				href="/HV_SoftwarePackage/ControllerServlet?action=list&page=${noOfPage}"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-				class="sr-only">Next</span>
+				class="sr-only">Last Page</span>
 			</a>
 
 		</div>

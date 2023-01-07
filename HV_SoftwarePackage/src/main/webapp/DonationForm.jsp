@@ -77,7 +77,7 @@
 				</h1>
 
 				<c:if test="${donations != null}">
-					<form action="update" method="post">
+					<form action="ControllerServlet?action=update" method="post">
 				</c:if>
 				<c:if test="${donations == null}">
 					<form action="ControllerServlet?action=insert" method="post">

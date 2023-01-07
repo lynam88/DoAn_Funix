@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -122,7 +122,7 @@ public class ControllerServlet extends HttpServlet {
 			Date start = null, end = null;
 			String totalNeeded = request.getParameter("totalNeeded");
 			String content = request.getParameter("content");
-			if (startDate != "" || endDate != "") {
+			if (!startDate.isEmpty() || !endDate.isEmpty()) {
 				start = (Date) Utils.convertStringToDate(startDate);
 				end = (Date) Utils.convertStringToDate(endDate);
 			}
@@ -138,7 +138,10 @@ public class ControllerServlet extends HttpServlet {
 	}
 
 	private void updateDonation(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("DonationForm.jsp");
+		dispatcher.forward(request, response);
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String startDate = request.getParameter("startDate");
