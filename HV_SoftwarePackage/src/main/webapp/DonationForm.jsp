@@ -82,6 +82,11 @@
 				<c:if test="${donations == null}">
 					<form action="ControllerServlet?action=insert" method="post">
 				</c:if>
+				
+				<c:if test="${donations != null}">
+					<input type="hidden" name="id"
+						value="<c:out value='${donations.id}' />" />
+				</c:if>
 
 				<div class="form-group">
 					<label for="title">Tiêu Đề Bài Viết <span class="require">*</span></label>
