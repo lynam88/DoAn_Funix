@@ -96,9 +96,10 @@
 				content = CKEDITOR.replace('content');
 				thumbnail = CKEDITOR.replace('thumbnail');
 				CKFinder.setupCKEditor(content,
-						'${pageContext.request.contextPath}/ckfinder/');
+						'ckfinder/');
 				CKFinder.setupCKEditor(thumbnail,
-						'${pageContext.request.contextPath}/ckfinder/');				
+						'ckfinder/');
+				CKEDITOR.instances['content'].setData(CKEDITOR.instances.content.getData());
 			});
 	
 	//Validate new donation
@@ -108,7 +109,6 @@
 		var content = CKEDITOR.instances.content.getData();
 		var startDate = document.getElementById("startDate").value;
 		var endDate = document.getElementById("endDate").value;
-//		let Utils = new Utils();
 		var d1 = new Date(startDate);
 		var d2 = new Date(endDate);
 		
