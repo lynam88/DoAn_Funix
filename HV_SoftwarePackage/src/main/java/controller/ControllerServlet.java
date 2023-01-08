@@ -139,9 +139,6 @@ public class ControllerServlet extends HttpServlet {
 
 	private void updateDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("DonationForm.jsp");
-		dispatcher.forward(request, response);
-
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		String startDate = request.getParameter("startDate");
@@ -159,7 +156,7 @@ public class ControllerServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("list");
+		response.sendRedirect("ControllerServlet?action=list");
 	}
 
 	private void deleteDonation(HttpServletRequest request, HttpServletResponse response)

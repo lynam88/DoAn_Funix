@@ -90,7 +90,6 @@
 		<table class="table table-bordered" id="myTable">
 			<thead>
 				<tr class="ex">
-					<th width="5%;">ID</th>
 					<th width="30%;">Tên Đợt Quyên Góp</th>
 					<th width="45%;">Nội Dung</th>
 					<th width="10%;">Ngày Bắt Đầu</th>
@@ -101,7 +100,6 @@
 			<tbody>
 				<c:forEach var="donation" items="${donationList}">
 					<tr>
-						<td><c:out value="${donation.id}" /></td>
 						<td><c:out value="${donation.name}" /></td>
 						<td>${donation.content}</td>
 						<td><c:out value="${donation.startDate}" /></td>

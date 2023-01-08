@@ -83,11 +83,6 @@
 					<form action="ControllerServlet?action=insert" method="post">
 				</c:if>
 
-				<c:if test="${donations != null}">
-					<input type="hidden" name="id"
-						value="<c:out value='${donations.id}' />" />
-				</c:if>
-
 				<div class="form-group">
 					<label for="title">Tiêu Đề Bài Viết <span class="require">*</span></label>
 					<input type="text" class="form-control" id="title" name="title"
@@ -105,7 +100,7 @@
 					<label for="title">Ngày Kết Thúc </label> <input type="date"
 						class="form-control" name="endDate" id="endDate"
 						value="<c:out value='${donations.endDate}'/>" />
-						<p id="date_error" style='color: red;' />
+					<p id="date_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
@@ -117,14 +112,16 @@
 				</div>
 
 				<div class="form-group">
-					<label for="thumbnail">Hình Đại Diện </label> <input type="text"
-						class="form-control" id="thumbnail" name="thumbnail" />
+					<label for="thumbnail">Hình Đại Diện </label> <textarea type="text"
+						class="form-control" id="thumbnail" name="thumbnail"><img
+						src="media/${donations.id}-1.jpg"></textarea>
+
 				</div>
 
 				<div class="form-group">
 					<label for="content">Nội dung <span class="require">*</span></label>
-					<textarea rows="30" class="form-control" id="content" name="content"
-						value="<c:out value='${donations.content}'/>"></textarea>
+					<textarea rows="30" class="form-control" id="content"
+						name="content">${donations.content}</textarea>
 					<p id="content_error" style='color: red;' />
 				</div>
 

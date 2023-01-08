@@ -99,7 +99,6 @@
 						'ckfinder/');
 				CKFinder.setupCKEditor(thumbnail,
 						'ckfinder/');
-				CKEDITOR.instances['content'].setData(CKEDITOR.instances.content.getData());
 			});
 	
 	//Validate new donation
