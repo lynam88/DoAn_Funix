@@ -37,4 +37,15 @@
 		padding: 10px 0;
 		text-align: center;
 	}
+	select {
+		background: rgb(0,255,255);
+		border: 3px solid rgb(84, 73, 116);
+		width: 150px;
+		height: 30px;
+		font-size: large;
+	}
+	option:checked {
+		color: rgb(246, 250, 0);
+		background-color: rgb(5, 26, 1);
+	}
 }

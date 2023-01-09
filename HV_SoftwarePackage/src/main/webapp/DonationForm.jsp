@@ -7,6 +7,8 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/HV_SoftwarePackage/css/project.css">
 <link
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet"
@@ -106,9 +108,9 @@
 						<label for="title">Trạng Thái: </label> <select
 							class="form-select form-select-sm"
 							aria-label=".form-select-sm example">
-							<option selected>${donations.status}</option>
-							<option value="1">Hoàn Thành</option>
-							<option value="2">Chưa Hoàn Thành</option>
+							<option value="${donations.status}" selected></option>
+							<option value="1" style="color:blue;">Hoàn Thành</option>
+							<option value="2" style="color:green;">Chưa Hoàn Thành</option>
 						</select>
 					</div>
 				</c:if>
