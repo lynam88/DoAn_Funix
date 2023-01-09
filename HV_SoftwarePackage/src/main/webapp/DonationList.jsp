@@ -96,6 +96,7 @@
 		<table class="table table-bordered" id="myTable">
 			<thead>
 				<tr class="ex">
+					<th width="10%;">Trạng Thái</th>
 					<th width="25%;">Tên Đợt Quyên Góp</th>
 					<th width="60%;">Nội Dung</th>
 					<th width="10%;">Ngày Bắt Đầu</th>
@@ -106,12 +107,13 @@
 			<tbody>
 				<c:forEach var="donation" items="${donationList}">
 					<tr>
+						<td><c:out value="${donation.status}" /></td>
 						<td><c:out value="${donation.name}" /></td>
 						<td>
 							<div>
 								<div class="content hideContent">${donation.content}</div>
 								<div class="show-more">
-									<a href="#">Show more</a>
+									<a href="#">Hiển thị thêm</a>
 								</div>
 							</div>
 						</td>

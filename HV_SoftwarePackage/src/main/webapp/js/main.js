@@ -144,11 +144,11 @@
 	    var $content = $this.parent().prev("div.content");
 	    var linkText = $this.text().toUpperCase();    
 	    
-	    if(linkText === "SHOW MORE"){
-	        linkText = "Show less";
+	    if(linkText == "HIỂN THỊ THÊM"){
+	        linkText = "Rút Gọn";
 	        $content.switchClass("hideContent", "showContent", 400);
 	    } else {
-	        linkText = "Show more";
+	        linkText = "Hiển thị thêm";
 	        $content.switchClass("showContent", "hideContent", 400);
 	    };
 
