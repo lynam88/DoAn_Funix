@@ -7,6 +7,8 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/HV_SoftwarePackage/css/project.css">
 <link
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet"
@@ -48,7 +50,11 @@
 <!--===============================================================================================-->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
 </head>
 
 <body onload="time()">
@@ -90,8 +96,8 @@
 		<table class="table table-bordered" id="myTable">
 			<thead>
 				<tr class="ex">
-					<th width="30%;">Tên Đợt Quyên Góp</th>
-					<th width="45%;">Nội Dung</th>
+					<th width="25%;">Tên Đợt Quyên Góp</th>
+					<th width="60%;">Nội Dung</th>
 					<th width="10%;">Ngày Bắt Đầu</th>
 					<th width="10%;">Ngày Kết Thúc</th>
 					<th width="5px; !important">Tính Năng</th>
@@ -101,13 +107,21 @@
 				<c:forEach var="donation" items="${donationList}">
 					<tr>
 						<td><c:out value="${donation.name}" /></td>
-						<td>${donation.content}</td>
+						<td>
+							<div>
+								<div class="content hideContent">${donation.content}</div>
+								<div class="show-more">
+									<a href="#">Show more</a>
+								</div>
+							</div>
+						</td>
 						<td><c:out value="${donation.startDate}" /></td>
 						<td><c:out value="${donation.endDate}" /></td>
 						<td><a class="edit"
-							href="ControllerServlet?action=edit&id=${donation.id}" title="
-							Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-								aria-hidden="true"></i></a> <a class="delete"
+							href="ControllerServlet?action=edit&id=${donation.id}"
+							title="
+							Sửa" data-toggle="tooltip"><i
+								class="fa fa-pencil" aria-hidden="true"></i></a> <a class="delete"
 							href="ControllerServlet?action=delete&id=${donation.id}"
 							title="Xóa" data-toggle="tooltip"><i class="fa fa-trash-o"
 								aria-hidden="true"></i></a></td>

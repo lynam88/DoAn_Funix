@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -117,11 +118,16 @@ public class ControllerServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession(true);
 			String title = request.getParameter("title");
+			byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
+			title = new String(title_Bytes, StandardCharsets.UTF_8);
 			String startDate = request.getParameter("startDate");
 			String endDate = request.getParameter("endDate");
 			Date start = null, end = null;
 			String totalNeeded = request.getParameter("totalNeeded");
 			String content = request.getParameter("content");
+			byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
+			content = new String(content_Bytes, StandardCharsets.UTF_8);
+
 			if (!startDate.isEmpty() || !endDate.isEmpty()) {
 				start = (Date) Utils.convertStringToDate(startDate);
 				end = (Date) Utils.convertStringToDate(endDate);
@@ -141,6 +147,8 @@ public class ControllerServlet extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
+		byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
+		title = new String(title_Bytes, StandardCharsets.UTF_8);
 		String startDate = request.getParameter("startDate");
 		Date start = (Date) Utils.convertStringToDate(startDate);
 		String endDate = request.getParameter("endDate");
@@ -148,6 +156,8 @@ public class ControllerServlet extends HttpServlet {
 		String totalNeeded = request.getParameter("totalNeeded");
 		Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
 		String content = request.getParameter("content");
+		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
+		content = new String(content_Bytes, StandardCharsets.UTF_8);
 
 		Donations d = new Donations(title, content, start, end, totalNeededFloat);
 		try {

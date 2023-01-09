@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +83,7 @@
 				<c:if test="${donations == null}">
 					<form action="ControllerServlet?action=insert" method="post">
 				</c:if>
-				
+
 				<c:if test="${donations != null}">
 					<input type="hidden" name="id"
 						value="<c:out value='${donations.id}' />" />
@@ -94,6 +95,18 @@
 						value="<c:out value='${donations.name}'/>" />
 					<p id="title_error" style='color: red;' />
 				</div>
+
+				<!-- 				<div class="dropdown show"> -->
+				<!-- 					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" -->
+				<!-- 						id="Trạng Thái Đợt Quyên Góp" data-toggle="dropdown" aria-haspopup="true" -->
+				<!-- 						aria-expanded="false"> Dropdown link </a> -->
+
+				<!-- 					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> -->
+				<!-- 						<a class="dropdown-item" href="#">Action</a> <a -->
+				<!-- 							class="dropdown-item" href="#">Another action</a> <a -->
+				<!-- 							class="dropdown-item" href="#">Something else here</a> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
 
 				<div class="form-group">
 					<label for="title">Ngày Bắt Đầu </label> <input type="date"
@@ -110,16 +123,18 @@
 
 				<div class="form-group">
 					<label for="title">Tổng Số Tiền Cần Quyên Góp <span
-						class="require">*</span></label> <input type="number" class="form-control"
-						id="totalNeeded" name="totalNeeded"
-						value="<c:out value='${donations.totalNeeded}'/>" />
+						class="require">*</span></label> 
+					<fmt:formatNumber type="number" pattern="0.00"
+						value="${donations.totalNeeded}" var="myNum" />
+					<input type="number" min="0" id="totalNeeded" name="totalNeeded" pattern="0.00" step=".01"
+						required value="${myNum}" />
 					<p id="totalNeeded_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
-					<label for="thumbnail">Hình Đại Diện </label> <textarea type="text"
-						class="form-control" id="thumbnail" name="thumbnail"><img
-						src="media/${donations.id}-1.jpg"></textarea>
+					<label for="thumbnail">Hình Đại Diện </label>
+					<textarea type="text" class="form-control" id="thumbnail"
+						name="thumbnail"><img src="media/${donations.id}-1.jpg"></textarea>
 
 				</div>
 
