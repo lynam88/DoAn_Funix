@@ -42,6 +42,9 @@ public class ControllerServlet extends HttpServlet {
 			case "list":
 				listDonation(request, response);
 				break;
+			case "search":
+				searchDonation(request, response);
+				break;
 			case "new":
 				showNewForm(request, response);
 				break;
@@ -86,6 +89,23 @@ public class ControllerServlet extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+	}
+	
+	private void searchDonation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		try {
+			String text = request.getParameter("myInput");
+			request.setAttribute("textSearch", text);
+			request.setAttribute("result", new DonationsDAO().search(text));
+			RequestDispatcher rd = request.getRequestDispatcher("ControllerServlet?action=list");
+			rd.forward(request, response);
+		} catch (Exception ex) {
+			// TODO: handle exception
+			response.getWriter().println(ex);
 		}
 	}
 

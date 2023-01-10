@@ -68,10 +68,10 @@
 		<p>
 			<b>TÌM KIẾM ĐỢT QUYÊN GÓP:</b>
 		</p>
-		<input type="text" id="myInput" onkeyup="titleSearch()"
-			placeholder="Nhập từ khoá...">
 
-		<form action=""></form>
+			<input type="text" id="myInput" name="myInput" onkeyup="ControllerServlet?action=search"
+				placeholder="Nhập từ khoá...">
+
 		<b>CHỨC NĂNG CHÍNH:</b><Br> <a
 			href="ControllerServlet?action=new" class="nv btn add-new"
 			type="button" data-toggle="tooltip" data-placement="top"
