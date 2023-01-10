@@ -108,7 +108,7 @@
 				<c:forEach var="donation" items="${donationList}">
 					<tr>
 						<td><c:out value="${donation.status}" /></td>
-						<td><c:out value="${donation.name}" /></td>
+						<td><c:out value="${donation.title}" /></td>
 						<td>
 							<div>
 								<div class="content hideContent">${donation.content}</div>

@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class Donations {
 	private int id;
-	private String name;
+	private int status;
+	private String title;
 	private String content;
 	private Date startDate;
 	private Date endDate;
@@ -19,9 +20,10 @@ public class Donations {
 		this.id = id;
 	}
 
-	public Donations(String name, String content, Date startDate, Date endDate, Float totalNeeded) {
+	public Donations(int status, String title, String content, Date startDate, Date endDate, Float totalNeeded) {
 		super();
-		this.name = name;
+		this.status = status;
+		this.title = title;
 		this.content = content;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -36,12 +38,20 @@ public class Donations {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -72,9 +82,9 @@ public class Donations {
 		return totalNeeded;
 	}
 
-	public void setTotalNeeded(float f) {
-		this.totalNeeded = f;
+	public void setTotalNeeded(Float totalNeeded) {
+		this.totalNeeded = totalNeeded;
 	}
 
-	
+		
 }

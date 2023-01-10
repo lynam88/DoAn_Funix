@@ -94,23 +94,27 @@
 				<c:if test="${donations == null}">
 					<div class="form-group text-right">
 						<label for="title">Trạng Thái: </label> <select
-							class="form-select form-select-sm"
+							class="form-select form-select-sm" id="status" name="status"
 							aria-label=".form-select-sm example">
 							<option selected>Xin Lựa Chọn</option>
 							<option value="1">Hoàn Thành</option>
 							<option value="2">Chưa Hoàn Thành</option>
 						</select>
+						<p id="status_error" style='color: red;' />
 					</div>
 				</c:if>
 
 				<c:if test="${donations != null}">
 					<div class="form-group text-right">
 						<label for="title">Trạng Thái: </label> <select
-							class="form-select form-select-sm"
+							class="form-select form-select-sm" id="status" name="status"
 							aria-label=".form-select-sm example">
-							<option value="${donations.status}" selected></option>
-							<option value="1" style="color:blue;">Hoàn Thành</option>
-							<option value="2" style="color:green;">Chưa Hoàn Thành</option>
+							<option value="1"
+								<c:if test="${donations.status == 1}">selected</c:if>>Hoàn
+								Thành</option>
+							<option value="2"
+								<c:if test="${donations.status == 2}">selected</c:if>>Chưa
+								Hoàn Thành</option>
 						</select>
 					</div>
 				</c:if>
@@ -118,21 +122,22 @@
 				<div class="form-group">
 					<label for="title">Tiêu Đề Bài Viết <span class="require">*</span></label>
 					<input type="text" class="form-control" id="title" name="title"
-						value="<c:out value='${donations.name}'/>" />
+						value="<c:out value='${donations.title}'/>" />
 					<p id="title_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
-					<label for="title">Ngày Bắt Đầu </label> <input type="date"
-						class="form-control" name="startDate" id="startDate"
-						value="<c:out value='${donations.startDate}'/>" />
+					<label for="title">Ngày Bắt Đầu <span class="require">*</span></label>
+					<input type="date" class="form-control" name="startDate"
+						id="startDate" value="<c:out value='${donations.startDate}'/>" />
+					<p id="date1_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
-					<label for="title">Ngày Kết Thúc </label> <input type="date"
-						class="form-control" name="endDate" id="endDate"
+					<label for="title">Ngày Kết Thúc <span class="require">*</span></label>
+					<input type="date" class="form-control" name="endDate" id="endDate"
 						value="<c:out value='${donations.endDate}'/>" />
-					<p id="date_error" style='color: red;' />
+					<p id="date2_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">

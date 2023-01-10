@@ -20,12 +20,12 @@ public class DonationsDAO {
 		List<Donations> list = new ArrayList<>();
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Donations WHERE donation_name like '%" + character + "%'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Donations WHERE donation_title like '%" + character + "%'");
 			this.noOfRecords = 0;
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
-				d.setName(rs.getString("donation_name"));
+				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
@@ -57,7 +57,8 @@ public class DonationsDAO {
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
-				d.setName(rs.getString("donation_name"));
+				d.setStatus(rs.getInt("donation_status"));
+				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
@@ -80,7 +81,8 @@ public class DonationsDAO {
 
 			if (rs.next()) {
 				d.setId(rs.getInt("donation_id"));
-				d.setName(rs.getString("donation_name"));
+				d.setStatus(rs.getInt("donation_status"));
+				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
@@ -96,14 +98,15 @@ public class DonationsDAO {
 	public void insertDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "INSERT INTO Donations (donation_name, donation_content, start_date, end_date, total_needed) VALUES ( ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Donations (donation_status, donation_title, donation_content, start_date, end_date, total_needed) VALUES ( ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setString(1, d.getName());
-			stmt.setString(2, d.getContent());		
-			stmt.setDate(3, new java.sql.Date(d.getStartDate().getTime()));
-			stmt.setDate(4, new java.sql.Date(d.getEndDate().getTime()));
-			stmt.setFloat(5, d.getTotalNeeded());
+			stmt.setInt(1, d.getStatus());
+			stmt.setString(2, d.getTitle());
+			stmt.setString(3, d.getContent());		
+			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
+			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
+			stmt.setFloat(6, d.getTotalNeeded());
 			stmt.executeUpdate();
 			stmt.close();
 
@@ -144,14 +147,15 @@ public class DonationsDAO {
 	public void updateDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "UPDATE Donations SET donation_name = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?";
+			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setString(1, d.getName());
-			stmt.setString(2, d.getContent());
-			stmt.setDate(3, new java.sql.Date(d.getStartDate().getTime()));
-			stmt.setDate(4, new java.sql.Date(d.getEndDate().getTime()));
-			stmt.setFloat(5, d.getTotalNeeded());
+			stmt.setInt(1, d.getStatus());
+			stmt.setString(2, d.getTitle());
+			stmt.setString(3, d.getContent());		
+			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
+			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
+			stmt.setFloat(6, d.getTotalNeeded());
 			stmt.executeUpdate();
 			stmt.close();
 

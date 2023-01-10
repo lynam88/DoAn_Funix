@@ -117,6 +117,7 @@ public class ControllerServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		try {
 			HttpSession session = request.getSession(true);
+			int status = Integer.parseInt(request.getParameter("status"));
 			String title = request.getParameter("title");
 			byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
 			title = new String(title_Bytes, StandardCharsets.UTF_8);
@@ -133,7 +134,7 @@ public class ControllerServlet extends HttpServlet {
 				end = (Date) Utils.convertStringToDate(endDate);
 			}
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
-			Donations d = new Donations(title, content, start, end, totalNeededFloat);
+			Donations d = new Donations(status, title, content, start, end, totalNeededFloat);
 			dao.insertDonation(d);
 			response.sendRedirect("ControllerServlet?action=list");
 			return;
@@ -146,6 +147,7 @@ public class ControllerServlet extends HttpServlet {
 	private void updateDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		int id = Integer.parseInt(request.getParameter("id"));
+		int status = Integer.parseInt(request.getParameter("status"));
 		String title = request.getParameter("title");
 		byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
 		title = new String(title_Bytes, StandardCharsets.UTF_8);
@@ -159,7 +161,7 @@ public class ControllerServlet extends HttpServlet {
 		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
 		content = new String(content_Bytes, StandardCharsets.UTF_8);
 
-		Donations d = new Donations(title, content, start, end, totalNeededFloat);
+		Donations d = new Donations(status, title, content, start, end, totalNeededFloat);
 		try {
 			dao.updateDonation(d);
 		} catch (Exception e) {

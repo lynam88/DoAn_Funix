@@ -103,6 +103,7 @@
 	
 	//Validate new donation
 	function validateFunction() {
+		var status = document.getElementById("status").value;
 		var title = document.getElementById("title").value;
 		var totalNeeded = document.getElementById("totalNeeded").value;
 		var content = CKEDITOR.instances.content.getData();
@@ -111,11 +112,23 @@
 		var d1 = new Date(startDate);
 		var d2 = new Date(endDate);
 		
+		if (status=="Xin Lựa Chọn") {
+			document.getElementById("status_error").innerHTML = "Xin chọn Trạng Thái";
+			return false;
+		} else {
+			document.getElementById("status_error").innerHTML =  "";
+		}	
 		if (title =="") {
 			document.getElementById("title_error").innerHTML = "Xin điền vào Tiêu Đề";
 			return false;
 		} else {
 			document.getElementById("title_error").innerHTML =  "";
+		}		
+		if (startDate == "" || endDate == "") {
+			document.getElementById("date1_error").innerHTML = "Xin chọn Ngày";
+			return false;
+		} else {
+			document.getElementById("date1_error").innerHTML =  "";
 		}
 		if (totalNeeded =="") {
 			document.getElementById("totalNeeded_error").innerHTML =  "Xin điền vào Tổng Tiền";
@@ -131,7 +144,7 @@
 			document.getElementById("content_error").innerHTML =  "";
 		}		    
 	    if (d1 > d2) {
-			document.getElementById("date_error").innerHTML = "Ngày Bắt Đầu phải trước Ngày Kết Thúc";
+			document.getElementById("date2_error").innerHTML = "Ngày Bắt Đầu phải trước Ngày Kết Thúc";
 			return false;
 		} else {
 			document.getElementById("date_error").innerHTML = "";
