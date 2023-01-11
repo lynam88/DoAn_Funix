@@ -43,7 +43,7 @@ public class ControllerServlet extends HttpServlet {
 				listDonation(request, response);
 				break;
 			case "search":
-				searchDonation(request, response);
+				listDonation(request, response);
 				break;
 			case "new":
 				showNewForm(request, response);
@@ -73,10 +73,11 @@ public class ControllerServlet extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		int page = 1;
 		int recordPerPage = 6;
+		String text = request.getParameter("myInput");
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			List<Donations> temp = dao.search("");
+			List<Donations> temp = dao.search(text);
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
 			List<Donations> list = dao.getRecord((page - 1) * recordPerPage + 1, page * recordPerPage);
@@ -89,23 +90,6 @@ public class ControllerServlet extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}
-	}
-	
-	private void searchDonation(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("utf-8");
-		try {
-			String text = request.getParameter("myInput");
-			request.setAttribute("textSearch", text);
-			request.setAttribute("result", new DonationsDAO().search(text));
-			RequestDispatcher rd = request.getRequestDispatcher("ControllerServlet?action=list");
-			rd.forward(request, response);
-		} catch (Exception ex) {
-			// TODO: handle exception
-			response.getWriter().println(ex);
 		}
 	}
 
