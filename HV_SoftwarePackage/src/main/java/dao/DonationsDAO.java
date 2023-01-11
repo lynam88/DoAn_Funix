@@ -25,6 +25,7 @@ public class DonationsDAO {
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
+				d.setStatus(rs.getInt("donation_status"));
 				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));

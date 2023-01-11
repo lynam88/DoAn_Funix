@@ -72,7 +72,7 @@
 			action="ControllerServlet?action=search" method="post">
 			<div>
 				<input type="text" id="myInput" name="myInput"
-					placeholder="Nhập từ khoá...">
+					placeholder="Nhập từ khoá..." style="width: 27%;">
 				<button class="btn btn-primary">Tìm kiếm</button>
 			</div>
 		</form>

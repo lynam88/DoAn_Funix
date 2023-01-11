@@ -23,6 +23,7 @@ import model.Donations;
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO dao;
+	String action;
 
 	public void init() {
 		dao = new DonationsDAO();
@@ -35,7 +36,7 @@ public class ControllerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String action = request.getParameter("action");
+		action = request.getParameter("action");
 
 		try {
 			switch (action) {
@@ -81,7 +82,12 @@ public class ControllerServlet extends HttpServlet {
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
 			List<Donations> list = dao.getRecord((page - 1) * recordPerPage + 1, page * recordPerPage);
-			request.setAttribute("donationList", list);
+			if (action.equals("list")) {
+				request.setAttribute("donationList", list);
+			}
+			if (action.equals("search")){
+				request.setAttribute("donationList", temp);
+			}
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
