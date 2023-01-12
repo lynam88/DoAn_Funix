@@ -86,7 +86,7 @@
 			data-toggle="tooltip" data-placement="top" title="Sắp Xếp Dữ Liệu">
 			<i class="fa fa-filter" aria-hidden="true"></i>
 		</button>
-		<button class="nv" data-toggle="tooltip" data-placement="top"
+		<button class="nv" href="ControllerServlet?action=export" data-toggle="tooltip" data-placement="top"
 			title="Xuất File">
 			<i class="fas fa-file-export"></i>
 		</button>

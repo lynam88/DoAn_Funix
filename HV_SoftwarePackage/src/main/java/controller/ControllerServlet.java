@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import commons.Utils;
 import dao.DonationsDAO;
+import dao.ExportService;
 import model.Donations;
 
 /**
@@ -60,6 +61,9 @@ public class ControllerServlet extends HttpServlet {
 				break;
 			case "update":
 				updateDonation(request, response);
+				break;
+			case "export":
+				exportDonation(request, response);
 				break;
 			default:
 				listDonation(request, response);
@@ -152,6 +156,21 @@ public class ControllerServlet extends HttpServlet {
 			response.getWriter().println(ex);
 			ex.printStackTrace();
 		}
+	}
+	
+	private void exportDonation(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		String text = request.getParameter("myInput");
+		ExportService exporter = new ExportService();
+		try {
+			exporter.export("Donations", text);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("DonationForm.jsp");
+		dispatcher.forward(request, response);
+
 	}
 
 	private void updateDonation(HttpServletRequest request, HttpServletResponse response)
