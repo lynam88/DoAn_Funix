@@ -23,12 +23,11 @@ public class ExportService {
  
     public void export(String table, String character) throws Exception {
         
- 
-        String excelFilePath = getFileName(table.concat("_Export"));
+         String excelFilePath = getFileName(table.concat("_Export"));
  
         try {
         	Connection connection = new DBContext().getConnection();
-            String sql = "SELECT * FROM Donations WHERE donation_title like '%" + character + "%'".concat(table);
+            String sql = "SELECT * FROM ".concat(table) + " WHERE donation_title like '%" + character + "%' AND use_yn = 1";
  
             Statement statement = connection.createStatement();
  
@@ -41,7 +40,7 @@ public class ExportService {
  
             writeDataLines(result, workbook, sheet);
  
-            FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+            FileOutputStream outputStream = new FileOutputStream("E:\\" + excelFilePath);
             workbook.write(outputStream);
             workbook.close();
  
@@ -95,7 +94,7 @@ public class ExportService {
                 else if (valueObject instanceof Date) {
                     cell.setCellValue((Date) valueObject);
                     formatDateCell(workbook, cell);
-                } else cell.setCellValue((String) valueObject);
+                } else cell.setCellValue(valueObject.toString());
  
             }
  

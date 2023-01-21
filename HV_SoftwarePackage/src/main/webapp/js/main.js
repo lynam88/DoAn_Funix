@@ -32,8 +32,8 @@
 			rows = table.rows;
 			for (i = 1; i < (rows.length - 1); i++) {
 				shouldSwitch = false;
-				x = rows[i].getElementsByTagName("TD")[1];
-				y = rows[i + 1].getElementsByTagName("TD")[1];
+				x = rows[i].getElementsByTagName("TD")[0];
+				y = rows[i + 1].getElementsByTagName("TD")[0];
 				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 					shouldSwitch = true;
 					break;
@@ -86,20 +86,7 @@
 			}
 			return i;
 		}
-	}
-	
-	//Ckeditor
-	var content = '';
-	var thumbnail = '';
-	$(document).ready(
-			function() {
-				content = CKEDITOR.replace('content');
-				thumbnail = CKEDITOR.replace('thumbnail');
-				CKFinder.setupCKEditor(content,
-						'ckfinder/');
-				CKFinder.setupCKEditor(thumbnail,
-						'ckfinder/');
-			});
+	}	
 	
 	//Validate new donation
 	function validateFunction() {
@@ -114,24 +101,35 @@
 		
 		if (status=="Xin Lựa Chọn") {
 			document.getElementById("status_error").innerHTML = "Xin chọn Trạng Thái";
+			document.getElementById("status_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("status_error").innerHTML =  "";
 		}	
 		if (title =="") {
 			document.getElementById("title_error").innerHTML = "Xin điền vào Tiêu Đề";
+			document.getElementById("title_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("title_error").innerHTML =  "";
 		}		
 		if (startDate == "" || endDate == "") {
 			document.getElementById("date1_error").innerHTML = "Xin chọn Ngày";
+			document.getElementById("date1_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("date1_error").innerHTML =  "";
 		}
+		if (d1 > d2) {
+			document.getElementById("date2_error").innerHTML = "Ngày Bắt Đầu phải trước Ngày Kết Thúc";
+			document.getElementById("date2_error").scrollIntoView();
+			return false;
+		} else {
+			document.getElementById("date2_error").innerHTML = "";
+		}		
 		if (totalNeeded =="") {
 			document.getElementById("totalNeeded_error").innerHTML =  "Xin điền vào Tổng Tiền";
+			document.getElementById("totalNeeded_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("totalNeeded_error").innerHTML =  "";
@@ -139,18 +137,34 @@
 	    if (content =="")
 	    {
 	    	document.getElementById("content_error").innerHTML =  "Xin điền vào Nội Dung";
+	    	document.getElementById("content_error").scrollIntoView();
 	    	return false;
 	    }else {
 			document.getElementById("content_error").innerHTML =  "";
-		}		    
-	    if (d1 > d2) {
-			document.getElementById("date2_error").innerHTML = "Ngày Bắt Đầu phải trước Ngày Kết Thúc";
-			return false;
-		} else {
-			document.getElementById("date_error").innerHTML = "";
-		}
+		}	   
 	}
 	
+	//Export button
+	$('#export').click(function(){
+		try {
+			$.ajax({
+				type : 'GET',
+				url : '/HV_SoftwarePackage/ControllerServlet?action=export',
+				success : function(result) {
+					$("#exportMsg").text("Bạn đã xuất file thành công");
+				},
+				error: function(){
+					$("#exportMsg").text("Xuất file thất bại");
+					},
+			});
+		} catch (e) {
+			$("#exportMsg").text("Xuất file thất bại");
+		}
+		setTimeout(function() {
+			location.reload();
+		}, 3000);		
+	})
+		
 	//Read more
 	$(".show-more a").on("click", function() {
 	    var $this = $(this); 
@@ -167,3 +181,51 @@
 
 	    $this.text(linkText);
 	});
+		
+	//Delete button
+	$('#ok_del').click(function(){
+		var donationIds = document.querySelectorAll(".donation_id:checked");
+		var checked = [...donationIds].map(donationId => donationId.value).join(",");
+		
+		try {
+			$.ajax({
+				type : 'GET',
+				data: 'id='+checked,
+				url : '/HV_SoftwarePackage/ControllerServlet?action=delete',
+				success : function(result) {
+					$("#showMsg").modal();
+					$("#cntMsg").text("Bạn đã xoá thành công");
+					setTimeout(function() {
+						location.reload();
+					}, 3000);
+				},
+				error: function(){
+					$("#cntMsg").text("Xoá file thất bại");
+					},
+			});
+		} catch (e) {
+			$("#cntMsg").text("Xoá file thất bại");
+		}
+	})
+	
+	//Reset button
+	function resetFunction() {
+		window.location.reload();
+	}
+	
+	//Select - Deselect all
+    function selects(){  
+        var ele=document.getElementsByName('chk');  
+        for(var i=0; i<ele.length; i++){  
+            if(ele[i].type=='checkbox')  
+                ele[i].checked=true;  
+        }  
+    }  
+    function deSelect(){  
+        var ele=document.getElementsByName('chk');  
+        for(var i=0; i<ele.length; i++){  
+            if(ele[i].type=='checkbox')  
+                ele[i].checked=false;  
+              
+        }  
+    }    

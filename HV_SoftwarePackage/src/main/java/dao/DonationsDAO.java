@@ -15,12 +15,19 @@ public class DonationsDAO {
 
 	private int noOfRecords;
 
-	public List<Donations> search(String character) throws Exception {
+	public List<Donations> search(String character, String searchStatus) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
+			String sql = null;
+			if (searchStatus.equals("0")) {
+				sql = "SELECT * FROM Donations WHERE donation_title like '%" + character + "%' AND use_yn = 1";
+			} else {
+				sql = "SELECT * FROM Donations WHERE donation_title like '%" + character + "%'"
+						+ " AND donation_status = " + searchStatus + " AND use_yn = 1";
+			}
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Donations WHERE donation_title like '%" + character + "%'");
+			ResultSet rs = stmt.executeQuery(sql);
 			this.noOfRecords = 0;
 			while (rs.next()) {
 				Donations d = new Donations();
@@ -31,6 +38,7 @@ public class DonationsDAO {
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
 				d.setTotalNeeded(rs.getFloat("total_needed"));
+				d.setSrc(rs.getString("thumbnail"));
 
 				list.add(d);
 				this.noOfRecords++;
@@ -47,14 +55,18 @@ public class DonationsDAO {
 
 	}
 
-	public List<Donations> getRecord(int start, int total) throws Exception {
+	public List<Donations> getRecord(String character, String searchStatus, int start, int total) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations) a"
-							+ " WHERE rownb >= " + start + "AND rownb <= " + total);
+			String sql = null;
+			if (searchStatus.equals("0")) {
+				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like '%"	+ character + "%' AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+			} else {
+				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like '%"	+ character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+			}
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
@@ -64,6 +76,7 @@ public class DonationsDAO {
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
 				d.setTotalNeeded(rs.getFloat("total_needed"));
+				d.setSrc(rs.getString("thumbnail"));
 
 				list.add(d);
 			}
@@ -78,7 +91,8 @@ public class DonationsDAO {
 		Donations d = new Donations();
 		try {
 			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM donations WHERE donation_id = " + id);
+			ResultSet rs = statement
+					.executeQuery("SELECT * FROM donations WHERE donation_id = " + id + "AND use_yn = 1");
 
 			if (rs.next()) {
 				d.setId(rs.getInt("donation_id"));
@@ -88,6 +102,7 @@ public class DonationsDAO {
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
 				d.setTotalNeeded(rs.getFloat("total_needed"));
+				d.setSrc(rs.getString("thumbnail"));
 
 			}
 		} catch (SQLException ex) {
@@ -98,47 +113,36 @@ public class DonationsDAO {
 
 	public void insertDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		try {
-			String sql = "INSERT INTO Donations (donation_status, donation_title, donation_content, start_date, end_date, total_needed) VALUES ( ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Donations (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(sql);
-
+			
 			stmt.setInt(1, d.getStatus());
 			stmt.setString(2, d.getTitle());
-			stmt.setString(3, d.getContent());		
+			stmt.setString(3, d.getContent());
 			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
 			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
 			stmt.setFloat(6, d.getTotalNeeded());
+			stmt.setString(7, d.getSrc());
 			stmt.executeUpdate();
 			stmt.close();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	public void resetId() throws Exception {
-		Connection connection = new DBContext().getConnection();
-		try {
-			String sql = " DBCC CHECKIDENT ('[Donations]', RESEED, 0)";;	
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.executeUpdate();
-			stmt.close();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
 	}
 
-	public void deleteDonation(Donations d) throws Exception {
+	public void deleteDonation(List<Donations> ds) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "DELETE FROM Donations WHERE donation_id = ?";
+			String sql = "BEGIN TRANSACTION\n";
+			sql += "UPDATE Donations SET use_yn = 0 WHERE donation_id in (";
+			String separator = "";
+			for (Donations d : ds) {
+				sql += separator + d.getId();
+				separator = ", ";
+			}
+			sql += ")\n";
+			sql += "COMMIT TRANSACTION";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setInt(1, d.getId());
 			stmt.executeUpdate();
 			stmt.close();
-			resetId();
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -148,15 +152,17 @@ public class DonationsDAO {
 	public void updateDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?";
+			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?, thumbnail = ? WHERE donation_id = "
+					+ d.getId();
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			stmt.setInt(1, d.getStatus());
 			stmt.setString(2, d.getTitle());
-			stmt.setString(3, d.getContent());		
+			stmt.setString(3, d.getContent());
 			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
 			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
 			stmt.setFloat(6, d.getTotalNeeded());
+			stmt.setString(7, d.getSrc());
 			stmt.executeUpdate();
 			stmt.close();
 

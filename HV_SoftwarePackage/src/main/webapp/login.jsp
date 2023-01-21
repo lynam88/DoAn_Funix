@@ -63,8 +63,8 @@
 
 											<div class="form-outline mb-4"
 												style="position: relative; bottom: -20px;">
-												<input type="email" id="form2Example11" class="form-control"
-													placeholder="Số điện thoại hoặc địa chỉ email"
+												<input type="email" id="form2Example11" name="email"
+													class="form-control" placeholder="Địa chỉ email"
 													style="position: absolute; padding-left: 30px; top: -15px;">
 												<span class="focus-input100"></span> <span
 													class="symbol-input100"
@@ -75,24 +75,33 @@
 											</div>
 
 											<div class="form-outline mb-4">
-												<input type="password" id="form2Example22"
+												<input type="password" id="form2Example22" name="password"
 													placeholder="Mật khẩu" class="form-control"
 													style="position: relative; top: 44px; padding-left: 30px;">
 												<span toggle="#form2Example22"
 													class="bx fa-fw field-icon click-eye bx-hide"
-													style="position: relative; left: 90%; top: 15px;"></span>
-												<span class="focus-input100"></span> <span
+													style="position: relative; left: 90%; top: 15px;"></span> <span
+													class="focus-input100"></span> <span
 													class="symbol-input100"
 													style="position: relative; top: 14px; right: 15px;">
 													<i class="bx bx-key"></i>
 												</span>
 											</div>
-
+											<div>
+												<input type="checkbox" name="remember" value="remember"
+													value="on"> <label for="remember">Remember
+													me</label>
+											</div>
 											<div class="text-center pt-1 mb-5 pb-1">
 												<button
 													class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
 													type="button">Đăng nhập</button>
 												<a class="text-muted" href="#!">Bạn quên mật khẩu?</a>
+											</div>
+											<div class="error">
+												<c:if test="${error != null}">
+													<p><c:out value="${error}"></c:out></p>
+												</c:if>
 											</div>
 
 										</form>

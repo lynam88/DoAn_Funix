@@ -60,7 +60,45 @@
 <script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ckfinder/ckfinder.js"></script>
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
+<%
+String notify = (String) request.getAttribute("notifySave");
+String status = (String) request.getAttribute("statusSave");
+
+if(notify != null) {
+%>
+<div class="modal fade" id="insertModal">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+				<p class="text-center" id="insertMsg"
+					style="font-size: large; color: red;"><%=notify%></p>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	
+	$("#insertModal").modal();
+	setTimeout(function() {
+		$('#insertModal').modal().hide();
+		var st = "<%=status%>";
+		if (st == "OK") {
+			window.location.href = '/HV_SoftwarePackage/ControllerServlet';
+		}
+	}, 3000);
+	$(".modal-backdrop").remove();
+</script>
+
+<%}%>
 
 <body>
 
@@ -90,10 +128,12 @@
 					<input type="hidden" name="id"
 						value="<c:out value='${donations.id}' />" />
 				</c:if>
-
+				
+				<div>
 				<c:if test="${donations == null}">
+					<div style="float: left; padding-top: 5px;"><p><span class="require" style='color: red;'>(*) Bắt buộc</span></p></div>
 					<div class="form-group text-right">
-						<label for="title">Trạng Thái: </label> <select
+						<label for="title">Trạng Thái <span class="require">*</span></label> <select
 							class="form-select form-select-sm" id="status" name="status"
 							aria-label=".form-select-sm example">
 							<option selected>Xin Lựa Chọn</option>
@@ -105,8 +145,9 @@
 				</c:if>
 
 				<c:if test="${donations != null}">
+					<div style="float: left; padding-top: 5px;"><p><span class="require" style='color: red;'>(*) Bắt buộc</span></p></div>
 					<div class="form-group text-right">
-						<label for="title">Trạng Thái: </label> <select
+						<label for="title">Trạng Thái <span class="require">*</span> </label> <select
 							class="form-select form-select-sm" id="status" name="status"
 							aria-label=".form-select-sm example">
 							<option value="1"
@@ -118,6 +159,7 @@
 						</select>
 					</div>
 				</c:if>
+				</div>
 
 				<div class="form-group">
 					<label for="title">Tiêu Đề Bài Viết <span class="require">*</span></label>
@@ -125,63 +167,103 @@
 						value="<c:out value='${donations.title}'/>" />
 					<p id="title_error" style='color: red;' />
 				</div>
-
-				<div class="form-group">
-					<label for="title">Ngày Bắt Đầu <span class="require">*</span></label>
-					<input type="date" class="form-control" name="startDate"
-						id="startDate" value="<c:out value='${donations.startDate}'/>" />
-					<p id="date1_error" style='color: red;' />
-				</div>
-
-				<div class="form-group">
-					<label for="title">Ngày Kết Thúc <span class="require">*</span></label>
-					<input type="date" class="form-control" name="endDate" id="endDate"
-						value="<c:out value='${donations.endDate}'/>" />
+				<div>
+					<div>
+						<label for="title">Ngày Bắt Đầu <span class="require">*</span></label>
+						<label for="title" style="float: right;">Ngày Kết Thúc <span
+							class="require">*</span></label>
+					</div>
+					<div>
+						<input type="date" class="form-control" name="startDate"
+							style="width: 45%; float: left; margin-top: 0;" id="startDate"
+							value="<c:out value='${donations.startDate}'/>" /> <input
+							type="date" class="form-control" name="endDate"
+							style="width: 45%; float: right; margin-top: 0;" id="endDate"
+							value="<c:out value='${donations.endDate}'/>" />
+					</div>
+					<p id="date1_error" style='color: red; padding-top: 6%;' />
 					<p id="date2_error" style='color: red;' />
 				</div>
-
 				<div class="form-group">
-					<label for="title">Tổng Số Tiền Cần Quyên Góp <span
-						class="require">*</span></label>
+					<label for="title" style="margin-top: 1%;">Tổng Số Tiền Cần
+						Quyên Góp <span class="require">*</span>
+					</label>
 					<fmt:formatNumber type="number" pattern="0.00"
 						value="${donations.totalNeeded}" var="myNum" />
 					<input type="number" min="0" id="totalNeeded" name="totalNeeded"
-						pattern="0.00" step=".01" required value="${myNum}" />
+						style="width: 45%;" class="form-control" pattern="0.00" step=".01"
+						value="${myNum}" />
 					<p id="totalNeeded_error" style='color: red;' />
 				</div>
 
 				<div class="form-group">
 					<label for="thumbnail">Hình Đại Diện </label>
-					<textarea type="text" class="form-control" id="thumbnail"
-						name="thumbnail"><img src="media/${donations.id}-1.jpg"></textarea>
-
+					<textarea class="form-control" id="thumbnail"
+						name="thumbnail">${donations.src}</textarea>
 				</div>
 
 				<div class="form-group">
 					<label for="content">Nội dung <span class="require">*</span></label>
-					<textarea rows="30" class="form-control" id="content"
-						name="content">${donations.content}</textarea>
+					<textarea class="form-control" id="content" name="content">${donations.content}</textarea>
 					<p id="content_error" style='color: red;' />
-				</div>
+				</div>				
 
-				<div class="form-group">
-					<p>
-						<span class="require">*</span> Bắt buộc
-					</p>
-				</div>
+				<section id="sec-1">
+					<div class="container">
+						<a href="#sec-2">
+							<div class="scroll-down" style="top: 50%;left: 97%;position: fixed;"></div>
+						</a>
+					</div>
+				</section>
 
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary"
-						onclick="return validateFunction()">Lưu Bài Viết</button>
-					<button class="btn btn-default">Hủy</button>
+				<div class="form-group" id="sec-2">
+					<c:if test="${donations != null}">
+						<button type="submit" class="btn btn-primary" onclick="return validateFunction()">Sửa Bài Viết</button>
+					</c:if>
+					<c:if test="${donations == null}">
+						<button type="submit" class="btn btn-primary"
+							onclick="return validateFunction()">Tạo Bài Viết</button>
+					</c:if>
+					<button type="submit" class="btn btn-success"
+						onclick="return resetFunction()">Nhập Lại Dữ Liệu</button>
+					<a type="button" class="btn btn-default"
+						href="/HV_SoftwarePackage/ControllerServlet?action=list">Hủy</a>
 				</div>
+				<div class="modal fade" id="addModal" role="dialog">
+					<div class="modal-dialog">
 
+						Modal content
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p class="text-center" id="addMsg"
+									style="font-size: large; color: red;"></p>
+							</div>
+						</div>
+					</div>
+				</div>
 				</form>
 			</div>
-
 		</div>
 	</div>
+
 	<%@ include file="footer.jsp"%>
 
+	<script type="text/javascript">
+		//Ckeditor
+		var content = '';
+		var thumbnail = '';
+		$(document).ready(function() {
+			content = CKEDITOR.replace('content');
+			thumbnail = CKEDITOR.replace('thumbnail');
+			CKFinder.setupCKEditor(content, 'ckfinder/');
+			CKFinder.setupCKEditor(thumbnail, 'ckfinder/');
+		});
+	</script>
 </body>
 </html>

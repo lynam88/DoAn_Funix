@@ -10,6 +10,7 @@ public class Donations {
 	private Date startDate;
 	private Date endDate;
 	private Float totalNeeded;
+	private String src;
 	
 	public Donations() {
 		super();
@@ -19,8 +20,21 @@ public class Donations {
 		super();
 		this.id = id;
 	}
+	
+	public Donations(int id, int status, String title, String content, Date startDate, Date endDate, Float totalNeeded,
+			String src) {
+		super();
+		this.id = id;
+		this.status = status;
+		this.title = title;
+		this.content = content;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.totalNeeded = totalNeeded;
+		this.src = src;
+	}
 
-	public Donations(int status, String title, String content, Date startDate, Date endDate, Float totalNeeded) {
+	public Donations(int status, String title, String content, Date startDate, Date endDate, Float totalNeeded, String src) {
 		super();
 		this.status = status;
 		this.title = title;
@@ -28,6 +42,7 @@ public class Donations {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.totalNeeded = totalNeeded;
+		this.src = src;
 	}
 
 	public int getId() {
@@ -86,5 +101,11 @@ public class Donations {
 		this.totalNeeded = totalNeeded;
 	}
 
-		
+	public String getSrc() {
+		return src;
+	}
+
+	public void setSrc(String src) {
+		this.src = src;
+	}
 }

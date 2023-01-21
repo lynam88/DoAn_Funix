@@ -157,8 +157,7 @@ ul li ul.dropdown li{
       font-size: 30px;
       color: black;
   }
-  #myInput {
-    background-image: url('/css/searchicon.png');
+  #myInput { 
     background-position: 10px 10px;
     background-repeat: no-repeat;
     width: 100%;

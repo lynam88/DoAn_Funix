@@ -55,12 +55,13 @@
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
+
 </head>
 
 <body onload="time()">
-	<!-- 	<script type="text/javascript">  -->
-	// swal("Xin Chào Admin", "Chúc Bạn 1 Ngày Tốt Lành Nhé", "");
-	<!-- 	</script>  -->
+<!-- 	<script type="text/javascript">
+	 swal("Xin Chào Admin", "Chúc Bạn 1 Ngày Tốt Lành Nhé", "");
+	</script> -->
 	<%@ include file="header.jsp"%>
 	<div class="container-fluid al">
 		<div id="clock"></div>
@@ -72,28 +73,52 @@
 			action="ControllerServlet?action=search" method="post">
 			<div>
 				<input type="text" id="myInput" name="myInput"
-					placeholder="Nhập từ khoá..." style="width: 27%;">
-				<button class="btn btn-primary">Tìm kiếm</button>
+					placeholder="Nhập từ khoá..." style="width: 27%;"
+					value="${searchText}"> <select id="searchStatus"
+					name="searchStatus">
+					<option value="0" selected>Tất cả</option>
+					<option value="1">Hoàn Thành</option>
+					<option value="2">Chưa Hoàn Thành</option>
+				</select>
+				<button class="btn nv" id="searchButton">
+					<i class="fa fa-search" style="position: relative;"></i>Tìm kiếm
+				</button>
 			</div>
 		</form>
-
-		<b>CHỨC NĂNG CHÍNH:</b><Br> <a
-			href="ControllerServlet?action=new" class="nv btn add-new"
-			type="button" data-toggle="tooltip" data-placement="top"
-			title="Thêm Đợt Quyên Góp"> <i class="fa fa-plus-square"></i>
+		<b>CHỨC NĂNG CHÍNH:</b><Br> 
+		<a	class="btn nv" type="button" href="/HV_SoftwarePackage/ControllerServlet?action=new"
+			data-toggle="tooltip" data-placement="top"> <i
+			class="fa fa-plus-square"></i> Tạo mới 
+		</a> 		
+				
+		<a class="btn nv" type="button" onclick="sortTable()"
+			data-toggle="tooltip" data-placement="top"> <i
+			class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
+		</a> 
+		
+		<a class="btn nv" id="export" type="button" data-target="#exportModal" data-toggle="modal"
+			data-toggle="tooltip" data-placement="top"> <i
+			class="fas fa-file-export"></i> Xuất File
 		</a>
-		<button class="nv" type="button" onclick="sortTable()"
-			data-toggle="tooltip" data-placement="top" title="Sắp Xếp Dữ Liệu">
-			<i class="fa fa-filter" aria-hidden="true"></i>
-		</button>
-		<button class="nv" href="ControllerServlet?action=export" data-toggle="tooltip" data-placement="top"
-			title="Xuất File">
-			<i class="fas fa-file-export"></i>
-		</button>
-		<button class="nv cog" data-toggle="tooltip" data-placement="top"
-			title="Cài Đặt">
-			<i class="fas fa-cogs"></i>
-		</button>
+		<div class="modal fade" id="exportModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="text-center" id="exportMsg"
+							style="font-size: large; color: red;"></p>
+					</div>
+				</div>
+
+			</div>
+		</div>
 		<div class="table-title">
 			<div class="row"></div>
 
@@ -101,18 +126,26 @@
 		<table class="table table-bordered" id="myTable">
 			<thead>
 				<tr class="ex">
+					<th width="5%;">Chọn</th>
 					<th width="10%;">Trạng Thái</th>
-					<th width="25%;">Tên Đợt Quyên Góp</th>
-					<th width="60%;">Nội Dung</th>
+					<th width="15%;">Tên Đợt Quyên Góp</th>
+					<th width="45%;">Nội Dung</th>
 					<th width="10%;">Ngày Bắt Đầu</th>
 					<th width="10%;">Ngày Kết Thúc</th>
-					<th width="5px; !important">Tính Năng</th>
+					<th width="5%;">Sửa</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="donation" items="${donationList}">
 					<tr>
-						<td><c:out value="${donation.status}" /></td>
+						<td><input type="checkbox" class="donation_id" name="chk"
+							value="<c:out value='${donation.id}' />"></td>
+						<c:if test="${donation.status == 1}">
+							<td>Hoàn Thành</td>
+						</c:if>
+						<c:if test="${donation.status == 2}">
+							<td>Chưa Hoàn Thành</td>
+						</c:if>
 						<td><c:out value="${donation.title}" /></td>
 						<td>
 							<div>
@@ -124,22 +157,64 @@
 						</td>
 						<td><c:out value="${donation.startDate}" /></td>
 						<td><c:out value="${donation.endDate}" /></td>
-						<td><a class="edit"
+						<td><a class="edit btn"
 							href="ControllerServlet?action=edit&id=${donation.id}"
-							title="
-							Sửa" data-toggle="tooltip"><i
-								class="fa fa-pencil" aria-hidden="true"></i></a> <a class="delete"
-							href="ControllerServlet?action=delete&id=${donation.id}"
-							title="Xóa" data-toggle="tooltip"><i class="fa fa-trash-o"
+							title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
 								aria-hidden="true"></i></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<input type="button" class="btn btn-success" onclick='selects()' value="Chọn Tất Cả"/>  
+        <input type="button" class="btn btn-success" onclick='deSelect()' value="Bỏ Chọn Tất Cả""/>
+		<div>
+		<a type="button" class="btn btn-danger" data-toggle="modal" style="position: relative; margin-top: 1%; width: 15%;"
+			data-target="#myModal" title="Xóa" data-toggle="tooltip"><i
+			class="fa fa-trash-o" aria-hidden="true"></i> Xoá các mục đã chọn</a> </div>
+		<input type="hidden" id="donation_id" value="<c:out value='${donation.id}' />" />
+		<!--Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" tabindex="-1 role="document">
+				<!--Modal content -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-ok btn-danger" id="ok_del"
+							data-dismiss="modal">Chấp nhận</button>
+						<button type="button" class="btn btn-default btn-success"
+							data-dismiss="modal">Hủy</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="showMsg" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="text-center" id="cntMsg"
+							style="font-size: large; color: red;"></p>
+					</div>
+				</div>
+
+			</div>
+		</div>
 		<div class="row text-right" id="pageNavPosition">
 
 			<a class="page-link rounded-circle border-info"
-				href="/HV_SoftwarePackage/ControllerServlet?action=list&page=1"
+				href="/HV_SoftwarePackage/ControllerServlet?action=list&myInput=${searchText}&page=1"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
 				class="sr-only">First Page</span>
 			</a>
@@ -152,14 +227,14 @@
 					</c:when>
 					<c:otherwise>
 						<a class="btn btn-outline-info rounded-circle"
-							href="/HV_SoftwarePackage/ControllerServlet?action=list&page=${i}">${i}</a>
+							href="/HV_SoftwarePackage/ControllerServlet?action=list&myInput=${searchText}&page=${i}">${i}</a>
 					</c:otherwise>
 				</c:choose>
 
 			</c:forEach>
 
 			<a class="page-link rounded-circle border-info"
-				href="/HV_SoftwarePackage/ControllerServlet?action=list&page=${noOfPage}"
+				href="/HV_SoftwarePackage/ControllerServlet?action=list&myInput=${searchText}&page=${noOfPage}"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
 				class="sr-only">Last Page</span>
 			</a>
