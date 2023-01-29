@@ -47,73 +47,34 @@
 		}
 	}
 	
-	//Thời Gian
-	function time() {
-		var today = new Date();
-		var weekday = new Array(7);
-		weekday[0] = "Chủ Nhật";
-		weekday[1] = "Thứ Hai";
-		weekday[2] = "Thứ Ba";
-		weekday[3] = "Thứ Tư";
-		weekday[4] = "Thứ Năm";
-		weekday[5] = "Thứ Sáu";
-		weekday[6] = "Thứ Bảy";
-		var day = weekday[today.getDay()];
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1;
-		var yyyy = today.getFullYear();
-		var h = today.getHours();
-		var m = today.getMinutes();
-		var s = today.getSeconds();
-		m = checkTime(m);
-		s = checkTime(s);
-		nowTime = h + ":" + m + ":" + s;
-		if (dd < 10) {
-			dd = '0' + dd
-		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
-		today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-		tmp = '<i class="fa fa-clock-o" aria-hidden="true"></i> <span class="date">'
-				+ today + ' | ' + nowTime + '</span>';
-		document.getElementById("clock").innerHTML = tmp;
-		clocktime = setTimeout("time()", "1000", "Javascript");
-
-		function checkTime(i) {
-			if (i < 10) {
-				i = "0" + i;
-			}
-			return i;
-		}
-	}	
-	
 	//Validate new donation
 	function validateFunction() {
 		var status = document.getElementById("status").value;
 		var title = document.getElementById("title").value;
 		var totalNeeded = document.getElementById("totalNeeded").value;
+		var a = totalNeeded.replaceAll(",","");
+		var b = Number(a);
 		var content = CKEDITOR.instances.content.getData();
 		var startDate = document.getElementById("startDate").value;
 		var endDate = document.getElementById("endDate").value;
 		var d1 = new Date(startDate);
 		var d2 = new Date(endDate);
 		
-		if (status=="Xin Lựa Chọn") {
+		if (status=="Xin Lựa Chọn" || status == 0) {
 			document.getElementById("status_error").innerHTML = "Xin chọn Trạng Thái";
 			document.getElementById("status_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("status_error").innerHTML =  "";
 		}	
-		if (title =="") {
+		if (title =="" || title == null) {
 			document.getElementById("title_error").innerHTML = "Xin điền vào Tiêu Đề";
 			document.getElementById("title_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("title_error").innerHTML =  "";
 		}		
-		if (startDate == "" || endDate == "") {
+		if (startDate == "" || endDate == "" || startDate == null || endDate == null) {
 			document.getElementById("date1_error").innerHTML = "Xin chọn Ngày";
 			document.getElementById("date1_error").scrollIntoView();
 			return false;
@@ -127,14 +88,21 @@
 		} else {
 			document.getElementById("date2_error").innerHTML = "";
 		}		
-		if (totalNeeded =="") {
+		if (totalNeeded =="" || totalNeeded == null) {
 			document.getElementById("totalNeeded_error").innerHTML =  "Xin điền vào Tổng Tiền";
 			document.getElementById("totalNeeded_error").scrollIntoView();
 			return false;
 		} else {
 			document.getElementById("totalNeeded_error").innerHTML =  "";
 		}
-	    if (content =="")
+		if (isNaN(b)) {
+			document.getElementById("totalNeeded_error").innerHTML =  "Xin điền vào số";
+			document.getElementById("totalNeeded_error").scrollIntoView();
+			return false;
+		} else {
+			document.getElementById("totalNeeded_error").innerHTML =  "";
+		}
+	    if (content =="" || content == null)
 	    {
 	    	document.getElementById("content_error").innerHTML =  "Xin điền vào Nội Dung";
 	    	document.getElementById("content_error").scrollIntoView();
@@ -149,12 +117,12 @@
 		try {
 			$.ajax({
 				type : 'GET',
-				url : '/HV_SoftwarePackage/ControllerServlet?action=export',
+				url : '/HV_SoftwarePackage/DonationsController?action=export',
 				success : function(result) {
 					$("#exportMsg").text("Bạn đã xuất file thành công");
 				},
 				error: function(){
-					$("#exportMsg").text("Xuất file thất bại");
+					$("#exportMsg").text("Lỗi khi xuất file");
 					},
 			});
 		} catch (e) {
@@ -180,9 +148,23 @@
 	    };
 
 	    $this.text(linkText);
-	});
-		
+	});	
+	
 	//Delete button
+	$("#btn_del").click(function(){
+		var donationIds = document.querySelectorAll(".donation_id:checked");
+		var checked = [...donationIds].map(donationId => donationId.value).join(",");
+		
+		if(!checked) {
+			$("#checkMsg").modal("show");
+			setTimeout(function() {
+				$("#checkMsg").modal("hide");
+			}, 2000);
+		} else {
+			$("#myModal").modal("show");
+		}
+	})
+	
 	$('#ok_del').click(function(){
 		var donationIds = document.querySelectorAll(".donation_id:checked");
 		var checked = [...donationIds].map(donationId => donationId.value).join(",");
@@ -191,16 +173,19 @@
 			$.ajax({
 				type : 'GET',
 				data: 'id='+checked,
-				url : '/HV_SoftwarePackage/ControllerServlet?action=delete',
+				url : '/HV_SoftwarePackage/DonationsController?action=delete',
 				success : function(result) {
-					$("#showMsg").modal();
-					$("#cntMsg").text("Bạn đã xoá thành công");
+					$("#myModal").modal("hide");
+					setTimeout(function() {					
+						$("#showMsg").modal("show");
+						$("#cntMsg").text("Bạn đã xoá thành công");
+					}, 1000);					
 					setTimeout(function() {
 						location.reload();
 					}, 3000);
 				},
 				error: function(){
-					$("#cntMsg").text("Xoá file thất bại");
+					$("#cntMsg").text("Lỗi khi xoá file");
 					},
 			});
 		} catch (e) {
@@ -208,9 +193,22 @@
 		}
 	})
 	
+	$('#cancel_del').click(function(){		
+					$("#myModal").modal("hide");					
+				})
+	$('#close_del').click(function(){		
+		$("#myModal").modal("hide");					
+	})	
+	
 	//Reset button
 	function resetFunction() {
-		window.location.reload();
+		document.getElementById('status').selectedIndex = 0;
+		document.getElementById('title').value = "";
+		document.getElementById('startDate').value = "";
+		document.getElementById('endDate').value = "";
+		document.getElementById('totalNeeded').value = "";
+		CKEDITOR.instances['thumbnail'].setData("");
+		CKEDITOR.instances['content'].setData("");
 	}
 	
 	//Select - Deselect all
@@ -228,4 +226,18 @@
                 ele[i].checked=false;  
               
         }  
-    }    
+    }
+   
+    //Format money
+    function removeFormat() {
+    	var a = document.getElementById("totalNeeded").value.replaceAll(",","");
+		document.getElementById("totalNeeded").value = a;
+    }
+    
+    function addFormat() {
+    	var number = document.getElementById("totalNeeded").value;
+    	if(!isNaN(number)) {
+		document.getElementById("totalNeeded").value = new Intl.NumberFormat().format(number);
+    	}
+    }
+    

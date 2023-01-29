@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Donations {
 	private int id;
-	private int status;
+	private String status;
 	private String title;
 	private String content;
 	private Date startDate;
@@ -21,7 +21,7 @@ public class Donations {
 		this.id = id;
 	}
 	
-	public Donations(int id, int status, String title, String content, Date startDate, Date endDate, Float totalNeeded,
+	public Donations(int id, String status, String title, String content, Date startDate, Date endDate, Float totalNeeded,
 			String src) {
 		super();
 		this.id = id;
@@ -34,7 +34,7 @@ public class Donations {
 		this.src = src;
 	}
 
-	public Donations(int status, String title, String content, Date startDate, Date endDate, Float totalNeeded, String src) {
+	public Donations(String status, String title, String content, Date startDate, Date endDate, Float totalNeeded, String src) {
 		super();
 		this.status = status;
 		this.title = title;
@@ -53,11 +53,11 @@ public class Donations {
 		this.id = id;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

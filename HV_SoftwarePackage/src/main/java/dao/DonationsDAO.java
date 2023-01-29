@@ -21,10 +21,9 @@ public class DonationsDAO {
 		try {
 			String sql = null;
 			if (searchStatus.equals("0")) {
-				sql = "SELECT * FROM Donations WHERE donation_title like '%" + character + "%' AND use_yn = 1";
+				sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1";
 			} else {
-				sql = "SELECT * FROM Donations WHERE donation_title like '%" + character + "%'"
-						+ " AND donation_status = " + searchStatus + " AND use_yn = 1";
+				sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1";
 			}
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -32,7 +31,7 @@ public class DonationsDAO {
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
-				d.setStatus(rs.getInt("donation_status"));
+				d.setStatus(rs.getString("donation_status"));
 				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
@@ -61,16 +60,16 @@ public class DonationsDAO {
 		try {
 			String sql = null;
 			if (searchStatus.equals("0")) {
-				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like '%"	+ character + "%' AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"	+ character + "%' AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
 			} else {
-				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like '%"	+ character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"	+ character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
 			}
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
-				d.setStatus(rs.getInt("donation_status"));
+				d.setStatus(rs.getString("donation_status"));
 				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
@@ -96,7 +95,7 @@ public class DonationsDAO {
 
 			if (rs.next()) {
 				d.setId(rs.getInt("donation_id"));
-				d.setStatus(rs.getInt("donation_status"));
+				d.setStatus(rs.getString("donation_status"));
 				d.setTitle(rs.getString("donation_title"));
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
@@ -116,7 +115,7 @@ public class DonationsDAO {
 			String sql = "INSERT INTO Donations (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
-			stmt.setInt(1, d.getStatus());
+			stmt.setString(1, d.getStatus());
 			stmt.setString(2, d.getTitle());
 			stmt.setString(3, d.getContent());
 			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
@@ -156,7 +155,7 @@ public class DonationsDAO {
 					+ d.getId();
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setInt(1, d.getStatus());
+			stmt.setString(1, d.getStatus());
 			stmt.setString(2, d.getTitle());
 			stmt.setString(3, d.getContent());
 			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
