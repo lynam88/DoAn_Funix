@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * common methods for the project
+ *
+ */
 public class Utils {
 	public static boolean checkLogin() {
 		return false;

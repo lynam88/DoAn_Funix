@@ -89,7 +89,7 @@ public class DonationsController extends HttpServlet {
 	private void listDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		page = 1;
-		int recordPerPage = 6;
+		int recordPerPage = 5;
 		String search = request.getParameter("myInput");
 		if(search == null) search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);

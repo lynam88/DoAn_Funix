@@ -15,19 +15,23 @@
           	<div id="clock"></div>
           	                   
 			<p class="DonationTitle">
-				<b>TÌM KIẾM ĐỢT QUYÊN GÓP:</b>
+				<b>DANH SÁCH ĐỢT QUYÊN GÓP:</b>
 			</p>
 
 			<form class="searchbar" name="searchform"
 				action="${pageContext.request.contextPath}/DonationsController?action=search" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
-						placeholder="Nhập từ khoá..." value="${searchText}"><select id="searchStatus"
-						name="searchStatus">
+						placeholder="Nhập từ khoá..." value="${searchText}">
+					<select id="searchStatus" name="searchStatus">
 						<option value="0" selected>Tất cả</option>
-						<option value="1">Hoàn Thành</option>
-						<option value="2">Chưa Hoàn Thành</option>
-					</select>
+						<option value="1"
+						<c:if test="${searchStatus == 1}">selected</c:if>>Hoàn
+						Thành</option>
+						<option value="2"
+						<c:if test="${searchStatus == 2}">selected</c:if>>Chưa
+						Hoàn Thành</option>
+					</select>				
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
 					</button>

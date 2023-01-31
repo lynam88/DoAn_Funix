@@ -3,9 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:import url="header.jsp">
-	<c:param name="title" value="Danh Sách Đợt Quyên Góp"></c:param>
+<c:if test="${donations == null}">
+<c:import url="header.jsp">	
+	<c:param name="title" value="Tạo Đợt Quyên Góp"></c:param>	
 </c:import>
+</c:if>
+
+<c:if test="${donations != null}">
+<c:import url="header.jsp">	
+	<c:param name="title" value="Cập Nhật Đợt Quyên Góp"></c:param>	
+</c:import>
+</c:if>
 
 <%
 	String notify = (String) request.getAttribute("notifySave");
@@ -54,7 +62,7 @@
 
 				<h1 class="text-center" style="padding-top: 11%;">
 					<c:if test="${donations != null}">
-                        Sửa Đợt Quyên Góp
+                        Cập nhật Đợt Quyên Góp
                     </c:if>
 					<c:if test="${donations == null}">
                         Tạo Đợt Quyên Góp

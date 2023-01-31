@@ -11,10 +11,20 @@ import java.util.List;
 import context.DBContext;
 import model.Donations;
 
+/**
+ * Access donations in Database
+ *
+ */
 public class DonationsDAO {
 
 	private int noOfRecords;
 
+	/**
+	 * @param character text in the input for searching name
+	 * @param searchStatus status of the donation for searching
+	 * @return list of donations
+	 * @throws Exception
+	 */
 	public List<Donations> search(String character, String searchStatus) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();

@@ -302,9 +302,6 @@
 	}
 	</script>
 	
-	<script>
-		document.getElementById("hidden").style.display = "none";
-	</script>
 </body>
 
 </html>  
