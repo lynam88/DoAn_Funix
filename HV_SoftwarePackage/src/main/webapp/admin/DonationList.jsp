@@ -192,7 +192,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal" id="showMsg" role="dialog">
+				<div class="modal" id="showDelete" role="dialog">
 					<div class="modal-dialog">
 		
 						<!-- Modal content-->
@@ -204,7 +204,7 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<p class="text-center" id="cntMsg"
+								<p class="text-center" id="showMsg"
 									style="font-size: large; color: red;"></p>
 							</div>
 						</div>

@@ -138,9 +138,9 @@ public class DonationsDAO {
 
 	public void deleteDonation(List<Donations> ds) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		try {
+
 			String sql = "BEGIN TRANSACTION\n";
-			sql += "UPDATE Donations SET use_yn = 0 WHERE donation_id in (";
+			sql += "UPDATE Donation SET use_yn = 0 WHERE donation_id in (";
 			String separator = "";
 			for (Donations d : ds) {
 				sql += separator + d.getId();
@@ -152,10 +152,7 @@ public class DonationsDAO {
 
 			stmt.executeUpdate();
 			stmt.close();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
+		
 	}
 
 	public void updateDonation(Donations d) throws Exception {

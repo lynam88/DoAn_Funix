@@ -55,10 +55,12 @@
 	}
 	#status {
 		background: rgb(0, 255, 255);
-		border: 3px solid rgb(84, 73, 116);
-		width: 160px;
-		height: 40px;
-		font-size: medium;
+	    border: 3px solid rgb(84, 73, 116);
+	    width: 170px;
+	    height: 40px;
+	    font-size: medium;
+	    position: relative;
+	    right: 5%;
 	}
 	.searchbar{
 		margin: 0;

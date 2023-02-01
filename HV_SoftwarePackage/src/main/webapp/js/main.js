@@ -177,19 +177,34 @@
 				success : function(result) {
 					$("#myModal").modal("hide");
 					setTimeout(function() {					
-						$("#showMsg").modal("show");
-						$("#cntMsg").text("Bạn đã xoá thành công");
+						$("#showDelete").modal("show");
+						$("#showMsg").text("Bạn đã xoá thành công");
 					}, 1000);					
 					setTimeout(function() {
 						location.reload();
 					}, 3000);
 				},
 				error: function(){
-					$("#cntMsg").text("Lỗi khi xoá file");
+					$("#myModal").modal("hide");
+					setTimeout(function() {					
+						$("#showDelete").modal("show");
+						$("#showMsg").text("Bạn đã xoá thất bại.");
+					}, 1000);					
+					setTimeout(function() {
+						location.reload();
+					}, 3000);
 					},
 			});
 		} catch (e) {
-			$("#cntMsg").text("Xoá file thất bại");
+
+			$("#myModal").modal("hide");
+			setTimeout(function() {					
+				$("#showDelete").modal("show");
+				$("#showMsg").text("Bạn đã xoá thất bại.");
+			}, 1000);					
+			setTimeout(function() {
+				location.reload();
+			}, 3000);
 		}
 	})
 	
