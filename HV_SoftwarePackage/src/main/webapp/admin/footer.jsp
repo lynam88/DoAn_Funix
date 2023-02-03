@@ -110,7 +110,7 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="${pageContext.request.contextPath}/js/main.js"></script>
+  <script src="${pageContext.request.contextPath}/js/admin.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.min.js"></script>

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/project.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 <link
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
@@ -57,25 +57,24 @@
 										<h4 class="mt-1 mb-5 pb-1">Quỹ Từ Thiện Sen Vàng</h4>
 									</div>
 
-									<form>
-										<form>
-											<p style="">Vui lòng đăng nhập vào tài khoản</p>
+									<form action="UsersController?action=login" method="post" onsubmit="return validateLogin()">
+											<p>Vui lòng đăng nhập vào tài khoản</p>
 
 											<div class="form-outline mb-4"
 												style="position: relative; bottom: -20px;">
-												<input type="email" id="form2Example11" name="email"
-													class="form-control" placeholder="Địa chỉ email"
+												<input type="text" id="loginId" name="loginId"
+													class="form-control" placeholder="Số Điện Thoại Hoặc Địa Chỉ Email"
 													style="position: absolute; padding-left: 30px; top: -15px;">
 												<span class="focus-input100"></span> <span
 													class="symbol-input100"
 													style="top: -7px; left: 9px; position: absolute;"> <i
 													class="bx bx-user"></i>
-												</span>
-
-											</div>
+												</span>									
+												<p id="loginId_error" style="color: red;position: inherit;bottom: -25px;" />	
+											</div>																			
 
 											<div class="form-outline mb-4">
-												<input type="password" id="form2Example22" name="password"
+												<input type="password" id="password" name="password"
 													placeholder="Mật khẩu" class="form-control"
 													style="position: relative; top: 44px; padding-left: 30px;">
 												<span toggle="#form2Example22"
@@ -86,6 +85,8 @@
 													style="position: relative; top: 14px; right: 15px;">
 													<i class="bx bx-key"></i>
 												</span>
+												<p id="password_error" style="color: red;position: relative;bottom: -20px;padding-bottom: 10px;" />
+												
 											</div>
 											<div>
 												<input type="checkbox" name="remember" value="remember"
@@ -95,16 +96,12 @@
 											<div class="text-center pt-1 mb-5 pb-1">
 												<button
 													class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-													type="button">Đăng nhập</button>
+													type="submit">Đăng nhập</button>
 												<a class="text-muted" href="#!">Bạn quên mật khẩu?</a>
-											</div>
-											<div class="error">
-												<c:if test="${error != null}">
-													<p><c:out value="${error}"></c:out></p>
-												</c:if>
-											</div>
+											</div>											
 
 										</form>
+										<p id="password_error" style='color: red;' />
 								</div>
 							</div>
 							<div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -120,6 +117,7 @@
 			</div>
 		</div>
 	</section>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	<script type="text/javascript">
 		//show - hide mật khẩu
 		$(".click-eye").click(function() {

@@ -122,36 +122,46 @@ public class DonationsDAO {
 
 	public void insertDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
-			String sql = "INSERT INTO Donations (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement stmt = connection.prepareStatement(sql);
+		String sql = "MERGE INTO Donations AS target " +
+               "USING (VALUES (?, ?, ?, ?, ?, ?, ?)) AS source (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) " +
+               "ON target.donation_title = source.donation_title " +
+               "WHEN NOT MATCHED BY TARGET THEN " +
+               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) " +
+               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail);";
+       
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		
+		stmt.setString(1, d.getStatus());
+		stmt.setString(2, d.getTitle());
+		stmt.setString(3, d.getContent());
+		stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
+		stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
+		stmt.setFloat(6, d.getTotalNeeded());
+		stmt.setString(7, d.getSrc());
+		stmt.close();
+		int run = stmt.executeUpdate();
+		stmt.close();
+		if(run == 0) throw new Exception();
 			
-			stmt.setString(1, d.getStatus());
-			stmt.setString(2, d.getTitle());
-			stmt.setString(3, d.getContent());
-			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
-			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
-			stmt.setFloat(6, d.getTotalNeeded());
-			stmt.setString(7, d.getSrc());
-			stmt.executeUpdate();
-			stmt.close();
+			
 	}
 
 	public void deleteDonation(List<Donations> ds) throws Exception {
 		Connection connection = new DBContext().getConnection();
 
-			String sql = "BEGIN TRANSACTION\n";
-			sql += "UPDATE Donation SET use_yn = 0 WHERE donation_id in (";
-			String separator = "";
-			for (Donations d : ds) {
-				sql += separator + d.getId();
-				separator = ", ";
-			}
-			sql += ")\n";
-			sql += "COMMIT TRANSACTION";
-			PreparedStatement stmt = connection.prepareStatement(sql);
+		String sql = "BEGIN TRANSACTION\n";
+		sql += "UPDATE Donations SET use_yn = 0 WHERE donation_id in (";
+		String separator = "";
+		for (Donations d : ds) {
+			sql += separator + d.getId();
+			separator = ", ";
+		}
+		sql += ")\n";
+		sql += "COMMIT TRANSACTION";
+		PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.executeUpdate();
-			stmt.close();
+		stmt.executeUpdate();
+		stmt.close();
 		
 	}
 

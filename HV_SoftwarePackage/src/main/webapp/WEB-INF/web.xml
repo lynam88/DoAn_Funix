@@ -27,7 +27,6 @@
 			/ckfinder/core/connector/java/connector.java
 		</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>DonationsController</display-name>
@@ -37,5 +36,15 @@
   <servlet-mapping>
     <servlet-name>DonationsController</servlet-name>
     <url-pattern>/DonationsController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UsersController</display-name>
+    <servlet-name>UsersController</servlet-name>
+    <servlet-class>controller.UsersController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsersController</servlet-name>
+    <url-pattern>/UsersController</url-pattern>
   </servlet-mapping>
 </web-app>

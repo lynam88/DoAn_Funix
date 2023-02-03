@@ -16,10 +16,10 @@
 </c:if>
 
 <%
-	String notify = (String) request.getAttribute("notifySave");
-	String status = (String) request.getAttribute("statusSave");
+	String notifySave = (String) request.getAttribute("notifySave");
+	String statusSave = (String) request.getAttribute("statusSave");
 	
-	if(notify != null) {
+	if(notifySave != null) {
 	%>
 	<div class="modal" id="insertModal" role="dialog">
 		<div class="modal-dialog">
@@ -34,7 +34,7 @@
 				</div>
 				<div class="modal-body">
 					<p class="text-center" id="insertMsg"
-						style="font-size: large; color: red;"><%=notify%></p>
+						style="font-size: large; color: red;"><%=notifySave%></p>
 				</div>
 			</div>
 	
@@ -42,14 +42,18 @@
 	</div>
 	
 	<script>
-		
-		$("#insertModal").modal();
+
+		$("#insertModal").modal("show");
 		setTimeout(function() {
 			$('#insertModal').modal().hide();
-			var st = "<%=status%>";
+			var st = "<%=statusSave%>";
 			if (st == "OK") {
 				window.location.href = '/HV_SoftwarePackage/DonationsController?action=list';
-			}
+			} else {
+				// remove class modal-backdrop in
+				$(".modal-backdrop").removeClass( "modal-backdrop in");
+				window.history.back();
+			} 
 		}, 3000);
 		
 	</script>
@@ -70,10 +74,10 @@
 				</h1>
 
 				<c:if test="${donations != null}">
-					<form action="DonationsController?action=update&page=${page}" method="post">
+					<form action="DonationsController?action=update&page=${page}" method="post" onsubmit="return validateDonation()">
 				</c:if>
 				<c:if test="${donations == null}">
-					<form action="DonationsController?action=insert" method="post">
+					<form action="DonationsController?action=insert" method="post" onsubmit="return validateDonation()">
 				</c:if>
 
 				<c:if test="${donations != null}">
@@ -172,11 +176,11 @@
 
 				<div class="form-group" id="sec-2">
 					<c:if test="${donations != null}">
-						<button type="submit" class="btn btn-primary" onclick="return validateFunction()">Sửa Bài Viết</button>
+						<button type="submit" class="btn btn-primary">Sửa Bài Viết</button>
 					</c:if>
 					<c:if test="${donations == null}">
 						<button type="submit" class="btn btn-primary"
-							onclick="validateFunction()">Tạo Bài Viết</button>
+							>Tạo Bài Viết</button>
 					</c:if>
 					<button type="button" class="btn btn-success" 
 						onclick="return resetFunction()">Nhập Lại Dữ Liệu</button>

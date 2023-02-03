@@ -175,15 +175,13 @@ public class DonationsController extends HttpServlet {
 			dao.insertDonation(d);
 			request.setAttribute("notifySave", "Thêm thành công.");
 			request.setAttribute("statusSave", "OK");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
-			dispatcher.forward(request, response);
-			return;
+			
 		} catch (Exception ex) {
-			response.getWriter().println(ex);
-			ex.printStackTrace();
 			request.setAttribute("notifySave", "Thêm thất bại.");
 			request.setAttribute("statusSave", "FAIL");
-		}		
+		}	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void exportDonation(HttpServletRequest request, HttpServletResponse response)
