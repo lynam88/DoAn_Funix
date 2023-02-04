@@ -68,12 +68,24 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
+			/*
+			 * String sql = null; if (searchStatus.equals("0")) { sql =
+			 * "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"
+			 * + character + "%' AND use_yn = 1) a" + " WHERE rownb >= " + start +
+			 * "AND rownb <= " + total; } else { sql =
+			 * "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"
+			 * + character + "%' AND donation_status = " + searchStatus +
+			 * " AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+			 * }
+			 */
+			
 			String sql = null;
 			if (searchStatus.equals("0")) {
-				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"	+ character + "%' AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+				sql = "SELECT * FROM donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1 ORDER BY donation_id OFFSET " + start + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 			} else {
-				sql = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"	+ character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
+				sql = "SELECT * FROM donations WHERE donation_title like N'%" + character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1 ORDER BY donation_id DESC OFFSET " + start + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 			}
+			
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {

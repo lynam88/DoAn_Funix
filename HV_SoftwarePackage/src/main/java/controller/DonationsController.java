@@ -106,13 +106,8 @@ public class DonationsController extends HttpServlet {
 			List<Donations> temp = dao.search(searchString, status);
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Donations> listPerPage = dao.getRecord(searchString, status, (page - 1) * recordPerPage + 1, page * recordPerPage);
-			if (action.equals("list")) {
-				request.setAttribute("donationList", listPerPage);
-			}
-			if (action.equals("search")) {
-				request.setAttribute("donationList", listPerPage);
-			}
+			List<Donations> listPerPage = dao.getRecord(searchString, status, (page - 1) * recordPerPage, recordPerPage);
+			request.setAttribute("donationList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 

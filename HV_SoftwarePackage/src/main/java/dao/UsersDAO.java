@@ -1,4 +1,4 @@
-
+/*
 package dao;
 
 import java.sql.Connection;
@@ -78,7 +78,7 @@ public class UsersDAO {
 			ex.printStackTrace();
 		}
 		return list;
-	}
+	}*/
 
 	/*
 	 * public Users getDonation(int id) throws Exception { Connection connection =
@@ -133,6 +133,5 @@ public class UsersDAO {
 	 * a.getTotalNeeded()); stmt.setString(7, a.getSrc()); stmt.executeUpdate();
 	 * stmt.close();
 	 * 
-	 * } catch (SQLException ex) { ex.printStackTrace(); } }
-	 */
-}
+	 * } catch (SQLException ex) { ex.printStackTrace(); } }	 
+}*/
