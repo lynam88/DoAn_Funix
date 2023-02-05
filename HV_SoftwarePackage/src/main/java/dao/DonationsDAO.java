@@ -64,7 +64,7 @@ public class DonationsDAO {
 
 	}
 
-	public List<Donations> getRecord(String character, String searchStatus, int start, int total) throws Exception {
+	public List<Donations> getRecord(String character, String searchStatus, int pageNo) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
@@ -79,12 +79,18 @@ public class DonationsDAO {
 			 * }
 			 */
 			
-			String sql = null;
-			if (searchStatus.equals("0")) {
-				sql = "SELECT * FROM donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1 ORDER BY donation_id OFFSET " + start + " ROWS FETCH NEXT " + total + " ROWS ONLY";
-			} else {
-				sql = "SELECT * FROM donations WHERE donation_title like N'%" + character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1 ORDER BY donation_id DESC OFFSET " + start + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+			String sql = "select donation_id, donation_content, donation_status, donation_title, start_date, end_date, count(*) over() as total"
+					+ " from donations"
+					+ " where"
+					+ " use_yn = 1"
+					+ " AND donation_title like N'%" + character + "%'";
+			if (!searchStatus.equals("0")) {
+				sql+= " AND donation_status = " + searchStatus;
 			}
+			sql+= " order by end_date OFFSET ("
+					+ pageNo + "  - 1)*"
+					+ "5 ROWS FETCH NEXT "
+					+ "5 ROWS ONLY";			 
 			
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -96,8 +102,8 @@ public class DonationsDAO {
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
-				d.setTotalNeeded(rs.getFloat("total_needed"));
-				d.setSrc(rs.getString("thumbnail"));
+//				d.setTotalNeeded(rs.getFloat("total_needed"));
+//				d.setSrc(rs.getString("thumbnail"));
 
 				list.add(d);
 			}
@@ -135,11 +141,11 @@ public class DonationsDAO {
 	public void insertDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		String sql = "MERGE INTO Donations AS target " +
-               "USING (VALUES (?, ?, ?, ?, ?, ?, ?)) AS source (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) " +
+               "USING (VALUES (?, ?, ?, ?, ?, ?, ?, GETDATE())) AS source (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail, insertDate) " +
                "ON target.donation_title = source.donation_title " +
                "WHEN NOT MATCHED BY TARGET THEN " +
-               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail) " +
-               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail);";
+               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail, insertDate) " +
+               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail, GETDATE());";
        
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
@@ -150,7 +156,6 @@ public class DonationsDAO {
 		stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
 		stmt.setFloat(6, d.getTotalNeeded());
 		stmt.setString(7, d.getSrc());
-		stmt.close();
 		int run = stmt.executeUpdate();
 		stmt.close();
 		if(run == 0) throw new Exception();
