@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DonationsDAO;
+import dao.UsersDAO;
 import model.Users;
 
 /**
@@ -17,8 +19,13 @@ import model.Users;
  */
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UsersDAO dao;
 	private String action;
-       
+    
+	public void init() {
+		dao = new UsersDAO();
+	}
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -75,6 +82,8 @@ public class UsersController extends HttpServlet {
 			cookiesPass.setMaxAge(300);
 			response.addCookie(cookiesPass);
 		}
+		// check information of account in database
+		if(dao.search())
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response) {

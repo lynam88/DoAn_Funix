@@ -29,12 +29,7 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = null;
-			if (searchStatus.equals("0")) {
-				sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1";
-			} else {
-				sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND donation_status = " + searchStatus + " AND use_yn = 1";
-			}
+			String sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1" + (searchStatus.equals("0") ? "" : " AND donation_status = " + searchStatus);
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			this.noOfRecords = 0;
@@ -64,33 +59,22 @@ public class DonationsDAO {
 
 	}
 
-	public List<Donations> getRecord(String character, String searchStatus, int pageNo) throws Exception {
+	public List<Donations> getRecord(String character, String searchStatus, int pageNo, int recordPerPage) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
-		try {
-			/*
-			 * String sql = null; if (searchStatus.equals("0")) { sql =
-			 * "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"
-			 * + character + "%' AND use_yn = 1) a" + " WHERE rownb >= " + start +
-			 * "AND rownb <= " + total; } else { sql =
-			 * "SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY donation_id DESC) as rownb FROM donations WHERE donation_title like N'%"
-			 * + character + "%' AND donation_status = " + searchStatus +
-			 * " AND use_yn = 1) a" + " WHERE rownb >= " + start + "AND rownb <= " + total;
-			 * }
-			 */
-			
-			String sql = "select donation_id, donation_content, donation_status, donation_title, start_date, end_date, count(*) over() as total"
-					+ " from donations"
-					+ " where"
+		try {			
+			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, COUNT(*) OVER() AS total"
+					+ " FROM Donations"
+					+ " WHERE"
 					+ " use_yn = 1"
 					+ " AND donation_title like N'%" + character + "%'";
 			if (!searchStatus.equals("0")) {
 				sql+= " AND donation_status = " + searchStatus;
 			}
-			sql+= " order by end_date OFFSET ("
+			sql+= " ORDER BY end_date DESC OFFSET ("
 					+ pageNo + "  - 1)*"
-					+ "5 ROWS FETCH NEXT "
-					+ "5 ROWS ONLY";			 
+					+ recordPerPage + " ROWS FETCH NEXT "
+					+ recordPerPage + " ROWS ONLY";			 
 			
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -102,8 +86,6 @@ public class DonationsDAO {
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
-//				d.setTotalNeeded(rs.getFloat("total_needed"));
-//				d.setSrc(rs.getString("thumbnail"));
 
 				list.add(d);
 			}
@@ -185,7 +167,7 @@ public class DonationsDAO {
 	public void updateDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?, thumbnail = ? WHERE donation_id = "
+			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?, thumbnail = ?, updateDate = GETDATE() WHERE donation_id = "
 					+ d.getId();
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
