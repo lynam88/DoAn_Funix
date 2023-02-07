@@ -16,11 +16,6 @@ import model.Users;
 public class UsersDAO {
 
 	private int noOfRecords;
-	
-	public boolean checkLogin(String character) throws Exception{
-		
-		return false;		
-	}
 
 	public List<Users> searchName(String character) throws Exception {
 		Connection connection = new DBContext().getConnection();
@@ -59,8 +54,8 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, registration_date" + " FROM Users" + " WHERE"
-					+ " status = 1" + " AND name like N'%" + character + "%'";
+			String sql = "SELECT name, phone, email, registration_date" + " FROM Users" + " WHERE" + " status = 1"
+					+ " AND name like N'%" + character + "%'";
 			if (!searchRole.equals("0")) {
 				sql += " AND donation_status = " + searchRole;
 			}
@@ -85,23 +80,22 @@ public class UsersDAO {
 		return list;
 	}
 
-	public Users getUser(String email) throws Exception {
+	public Users getUser(String character) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = new Users();
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE email = " + email + "AND status = 1");
 
-			if (rs.next()) {
-				u.setName(rs.getString("name"));
-				u.setPhone(rs.getString("phone"));
-				u.setEmail(rs.getString("email"));
-				u.setPassword(rs.getString("address"));
-				u.setRegistration_date(rs.getDate("registration_date"));
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery(
+				"SELECT * FROM Users WHERE email like N'%" + character + "%' OR phone like N'%" + character + "%' AND status = 1");
 
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		if (rs.next()) {
+			u.setName(rs.getString("name"));
+			u.setPhone(rs.getString("phone"));
+			u.setEmail(rs.getString("email"));
+			u.setPassword(rs.getString("password"));
+			u.setAddress(rs.getString("address"));
+			u.setRegistration_date(rs.getDate("registration_date"));
+
 		}
 		return u;
 	}

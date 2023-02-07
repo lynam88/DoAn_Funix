@@ -4,9 +4,16 @@ import java.io.*;
 import java.sql.*;
 import java.text.*;
 import java.util.Date;
- 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
+import org.apache.http.*;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
 
 import context.DBContext;
  
@@ -21,7 +28,7 @@ public class ExportService {
         return baseName.concat(String.format("_%s.xlsx", dateTimeInfo));
     }
  
-    public void export(String table, String character) throws Exception {
+    public void export(String table, String character, HttpServletRequest request, HttpServletResponse response) throws Exception {
         
          String excelFilePath = getFileName(table.concat("_Export"));
  
@@ -39,22 +46,35 @@ public class ExportService {
             writeHeaderLine(result, sheet);
  
             writeDataLines(result, workbook, sheet);
+           // String urlFile = "E:\\" + excelFilePath;
  
-            FileOutputStream outputStream = new FileOutputStream("E:\\" + excelFilePath);
-            workbook.write(outputStream);
+            //FileOutputStream outputStream = new FileOutputStream(urlFile);
+           // ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            //workbook.write(outputStream);
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            workbook.write(outByteStream);
+            byte [] outArray = outByteStream.toByteArray();
+            response.setContentType("application/ms-excel");
+            response.setContentLength(outArray.length); 
+            response.setHeader("Expires:", "0"); // eliminates browser caching
+            response.setHeader("Content-Disposition", "attachment; filename=Details.xls");
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
             workbook.close();
  
             statement.close();
- 
         } catch (SQLException e) {
             System.out.println("Datababse error:");
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("File IO error:");
             e.printStackTrace();
         }
+        
     }
- 
+    
+    
     private void writeHeaderLine(ResultSet result, XSSFSheet sheet) throws SQLException {
         // write header line containing column names
         ResultSetMetaData metaData = result.getMetaData();

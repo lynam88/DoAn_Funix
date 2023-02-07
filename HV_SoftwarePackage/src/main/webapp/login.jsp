@@ -40,6 +40,51 @@
 </head>
 
 <body>
+<%
+	String notifyLogin = (String) request.getAttribute("notifyLogin");
+	String statusLogin = (String) request.getAttribute("statusLogin");
+	
+	if(notifyLogin != null) {
+	%>
+	<div class="modal" id="loginModal" role="dialog">
+		<div class="modal-dialog">
+	
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p class="text-center" id="insertMsg"
+						style="font-size: large; color: red;"><%=notifyLogin%></p>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+	
+	<script>
+
+		$("#loginModal").modal("show");
+		setTimeout(function() {
+			$('#loginModal').modal().hide();
+			var st = "<%=statusLogin%>";
+			if (st == "OK") {
+				window.location.href = '/HV_SoftwarePackage/DonationsController?action=list';
+			} else {
+				// remove class modal-backdrop in
+				$(".modal-backdrop").removeClass( "modal-backdrop in");
+				window.history.back();
+			} 
+		}, 3000);
+		
+	</script>
+	
+	<%}%>
+	
 	<section class="h-100 gradient-form" style="background-color: #eee;">
 		<div class="container py-5 h-100">
 			<div
@@ -101,7 +146,7 @@
 											</div>											
 
 										</form>
-										<p id="password_error" style='color: red;' />
+						
 								</div>
 							</div>
 							<div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -118,18 +163,6 @@
 		</div>
 	</section>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-	<script type="text/javascript">
-		//show - hide mật khẩu
-		$(".click-eye").click(function() {
-			$(this).toggleClass("bx-show bx-hide");
-			var input = $($(this).attr("toggle"));
-			if (input.attr("type") == "password") {
-				input.attr("type", "text");
-			} else {
-				input.attr("type", "password");
-			}
-		});
-	</script>
 </body>
 
 </html>

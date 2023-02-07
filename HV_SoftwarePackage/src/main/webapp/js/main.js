@@ -46,3 +46,14 @@
 			const re = /^\d{10,11}$/;
 			return re.test(phone);
 		}
+
+		//show - hide mật khẩu			
+				$(".click-eye").click(function() {
+					  $(this).toggleClass("bx-show bx-hide");
+					  var input = $("#password");
+					  if (input.attr("type") === "password") {
+					    input.attr("type", "text");
+					  } else {
+					    input.attr("type", "password");
+					  }
+					});

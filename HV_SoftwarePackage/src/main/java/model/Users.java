@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Users {
-	private String name, phone, email, password;
+	private String name, phone, email, password, address;
 	private Date registration_date;
 	private int role;
 
@@ -63,5 +63,12 @@ public class Users {
 		this.role = role;
 	}
 
+	public String getAddress() {
+		return address;
+	}
 
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 }

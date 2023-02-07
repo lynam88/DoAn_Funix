@@ -103,7 +103,6 @@ public class DonationsController extends HttpServlet {
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			List<Donations> temp = dao.search(searchString, status);
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
 			List<Donations> listPerPage = dao.getRecord(searchString, status, page, recordPerPage);
@@ -183,7 +182,7 @@ public class DonationsController extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		ExportService exporter = new ExportService();
 		try {
-			exporter.export("Donations", searchString);
+			exporter.export("Donations", searchString, request,  response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

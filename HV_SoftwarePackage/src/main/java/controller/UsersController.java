@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -21,31 +22,34 @@ public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO dao;
 	private String action;
-    
+	private Users ud;
+
 	public void init() {
 		dao = new UsersDAO();
 	}
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UsersController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public UsersController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
 		action = action == null ? "index" : action;
@@ -53,7 +57,7 @@ public class UsersController extends HttpServlet {
 			switch (action) {
 			case "login":
 				doLogin(request, response);
-				break;			
+				break;
 			default:
 				showMainPage(request, response);
 				break;
@@ -63,19 +67,23 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	private void doLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	public boolean checkLogin(String id, String password) throws Exception {
+		Users ud = dao.getUser(id);
+		return (ud != null && (id.equalsIgnoreCase(ud.getEmail()) || id.equalsIgnoreCase(ud.getPhone()))
+				&& password.equals(ud.getPassword()));
+	}
+
+	private void doLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8"); // Vietnamese
 		request.getSession(true).invalidate();
 		// collect data from a login form
-		String user = request.getParameter("username");
+		String id = request.getParameter("loginId");
 		String password = request.getParameter("password");
-		Users u = new Users();
-		u.setName(user);
-		u.setPassword(password);
 		HttpSession session = request.getSession(true);
-		if(request.getParameter("remember") != null) {
-			Cookie cookiesName = new Cookie("username", user);
+		if (request.getParameter("remember") != null) {
+			Cookie cookiesName = new Cookie("loginId", id);
 			cookiesName.setMaxAge(300);
 			response.addCookie(cookiesName);
 			Cookie cookiesPass = new Cookie("password", password);
@@ -83,12 +91,31 @@ public class UsersController extends HttpServlet {
 			response.addCookie(cookiesPass);
 		}
 		// check information of account in database
-		if(dao.search())
+		try {
+			if (checkLogin(id, password)) {
+				request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+				request.setAttribute("statusLogin", "Ok");
+				if (ud.getRole() == 0) {
+					request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+				} else {
+					request.getRequestDispatcher("user/index.jsp").forward(request, response);
+				}
+			} else {
+				request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
+				request.setAttribute("statusLogin", "Fail");
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+			request.setAttribute("statusLogin", "Fail");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
