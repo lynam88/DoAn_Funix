@@ -74,6 +74,8 @@
 			var st = "<%=statusLogin%>";
 			if (st == "Admin") {
 				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';
+			} else if (st == "User") {
+				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';				
 			} else {
 				// remove class modal-backdrop in
 				$(".modal-backdrop").removeClass( "modal-backdrop in");
