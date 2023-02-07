@@ -80,13 +80,13 @@ public class UsersDAO {
 		return list;
 	}
 
-	public Users getUser(String character) throws Exception {
+	public Users getUser(String id, String password) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = new Users();
 
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(
-				"SELECT * FROM Users WHERE email like N'%" + character + "%' OR phone like N'%" + character + "%' AND status = 1");
+				"SELECT * FROM Users WHERE (email like N'%" + id + "%' OR phone like N'%" + id + "%') AND password like N'%" + password + "%' AND status = 1");
 
 		if (rs.next()) {
 			u.setName(rs.getString("name"));

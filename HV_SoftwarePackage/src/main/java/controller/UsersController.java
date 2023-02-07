@@ -22,7 +22,6 @@ public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO dao;
 	private String action;
-	private Users ud;
 
 	public void init() {
 		dao = new UsersDAO();
@@ -55,6 +54,9 @@ public class UsersController extends HttpServlet {
 		action = action == null ? "index" : action;
 		try {
 			switch (action) {
+			case "index":
+				showMainPage(request, response);
+				break;
 			case "login":
 				doLogin(request, response);
 				break;
@@ -67,55 +69,52 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	public boolean checkLogin(String id, String password) throws Exception {
-		Users ud = dao.getUser(id);
-		return (ud != null && (id.equalsIgnoreCase(ud.getEmail()) || id.equalsIgnoreCase(ud.getPhone()))
-				&& password.equals(ud.getPassword()));
+	public Users checkLogin(String id, String password) throws Exception {
+	    Users ud = dao.getUser(id, password);
+	    return ud;
 	}
 
 	private void doLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("utf-8"); // Vietnamese
-		request.getSession(true).invalidate();
-		// collect data from a login form
-		String id = request.getParameter("loginId");
-		String password = request.getParameter("password");
-		HttpSession session = request.getSession(true);
-		if (request.getParameter("remember") != null) {
-			Cookie cookiesName = new Cookie("loginId", id);
-			cookiesName.setMaxAge(300);
-			response.addCookie(cookiesName);
-			Cookie cookiesPass = new Cookie("password", password);
-			cookiesPass.setMaxAge(300);
-			response.addCookie(cookiesPass);
-		}
-		// check information of account in database
-		try {
-			if (checkLogin(id, password)) {
-				request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-				request.setAttribute("statusLogin", "Ok");
-				if (ud.getRole() == 0) {
-					request.getRequestDispatcher("admin/index.jsp").forward(request, response);
-				} else {
-					request.getRequestDispatcher("user/index.jsp").forward(request, response);
-				}
-			} else {
-				request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
-				request.setAttribute("statusLogin", "Fail");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-			request.setAttribute("statusLogin", "Fail");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
+	        throws ServletException, IOException {
+	    response.setContentType("text/html;charset=UTF-8");
+	    request.setCharacterEncoding("utf-8"); // Vietnamese
+	    request.getSession(true).invalidate();
+	    // collect data from a login form
+	    String id = request.getParameter("loginId");
+	    String password = request.getParameter("password");
+	    HttpSession session = request.getSession(true);
+	    if (request.getParameter("remember") != null) {
+	        Cookie cookiesName = new Cookie("loginId", id);
+	        cookiesName.setMaxAge(300);
+	        response.addCookie(cookiesName);
+	        Cookie cookiesPass = new Cookie("password", password);
+	        cookiesPass.setMaxAge(300);
+	        response.addCookie(cookiesPass);
+	    }
+	    // check information of account in database
+	    try {
+	        Users userData = checkLogin(id, password);
+	        if (userData.getEmail() != null || userData.getPhone() != null) {
+	            request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+	            if (userData.getRole() == 0) {
+	                request.setAttribute("statusLogin", "Admin");
+	            } else {
+	                request.setAttribute("statusLogin", "User");
+	            }
+	        } else {
+	            request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
+	            request.setAttribute("statusLogin", "Fail");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+	        request.setAttribute("statusLogin", "Fail");
+	    }
+	    request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
-	private void showMainPage(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
+	private void showMainPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("admin/index.jsp").forward(request, response);		
 	}
 
 }
