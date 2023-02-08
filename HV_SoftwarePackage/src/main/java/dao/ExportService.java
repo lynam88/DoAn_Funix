@@ -46,12 +46,11 @@ public class ExportService {
             writeHeaderLine(result, sheet);
  
             writeDataLines(result, workbook, sheet);
-           // String urlFile = "E:\\" + excelFilePath;
+            String urlFile = "E:\\" + excelFilePath;
  
-            //FileOutputStream outputStream = new FileOutputStream(urlFile);
-           // ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
-            //workbook.write(outputStream);
+            FileOutputStream outputStream = new FileOutputStream(urlFile);
             ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
             workbook.write(outByteStream);
             byte [] outArray = outByteStream.toByteArray();
             response.setContentType("application/ms-excel");
@@ -65,7 +64,7 @@ public class ExportService {
  
             statement.close();
         } catch (SQLException e) {
-            System.out.println("Datababse error:");
+            System.out.println("Database error:");
             e.printStackTrace();
         } catch (Exception e) {
             System.out.println("File IO error:");

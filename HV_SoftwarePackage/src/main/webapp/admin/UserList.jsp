@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Danh Sách Đợt Quyên Góp"></c:param>
+	<c:param name="title" value="Danh Sách Người Dùng"></c:param>
 </c:import>
 
 <div class="container-fluid py-4">
@@ -19,18 +19,16 @@
 			</p>
 
 			<form class="searchbar" name="searchform"
-				action="${pageContext.request.contextPath}/DonationsController?action=search" method="post">
+				action="${pageContext.request.contextPath}/UsersController?action=search" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
 					<select id="searchStatus" name="searchStatus">
 						<option value="0" selected>Tất cả</option>
 						<option value="1"
-						<c:if test="${searchStatus == 1}">selected</c:if>>Hoàn
-						Thành</option>
+						<c:if test="${searchStatus == 0}">selected</c:if>>Admin</option>
 						<option value="2"
-						<c:if test="${searchStatus == 2}">selected</c:if>>Chưa
-						Hoàn Thành</option>
+						<c:if test="${searchStatus == 1}">selected</c:if>>User</option>
 					</select>				
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -40,7 +38,7 @@
 			<p class="pageTitle"><b>CHỨC NĂNG CHÍNH:</b></p>
 			<div class="pageTitle">
 				
-				<a	class="btn nv btn-primary pageBtn" type="button" href="${pageContext.request.contextPath}/DonationsController?action=new"
+				<a	class="btn nv btn-primary pageBtn" type="button" href="${pageContext.request.contextPath}/UsersController?action=new"
 					data-toggle="tooltip" data-placement="top"> <i
 					class="fa fa-plus-square"></i> Tạo mới 
 				</a> 		
@@ -84,11 +82,11 @@
 					<thead>
 						<tr>
 							<th style="width: 2%;">Chọn</th>
-							<th style="width: 6%;">Trạng Thái</th>
-							<th style="width: 6%;">Đợt Quyên Góp</th>
-							<th style="width: 20%;">Nội Dung</th>
-							<th style="width: 4%;">Bắt Đầu</th>
-							<th style="width: 4%;">Kết Thúc</th>
+							<th style="width: 6%;">Loại</th>
+							<th style="width: 6%;">Họ và tên</th>
+							<th style="width: 20%;">Email</th>
+							<th style="width: 4%;">Phone</th>
+							<th style="width: 4%;">Địa Chỉ</th>
 							<th style="width: 2%;">Sửa</th>
 						</tr>
 					</thead>
@@ -122,10 +120,10 @@
 										</div>
 									</div>
 								</td>
-								<td><c:out value="${donation.startDate}"/></td>
+								<td><c:out value="${donUsersControllerartDate}"/></td>
 								<td><c:out value="${donation.endDate}" /></td>
 								<td><a class="edit"
-									href="DonationsController?action=edit&id=${donation.id}&page=${currentPage}"
+									href="UsersController?action=edit&id=${donation.id}&page=${currentPage}"
 									title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
 										aria-hidden="true"></i></a></td>
 							</tr>
@@ -141,7 +139,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -152,13 +150,13 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>
