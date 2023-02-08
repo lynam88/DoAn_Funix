@@ -46,23 +46,33 @@ public class ExportService {
             writeHeaderLine(result, sheet);
  
             writeDataLines(result, workbook, sheet);
-            String urlFile = "E:\\" + excelFilePath;
+            String urlFile = "C:\\Users\\shini\\DoAn_Funix\\HV_SoftwarePackage\\";
+            response.reset();
+            PrintWriter out = response.getWriter();
+            response.setContentType("APPLICATION/OCTET-STREAM");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + "demo.txt" + "\"");
+			FileInputStream fileInputStream = new FileInputStream(urlFile+"demo.txt");
+			int i;
+			while ((i = fileInputStream.read()) != -1) {
+				out.write(i);
+			}
+			fileInputStream.close();
+			out.close();
  
-            FileOutputStream outputStream = new FileOutputStream(urlFile);
-            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
-            workbook.write(outputStream);
-            workbook.write(outByteStream);
-            byte [] outArray = outByteStream.toByteArray();
-            response.setContentType("application/ms-excel");
-            response.setContentLength(outArray.length); 
-            response.setHeader("Expires:", "0"); // eliminates browser caching
-            response.setHeader("Content-Disposition", "attachment; filename=Details.xls");
-            OutputStream outStream = response.getOutputStream();
-            outStream.write(outArray);
-            outStream.flush();
-            workbook.close();
- 
-            statement.close();
+			/*
+			 * FileOutputStream outputStream = new FileOutputStream(urlFile);
+			 * ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+			 * workbook.write(outputStream); workbook.write(outByteStream); byte [] outArray
+			 * = outByteStream.toByteArray();
+			 * response.setContentType("application/ms-excel");
+			 * response.setContentLength(outArray.length); response.setHeader("Expires:",
+			 * "0"); // eliminates browser caching response.setHeader("Content-Disposition",
+			 * "attachment; filename=Details.xls"); OutputStream outStream =
+			 * response.getOutputStream(); outStream.write(outArray); outStream.flush();
+			 * workbook.close();
+			 * 
+			 * statement.close();
+			 */
         } catch (SQLException e) {
             System.out.println("Database error:");
             e.printStackTrace();

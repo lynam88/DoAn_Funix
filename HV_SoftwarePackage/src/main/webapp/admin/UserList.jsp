@@ -91,22 +91,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="donation" items="${donationList}">
+						<c:forEach var="user" items="${donationList}">
 							<tr>
-								<td><input type="checkbox" class="donation_id" name="chk"
-									value="<c:out value='${donation.id}' />"></td>
-								<c:if test="${donation.status == 1}">
+								<td><input type="checkbox" name="chk" />"></td>
+								<c:if test="${user.status == 1}">
 									<td>Hoàn Thành</td>
 								</c:if>
-								<c:if test="${donation.status == 2}">
+								<c:if test="${user.status == 2}">
 									<td>Chưa Hoàn Thành</td>
 								</c:if>
-								<c:if test="${donation.status == null}">
+								<c:if test="${user.status == null}">
 									<td></td>
 								</c:if>
 								<td><c:out value="" />
 									<div>
-										<div class="content hideContent">${donation.title}</div>
+										<div class="content hideContent">${user.title}</div>
 										<div class="show-more">
 											<a type="button" style="color: blue;">Hiển thị thêm</a>
 										</div>
@@ -114,14 +113,14 @@
 								</td>
 								<td>
 									<div>
-										<div class="content hideContent" style="zoom: 77%;">${donation.content}</div>
+										<div class="content hideContent" style="zoom: 77%;">${user.content}</div>
 										<div class="show-more">
 											<a type="button" style="color: blue;">Hiển thị thêm</a>
 										</div>
 									</div>
 								</td>
 								<td><c:out value="${donUsersControllerartDate}"/></td>
-								<td><c:out value="${donation.endDate}" /></td>
+								<td><c:out value="${user.endDate}" /></td>
 								<td><a class="edit"
 									href="UsersController?action=edit&id=${donation.id}&page=${currentPage}"
 									title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
