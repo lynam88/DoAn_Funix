@@ -178,6 +178,7 @@ public class ExportService {
             statement.close();
         } catch (SQLException e) {
             System.out.println("Datababse error:");
+<<<<<<< HEAD
 =======
  
     private String getFileName(String baseName) {
@@ -314,6 +315,8 @@ public class ExportService {
 >>>>>>> parent of 9d19031 (1)
 =======
 >>>>>>> parent of 9d19031 (1)
+=======
+>>>>>>> parent of b47e60b (1)
             e.printStackTrace();
         } catch (Exception e) {
             System.out.println("File IO error:");
