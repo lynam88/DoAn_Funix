@@ -23,6 +23,7 @@ import context.DBContext;
 public class ExportService {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	private String getFileName(String baseName) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -212,6 +213,43 @@ public class ExportService {
 			while ((i = fileInputStream.read()) != -1) {
 				out.write(i);
 			}
+=======
+ 
+    private String getFileName(String baseName) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String dateTimeInfo = dateFormat.format(new Date());
+        return baseName.concat(String.format("_%s.xlsx", dateTimeInfo));
+    }
+ 
+    public void export(String table, String character, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+         String excelFilePath = getFileName(table.concat("_Export"));
+ 
+        try {
+        	Connection connection = new DBContext().getConnection();
+            String sql = "SELECT * FROM ".concat(table) + " WHERE donation_title like '%" + character + "%' AND use_yn = 1";
+ 
+            Statement statement = connection.createStatement();
+ 
+            ResultSet result = statement.executeQuery(sql);
+ 
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet(table);
+ 
+            writeHeaderLine(result, sheet);
+ 
+            writeDataLines(result, workbook, sheet);
+            String urlFile = "C:\\Users\\shini\\DoAn_Funix\\HV_SoftwarePackage\\";
+            response.reset();
+            PrintWriter out = response.getWriter();
+            response.setContentType("APPLICATION/OCTET-STREAM");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + "demo.txt" + "\"");
+			FileInputStream fileInputStream = new FileInputStream(urlFile+"demo.txt");
+			int i;
+			while ((i = fileInputStream.read()) != -1) {
+				out.write(i);
+			}
+>>>>>>> parent of 9d19031 (1)
 			fileInputStream.close();
 			out.close();
  
@@ -231,6 +269,9 @@ public class ExportService {
 			 */
         } catch (SQLException e) {
             System.out.println("Database error:");
+<<<<<<< HEAD
+>>>>>>> parent of 9d19031 (1)
+=======
 >>>>>>> parent of 9d19031 (1)
             e.printStackTrace();
         } catch (Exception e) {
@@ -295,6 +336,9 @@ public class ExportService {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of b47e60b (1)
+=======
+>>>>>>> parent of 9d19031 (1)
 =======
 >>>>>>> parent of 9d19031 (1)
