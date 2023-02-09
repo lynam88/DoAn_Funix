@@ -14,7 +14,7 @@
           
           	<div id="clock"></div>
           	                   
-			<p class="pageTitle">
+			<p class="DonationTitle">
 				<b>DANH SÁCH ĐỢT QUYÊN GÓP:</b>
 			</p>
 
@@ -37,20 +37,20 @@
 					</button>
 		
 			</form>
-			<p class="pageTitle"><b>CHỨC NĂNG CHÍNH:</b></p>
-			<div class="pageTitle">
+			<p class="DonationTitle"><b>CHỨC NĂNG CHÍNH:</b></p>
+			<div class="DonationTitle">
 				
-				<a	class="btn nv btn-primary pageBtn" type="button" href="${pageContext.request.contextPath}/DonationsController?action=new"
+				<a	class="btn nv btn-primary donationBtn" type="button" href="${pageContext.request.contextPath}/DonationsController?action=new"
 					data-toggle="tooltip" data-placement="top"> <i
 					class="fa fa-plus-square"></i> Tạo mới 
 				</a> 		
 						
-				<a class="btn nv btn-primary pageBtn" type="button" onclick="sortTable()"
+				<a class="btn nv btn-primary donationBtn" type="button" onclick="sortTable()"
 					data-toggle="tooltip" data-placement="top"> <i
 					class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
 				</a> 
 				
-				<a class="btn nv btn-primary pageBtn" id="export" type="button" data-target="#exportModal" data-toggle="modal"
+				<a class="btn nv btn-primary donationBtn" id="export" type="button" data-target="#exportModal" data-toggle="modal"
 					> <i
 					class="fas fa-file-export"></i> Xuất File
 				</a>
@@ -163,7 +163,7 @@
 				    
 				  </ul>
 				</nav>
-				<div class="pageTitle">
+				<div class="DonationTitle">
 					<input type="button" class="btn btn-success" onclick='selects()' value="Chọn Tất Cả"/>  
 			        <input type="button" class="btn btn-success" onclick='deSelect()' value="Bỏ Chọn Tất Cả""/>
 					<div>

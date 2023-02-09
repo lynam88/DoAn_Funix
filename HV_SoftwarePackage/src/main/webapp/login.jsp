@@ -73,7 +73,7 @@
 			$('#loginModal').modal().hide();
 			var st = "<%=statusLogin%>";
 			if (st == "Admin") {
-				window.location.href = '/HV_SoftwarePackage/DonationsController?action=index';
+				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';
 			} else if (st == "User") {
 				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';				
 			} else {
@@ -164,7 +164,7 @@
 			</div>
 		</div>
 	</section>
-	<script src="${pageContext.request.contextPath}/js/login.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 /**
- * Js functions for login pages
+ * Js functions for main pages
  */
  
 		//Validate login
@@ -48,12 +48,12 @@
 		}
 
 		//show - hide mật khẩu			
-		$(".click-eye").click(function() {
-			  $(this).toggleClass("bx-show bx-hide");
-			  var input = $("#password");
-			  if (input.attr("type") === "password") {
-			    input.attr("type", "text");
-			  } else {
-			    input.attr("type", "password");
-			  }
-			});
+				$(".click-eye").click(function() {
+					  $(this).toggleClass("bx-show bx-hide");
+					  var input = $("#password");
+					  if (input.attr("type") === "password") {
+					    input.attr("type", "text");
+					  } else {
+					    input.attr("type", "password");
+					  }
+					});

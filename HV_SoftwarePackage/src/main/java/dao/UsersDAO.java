@@ -17,12 +17,12 @@ public class UsersDAO {
 
 	private int noOfRecords;
 
-	public List<Users> searchName(String character, String searchRole) throws Exception {
+	public List<Users> searchName(String character) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date FROM Users WHERE name like '%"
-					+ character + "%' AND status = 1" + (searchRole.equals("0") ? "" : " AND user_role = " + searchRole);
+					+ character + "%' AND status = 1";
 
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -86,7 +86,7 @@ public class UsersDAO {
 
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(
-				"SELECT * FROM Users WHERE (email = '" + id + "' OR phone = '" + id + "') AND password = '" + password + "' AND status = 1");
+				"SELECT * FROM Users WHERE (email like N'%" + id + "%' OR phone like N'%" + id + "%') AND password like N'%" + password + "%' AND status = 1");
 
 		if (rs.next()) {
 			u.setName(rs.getString("name"));
