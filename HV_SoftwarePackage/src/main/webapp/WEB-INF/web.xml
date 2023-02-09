@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HV_SoftwarePackage</display-name>
   <welcome-file-list>
-    <welcome-file>DonationsController</welcome-file>
+    <welcome-file>/login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>ConnectorServlet</servlet-name>
@@ -46,5 +46,15 @@
   <servlet-mapping>
     <servlet-name>UsersController</servlet-name>
     <url-pattern>/UsersController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DownloadFileServlet</display-name>
+    <servlet-name>DownloadFileServlet</servlet-name>
+    <servlet-class>controller.DownloadFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadFileServlet</servlet-name>
+    <url-pattern>/DownloadFileServlet</url-pattern>
   </servlet-mapping>
 </web-app>

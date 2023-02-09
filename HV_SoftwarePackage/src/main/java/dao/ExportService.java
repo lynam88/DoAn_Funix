@@ -21,6 +21,7 @@ import context.DBContext;
  * An advanced Java program that exports data from any table to Excel file.
  */
 public class ExportService {
+	private String excelFilePath;
  
     private String getFileName(String baseName) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -30,7 +31,7 @@ public class ExportService {
  
     public void export(String table, String character, HttpServletRequest request, HttpServletResponse response) throws Exception {
         
-         String excelFilePath = getFileName(table.concat("_Export"));
+         excelFilePath = getFileName(table.concat("_Export"));
  
         try {
         	Connection connection = new DBContext().getConnection();
@@ -46,33 +47,23 @@ public class ExportService {
             writeHeaderLine(result, sheet);
  
             writeDataLines(result, workbook, sheet);
-            String urlFile = "C:\\Users\\shini\\DoAn_Funix\\HV_SoftwarePackage\\";
-            response.reset();
-            PrintWriter out = response.getWriter();
-            response.setContentType("APPLICATION/OCTET-STREAM");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + "demo.txt" + "\"");
-			FileInputStream fileInputStream = new FileInputStream(urlFile+"demo.txt");
-			int i;
-			while ((i = fileInputStream.read()) != -1) {
-				out.write(i);
-			}
-			fileInputStream.close();
-			out.close();
+            String urlFile = "C:\\Users\\USER\\eclipse-workspace\\HV_SoftwarePackage\\" + excelFilePath;
  
-			/*
-			 * FileOutputStream outputStream = new FileOutputStream(urlFile);
-			 * ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
-			 * workbook.write(outputStream); workbook.write(outByteStream); byte [] outArray
-			 * = outByteStream.toByteArray();
-			 * response.setContentType("application/ms-excel");
-			 * response.setContentLength(outArray.length); response.setHeader("Expires:",
-			 * "0"); // eliminates browser caching response.setHeader("Content-Disposition",
-			 * "attachment; filename=Details.xls"); OutputStream outStream =
-			 * response.getOutputStream(); outStream.write(outArray); outStream.flush();
-			 * workbook.close();
-			 * 
-			 * statement.close();
-			 */
+            FileOutputStream outputStream = new FileOutputStream(urlFile);
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
+            workbook.write(outByteStream);
+//            byte [] outArray = outByteStream.toByteArray();
+//            response.setContentType("application/ms-excel");
+//            response.setContentLength(outArray.length); 
+//            response.setHeader("Expires:", "0"); // eliminates browser caching
+//            response.setHeader("Content-Disposition", "attachment; filename=Details.xls");
+//            OutputStream outStream = response.getOutputStream();
+//            outStream.write(outArray);
+//            outStream.flush();
+            workbook.close();
+ 
+            statement.close();
         } catch (SQLException e) {
             System.out.println("Database error:");
             e.printStackTrace();
@@ -136,4 +127,12 @@ public class ExportService {
         cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm:ss"));
         cell.setCellStyle(cellStyle);
     }
+
+	public String getExcelFilePath() {
+		return excelFilePath;
+	}
+
+	public void setExcelFilePath(String excelFilePath) {
+		this.excelFilePath = excelFilePath;
+	}
 }

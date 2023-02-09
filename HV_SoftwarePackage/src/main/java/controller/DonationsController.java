@@ -186,43 +186,9 @@ public class DonationsController extends HttpServlet {
 	private void exportDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		ExportService exporter = new ExportService();
-		//String urlFile = "C:\\Users\\shini\\DoAn_Funix\\HV_SoftwarePackage\\";
-		String filePath = "C:/Users/shini/DoAn_Funix/HV_SoftwarePackage/demo.txt";
-        File downloadFile = new File(filePath);
-        FileInputStream inStream = new FileInputStream(downloadFile);
-        // obtains ServletContext
-        ServletContext context = getServletContext();
-         
-        // gets MIME type of the file
-        String mimeType = context.getMimeType(filePath);
-        if (mimeType == null) {        
-            // set to binary type if MIME mapping not found
-            mimeType = "application/octet-stream";
-        }
-        System.out.println("MIME type: " + mimeType);
-         
-        // modifies response
-        response.setContentType(mimeType);
-        response.setContentLength((int) downloadFile.length());
-         
-        // forces download
-        String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
-        response.setHeader(headerKey, headerValue);
-		// obtains response's output stream
-        OutputStream outStream = response.getOutputStream();
-         
-        byte[] buffer = new byte[4096];
-        int bytesRead = -1;
-         
-        while ((bytesRead = inStream.read(buffer)) != -1) {
-            outStream.write(buffer, 0, bytesRead);
-        }
-         
-        inStream.close();
-        outStream.close();
+		
 		try {
-			//exporter.export("Donations", searchString, request,  response);
+			exporter.export("Donations", searchString, request,  response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
