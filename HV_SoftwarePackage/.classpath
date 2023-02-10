@@ -35,6 +35,7 @@
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/poi-5.2.3.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/httpclient-4.5.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/fluent-hc-4.5.5.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/log4j-core-2.19.0.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
@@ -42,8 +43,9 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>

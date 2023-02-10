@@ -15,11 +15,11 @@
           	<div id="clock"></div>
           	                   
 			<p class="pageTitle">
-				<b>DANH SÁCH ĐỢT QUYÊN GÓP:</b>
+				<b>DANH SÁCH NGƯỜI DÙNG:</b>
 			</p>
 
 			<form class="searchbar" name="searchform"
-				action="${pageContext.request.contextPath}/UsersController?action=search" method="post">
+				action="${pageContext.request.contextPath}/UsersController?action=donationSearch" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
@@ -82,45 +82,41 @@
 					<thead>
 						<tr>
 							<th style="width: 2%;">Chọn</th>
-							<th style="width: 6%;">Loại</th>
-							<th style="width: 6%;">Họ và tên</th>
-							<th style="width: 20%;">Email</th>
-							<th style="width: 4%;">Phone</th>
-							<th style="width: 4%;">Địa Chỉ</th>
+							<th style="width: 3%;">Loại</th>
+							<th style="width: 7%;">Họ và tên</th>
+							<th style="width: 14%;">Email</th>
+							<th style="width: 5%;">Phone</th>
+							<th style="width: 5%;">Địa Chỉ</th>
 							<th style="width: 2%;">Sửa</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="user" items="${donationList}">
+						<c:forEach var="user" items="${userList}">
 							<tr>
-								<td><input type="checkbox" name="chk" />"></td>
-								<c:if test="${user.status == 1}">
-									<td>Hoàn Thành</td>
+								<td><input type="checkbox" name="chk" /></td>
+								<c:if test="${user.role == 0}">
+									<td>Admin</td>
 								</c:if>
-								<c:if test="${user.status == 2}">
-									<td>Chưa Hoàn Thành</td>
+								<c:if test="${user.role == 1}">
+									<td>User</td>
 								</c:if>
-								<c:if test="${user.status == null}">
+								<c:if test="${user.role == null}">
 									<td></td>
 								</c:if>
 								<td><c:out value="" />
 									<div>
-										<div class="content hideContent">${user.title}</div>
-										<div class="show-more">
-											<a type="button" style="color: blue;">Hiển thị thêm</a>
-										</div>
+										<div class="content hideContent">${user.name}</div>
+									
 									</div>								
 								</td>
 								<td>
 									<div>
-										<div class="content hideContent" style="zoom: 77%;">${user.content}</div>
-										<div class="show-more">
-											<a type="button" style="color: blue;">Hiển thị thêm</a>
-										</div>
+										<div class="content hideContent">${user.email}</div>
+										
 									</div>
 								</td>
-								<td><c:out value="${donUsersControllerartDate}"/></td>
-								<td><c:out value="${user.endDate}" /></td>
+								<td><c:out value="${user.phone}"/></td>
+								<td><c:out value="${user.address}" /></td>
 								<td><a class="edit"
 									href="UsersController?action=edit&id=${donation.id}&page=${currentPage}"
 									title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
@@ -138,7 +134,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -149,13 +145,13 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>

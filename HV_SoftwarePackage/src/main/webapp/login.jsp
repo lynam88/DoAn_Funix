@@ -67,8 +67,9 @@
 	</div>
 	
 	<script>
-
-		$("#loginModal").modal("show");
+		setTimeout(function() {
+			$("#loginModal").modal("show");
+		}, 500);
 		setTimeout(function() {
 			$('#loginModal').modal().hide();
 			var st = "<%=statusLogin%>";

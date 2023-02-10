@@ -89,11 +89,11 @@
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
 	        <a class="nav-link index" href="${pageContext.request.contextPath}/DonationsController?action=index">
-	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i> Trang chủ</h6>
+	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ</h6>
 	        </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link list" href="${pageContext.request.contextPath}/DonationsController?action=list">
+          <a class="nav-link donationList" href="${pageContext.request.contextPath}/DonationsController?action=donationList">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>
@@ -101,7 +101,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/profile.html">
+          <a class="nav-link userList" href="${pageContext.request.contextPath}/UsersController?action=userList">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
@@ -138,7 +138,7 @@
 				    Xin chào, Admin!
 				  </a>
 				  <div class="dropdown-menu">				  
-				    <a class="dropdown-item" href="#">Đăng xuất</a>
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/login.jsp">Đăng xuất</a>
 				  </div>
 				</div>          	
               <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">              

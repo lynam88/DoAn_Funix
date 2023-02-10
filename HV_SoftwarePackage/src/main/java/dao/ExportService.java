@@ -4,16 +4,9 @@ import java.io.*;
 import java.sql.*;
 import java.text.*;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+ 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
-import org.apache.http.*;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 
 import context.DBContext;
  
@@ -21,60 +14,47 @@ import context.DBContext;
  * An advanced Java program that exports data from any table to Excel file.
  */
 public class ExportService {
-	private String excelFilePath;
+	
+	private String getFileName() {
+	        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+	        String dateTimeInfo = dateFormat.format(new Date());
+	        return String.format("_%s.xlsx", dateTimeInfo);
+	    }
  
-    private String getFileName(String baseName) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        String dateTimeInfo = dateFormat.format(new Date());
-        return baseName.concat(String.format("_%s.xlsx", dateTimeInfo));
-    }
- 
-    public void export(String table, String character, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
-         excelFilePath = getFileName(table.concat("_Export"));
+    public String export(String character) throws Exception {                  
+         String file = "./Data_Export" + getFileName();
  
         try {
         	Connection connection = new DBContext().getConnection();
-            String sql = "SELECT * FROM ".concat(table) + " WHERE donation_title like '%" + character + "%' AND use_yn = 1";
+            String sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1";
  
             Statement statement = connection.createStatement();
  
             ResultSet result = statement.executeQuery(sql);
  
             XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet(table);
+            XSSFSheet sheet = workbook.createSheet("Data_Export");
  
             writeHeaderLine(result, sheet);
  
             writeDataLines(result, workbook, sheet);
-            String urlFile = "C:\\Users\\USER\\eclipse-workspace\\HV_SoftwarePackage\\" + excelFilePath;
  
-            FileOutputStream outputStream = new FileOutputStream(urlFile);
-            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            FileOutputStream outputStream = new FileOutputStream(file);
             workbook.write(outputStream);
-            workbook.write(outByteStream);
-//            byte [] outArray = outByteStream.toByteArray();
-//            response.setContentType("application/ms-excel");
-//            response.setContentLength(outArray.length); 
-//            response.setHeader("Expires:", "0"); // eliminates browser caching
-//            response.setHeader("Content-Disposition", "attachment; filename=Details.xls");
-//            OutputStream outStream = response.getOutputStream();
-//            outStream.write(outArray);
-//            outStream.flush();
             workbook.close();
  
             statement.close();
+ 
         } catch (SQLException e) {
-            System.out.println("Database error:");
+            System.out.println("Datababse error:");
             e.printStackTrace();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("File IO error:");
             e.printStackTrace();
         }
-        
+        return file;
     }
-    
-    
+ 
     private void writeHeaderLine(ResultSet result, XSSFSheet sheet) throws SQLException {
         // write header line containing column names
         ResultSetMetaData metaData = result.getMetaData();
@@ -127,12 +107,4 @@ public class ExportService {
         cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm:ss"));
         cell.setCellStyle(cellStyle);
     }
-
-	public String getExcelFilePath() {
-		return excelFilePath;
-	}
-
-	public void setExcelFilePath(String excelFilePath) {
-		this.excelFilePath = excelFilePath;
-	}
 }

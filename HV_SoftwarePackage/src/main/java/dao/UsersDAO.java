@@ -17,12 +17,12 @@ public class UsersDAO {
 
 	private int noOfRecords;
 
-	public List<Users> searchName(String character) throws Exception {
+	public List<Users> searchName(String character, String searchStatus) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date FROM Users WHERE name like '%"
-					+ character + "%' AND status = 1";
+					+ character + "%' AND status = 1" + (searchStatus.equals("0") ? "" : " AND user_role = " + searchStatus);
 
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -54,10 +54,10 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, registration_date" + " FROM Users" + " WHERE" + " status = 1"
+			String sql = "SELECT name, phone, email, address, registration_date" + " FROM Users" + " WHERE" + " status = 1"
 					+ " AND name like N'%" + character + "%'";
 			if (!searchRole.equals("0")) {
-				sql += " AND donation_status = " + searchRole;
+				sql += " AND user_role = " + searchRole;
 			}
 			sql += " ORDER BY registration_date DESC OFFSET (" + pageNo + "  - 1)*" + recordPerPage
 					+ " ROWS FETCH NEXT " + recordPerPage + " ROWS ONLY";
@@ -69,7 +69,7 @@ public class UsersDAO {
 				u.setName(rs.getString("name"));
 				u.setPhone(rs.getString("phone"));
 				u.setEmail(rs.getString("email"));
-				u.setPassword(rs.getString("address"));
+				u.setAddress(rs.getString("address"));
 				u.setRegistration_date(rs.getDate("registration_date"));
 
 				list.add(u);
@@ -86,7 +86,7 @@ public class UsersDAO {
 
 		Statement statement = connection.createStatement();
 		ResultSet rs = statement.executeQuery(
-				"SELECT * FROM Users WHERE (email like N'%" + id + "%' OR phone like N'%" + id + "%') AND password like N'%" + password + "%' AND status = 1");
+				"SELECT * FROM Users WHERE (email = '" + id + "' OR phone = '" + id + "') AND password = '" + password + "' AND status = 1");
 
 		if (rs.next()) {
 			u.setName(rs.getString("name"));

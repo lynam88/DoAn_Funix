@@ -1,26 +1,6 @@
 /**
  * Js functions for admin pages
  */
- 
-	//Tìm kiếm
-	function myFunction() {
-		var input, filter, table, tr, td, i, txtValue;
-		input = document.getElementById("myInput");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("myTable");
-		tr = table.getElementsByTagName("tr");
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[1];
-			if (td) {
-				txtValue = td.textContent || td.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
-		}
-	}
 	
 	//Lọc bảng
 	function sortTable() {
@@ -32,17 +12,17 @@
 			rows = table.rows;
 			for (i = 1; i < (rows.length - 1); i++) {
 				shouldSwitch = false;
-				x = rows[i].getElementsByTagName("TD")[0];
-				y = rows[i + 1].getElementsByTagName("TD")[0];
-				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-					shouldSwitch = true;
-					break;
+				x = rows[i].getElementsByTagName("TD")[2];
+				y = rows[i + 1].getElementsByTagName("TD")[2];
+				if (x.innerHTML.localeCompare(y.innerHTML, 'vi') > 0) {
+					  shouldSwitch = true;
+					  break;
 				}
 			}
 			if (shouldSwitch) {
 				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
 				switching = true;
-				swal("Thành Công!", "Bạn Đã Lọc Thành Công", "success");
+				swal("Thành Công!", "Bạn Đã Sắp Xếp Thành Công", "success");
 			}
 		}
 	}
@@ -110,28 +90,7 @@
 	    }else {
 			document.getElementById("content_error").innerHTML =  "";
 		}	   
-	}
-	
-	//Export button
-	$('#export').click(function(){
-		try {
-			$.ajax({
-				type : 'GET',
-				url : '/HV_SoftwarePackage/DonationsController?action=export',
-				success : function(result) {
-					$("#exportMsg").text("Bạn đã xuất file thành công");
-				},
-				error: function(){
-					$("#exportMsg").text("Lỗi khi xuất file");
-					},
-			});
-		} catch (e) {
-			$("#exportMsg").text("Xuất file thất bại");
-		}
-		setTimeout(function() {
-			location.reload();
-		}, 3000);		
-	})
+	}	
 		
 	//Read more
 	$(".show-more a").on("click", function() {

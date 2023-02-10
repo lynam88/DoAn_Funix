@@ -14,12 +14,12 @@
           
           	<div id="clock"></div>
           	                   
-			<p class="DonationTitle">
+			<p class="pageTitle">
 				<b>DANH SÁCH ĐỢT QUYÊN GÓP:</b>
 			</p>
 
 			<form class="searchbar" name="searchform"
-				action="${pageContext.request.contextPath}/DonationsController?action=search" method="post">
+				action="${pageContext.request.contextPath}/DonationsController?action=donationSearch" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
@@ -37,44 +37,21 @@
 					</button>
 		
 			</form>
-			<p class="DonationTitle"><b>CHỨC NĂNG CHÍNH:</b></p>
-			<div class="DonationTitle">
+			<p class="pageTitle"><b>CHỨC NĂNG CHÍNH:</b></p>
+			<div class="pageTitle">
 				
-				<a	class="btn nv btn-primary donationBtn" type="button" href="${pageContext.request.contextPath}/DonationsController?action=new"
+				<a	class="btn nv btn-primary functionBtnBtn" type="button" href="${pageContext.request.contextPath}/DonationsController?action=new"
 					data-toggle="tooltip" data-placement="top"> <i
 					class="fa fa-plus-square"></i> Tạo mới 
 				</a> 		
 						
-				<a class="btn nv btn-primary donationBtn" type="button" onclick="sortTable()"
+				<a class="btn nv btn-primary functionBtn" type="button" onclick="sortTable()"
 					data-toggle="tooltip" data-placement="top"> <i
 					class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
 				</a> 
 				
-				<a class="btn nv btn-primary donationBtn" id="export" type="button" data-target="#exportModal" data-toggle="modal"
-					> <i
-					class="fas fa-file-export"></i> Xuất File
-				</a>
-				
-				<div class="modal" id="exportModal" role="dialog">
-					<div class="modal-dialog">
-		
-						<!-- Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<p class="text-center" id="exportMsg"
-									style="font-size: large; color: red;"></p>
-							</div>
-						</div>
-		
-					</div>			
-						
-				</div>			
+				 <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/DonationsController?action=export&myInput=${searchText}"><i
+					class="fas fa-file-export"></i> Xuất File</a>
 				
 			</div>	
 			
@@ -95,7 +72,7 @@
 					<tbody>
 						<c:forEach var="donation" items="${donationList}">
 							<tr>
-								<td><input type="checkbox" class="donation_id" name="chk"
+								<td><input type="checkbox" name="chk"
 									value="<c:out value='${donation.id}' />"></td>
 								<c:if test="${donation.status == 1}">
 									<td>Hoàn Thành</td>
@@ -141,7 +118,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -152,18 +129,18 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=list&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>
 				</nav>
-				<div class="DonationTitle">
+				<div class="pageTitle">
 					<input type="button" class="btn btn-success" onclick='selects()' value="Chọn Tất Cả"/>  
 			        <input type="button" class="btn btn-success" onclick='deSelect()' value="Bỏ Chọn Tất Cả""/>
 					<div>

@@ -2,8 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.DonationsDAO;
 import dao.UsersDAO;
+import model.Donations;
 import model.Users;
 
 /**
@@ -22,6 +27,8 @@ public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO dao;
 	private String action;
+	private String searchString;
+	private int page;
 
 	public void init() {
 		dao = new UsersDAO();
@@ -54,11 +61,11 @@ public class UsersController extends HttpServlet {
 		action = action == null ? "index" : action;
 		try {
 			switch (action) {
-			case "index":
-				showMainPage(request, response);
-				break;
 			case "login":
 				doLogin(request, response);
+				break;
+			case "userList":
+				listUser(request, response);
 				break;
 			default:
 				showMainPage(request, response);
@@ -66,6 +73,39 @@ public class UsersController extends HttpServlet {
 			}
 		} catch (Exception ex) {
 			throw new ServletException(ex);
+		}
+	}
+
+	private void listUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		page = 1;
+		int recordPerPage = 5;
+		String search = request.getParameter("myInput");
+		if(search == null) search = "";
+		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
+		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
+		String role = request.getParameter("searchRole");
+		if (role == null || role == "") {
+			role = "0";
+		}
+		request.setAttribute("searchText", searchString);
+		request.setAttribute("searchRole", role);
+		if (request.getParameter("page") != null)
+			page = Integer.parseInt(request.getParameter("page"));
+		try {
+			dao.searchName(searchString, role);
+			int noOfRecord = dao.getNoOfRecords();
+			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
+			List<Users> listPerPage = dao.getRecord(searchString, role, page, recordPerPage);
+			request.setAttribute("userList", listPerPage);
+			request.setAttribute("noOfPage", noOfPage);
+			request.setAttribute("currentPage", page);
+
+			RequestDispatcher rd = request.getRequestDispatcher("admin/UserList.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
