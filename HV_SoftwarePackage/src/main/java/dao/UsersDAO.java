@@ -21,7 +21,7 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role FROM Users WHERE name like '%"
+			String sql = "SELECT name, phone, email, address, registration_date, user_role FROM Users WHERE name like N'%"
 					+ character + "%' AND status = 1" + (searchStatus.equals("0") ? "" : " AND user_role = " + searchStatus);
 
 			Statement stmt = connection.createStatement();
@@ -34,6 +34,7 @@ public class UsersDAO {
 				u.setEmail(rs.getString("email"));
 				u.setPassword(rs.getString("address"));
 				u.setRegistration_date(rs.getDate("registration_date"));
+				u.setRole(rs.getInt("user_role"));
 
 				list.add(u);
 				this.noOfRecords++;
@@ -58,11 +59,11 @@ public class UsersDAO {
 					+ " FROM Users"
 					+ " WHERE"
 					+ " status = 1"
-					+ " AND donation_title like N'%" + character + "%'";
+					+ " AND name like N'%" + character + "%'";
 			if (!searchStatus.equals("0")) {
 				sql+= " AND user_role = " + searchStatus;
 			}
-			sql+= " ORDER BY end_date DESC OFFSET ("
+			sql+= " ORDER BY registration_date DESC OFFSET ("
 					+ pageNo + "  - 1)*"
 					+ recordPerPage + " ROWS FETCH NEXT "
 					+ recordPerPage + " ROWS ONLY";		

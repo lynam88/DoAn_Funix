@@ -85,11 +85,10 @@ public class UsersController extends HttpServlet {
 		if(search == null) search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
-		String status = request.getParameter("searchStatus");
-		if (status == null || status == "") {
-			status = "0";
+		String searchStatus = request.getParameter("searchStatus");
+		if (searchStatus == null || searchStatus == "") {
+			searchStatus = "0";
 		}
-		int searchStatus = Integer.parseInt(status);
 		request.setAttribute("searchText", searchString);
 		request.setAttribute("searchStatus", searchStatus);
 		if (request.getParameter("page") != null)
