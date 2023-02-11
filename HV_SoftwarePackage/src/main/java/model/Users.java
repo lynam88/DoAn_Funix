@@ -14,6 +14,11 @@ public class Users {
 		super();
 		this.role = role;
 	}
+	
+	public Users(String email) {
+		super();
+		this.email = email;
+	}
 
 	public String getName() {
 		return name;

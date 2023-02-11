@@ -93,7 +93,7 @@
 					<tbody>
 						<c:forEach var="user" items="${userList}">
 							<tr>
-								<td><input type="checkbox" name="chk" /></td>
+								<td><input type="checkbox" class="chk" name="chk" value="<c:out value='${user.email}' />"/></td>
 								<c:if test="${user.role == 1}">
 									<td>Admin</td>
 								</c:if>
@@ -154,10 +154,9 @@
 					<input type="button" class="btn btn-success" onclick='selects()' value="Chọn Tất Cả"/>  
 			        <input type="button" class="btn btn-success" onclick='deSelect()' value="Bỏ Chọn Tất Cả""/>
 					<div>
-					<a type="button" class="btn btn-danger deleteBtn" id="btn_del"
+					<a type="button" class="btn btn-danger deleteBtn" id="user_del"
 						 title="Xóa" data-toggle="tooltip"><i
-						class="fa fa-trash-o" aria-hidden="true"></i> Xoá các mục đã chọn</a> </div>
-					<input type="hidden" id="donation_id" value="<c:out value='${donation.id}' />" />
+						class="fa fa-trash-o" aria-hidden="true"></i> Xoá các mục đã chọn</a> </div>					
 				</div>
 				<!--Modal -->
 				<div class="modal" id="myModal" role="dialog">
@@ -165,15 +164,15 @@
 						<!--Modal content -->
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" id="close_del">&times;</button>
+								<button type="button" class="close" data-dismiss="modal" id="close_user_del">&times;</button>
 							</div>
 							<div class="modal-body">
 								<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-ok btn-danger" id="ok_del"
+								<button type="button" class="btn btn-ok btn-danger" id="ok_user_del"
 									data-dismiss="modal">Chấp nhận</button>
-								<button type="button" class="btn btn-default btn-success" id="cancel_del"
+								<button type="button" class="btn btn-default btn-success" id="cancel_user_del"
 									data-dismiss="modal">Hủy</button>
 							</div>
 						</div>

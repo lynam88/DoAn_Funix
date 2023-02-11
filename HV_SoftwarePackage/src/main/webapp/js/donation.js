@@ -110,9 +110,9 @@
 	});	
 	
 	//Delete button
-	$("#btn_del").click(function(){
-		var donationIds = document.querySelectorAll(".donation_id:checked");
-		var checked = [...donationIds].map(donationId => donationId.value).join(",");
+	$("#donation_del").click(function(){
+		var chks = document.querySelectorAll(".chk:checked");
+		var checked = [...chks].map(donationId => donationId.value).join(",");
 		
 		if(!checked) {
 			$("#checkMsg").modal("show");
@@ -124,9 +124,9 @@
 		}
 	})
 	
-	$('#ok_del').click(function(){
-		var donationIds = document.querySelectorAll(".donation_id:checked");
-		var checked = [...donationIds].map(donationId => donationId.value).join(",");
+	$('#ok_donation_del').click(function(){
+		var chks = document.querySelectorAll(".chk:checked");
+		var checked = [...chks].map(donationId => donationId.value).join(",");
 		
 		try {
 			$.ajax({
@@ -167,10 +167,10 @@
 		}
 	})
 	
-	$('#cancel_del').click(function(){		
+	$('#cancel_donation_del').click(function(){		
 					$("#myModal").modal("hide");					
 				})
-	$('#close_del').click(function(){		
+	$('#close_donation_del').click(function(){		
 		$("#myModal").modal("hide");					
 	})	
 	

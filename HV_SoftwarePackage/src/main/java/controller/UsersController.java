@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -68,6 +69,8 @@ public class UsersController extends HttpServlet {
 			case "userSearch":
 				listUser(request, response);
 				break;
+			case "delete":
+				deleteUser(request, response);
 			default:
 				showMainPage(request, response);
 				break;
@@ -152,6 +155,22 @@ public class UsersController extends HttpServlet {
 	        request.setAttribute("statusLogin", "Fail");
 	    }
 	    request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
+	
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, Exception {
+		String[] emails = request.getParameter("email").split(",");
+		List<Users> list = new ArrayList<Users>();
+
+		try {
+			for (String email : emails) {
+				Users u = new Users(email);
+				list.add(u);
+			}
+			dao.deleteUser(list);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

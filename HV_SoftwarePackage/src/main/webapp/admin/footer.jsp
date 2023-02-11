@@ -110,7 +110,8 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="${pageContext.request.contextPath}/js/admin.js"></script>
+  <script src="${pageContext.request.contextPath}/js/donation.js"></script>
+  <script src="${pageContext.request.contextPath}/js/user.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -258,7 +259,7 @@
 	
 	<script>
 	//Thời gian	
-	if ( location.search.split('action=')[1] == "list") {
+	if ( location.search.split('action=')[1].endsWith("t")) {
 		var today = new Date();
 		var weekday = new Array(7);
 		weekday[0] = "Chủ Nhật";

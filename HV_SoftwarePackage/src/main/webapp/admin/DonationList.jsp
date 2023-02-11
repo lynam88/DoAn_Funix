@@ -72,7 +72,7 @@
 					<tbody>
 						<c:forEach var="donation" items="${donationList}">
 							<tr>
-								<td><input type="checkbox" name="chk"
+								<td><input type="checkbox" class="chk" name="chk"
 									value="<c:out value='${donation.id}' />"></td>
 								<c:if test="${donation.status == 1}">
 									<td>Hoàn Thành</td>
@@ -144,7 +144,7 @@
 					<input type="button" class="btn btn-success" onclick='selects()' value="Chọn Tất Cả"/>  
 			        <input type="button" class="btn btn-success" onclick='deSelect()' value="Bỏ Chọn Tất Cả""/>
 					<div>
-					<a type="button" class="btn btn-danger deleteBtn" id="btn_del"
+					<a type="button" class="btn btn-danger deleteBtn" id="donation_del"
 						 title="Xóa" data-toggle="tooltip"><i
 						class="fa fa-trash-o" aria-hidden="true"></i> Xoá các mục đã chọn</a> </div>
 					<input type="hidden" id="donation_id" value="<c:out value='${donation.id}' />" />
@@ -155,15 +155,15 @@
 						<!--Modal content -->
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" id="close_del">&times;</button>
+								<button type="button" class="close" data-dismiss="modal" id="close_donation_del">&times;</button>
 							</div>
 							<div class="modal-body">
 								<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-ok btn-danger" id="ok_del"
+								<button type="button" class="btn btn-ok btn-danger" id="ok_donation_del"
 									data-dismiss="modal">Chấp nhận</button>
-								<button type="button" class="btn btn-default btn-success" id="cancel_del"
+								<button type="button" class="btn btn-default btn-success" id="cancel_donation_del"
 									data-dismiss="modal">Hủy</button>
 							</div>
 						</div>

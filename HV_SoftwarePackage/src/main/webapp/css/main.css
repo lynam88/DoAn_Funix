@@ -119,7 +119,10 @@
     	margin-top: 1%;
    		width: 23%;
 	}
-	#ok_del{
+	#ok_donation_del{
+		margin-top: 4%;
+	}
+	#ok_user_del{
 		margin-top: 4%;
 	}
 	#pageNavPosition{

@@ -165,7 +165,7 @@
 			</div>
 		</div>
 	</section>
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/user.js"></script>
 </body>
 
 </html>
