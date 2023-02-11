@@ -65,6 +65,7 @@ public class UsersController extends HttpServlet {
 				doLogin(request, response);
 				break;
 			case "userList":
+			case "userSearch":
 				listUser(request, response);
 				break;
 			default:
@@ -84,19 +85,20 @@ public class UsersController extends HttpServlet {
 		if(search == null) search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
-		String role = request.getParameter("searchRole");
-		if (role == null || role == "") {
-			role = "0";
+		String status = request.getParameter("searchStatus");
+		if (status == null || status == "") {
+			status = "0";
 		}
+		int searchStatus = Integer.parseInt(status);
 		request.setAttribute("searchText", searchString);
-		request.setAttribute("searchRole", role);
+		request.setAttribute("searchStatus", searchStatus);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			dao.searchName(searchString, role);
+			dao.searchName(searchString, searchStatus);
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Users> listPerPage = dao.getRecord(searchString, role, page, recordPerPage);
+			List<Users> listPerPage = dao.getRecord(searchString, searchStatus, page, recordPerPage);
 			request.setAttribute("userList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);

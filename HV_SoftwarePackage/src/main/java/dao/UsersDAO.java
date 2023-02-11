@@ -21,7 +21,7 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date FROM Users WHERE name like '%"
+			String sql = "SELECT name, phone, email, address, registration_date, user_role FROM Users WHERE name like '%"
 					+ character + "%' AND status = 1" + (searchStatus.equals("0") ? "" : " AND user_role = " + searchStatus);
 
 			Statement stmt = connection.createStatement();
@@ -50,17 +50,22 @@ public class UsersDAO {
 
 	}
 
-	public List<Users> getRecord(String character, String searchRole, int pageNo, int recordPerPage) throws Exception {
+	public List<Users> getRecord(String character, String searchStatus, int pageNo, int recordPerPage) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
-		try {
-			String sql = "SELECT name, phone, email, address, registration_date" + " FROM Users" + " WHERE" + " status = 1"
-					+ " AND name like N'%" + character + "%'";
-			if (!searchRole.equals("0")) {
-				sql += " AND user_role = " + searchRole;
+		try {			
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total"
+					+ " FROM Users"
+					+ " WHERE"
+					+ " status = 1"
+					+ " AND donation_title like N'%" + character + "%'";
+			if (!searchStatus.equals("0")) {
+				sql+= " AND user_role = " + searchStatus;
 			}
-			sql += " ORDER BY registration_date DESC OFFSET (" + pageNo + "  - 1)*" + recordPerPage
-					+ " ROWS FETCH NEXT " + recordPerPage + " ROWS ONLY";
+			sql+= " ORDER BY end_date DESC OFFSET ("
+					+ pageNo + "  - 1)*"
+					+ recordPerPage + " ROWS FETCH NEXT "
+					+ recordPerPage + " ROWS ONLY";		
 
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -71,6 +76,7 @@ public class UsersDAO {
 				u.setEmail(rs.getString("email"));
 				u.setAddress(rs.getString("address"));
 				u.setRegistration_date(rs.getDate("registration_date"));
+				u.setRole(rs.getInt("user_role"));
 
 				list.add(u);
 			}

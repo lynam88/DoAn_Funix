@@ -19,16 +19,16 @@
 			</p>
 
 			<form class="searchbar" name="searchform"
-				action="${pageContext.request.contextPath}/UsersController?action=donationSearch" method="post">
+				action="${pageContext.request.contextPath}/UsersController?action=userSearch" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
 					<select id="searchStatus" name="searchStatus">
 						<option value="0" selected>Tất cả</option>
 						<option value="1"
-						<c:if test="${searchStatus == 0}">selected</c:if>>Admin</option>
+						<c:if test="${searchStatus == 1}">selected</c:if>>Admin</option>
 						<option value="2"
-						<c:if test="${searchStatus == 1}">selected</c:if>>User</option>
+						<c:if test="${searchStatus == 2}">selected</c:if>>User</option>
 					</select>				
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -94,31 +94,25 @@
 						<c:forEach var="user" items="${userList}">
 							<tr>
 								<td><input type="checkbox" name="chk" /></td>
-								<c:if test="${user.role == 0}">
+								<c:if test="${user.role == 1}">
 									<td>Admin</td>
 								</c:if>
-								<c:if test="${user.role == 1}">
+								<c:if test="${user.role == 2}">
 									<td>User</td>
 								</c:if>
 								<c:if test="${user.role == null}">
 									<td></td>
 								</c:if>
-								<td><c:out value="" />
-									<div>
-										<div class="content hideContent">${user.name}</div>
-									
-									</div>								
+								<td>							
+										<div class="content hideContent">${user.name}</div>													
 								</td>
-								<td>
-									<div>
-										<div class="content hideContent">${user.email}</div>
-										
-									</div>
+								<td>			
+										<div class="content hideContent">${user.email}</div>								
 								</td>
 								<td><c:out value="${user.phone}"/></td>
 								<td><c:out value="${user.address}" /></td>
 								<td><a class="edit"
-									href="UsersController?action=edit&id=${donation.id}&page=${currentPage}"
+									href="UsersController?action=edit&email=${user.email}&page=${currentPage}"
 									title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
 										aria-hidden="true"></i></a></td>
 							</tr>
@@ -134,7 +128,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=userList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -145,13 +139,13 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=userList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/UsersController?action=userList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>
