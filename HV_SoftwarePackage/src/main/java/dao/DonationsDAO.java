@@ -149,15 +149,13 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 
 		String sql = "BEGIN TRANSACTION\n";
-		sql += "UPDATE Donations SET use_yn = 0 WHERE donation_id in (";
-		String separator = "";
-		for (Donations d : ds) {
-			sql += separator + d.getId();
-			separator = ", ";
-		}
-		sql += ")\n";
+		sql += "UPDATE Donations SET use_yn = 0 WHERE donation_id in (?)\n";	
 		sql += "COMMIT TRANSACTION";
 		PreparedStatement stmt = connection.prepareStatement(sql);
+		
+		for (Donations d : ds) {
+			stmt.setInt(1, d.getId());
+		}
 
 		stmt.executeUpdate();
 		stmt.close();

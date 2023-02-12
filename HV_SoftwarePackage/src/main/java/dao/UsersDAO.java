@@ -111,17 +111,18 @@ public class UsersDAO {
 
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
-
+		
 		String sql = "BEGIN TRANSACTION\n";
-		sql += "UPDATE Users SET status = 0 WHERE user_role = 2 AND email in (";
-		String separator = "";
-		for (Users u : us) {
-			sql += separator + "'" + u.getEmail() + "'";
-			separator = ", ";
-		}
-		sql += ")\n";
+		sql += "UPDATE Users SET status = 0 WHERE user_role = 2 AND email in (?)\n";		
 		sql += "COMMIT TRANSACTION";
 		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		for (Users u : us) {
+			if (u.getRole() == 1) {
+		        throw new Exception("Cannot delete ADMIN");
+		    }
+			stmt.setString(1, u.getEmail());
+		}
 
 		stmt.executeUpdate();
 		stmt.close();

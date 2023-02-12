@@ -80,7 +80,7 @@
 			try {
 				$.ajax({
 					type : 'GET',
-					data: 'email='+checked,
+					data: 'email='+checked+'&role=1',
 					url : '/HV_SoftwarePackage/UsersController?action=delete',
 					success : function(result) {
 						$("#myModal").modal("hide");
