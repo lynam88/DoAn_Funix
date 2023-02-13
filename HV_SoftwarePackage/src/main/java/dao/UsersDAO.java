@@ -21,12 +21,17 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
+			character = character
+				    .replace("!", "!!")
+				    .replace("%", "!%")
+				    .replace("_", "!_")
+				    .replace("[", "![");
 			String sql = "SELECT name, phone, email, address, registration_date, user_role " + "FROM Users "
-					+ "WHERE (name like ? OR phone = ?) " + "AND status = 1"
+					+ "WHERE (name like ? ESCAPE '!' OR phone = ?) " + "AND status = 1"
 					+ (searchStatus.equals("0") ? "" : " AND user_role = ?");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, "N'%" + character + "%'");
+			stmt.setString(1, "%" + character + "%");
 			stmt.setString(2, character);
 			if (!searchStatus.equals("0")) {
 				stmt.setString(3, searchStatus);
@@ -62,15 +67,20 @@ public class UsersDAO {
 	    Connection connection = new DBContext().getConnection();
 	    List<Users> list = new ArrayList<>();
 	    try {
+	    	character = character
+				    .replace("!", "!!")
+				    .replace("%", "!%")
+				    .replace("_", "!_")
+				    .replace("[", "![");
 	        String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total"
-	                + " FROM Users" + " WHERE" + " status = 1" + " AND (name like ? OR phone = ?)";
+	                + " FROM Users" + " WHERE" + " status = 1" + " AND (name like ? ESCAPE '!' OR phone = ?)";
 	        if (!searchStatus.equals("0")) {
 	            sql += " AND user_role = ?";
 	        }
 	        sql += " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 	        PreparedStatement stmt = connection.prepareStatement(sql);
-	        stmt.setString(1, "N'%" + character + "%'");
+	        stmt.setString(1, "%" + character + "%");
 	        stmt.setString(2, character);
 	        int index = 3;
 	        if (!searchStatus.equals("0")) {

@@ -29,12 +29,17 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM Donations WHERE donation_title like ? AND use_yn = 1";
+			character = character
+				    .replace("!", "!!")
+				    .replace("%", "!%")
+				    .replace("_", "!_")
+				    .replace("[", "![");
+			String sql = "SELECT * FROM Donations WHERE donation_title like ? ESCAPE '!' AND use_yn = 1";
 			if (!searchStatus.equals("0")) {
 			    sql += " AND donation_status = ?";
 			}
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, "N'%" + character + "%'");
+			stmt.setString(1, "%" + character + "%");
 			if (!searchStatus.equals("0")) {
 			    stmt.setString(2, searchStatus);
 			}
@@ -71,17 +76,22 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
+			character = character
+				    .replace("!", "!!")
+				    .replace("%", "!%")
+				    .replace("_", "!_")
+				    .replace("[", "![");
 			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, COUNT(*) OVER() AS total"
 					+ " FROM Donations"
 					+ " WHERE use_yn = 1"
-					+ " AND donation_title like ?";
+					+ " AND donation_title like ? ESCAPE '!'";
 			if (!searchStatus.equals("0")) {
 				sql += " AND donation_status = ?";
 			}
 			sql += " ORDER BY end_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, "N'%" + character + "%'");
+			stmt.setString(1, "%" + character + "%");
 			int index = 2;
 	        if (!searchStatus.equals("0")) {
 	        	stmt.setString(index++, searchStatus);
