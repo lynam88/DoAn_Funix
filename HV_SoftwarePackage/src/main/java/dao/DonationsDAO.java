@@ -29,9 +29,17 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1" + (searchStatus.equals("0") ? "" : " AND donation_status = " + searchStatus);
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			String sql = "SELECT * FROM Donations WHERE donation_title like ? AND use_yn = 1";
+			if (!searchStatus.equals("0")) {
+			    sql += " AND donation_status = ?";
+			}
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, "N'%" + character + "%'");
+			if (!searchStatus.equals("0")) {
+			    stmt.setString(2, searchStatus);
+			}
+			ResultSet rs = stmt.executeQuery();
+
 			this.noOfRecords = 0;
 			while (rs.next()) {
 				Donations d = new Donations();
@@ -62,22 +70,26 @@ public class DonationsDAO {
 	public List<Donations> getRecord(String character, String searchStatus, int pageNo, int recordPerPage) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
-		try {			
+		try {
 			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, COUNT(*) OVER() AS total"
 					+ " FROM Donations"
-					+ " WHERE"
-					+ " use_yn = 1"
-					+ " AND donation_title like N'%" + character + "%'";
+					+ " WHERE use_yn = 1"
+					+ " AND donation_title like ?";
 			if (!searchStatus.equals("0")) {
-				sql+= " AND donation_status = " + searchStatus;
+				sql += " AND donation_status = ?";
 			}
-			sql+= " ORDER BY end_date DESC OFFSET ("
-					+ pageNo + "  - 1)*"
-					+ recordPerPage + " ROWS FETCH NEXT "
-					+ recordPerPage + " ROWS ONLY";			 
-			
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			sql += " ORDER BY end_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, "N'%" + character + "%'");
+			int index = 2;
+	        if (!searchStatus.equals("0")) {
+	        	stmt.setString(index++, searchStatus);
+	        }
+	        stmt.setInt(index++, pageNo);
+			stmt.setInt(index++, recordPerPage);
+			stmt.setInt(index++, recordPerPage);
+			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Donations d = new Donations();
 				d.setId(rs.getInt("donation_id"));
@@ -99,10 +111,12 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		Donations d = new Donations();
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement
-					.executeQuery("SELECT * FROM donations WHERE donation_id = " + id + "AND use_yn = 1");
-
+			String sql = "SELECT * FROM donations WHERE donation_id = ? AND use_yn = 1";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
 			if (rs.next()) {
 				d.setId(rs.getInt("donation_id"));
 				d.setStatus(rs.getString("donation_status"));

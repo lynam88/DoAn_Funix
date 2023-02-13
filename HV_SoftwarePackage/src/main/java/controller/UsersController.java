@@ -113,8 +113,8 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	public Users checkLogin(String id, String password) throws Exception {
-	    Users ud = dao.getUser(id, password);
+	public Users checkLogin(String id, String password, boolean isLogin) throws Exception {
+	    Users ud = dao.getUser(id, password, isLogin);
 	    return ud;
 	}
 
@@ -137,7 +137,7 @@ public class UsersController extends HttpServlet {
 	    }
 	    // check information of account in database
 	    try {
-	        Users userData = checkLogin(id, password);
+	        Users userData = checkLogin(id, password, true);
 	        if (userData.getEmail() != null || userData.getPhone() != null) {
 	            request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
 	            if (userData.getRole() == 0) {

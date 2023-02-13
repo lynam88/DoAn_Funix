@@ -70,19 +70,15 @@ public class UsersDAO {
 	        sql += " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 	        PreparedStatement stmt = connection.prepareStatement(sql);
-	        stmt.setString(1, "%" + character + "%");
+	        stmt.setString(1, "N'%" + character + "%'");
 	        stmt.setString(2, character);
 	        int index = 3;
 	        if (!searchStatus.equals("0")) {
-	            stmt.setInt(index, Integer.parseInt(searchStatus));
-	            index++;
+	        	stmt.setString(index++, searchStatus);
 	        }
-	        stmt.setInt(index, pageNo);
-	        index++;
-	        stmt.setInt(index, recordPerPage);
-	        index++;
-	        stmt.setInt(index, recordPerPage);
-
+	        stmt.setInt(index++, pageNo);
+			stmt.setInt(index++, recordPerPage);
+			stmt.setInt(index++, recordPerPage);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
@@ -103,17 +99,20 @@ public class UsersDAO {
 	    return list;
 	}
 
-	public Users getUser(String id, String password) throws Exception {
+	public Users getUser(String id, String password, boolean isLogin) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = new Users();
-
-		String sql = "SELECT * FROM Users WHERE (email = '?' OR phone = '?') AND password = '?' AND status = 1";
+		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?) AND status = 1";
+		if(isLogin) {
+			sql+= " AND password = ? ";
+		}
+		
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, id);
-		stmt.setString(2, password);
+		stmt.setString(2, id);
+		stmt.setString(3, password);
 
-		ResultSet rs = stmt.executeQuery(sql);
-		stmt.close();
+		ResultSet rs = stmt.executeQuery();
 
 		if (rs.next()) {
 			u.setName(rs.getString("name"));
@@ -122,6 +121,7 @@ public class UsersDAO {
 			u.setPassword(rs.getString("password"));
 			u.setAddress(rs.getString("address"));
 			u.setRegistrationDate(rs.getDate("registration_date"));
+			u.setRole(Integer.parseInt(rs.getString("user_role"))); // set role 
 		}
 		return u;
 
