@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Users {
 	private String name, phone, email, password, address;
-	private Date registration_date;
+	private Date registrationDate;
 	private int role;
 
 	public Users() {
@@ -52,12 +52,12 @@ public class Users {
 		this.password = password;
 	}
 
-	public Date getRegistration_date() {
-		return registration_date;
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setRegistration_date(Date registration_date) {
-		this.registration_date = registration_date;
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	public int getRole() {
