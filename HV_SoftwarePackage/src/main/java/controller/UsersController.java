@@ -30,6 +30,7 @@ public class UsersController extends HttpServlet {
 	private String action;
 	private String searchString;
 	private int page;
+	private HttpSession session;
 
 	public void init() {
 		dao = new UsersDAO();
@@ -59,24 +60,30 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "index" : action;
-		try {
-			switch (action) {
-			case "login":
-				doLogin(request, response);
-				break;
-			case "userList":
-			case "userSearch":
-				listUser(request, response);
-				break;
-			case "delete":
-				deleteUser(request, response);
-			default:
-				showMainPage(request, response);
-				break;
+		action = action == null ? "admin" : action;
+		Users u = (Users) session.getAttribute("user");
+		if (u != null && u.getRole() == 1) {
+			try {
+				switch (action) {
+				case "admin":
+					showMainPage(request, response);
+					break;
+				case "login":
+					doLogin(request, response);
+					break;
+				case "userList":
+				case "userSearch":
+					listUser(request, response);
+					break;
+				case "delete":
+					deleteUser(request, response);
+				default:
+					showMainPage(request, response);
+					break;
+				}
+			} catch (Exception ex) {
+				throw new ServletException(ex);
 			}
-		} catch (Exception ex) {
-			throw new ServletException(ex);
 		}
 	}
 
@@ -85,7 +92,8 @@ public class UsersController extends HttpServlet {
 		page = 1;
 		int recordPerPage = 5;
 		String search = request.getParameter("myInput");
-		if(search == null) search = "";
+		if (search == null)
+			search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
 		String searchStatus = request.getParameter("searchStatus");
@@ -114,45 +122,45 @@ public class UsersController extends HttpServlet {
 	}
 
 	public Users checkLogin(String id, String password, boolean isLogin) throws Exception {
-	    Users ud = dao.getUser(id, password, isLogin);
-	    return ud;
+		Users ud = dao.getUser(id, password, isLogin);
+		return ud;
 	}
 
 	private void doLogin(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    response.setContentType("text/html;charset=UTF-8");
-	    request.setCharacterEncoding("utf-8"); // Vietnamese
-	    request.getSession(true).invalidate();
-	    // collect data from a login form
-	    String id = request.getParameter("loginId");
-	    String password = request.getParameter("password");
-	    HttpSession session = request.getSession(true);
-	    if (request.getParameter("remember") != null) {
-	        Cookie cookiesName = new Cookie("loginId", id);
-	        cookiesName.setMaxAge(300);
-	        response.addCookie(cookiesName);
-	        Cookie cookiesPass = new Cookie("password", password);
-	        cookiesPass.setMaxAge(300);
-	        response.addCookie(cookiesPass);
-	    }
-	    // check information of account in database
-	    try {
-	        Users userData = checkLogin(id, password, true);
-	        if (userData.getEmail() != null || userData.getPhone() != null) {
-	            request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-	                session.setAttribute("user", userData);
-	        } else {
-	            request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
-	            request.setAttribute("statusLogin", "Fail");
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-	        request.setAttribute("statusLogin", "Fail");
-	    }
-	    request.getRequestDispatcher("login.jsp").forward(request, response);
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("utf-8"); // Vietnamese
+		request.getSession(true).invalidate();
+		// collect data from a login form
+		String id = request.getParameter("loginId");
+		String password = request.getParameter("password");
+		session = request.getSession(true);
+		if (request.getParameter("remember") != null) {
+			Cookie cookiesName = new Cookie("loginId", id);
+			cookiesName.setMaxAge(300);
+			response.addCookie(cookiesName);
+			Cookie cookiesPass = new Cookie("password", password);
+			cookiesPass.setMaxAge(300);
+			response.addCookie(cookiesPass);
+		}
+		// check information of account in database
+		try {
+			Users userData = checkLogin(id, password, true);
+			if (userData.getEmail() != null || userData.getPhone() != null) {
+				request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+				session.setAttribute("user", userData);
+			} else {
+				request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
+				request.setAttribute("statusLogin", "Fail");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+			request.setAttribute("statusLogin", "Fail");
+		}
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-	
+
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, Exception {
 		String[] emails = request.getParameter("email").split(",");
@@ -169,8 +177,9 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	private void showMainPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("admin/index.jsp").forward(request, response);		
+	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("admin/index.jsp").forward(request, response);
 	}
 
 }
