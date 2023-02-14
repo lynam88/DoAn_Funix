@@ -21,24 +21,30 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			character = character
-				    .replace("!", "!!")
-				    .replace("%", "!%")
-				    .replace("_", "!_")
-				    .replace("[", "![");
-			String sql = "SELECT name, phone, email, address, registration_date, user_role " + "FROM Users "
-					+ "WHERE (name like ? ESCAPE '!' OR phone = ?) " + "AND status = 1"
-					+ (searchStatus.equals("0") ? "" : " AND user_role = ?");
+			String characterEscaped = character.replace("!", "!!")
+					.replace("%", "!%")
+					.replace("", "!")
+					.replace("[", "![");
+			String sql = "SELECT name, phone, email, address, registration_date, user_role "
+					+ "FROM Users "
+					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? ESCAPE '!' OR phone = ?) ")
+					+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, "%" + character + "%");
-			stmt.setString(2, character);
-			if (!searchStatus.equals("0")) {
-				stmt.setString(3, searchStatus);
-			}
-			ResultSet rs = stmt.executeQuery();
+			int index = 1;
 
+			if (!character.isEmpty()) {
+				stmt.setString(index++, "%" + characterEscaped + "%");
+				stmt.setString(index++, character);
+			}
+
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
+			}
+
+			ResultSet rs = stmt.executeQuery();
 			this.noOfRecords = 0;
+
 			while (rs.next()) {
 				Users u = new Users();
 				u.setName(rs.getString("name"));
@@ -51,7 +57,6 @@ public class UsersDAO {
 				list.add(u);
 				this.noOfRecords++;
 			}
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -63,60 +68,65 @@ public class UsersDAO {
 
 	}
 
-	public List<Users> getRecord(String character, String searchStatus, int pageNo, int recordPerPage) throws Exception {
-	    Connection connection = new DBContext().getConnection();
-	    List<Users> list = new ArrayList<>();
-	    try {
-	    	character = character
-				    .replace("!", "!!")
-				    .replace("%", "!%")
-				    .replace("_", "!_")
-				    .replace("[", "![");
-	        String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total"
-	                + " FROM Users" + " WHERE" + " status = 1" + " AND (name like ? ESCAPE '!' OR phone = ?)";
-	        if (!searchStatus.equals("0")) {
-	            sql += " AND user_role = ?";
-	        }
-	        sql += " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+	public List<Users> getRecord(String character, String searchStatus, int pageNo, int recordPerPage)
+			throws Exception {
+		Connection connection = new DBContext().getConnection();
+		List<Users> list = new ArrayList<>();
+		try {
+			String characterEscaped = character.replace("!", "!!")
+					.replace("%", "!%")
+					.replace("", "!")
+					.replace("[", "![");
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total "
+					+ "FROM Users " 
+					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? ESCAPE '!' OR phone = ?) ");
+			if (!searchStatus.equals("0")) {
+				sql += " AND user_role = ?";
+			}
+			sql += " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
-	        PreparedStatement stmt = connection.prepareStatement(sql);
-	        stmt.setString(1, "%" + character + "%");
-	        stmt.setString(2, character);
-	        int index = 3;
-	        if (!searchStatus.equals("0")) {
-	        	stmt.setString(index++, searchStatus);
-	        }
-	        stmt.setInt(index++, pageNo);
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			int index = 1;
+
+			if (!character.isEmpty()) {
+				stmt.setString(index++, "%" + characterEscaped + "%");
+				stmt.setString(index++, character);
+			}
+			
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
+			}
+			stmt.setInt(index++, pageNo);
 			stmt.setInt(index++, recordPerPage);
 			stmt.setInt(index++, recordPerPage);
-	        ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 
-	        while (rs.next()) {
-	            Users u = new Users();
-	            u.setName(rs.getString("name"));
-	            u.setPhone(rs.getString("phone"));
-	            u.setEmail(rs.getString("email"));
-	            u.setAddress(rs.getString("address"));
-	            u.setRegistrationDate(rs.getDate("registration_date"));
-	            u.setRole(rs.getInt("user_role"));
+			while (rs.next()) {
+				Users u = new Users();
+				u.setName(rs.getString("name"));
+				u.setPhone(rs.getString("phone"));
+				u.setEmail(rs.getString("email"));
+				u.setAddress(rs.getString("address"));
+				u.setRegistrationDate(rs.getDate("registration_date"));
+				u.setRole(rs.getInt("user_role"));
 
-	            list.add(u);
-	        }
+				list.add(u);
+			}
 
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	    }
-	    return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return list;
 	}
 
 	public Users getUser(String id, String password, boolean isLogin) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = new Users();
 		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?) AND status = 1";
-		if(isLogin) {
-			sql+= " AND password = ? ";
+		if (isLogin) {
+			sql += " AND password = ? ";
 		}
-		
+
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, id);
 		stmt.setString(2, id);
@@ -131,7 +141,7 @@ public class UsersDAO {
 			u.setPassword(rs.getString("password"));
 			u.setAddress(rs.getString("address"));
 			u.setRegistrationDate(rs.getDate("registration_date"));
-			u.setRole(Integer.parseInt(rs.getString("user_role"))); // set role 
+			u.setRole(Integer.parseInt(rs.getString("user_role"))); // set role
 		}
 		return u;
 
