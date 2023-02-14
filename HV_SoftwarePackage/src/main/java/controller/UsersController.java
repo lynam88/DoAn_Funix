@@ -61,28 +61,33 @@ public class UsersController extends HttpServlet {
 			throws ServletException, IOException {
 		action = request.getParameter("action");
 		action = action == null ? "admin" : action;
-		Users u = (Users) session.getAttribute("user");
-		if (u != null && u.getRole() == 1) {
-			try {
-				switch (action) {
-				case "admin":
-					showMainPage(request, response);
-					break;
-				case "login":
-					doLogin(request, response);
-					break;
-				case "userList":
-				case "userSearch":
-					listUser(request, response);
-					break;
-				case "delete":
-					deleteUser(request, response);
-				default:
-					showMainPage(request, response);
-					break;
+		session = request.getSession();
+		if (action.equals("login")) {
+			doLogin(request, response);
+		} else {
+			Users u = (Users) session.getAttribute("user");
+			if (u != null && u.getRole() == 1) {
+				try {
+					switch (action) {
+					case "admin":
+						showMainPage(request, response);
+						break;
+					case "userList":
+					case "userSearch":
+						listUser(request, response);
+						break;
+					case "delete":
+						deleteUser(request, response);
+						break;
+					default:
+						showMainPage(request, response);
+						break;
+					}
+				} catch (Exception ex) {
+					throw new ServletException(ex);
 				}
-			} catch (Exception ex) {
-				throw new ServletException(ex);
+			} else {
+				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 		}
 	}
@@ -148,7 +153,8 @@ public class UsersController extends HttpServlet {
 			Users userData = checkLogin(id, password, true);
 			if (userData.getEmail() != null || userData.getPhone() != null) {
 				request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-				session.setAttribute("user", userData);
+				request.setAttribute("statusLogin", "Ok");
+				session.setAttribute("user", userData);				
 			} else {
 				request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
 				request.setAttribute("statusLogin", "Fail");

@@ -73,10 +73,8 @@
 		setTimeout(function() {
 			$('#loginModal').modal().hide();
 			var st = "<%=statusLogin%>";
-			if (st == "Admin") {
-				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';
-			} else if (st == "User") {
-				window.history.back();			
+			if (st == "Ok") {
+				window.location.href = '/HV_SoftwarePackage/UsersController?action=admin';
 			} else {
 				// remove class modal-backdrop in
 				$(".modal-backdrop").removeClass( "modal-backdrop in");
