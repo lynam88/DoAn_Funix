@@ -140,11 +140,7 @@ public class UsersController extends HttpServlet {
 	        Users userData = checkLogin(id, password, true);
 	        if (userData.getEmail() != null || userData.getPhone() != null) {
 	            request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-	            if (userData.getRole() == 0) {
-	                request.setAttribute("statusLogin", "Admin");
-	            } else {
-	                request.setAttribute("statusLogin", "User");
-	            }
+	                session.setAttribute("user", userData);
 	        } else {
 	            request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
 	            request.setAttribute("statusLogin", "Fail");

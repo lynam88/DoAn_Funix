@@ -21,10 +21,6 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String characterEscaped = character.replace("!", "!!")
-					.replace("%", "!%")
-					.replace("", "!")
-					.replace("[", "![");
 			String sql = "SELECT name, phone, email, address, registration_date, user_role "
 					+ "FROM Users "
 					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? ESCAPE '!' OR phone = ?) ")
@@ -34,7 +30,7 @@ public class UsersDAO {
 			int index = 1;
 
 			if (!character.isEmpty()) {
-				stmt.setString(index++, "%" + characterEscaped + "%");
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
 			}
 
@@ -73,10 +69,6 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String characterEscaped = character.replace("!", "!!")
-					.replace("%", "!%")
-					.replace("", "!")
-					.replace("[", "![");
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total "
 					+ "FROM Users " 
 					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? ESCAPE '!' OR phone = ?) ");
@@ -89,7 +81,7 @@ public class UsersDAO {
 			int index = 1;
 
 			if (!character.isEmpty()) {
-				stmt.setString(index++, "%" + characterEscaped + "%");
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
 			}
 			
@@ -130,7 +122,10 @@ public class UsersDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, id);
 		stmt.setString(2, id);
-		stmt.setString(3, password);
+		
+		if (isLogin) {
+			stmt.setString(3, password);
+		}		
 
 		ResultSet rs = stmt.executeQuery();
 
@@ -148,8 +143,8 @@ public class UsersDAO {
 	}
 
 	public void deleteUser(List<Users> us) throws Exception {
-		Connection connection = new DBContext().getConnection();
-
+		Connection connection = new DBContext().getConnection();		
+		
 		String sql = "BEGIN TRANSACTION\n";
 		sql += "UPDATE Users SET status = 0 WHERE user_role = 2 AND email in (?)\n";
 		sql += "COMMIT TRANSACTION";

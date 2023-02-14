@@ -76,7 +76,7 @@
 			if (st == "Admin") {
 				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';
 			} else if (st == "User") {
-				window.location.href = '/HV_SoftwarePackage/UsersController?action=index';				
+				window.history.back();			
 			} else {
 				// remove class modal-backdrop in
 				$(".modal-backdrop").removeClass( "modal-backdrop in");
@@ -108,6 +108,51 @@
 									<form action="UsersController?action=login" method="post" onsubmit="return validateLogin()">
 											<p>Vui lòng đăng nhập vào tài khoản</p>
 
+											<%
+												Cookie[] cookies = request.getCookies();
+												String id = "";
+												String pword = "";
+												if (cookies != null) {
+													for (Cookie retrievedCookies: cookies){
+														if (retrievedCookies.getName().equals("loginId")){
+															id = retrievedCookies.getValue();
+														}
+														if (retrievedCookies.getName().equals("password")){
+															pword = retrievedCookies.getValue();
+														}
+													}
+												}
+												if (id =="" && pword ==""){
+											%>			
+											<div class="form-outline mb-4"
+												style="position: relative; bottom: -20px;">
+												<input type="text" id="loginId" name="loginId"
+													class="form-control" placeholder="Số Điện Thoại Hoặc Địa Chỉ Email"
+													style="position: absolute; padding-left: 30px; top: -15px;" value="<%=id %>">
+												<span class="focus-input100"></span> <span
+													class="symbol-input100"
+													style="top: -7px; left: 9px; position: absolute;"> <i
+													class="bx bx-user"></i>
+												</span>									
+												<p id="loginId_error" style="color: red;position: inherit;bottom: -25px;" />	
+											</div>																			
+
+											<div class="form-outline mb-4">
+												<input type="password" id="password" name="password"
+													placeholder="Mật khẩu" class="form-control"
+													style="position: relative; top: 44px; padding-left: 30px;" value="<%=pword %>">
+												<span toggle="#form2Example22"
+													class="bx fa-fw field-icon click-eye bx-hide"
+													style="position: relative; left: 90%; top: 15px;"></span> <span
+													class="focus-input100"></span> <span
+													class="symbol-input100"
+													style="position: relative; top: 14px; right: 15px;">
+													<i class="bx bx-key"></i>
+												</span>
+												<p id="password_error" style="color: red;position: relative;bottom: -20px;padding-bottom: 10px;" />
+												
+											</div>
+											<%} else {%>											
 											<div class="form-outline mb-4"
 												style="position: relative; bottom: -20px;">
 												<input type="text" id="loginId" name="loginId"
@@ -136,6 +181,7 @@
 												<p id="password_error" style="color: red;position: relative;bottom: -20px;padding-bottom: 10px;" />
 												
 											</div>
+											<%} %>
 											<div>
 												<input type="checkbox" name="remember" value="remember"
 													value="on"> <label for="remember">Remember

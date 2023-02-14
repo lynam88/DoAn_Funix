@@ -29,11 +29,6 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			character = character
-				    .replace("!", "!!")
-				    .replace("%", "!%")
-				    .replace("_", "!_")
-				    .replace("[", "![");
 			String sql = "SELECT * FROM Donations WHERE donation_title like ? ESCAPE '!' AND use_yn = 1";
 			if (!searchStatus.equals("0")) {
 			    sql += " AND donation_status = ?";
@@ -76,11 +71,6 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			character = character
-				    .replace("!", "!!")
-				    .replace("%", "!%")
-				    .replace("_", "!_")
-				    .replace("[", "![");
 			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, COUNT(*) OVER() AS total"
 					+ " FROM Donations"
 					+ " WHERE use_yn = 1"
