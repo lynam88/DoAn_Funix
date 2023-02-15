@@ -54,32 +54,34 @@
 									style="width: 185px;" alt="logo">
 								<h4 class="mt-1 mb-5 pb-1">Quỹ Từ Thiện Sen Vàng</h4>
 							</div>
-							<div class="col-lg-6">	
-														
+							<div class="col-lg-6">
+
 								<div class="card-body p-md-5 mx-md-4">
-									<p>ĐĂNG KÝ THÀNH VIÊN MỚI</p>	
+									<p>ĐĂNG KÝ THÀNH VIÊN MỚI</p>
 									<form action="UsersController?action=login" method="post"
 										onsubmit="return validateLogin()">
-									
+
 
 										<div class="form-outline mb-4">
-											<label for="title">Họ và tên: <span class="require">*</span></label>
-											<input type="text" id="loginId" name="loginId"
-												class="form-control"
-												placeholder="Số Điện Thoại Hoặc Địa Chỉ Email"
-												style="position: absolute;padding-left: 30px;width: 63%;">
-											<span class="focus-input100" ></span> <span
+											<label for="name">Họ và tên: <span class="require"
+												style="color: red;">*</span></label> <input type="text" id="loginId"
+												name="loginId" class="form-control"
+												placeholder="Nhập họ và tên"
+												style="position: absolute; padding-left: 30px; width: 63%;">
+											<span class="focus-input100"></span> <span
 												class="symbol-input100"
-												style="top: 127px;left: 93px;position: absolute;"> <i
-												class="bx bx-user"></i>
+												style="top: 127px; left: 93px; position: absolute;">
+												<i class="bx bx-user"></i>
 											</span>
 											<p id="loginId_error"
 												style="color: red; position: inherit; bottom: -25px;" />
 										</div>
 
-										<div class="form-outline mb-4">
-											<input type="password" id="password" name="password"
-												placeholder="Mật khẩu" class="form-control"
+										<div class="form-outline mb-4" style="padding-top: 15%;">
+											<label for="phone">Số điện thoại: <span
+												class="require" style="color: red;">*</span></label> <input
+												type="password" id="password" name="password"
+												placeholder="Nhập số điện thoại" class="form-control"
 												style="position: relative; top: 44px; padding-left: 30px;">
 											<span toggle="#form2Example22"
 												class="bx fa-fw field-icon click-eye bx-hide"
@@ -108,17 +110,18 @@
 											<button type="button" class="btn btn-outline-danger"
 												style="padding: 1%;">Xin Đăng Ký!</button>
 										</div>
-										
-										<div class="row d-flex justify-content-center align-items-center h-100">
+
+										<div
+											class="row d-flex justify-content-center align-items-center h-100">
 
 										</div>
 									</form>
 								</div>
-								
+
 							</div>
-							
+
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
