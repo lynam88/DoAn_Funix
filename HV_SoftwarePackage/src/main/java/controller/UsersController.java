@@ -174,10 +174,11 @@ public class UsersController extends HttpServlet {
 
 		try {
 			for (String email : emails) {
-				Users u = new Users(email);
+				Users u = dao.getUser(email, null, false);
 				list.add(u);
 			}
 			dao.deleteUser(list);
+			
 		} catch (Exception e) {
 			throw new Exception(e);
 		}

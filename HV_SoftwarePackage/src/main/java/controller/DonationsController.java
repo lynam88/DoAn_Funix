@@ -36,6 +36,7 @@ public class DonationsController extends HttpServlet {
 	private String search;
 	private String searchString;
 	private int page;
+	HttpSession session;
 
 	public void init() {
 		dao = new DonationsDAO();
@@ -49,40 +50,43 @@ public class DonationsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "index" : action;
-		try {
-			switch (action) {
-			case "index":
-				showDashboard(request, response);
-				break;
-			case "donationList":
-			case "donationSearch":
-				listDonation(request, response);
-				break;
-			case "new":
-				showNewForm(request, response);
-				break;
-			case "edit":
-				showEditForm(request, response);
-				break;
-			case "insert":
-				insertDonation(request, response);
-				break;
-			case "delete":
-				deleteDonation(request, response);
-				break;
-			case "update":
-				updateDonation(request, response);
-				break;
-			case "export":
-				exportDonation(request, response);
-				break;
-			default:
-				showDashboard(request, response);
-				break;
+		action = action == null ? "donationList" : action;
+		session = request.getSession();
+		Users u = (Users) session.getAttribute("user");
+		if (u != null && u.getRole() == 1) {
+			try {
+				switch (action) {
+				case "donationList":
+				case "donationSearch":
+					listDonation(request, response);
+					break;
+				case "new":
+					showNewForm(request, response);
+					break;
+				case "edit":
+					showEditForm(request, response);
+					break;
+				case "insert":
+					insertDonation(request, response);
+					break;
+				case "delete":
+					deleteDonation(request, response);
+					break;
+				case "update":
+					updateDonation(request, response);
+					break;
+				case "export":
+					exportDonation(request, response);
+					break;
+				default:
+					showDashboard(request, response);
+					break;
+				}
+			} catch (Exception ex) {
+				throw new ServletException(ex);
 			}
-		} catch (Exception ex) {
-			throw new ServletException(ex);
+		} else {
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 
