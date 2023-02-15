@@ -4,7 +4,7 @@
 <html lang="vi">
 
 <head>
-<title>Đăng nhập hệ thống | Website Từ Thiện</title>
+<title>Đăng ký thành viên mới | Website Từ Thiện</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,29 +48,29 @@
 				<div class="col-xl-10">
 					<div class="card rounded-3 text-black">
 						<div class="row g-0">
-							<div class="col-lg-6">
+							<div class="text-center" style="width: 100%;">
+								<img
+									src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+									style="width: 185px;" alt="logo">
+								<h4 class="mt-1 mb-5 pb-1">Quỹ Từ Thiện Sen Vàng</h4>
+							</div>
+							<div class="col-lg-6">	
+														
 								<div class="card-body p-md-5 mx-md-4">
-
-									<div class="text-center">
-										<img
-											src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-											style="width: 185px;" alt="logo">
-										<h4 class="mt-1 mb-5 pb-1">Quỹ Từ Thiện Sen Vàng</h4>
-									</div>
-
+									<p>ĐĂNG KÝ THÀNH VIÊN MỚI</p>	
 									<form action="UsersController?action=login" method="post"
 										onsubmit="return validateLogin()">
-										<p>Vui lòng đăng nhập vào tài khoản</p>
+									
 
-										<div class="form-outline mb-4"
-											style="position: relative; bottom: -20px;">
+										<div class="form-outline mb-4">
+											<label for="title">Họ và tên: <span class="require">*</span></label>
 											<input type="text" id="loginId" name="loginId"
 												class="form-control"
 												placeholder="Số Điện Thoại Hoặc Địa Chỉ Email"
-												style="position: absolute; padding-left: 30px; top: -15px;">
-											<span class="focus-input100"></span> <span
+												style="position: absolute;padding-left: 30px;width: 63%;">
+											<span class="focus-input100" ></span> <span
 												class="symbol-input100"
-												style="top: -7px; left: 9px; position: absolute;"> <i
+												style="top: 127px;left: 93px;position: absolute;"> <i
 												class="bx bx-user"></i>
 											</span>
 											<p id="loginId_error"
@@ -108,14 +108,17 @@
 											<button type="button" class="btn btn-outline-danger"
 												style="padding: 1%;">Xin Đăng Ký!</button>
 										</div>
-								</div>
-							</div>
-							<div
-								class="row d-flex justify-content-center align-items-center h-100">
+										
+										<div class="row d-flex justify-content-center align-items-center h-100">
 
+										</div>
+									</form>
+								</div>
+								
 							</div>
+							
 						</div>
-						</form>
+						
 					</div>
 				</div>
 			</div>
