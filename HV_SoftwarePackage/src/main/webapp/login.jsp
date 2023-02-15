@@ -184,12 +184,15 @@
 												<input type="checkbox" name="remember" value="remember"
 													value="on"> <label for="remember">Remember
 													me</label>
+												<a class="text-muted" href="#!" style="padding-left: 10%;">Bạn quên mật khẩu?</a>	
 											</div>
+											<br/>
 											<div class="text-center pt-1 mb-5 pb-1">
 												<button
 													class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
 													type="submit">Đăng nhập</button>
-												<a class="text-muted" href="#!">Bạn quên mật khẩu?</a>
+												<span>Bạn chưa có tài khoản?</span>
+												<button type="button" class="btn btn-outline-danger" style="padding: 1%;">Xin Đăng Ký!</button>
 											</div>											
 
 										</form>
