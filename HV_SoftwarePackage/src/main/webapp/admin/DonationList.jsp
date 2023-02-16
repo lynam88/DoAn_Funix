@@ -19,7 +19,7 @@
 			</p>
 
 			<form class="searchbar" name="searchform"
-				action="${pageContext.request.contextPath}/DonationsController?action=donationSearch" method="post">
+				action="${pageContext.request.contextPath}/DonationsController?action=DonationSearch" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
@@ -70,7 +70,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="donation" items="${donationList}">
+						<c:forEach var="donation" items="${DonationList}">
 							<tr>
 								<td><input type="checkbox" class="chk" name="chk"
 									value="<c:out value='${donation.id}' />"></td>
@@ -118,7 +118,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -129,13 +129,13 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=donationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>

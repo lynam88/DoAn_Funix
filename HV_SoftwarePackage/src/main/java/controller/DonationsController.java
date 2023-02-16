@@ -50,14 +50,14 @@ public class DonationsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "donationList" : action;
+		action = action == null ? "DonationList" : action;
 		session = request.getSession();
 		Users u = (Users) session.getAttribute("user");
 		if (u != null && u.getRole() == 1) {
 			try {
 				switch (action) {
-				case "donationList":
-				case "donationSearch":
+				case "DonationList":
+				case "DonationSearch":
 					listDonation(request, response);
 					break;
 				case "new":
@@ -118,7 +118,7 @@ public class DonationsController extends HttpServlet {
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
 			List<Donations> listPerPage = dao.getRecord(searchString, status, page, recordPerPage);
-			request.setAttribute("donationList", listPerPage);
+			request.setAttribute("DonationList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
@@ -253,7 +253,7 @@ public class DonationsController extends HttpServlet {
 			e.printStackTrace();
 		}
 		page = Integer.parseInt(request.getParameter("page"));
-		response.sendRedirect("DonationsController?action=donationList&page=" + page);
+		response.sendRedirect("DonationsController?action=DonationList&page=" + page);
 	}
 
 	private void deleteDonation(HttpServletRequest request, HttpServletResponse response)

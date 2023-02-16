@@ -48,7 +48,7 @@
 			$('#insertModal').modal().hide();
 			var st = "<%=statusSave%>";
 			if (st == "OK") {
-				window.location.href = '/HV_SoftwarePackage/DonationsController?action=donationList';
+				window.location.href = '/HV_SoftwarePackage/DonationsController?action=DonationList';
 			} else {
 				// remove class modal-backdrop in
 				$(".modal-backdrop").removeClass( "modal-backdrop in");
@@ -185,7 +185,7 @@
 					<button type="button" class="btn btn-success" 
 						onclick="return resetFunction()">Nhập Lại Dữ Liệu</button>
 					<a type="button" class="btn btn-default"
-						href="/HV_SoftwarePackage/DonationsController?action=donationList">Hủy</a>
+						href="/HV_SoftwarePackage/DonationsController?action=DonationList">Hủy</a>
 				</div>
 				<div class="modal" id="addModal" role="dialog">
 					<div class="modal-dialog">

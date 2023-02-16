@@ -1,7 +1,6 @@
-/**
- * Js functions for main pages
- */
- 
+	/**
+	 * Js functions for login pages
+	 */ 
 		//Validate login
 		function validateLogin() {
 			const loginId = document.getElementById("loginId").value;
@@ -47,7 +46,7 @@
 			return re.test(phone);
 		}
 
-		//show - hide mật khẩu			
+		//show - hide password			
 		$(".click-eye").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
 			  var input = $("#password");
@@ -58,6 +57,28 @@
 			  }
 			});
 		
+		$(".click-eye").click(function() {
+			  $(this).toggleClass("bx-show bx-hide");
+			  var input = $("#retype_password");
+			  if (input.attr("type") === "password") {
+			    input.attr("type", "text");
+			  } else {
+			    input.attr("type", "password");
+			  }
+			});
+		
+		/**
+		 * Js functions for signup pages
+		 */
+		
+		//Register button 
+		function enableButton() {
+			document.getElementById("submit-button").disabled = false;
+		}
+		
+		/**
+		 * Js functions for admin pages
+		 */
 		//Delete button
 		$("#user_del").click(function(){
 			var chks = document.querySelectorAll(".chk:checked");

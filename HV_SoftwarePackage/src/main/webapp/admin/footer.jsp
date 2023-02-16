@@ -220,12 +220,12 @@
   
   <script>
 	var classCr = location.search.split('action=')[1];
-	if(classCr == "index" || classCr == "donationList" || classCr == "userList"){
+	if(classCr == "index" || classCr == "DonationList" || classCr == "UserList"){
 	document.getElementsByClassName(classCr)[0].className += " active";}
 	var str_page1 = document.getElementById("str-pages1");
 	var str_page2 = document.getElementById("str-pages2");
 	var str = "";
-	if(classCr.startsWith("donationList") || classCr.startsWith("donationSearch") ) {
+	if(classCr.startsWith("DonationList") || classCr.startsWith("DonationSearch") ) {
 		str+="Đợt Quyên góp";
 	}
 	if(classCr.startsWith("new")) {
@@ -234,7 +234,7 @@
 	if(classCr.startsWith("edit")) {
 		str+="Đợt Quyên góp / Sửa Đợt Quyên góp";
 	}
-	if(classCr.startsWith("userList") || classCr.startsWith("userSearch")) {
+	if(classCr.startsWith("UserList") || classCr.startsWith("userSearch")) {
 		str+="Người Dùng";
 	}
 	str_page1.innerHTML = str;

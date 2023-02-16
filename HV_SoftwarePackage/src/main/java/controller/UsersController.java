@@ -72,12 +72,15 @@ public class UsersController extends HttpServlet {
 					case "admin":
 						showMainPage(request, response);
 						break;
-					case "userList":
+					case "UserList":
 					case "userSearch":
 						listUser(request, response);
 						break;
 					case "delete":
 						deleteUser(request, response);
+						break;
+					case "logout":
+						doLogout(request, response);
 						break;
 					default:
 						showMainPage(request, response);
@@ -90,6 +93,14 @@ public class UsersController extends HttpServlet {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 		}
+	}
+
+	private void doLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
@@ -114,7 +125,7 @@ public class UsersController extends HttpServlet {
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
 			List<Users> listPerPage = dao.getRecord(searchString, searchStatus, page, recordPerPage);
-			request.setAttribute("userList", listPerPage);
+			request.setAttribute("UserList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 

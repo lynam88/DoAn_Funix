@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -6,54 +6,8 @@
 <c:import url="header.jsp">
 <c:param name="title" value="Đăng nhập hệ thống | Website Từ Thiện"></c:param>
 </c:import>
-	<%
-	String notifyLogin = (String) request.getAttribute("notifyLogin");
-	String statusLogin = (String) request.getAttribute("statusLogin");
-
-	if (notifyLogin != null) {
-	%>
-	<div class="modal" id="loginModal" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p class="text-center" id="insertMsg"
-						style="font-size: large; color: red;"><%=notifyLogin%></p>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<script>
-		setTimeout(function() {
-			$("#loginModal").modal("show");
-		}, 500);
-		setTimeout(function() {
-			$('#loginModal').modal().hide();
-			var st = "<%=statusLogin%>";
-					if (st == "Ok") {
-						window.location.href = '/HV_SoftwarePackage/UsersController?action=admin';
-					} else {
-						// remove class modal-backdrop in
-						$(".modal-backdrop").removeClass("modal-backdrop in");
-						window.history.back();
-					}
-				}, 3000);
-	</script>
-
-	<%
-	}
-	%>
-
-	<section class="h-100 gradient-form" style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
+	
+	<section class="h-100 gradient-form gradient-custom-1">
 		<div class="container py-5 h-100">
 			<div
 				class="row d-flex justify-content-center align-items-center h-100">
@@ -72,8 +26,9 @@
 									</div>
 
 									<form action="UsersController?action=login" method="post"
-										onsubmit="return validateLogin()">						
-										<h6 style="color: blue;">VUI LÒNG ĐĂNG NHẬP VÀO TÀI KHOẢN</h6>
+										onsubmit="return validateLogin()">
+										<p>Vui lòng đăng nhập vào tài khoản</p>
+
 										<%
 										Cookie[] cookies = request.getCookies();
 										String id = "";
@@ -189,4 +144,7 @@
 			</div>
 		</div>
 	</section>
-<c:import url="footer.jsp"></c:import>
+	<script src="${pageContext.request.contextPath}/js/user.js"></script>
+</body>
+
+</html>
