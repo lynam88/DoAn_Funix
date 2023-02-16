@@ -38,22 +38,23 @@
 												name="email" class="form-control" placeholder="Nhập email">
 										</div>
 										<p id="email_error" style="color: red; position: inherit;"></p>
-									</div>									
-
-									<div>
-										<input type="checkbox" name="remember" value="remember"
-											value="on"> <label for="remember">Remember me</label>
-										<a class="text-muted" href="#!" style="padding-left: 10%;">Bạn
-											quên mật khẩu?</a>
-									</div>
+									</div>																		
 									<br />
 									<div class="text-center pt-1 mb-5 pb-1">
 										<button
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-											type="submit">Đăng nhập</button>
-										<span>Bạn chưa có tài khoản?</span> <a type="button"
-											href="signup.jsp" class="btn btn-outline-danger"
-											style="padding: 1%;">Xin Đăng Ký!</a>
+											type="submit">Đặt lại mật khẩu</button>
+											<div class="row">
+												<div class="col">
+													<i class="bx bx-envelope"></i>
+													<a type="button" href="signup.jsp" class="btn"
+														style="padding: 1%;">Đăng Ký</a>
+												</div>
+												<div class="col">
+													<a type="button" href="login.jsp" class="btn"
+														style="padding: 1%;">Đăng Nhập</a>
+												</div>	
+											</div>
 									</div>
 
 								</form>
