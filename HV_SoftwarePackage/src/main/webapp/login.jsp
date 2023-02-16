@@ -73,7 +73,7 @@
 
 									<form action="UsersController?action=login" method="post"
 										onsubmit="return validateLogin()">						
-										<h6 style="color: blue;">VUI LÒNG ĐĂNG NHẬP VÀO TÀI KHOẢN</h6>
+										<h6 style="color: blue;">MỜI BẠN ĐĂNG NHẬP VÀO TÀI KHOẢN</h6>
 										<%
 										Cookie[] cookies = request.getCookies();
 										String id = "";
@@ -159,7 +159,7 @@
 										<div>
 											<input type="checkbox" name="remember" value="remember"
 												value="on"> <label for="remember">Remember
-												me</label> <a class="text-muted" href="#!"
+												me</label> <a class="text-muted" href="forgotPass.jsp"
 												style="padding-left: 10%;">Bạn quên mật khẩu?</a>
 										</div>
 										<br />

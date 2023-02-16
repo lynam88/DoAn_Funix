@@ -33,7 +33,7 @@
 												<div class="input-group">
 													<span class="input-group-text"><i class="bx bx-user"></i></span>
 													<input type="text" id="name" name="name"
-														class="form-control" placeholder="Nhập họ và tên">
+														class="form-control" placeholder="Xin Nhập họ và tên">
 												</div>
 												<p id="name_error" style="color: red; position: inherit;"></p>
 											</div>
@@ -45,7 +45,7 @@
 													<span class="input-group-text"><i
 														class="bx bx-phone"></i></span> <input type="text" id="phone"
 														name="phone" class="form-control"
-														placeholder="Nhập số điện thoại">
+														placeholder="Xin Nhập số điện thoại">
 												</div>
 												<p id="phone_error" style="color: red; position: inherit;"></p>
 											</div>
@@ -56,7 +56,7 @@
 												<div class="input-group">
 													<span class="input-group-text"><i
 														class="bx bx-envelope"></i></span> <input type="email" id="email"
-														name="email" class="form-control" placeholder="Nhập email">
+														name="email" class="form-control" placeholder="Xin Nhập email">
 												</div>
 												<p id="email_error" style="color: red; position: inherit;"></p>
 											</div>
@@ -75,7 +75,7 @@
 												<div class="input-group">
 													<span class="input-group-text"><i class="bx bx-map"></i></span>
 													<input type="text" id="address" name="address"
-														class="form-control" placeholder="Nhập địa chỉ">
+														class="form-control" placeholder="Xin Nhập địa chỉ">
 												</div>
 											</div>
 											<div class="form-outline my-3">
@@ -84,7 +84,7 @@
 												<div class="input-group">
 													<span class="input-group-text"><i class="bx bx-lock"></i></span>
 													<input type="password" id="password" name="password"
-														class="form-control" placeholder="Nhập mật khẩu"><span
+														class="form-control" placeholder="Xin Nhập mật khẩu"><span
 														class="input-group-text bx click-eye bx-hide"></span>
 												</div>
 												<p id="password_error"
@@ -92,13 +92,13 @@
 											</div>
 
 											<div class="form-outline my-3">
-												<label for="retype_password">Nhập lại mật khẩu: <span
+												<label for="retype_password">Xin Nhập lại mật khẩu: <span
 													class="require" style="color: red;">*</span></label>
 												<div class="input-group">
 													<span class="input-group-text"><i
 														class="bx bx-lock-alt"></i></span> <input type="password"
 														id="retype_password" name="retype_password"
-														class="form-control" placeholder="Nhập lại mật khẩu">
+														class="form-control" placeholder="Xin Nhập lại mật khẩu">
 													<span class="input-group-text bx click-eye bx-hide"></span>
 
 												</div>
