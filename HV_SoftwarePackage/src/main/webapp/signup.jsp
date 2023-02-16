@@ -58,63 +58,76 @@
 
 								<div class="card-body p-md-5 mx-md-4">
 									<p>ĐĂNG KÝ THÀNH VIÊN MỚI</p>
-									<form action="UsersController?action=login" method="post"
-										onsubmit="return validateLogin()">
-
+									<form action="UsersController?action=register" method="post"
+										onsubmit="return validateRegistration()">
 
 										<div class="form-outline mb-4">
 											<label for="name">Họ và tên: <span class="require"
-												style="color: red;">*</span></label> <input type="text" id="loginId"
-												name="loginId" class="form-control"
-												placeholder="Nhập họ và tên"
-												style="position: absolute; padding-left: 30px; width: 63%;">
-											<span class="focus-input100"></span> <span
-												class="symbol-input100"
-												style="top: 127px; left: 93px; position: absolute;">
-												<i class="bx bx-user"></i>
-											</span>
-											<p id="loginId_error"
-												style="color: red; position: inherit; bottom: -25px;" />
+												style="color: red;">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-user"></i></span>
+												<input type="text" id="name" name="name"
+													class="form-control" placeholder="Nhập họ và tên">
+											</div>
+											<p id="name_error" style="color: red; position: inherit;"></p>
 										</div>
 
-										<div class="form-outline mb-4" style="padding-top: 15%;">
+										<div class="form-outline mb-4">
 											<label for="phone">Số điện thoại: <span
-												class="require" style="color: red;">*</span></label> <input
-												type="password" id="password" name="password"
-												placeholder="Nhập số điện thoại" class="form-control"
-												style="position: relative; top: 44px; padding-left: 30px;">
-											<span toggle="#form2Example22"
-												class="bx fa-fw field-icon click-eye bx-hide"
-												style="position: relative; left: 90%; top: 15px;"></span> <span
-												class="focus-input100"></span> <span class="symbol-input100"
-												style="position: relative; top: 14px; right: 15px;">
-												<i class="bx bx-key"></i>
-											</span>
-											<p id="password_error"
-												style="color: red; position: relative; bottom: -20px; padding-bottom: 10px;" />
-
+												class="require" style="color: red;">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-phone"></i></span>
+												<input type="text" id="phone" name="phone"
+													class="form-control" placeholder="Nhập số điện thoại">
+											</div>
+											<p id="phone_error" style="color: red; position: inherit;"></p>
 										</div>
 
-										<div>
-											<input type="checkbox" name="remember" value="remember"
-												value="on"> <label for="remember">Remember
-												me</label> <a class="text-muted" href="#!"
-												style="padding-left: 10%;">Bạn quên mật khẩu?</a>
-										</div>
-										<br />
-										<div class="text-center pt-1 mb-5 pb-1">
-											<button
-												class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-												type="submit">Đăng nhập</button>
-											<span>Bạn chưa có tài khoản?</span>
-											<button type="button" class="btn btn-outline-danger"
-												style="padding: 1%;">Xin Đăng Ký!</button>
+										<div class="form-outline mb-4">
+											<label for="email">Email: <span class="require"
+												style="color: red;">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class="bx bx-envelope"></i></span> <input type="email" id="email"
+													name="email" class="form-control" placeholder="Nhập email">
+											</div>
+											<p id="email_error" style="color: red; position: inherit;"></p>
 										</div>
 
-										<div
-											class="row d-flex justify-content-center align-items-center h-100">
-
+										<div class="form-outline mb-4">
+											<label for="address">Địa chỉ:</label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-map"></i></span>
+												<input type="text" id="address" name="address"
+													class="form-control" placeholder="Nhập địa chỉ">
+											</div>
 										</div>
+
+										<div class="form-outline mb-4">
+											<label for="password">Mật khẩu: <span class="require"
+												style="color: red;">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-lock"></i></span>
+												<input type="password" id="password" name="password"
+													class="form-control" placeholder="Nhập mật khẩu"><span
+													class="input-group-text bx click-eye bx-hide"></span>
+											</div>
+											<p id="password_error" style="color: red; position: inherit;"></p>
+										</div>
+
+										<div class="form-outline mb-4">
+											<label for="retype_password">Nhập lại mật khẩu: <span
+												class="require" style="color: red;">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class="bx bx-lock-alt"></i></span> <input type="password"
+													id="retype_password" name="retype_password"
+													class="form-control" placeholder="Nhập lại mật khẩu">
+												<span class="input-group-text bx click-eye bx-hide"></span>
+
+											</div>
+											<p id="retype_password_error"
+												style="color: red; position: inherit;"></p>
 									</form>
 								</div>
 
