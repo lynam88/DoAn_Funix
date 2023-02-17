@@ -25,10 +25,11 @@
 										Từ Thiện Liên Hoa</h4>
 								</div>
 
-								<form action="UsersController?action=login" method="post"
+								<form action="UsersController?action=sendMail" method="post"
 									onsubmit="return validateLogin()">
 									<h6 style="color: blue;">CẤP LẠI MẬT KHẨU</h6>
-									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng tôi gửi lại mật khẩu mới cho bạn</p>
+									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
+										tôi gửi lại mật khẩu mới cho bạn</p>
 									<div class="form-outline my-3">
 										<label for="email">Email: <span class="require"
 											style="color: red;">*</span></label>
@@ -38,26 +39,27 @@
 												name="email" class="form-control" placeholder="Nhập email">
 										</div>
 										<p id="email_error" style="color: red; position: inherit;"></p>
-									</div>																		
+										<p>
+											<span class="require" style='color: red;'>(*) Bắt buộc</span>
+										</p>
+									</div>
 									<br />
-									<div class="text-center pt-1 mb-5 pb-1">
+									<div class="text-center">
 										<button
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
 											type="submit">Đặt lại mật khẩu</button>
-											<div class="row">
-												<div class="col">
-													<i class="bx bx-envelope"></i>
-													<a type="button" href="signup.jsp" class="btn"
-														style="padding: 1%;">Đăng Ký</a>
-												</div>
-												<div class="col">
-													<a type="button" href="login.jsp" class="btn"
-														style="padding: 1%;">Đăng Nhập</a>
-												</div>	
-											</div>
 									</div>
-
 								</form>
+								
+								<div class="row">
+									<div class="col">
+										 <a type="button" href="signup.jsp" class="btn"><i class='bx bxs-left-arrow-square'></i> Đăng Ký</a>
+									</div>
+									<div class="col">
+										<a type="button" href="login.jsp" class="btn">Đăng Nhập <i
+											class='bx bxs-right-arrow-square'></i></a> 
+									</div>
+								</div>
 
 							</div>
 						</div>

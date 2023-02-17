@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -16,10 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DonationsDAO;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+
 import dao.UsersDAO;
 import model.Donations;
 import model.Users;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * Servlet implementation class UsersController
@@ -79,6 +88,9 @@ public class UsersController extends HttpServlet {
 					case "delete":
 						deleteUser(request, response);
 						break;
+					case "sendMail":
+						sendMail(request, response);
+						break;
 					case "logout":
 						doLogout(request, response);
 						break;
@@ -95,12 +107,18 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	private void doLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void sendMail(HttpServletRequest request, HttpServletResponse response)
+			throws MessagingException, UnsupportedEncodingException {		
+
+	}
+
+	private void doLogout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+		if (session != null) {
+			session.invalidate();
+		}
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
@@ -165,7 +183,7 @@ public class UsersController extends HttpServlet {
 			if (userData.getEmail() != null || userData.getPhone() != null) {
 				request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
 				request.setAttribute("statusLogin", "Ok");
-				session.setAttribute("user", userData);				
+				session.setAttribute("user", userData);
 			} else {
 				request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
 				request.setAttribute("statusLogin", "Fail");
@@ -189,7 +207,7 @@ public class UsersController extends HttpServlet {
 				list.add(u);
 			}
 			dao.deleteUser(list);
-			
+
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
