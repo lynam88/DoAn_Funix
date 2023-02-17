@@ -1,14 +1,20 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -17,18 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-
+import commons.MD5Library;
+import commons.RandomPasswordGenerator;
 import dao.UsersDAO;
-import model.Donations;
 import model.Users;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.Properties;
 
 /**
  * Servlet implementation class UsersController
@@ -73,6 +71,13 @@ public class UsersController extends HttpServlet {
 		session = request.getSession();
 		if (action.equals("login")) {
 			doLogin(request, response);
+		} else if (action.equals("sendMail")) {		
+			try {
+				sendMail(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		} else {
 			Users u = (Users) session.getAttribute("user");
 			if (u != null && u.getRole() == 1) {
@@ -87,10 +92,7 @@ public class UsersController extends HttpServlet {
 						break;
 					case "delete":
 						deleteUser(request, response);
-						break;
-					case "sendMail":
-						sendMail(request, response);
-						break;
+						break;					
 					case "logout":
 						doLogout(request, response);
 						break;
@@ -108,8 +110,47 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void sendMail(HttpServletRequest request, HttpServletResponse response)
-			throws MessagingException, UnsupportedEncodingException {		
-
+			throws Exception {	
+		 	final String fromEmail = "quytuthienlienhoa@gmail.com"; 
+	        // Admin password
+	        final String password = "csfawleqxoaqlhur";
+	        // receiver's email
+	        final String toEmail = request.getParameter("email");
+	        final String newPass = RandomPasswordGenerator.RandomPasswordGenerator();
+	        final String passDB = MD5Library.md5(newPass);
+	        final String subject = "Liên Hoa gửi bạn mật khẩu mới";
+	        final String body = "Chào bạn, chúng tôi vừa nhận được yêu cầu cấp lại mật khẩu mới từ bạn tại trang web của Quỹ Từ Thiện Liên Hoa\n"
+	        					+ "Đây là mật khẩu mới dành cho bạn:\n" 
+	        					+ newPass + "\n"
+	        					+ "Cảm ơn bạn đã đồng hành của chúng tôi trên con đường thiện nghiệp!";
+	        Properties props = new Properties();
+	        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+	        props.put("mail.smtp.port", "587"); //TLS Port
+	        props.put("mail.smtp.auth", "true"); //enable authentication
+	        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+	        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	        props.setProperty("mail.smtp.starttls.enable", "true");
+	        props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+	        Authenticator auth = new Authenticator() {
+	            protected PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(fromEmail, password);
+	            }
+	        };
+	        Session session = Session.getInstance(props, auth);
+	        MimeMessage msg = new MimeMessage(session);
+	        //set message headers
+	        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+	        msg.addHeader("format", "flowed");
+	        msg.addHeader("Content-Transfer-Encoding", "8bit");
+	        msg.setFrom(new InternetAddress(fromEmail, "NoReply-JD"));
+	        msg.setReplyTo(InternetAddress.parse(fromEmail, false));
+	        msg.setSubject(subject, "UTF-8");
+	        msg.setText(body, "UTF-8");
+	        msg.setSentDate(new Date());
+	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+	        Transport.send(msg);
+	        System.out.println("Gửi mail thành công");	    
+	        request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
 	private void doLogout(HttpServletRequest request, HttpServletResponse response)
