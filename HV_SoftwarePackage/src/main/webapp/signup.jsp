@@ -16,7 +16,7 @@
 						<div class="row g-0" style="display: block;">
 							<div class="text-center" style="width: 100%;">
 								<img
-									src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+									src="media/logo.jpg"
 									style="width: 185px;" alt="logo">
 								<h4 class="mt-1 mb-5 pb-1" style="color: orangered;">Quỹ
 									Từ Thiện Liên Hoa</h4>
