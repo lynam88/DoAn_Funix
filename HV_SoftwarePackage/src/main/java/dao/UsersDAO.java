@@ -163,5 +163,21 @@ public class UsersDAO {
 		stmt.close();
 
 	}
+	
+	public void updatePass(String email, String password) throws Exception {
+		Connection connection = new DBContext().getConnection();
+		try {
+			String sql = "UPDATE Users SET password = ? WHERE status = 1 AND email = ?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+
+			stmt.setString(1, password);
+			stmt.setString(2, email);
+			stmt.executeUpdate();
+			stmt.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

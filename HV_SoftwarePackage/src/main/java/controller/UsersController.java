@@ -122,13 +122,19 @@ public class UsersController extends HttpServlet {
 	private void sendMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		final String fromEmail = "quytuthienlienhoa@gmail.com";
 		final String password = "csfawleqxoaqlhur";
-		final String toEmail = request.getParameter("email");
-		final String newPass = RandomPasswordGenerator.RandomPasswordGenerator();
+		final String toEmail = request.getParameter("email");		
+		final String newPass = RandomPasswordGenerator.regeneratePassword();
 		final String passDB = MD5Library.md5(newPass);
+		dao.updatePass(toEmail, passDB);	
 		final String subject = "Liên Hoa gửi bạn mật khẩu mới";
-		final String body = "Chào bạn, chúng tôi vừa nhận được yêu cầu cấp lại mật khẩu mới từ bạn tại trang web của Quỹ Từ Thiện Liên Hoa <br/>" 
-				+ "Đây là mật khẩu mới dành cho bạn:<br/>" + newPass + "<br/>"
-				+ "Cảm ơn bạn đã đồng hành của chúng tôi trên con đường thiện nghiệp!";
+		final String body = "Chào bạn, <br/>"				
+				+ "Chúng tôi nhận được yêu cầu cấp lại mật khẩu cho tài khoản của bạn trên trang web Quỹ Từ Thiện Liên Hoa. Sau đây là mật khẩu mới của bạn: <br/>" 
+				+ "<span style=\"color: blue; font-weight: bold\">" 
+				+ newPass 
+				+ "</span><br/>Vui lòng đăng nhập vào tài khoản của bạn và thay đổi mật khẩu ngay lập tức để đảm bảo an toàn cho tài khoản của bạn. Đồng thời, nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào trên tài khoản của mình, vui lòng liên hệ với chúng tôi ngay lập tức để chúng tôi có thể hỗ trợ và giúp bạn khắc phục vấn đề. <br/>"
+				+ "Chúng tôi luôn sẵn sàng hỗ trợ bạn nếu bạn cần giải đáp bất kỳ thắc mắc nào. Cảm ơn bạn đã đồng hành cùng chúng tôi trên con đường thiện nghiệp! <br/>"
+				+ "Trân trọng, <br/>"
+				+ "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
 
 		// Load the image file
 		String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
