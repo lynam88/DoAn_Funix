@@ -6,6 +6,53 @@
 	<c:param name="title" value="Cấp Lại Mật Khẩu | Website Từ Thiện"></c:param>
 </c:import>
 
+<%
+	String notifyPassSent = (String) request.getAttribute("notifyPassSent");
+	String statusPassSent = (String) request.getAttribute("statusPassSent");
+
+	if (notifyPassSent != null) {
+	%>
+	<div class="modal" id="sendPassModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p class="text-center" id="sendPassMsg"
+						style="font-size: large; color: red;"><%=notifyPassSent%></p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+		setTimeout(function() {
+			$("#sendPassModal").modal("show");
+		}, 500);
+		setTimeout(function() {
+			$('#sendPassModal').modal().hide();			
+			var st = "<%=statusPassSent%>";
+			if (st == "Ok") {
+				window.location.href = '/HV_SoftwarePackage/UsersController?action=login';
+			} else {
+				// remove class modal-backdrop in
+				$(".modal-backdrop").removeClass("modal-backdrop in");
+				window.history.back();
+			}
+		}, 3000);
+	</script>
+
+	<%
+	}
+	%>
+
 <section class="h-100 gradient-form"
 	style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
 	<div class="container py-5 h-100">
@@ -26,7 +73,7 @@
 								</div>
 
 								<form action="UsersController?action=sendMail" method="post"
-									onsubmit="return validateLogin()">
+									>
 									<h6 style="color: blue;">CẤP LẠI MẬT KHẨU</h6>
 									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
 										tôi gửi lại mật khẩu mới cho bạn</p>

@@ -126,15 +126,15 @@ public class UsersController extends HttpServlet {
 		final String newPass = RandomPasswordGenerator.regeneratePassword();
 		final String passDB = MD5Library.md5(newPass);
 		dao.updatePass(toEmail, passDB);	
-		final String subject = "Liên Hoa gửi bạn mật khẩu mới";
-		final String body = "Chào bạn, <br/>"				
-				+ "Chúng tôi nhận được yêu cầu cấp lại mật khẩu cho tài khoản của bạn trên trang web Quỹ Từ Thiện Liên Hoa. Sau đây là mật khẩu mới của bạn: <br/>" 
+		final String subject = "LiÃªn Hoa gá»­i báº¡n máº­t kháº©u má»›i";
+		final String body = "ChÃ o báº¡n, <br/>"				
+				+ "ChÃºng tÃ´i nháº­n Ä‘Æ°á»£c yÃªu cáº§u cáº¥p láº¡i máº­t kháº©u cho tÃ i khoáº£n cá»§a báº¡n trÃªn trang web Quá»¹ Tá»« Thiá»‡n LiÃªn Hoa. Sau Ä‘Ã¢y lÃ  máº­t kháº©u má»›i cá»§a báº¡n: <br/>" 
 				+ "<span style=\"color: blue; font-weight: bold\">" 
 				+ newPass 
-				+ "</span><br/>Vui lòng đăng nhập vào tài khoản của bạn và thay đổi mật khẩu ngay lập tức để đảm bảo an toàn cho tài khoản của bạn. Đồng thời, nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào trên tài khoản của mình, vui lòng liên hệ với chúng tôi ngay lập tức để chúng tôi có thể hỗ trợ và giúp bạn khắc phục vấn đề. <br/>"
-				+ "Chúng tôi luôn sẵn sàng hỗ trợ bạn nếu bạn cần giải đáp bất kỳ thắc mắc nào. Cảm ơn bạn đã đồng hành cùng chúng tôi trên con đường thiện nghiệp! <br/>"
-				+ "Trân trọng, <br/>"
-				+ "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
+				+ "</span><br/>Vui lÃ²ng Ä‘Äƒng nháº­p vÃ o tÃ i khoáº£n cá»§a báº¡n vÃ  thay Ä‘á»•i máº­t kháº©u ngay láº­p tá»©c Ä‘á»ƒ Ä‘áº£m báº£o an toÃ n cho tÃ i khoáº£n cá»§a báº¡n. Ä�á»“ng thá»�i, náº¿u báº¡n phÃ¡t hiá»‡n báº¥t ká»³ hoáº¡t Ä‘á»™ng Ä‘Ã¡ng ngá»� nÃ o trÃªn tÃ i khoáº£n cá»§a mÃ¬nh, vui lÃ²ng liÃªn há»‡ vá»›i chÃºng tÃ´i ngay láº­p tá»©c Ä‘á»ƒ chÃºng tÃ´i cÃ³ thá»ƒ há»— trá»£ vÃ  giÃºp báº¡n kháº¯c phá»¥c váº¥n Ä‘á»�. <br/>"
+				+ "ChÃºng tÃ´i luÃ´n sáºµn sÃ ng há»— trá»£ báº¡n náº¿u báº¡n cáº§n giáº£i Ä‘Ã¡p báº¥t ká»³ tháº¯c máº¯c nÃ o. Cáº£m Æ¡n báº¡n Ä‘Ã£ Ä‘á»“ng hÃ nh cÃ¹ng chÃºng tÃ´i trÃªn con Ä‘Æ°á»�ng thiá»‡n nghiá»‡p! <br/>"
+				+ "TrÃ¢n trá»�ng, <br/>"
+				+ "Ban quáº£n trá»‹ cá»§a Quá»¹ Tá»« Thiá»‡n LiÃªn Hoa.";
 
 		// Load the image file
 		String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
@@ -175,15 +175,17 @@ public class UsersController extends HttpServlet {
 		msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
 		msg.addHeader("format", "flowed");
 		msg.addHeader("Content-Transfer-Encoding", "8bit");
-		msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
+		msg.setFrom(new InternetAddress(fromEmail, "Quá»¹ Tá»« Thiá»‡n LiÃªn Hoa"));
 		msg.setReplyTo(InternetAddress.parse(fromEmail, false));
 		msg.setSubject(subject, "UTF-8");
 		msg.setContent(multipart, "text/html; charset=UTF-8");
 		msg.setSentDate(new Date());
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
 		Transport.send(msg);
-		System.out.println("Gửi mail thành công");
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		System.out.println("Gá»­i mail thÃ nh cÃ´ng");
+		request.setAttribute("notifyPassSent", "Chúng tôi đã gửi mật khẩu tới email của bạn. Bạn hãy check hộp thư của mình. Cám ơn bạn!");
+		request.setAttribute("statusPassSent", "Ok");
+		request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
 	}
 
 	private void doLogout(HttpServletRequest request, HttpServletResponse response)
@@ -255,16 +257,16 @@ public class UsersController extends HttpServlet {
 		try {
 			Users userData = checkLogin(id, password, true);
 			if (userData.getEmail() != null || userData.getPhone() != null) {
-				request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+				request.setAttribute("notifyLogin", "ChÃºc má»«ng báº¡n Ä‘Ã£ Ä‘Äƒng nháº­p thÃ nh cÃ´ng.");
 				request.setAttribute("statusLogin", "Ok");
 				session.setAttribute("user", userData);
 			} else {
-				request.setAttribute("notifyLogin", "Số điện thoại/ Email hoặc mật khẩu chưa đúng.");
+				request.setAttribute("notifyLogin", "Sá»‘ Ä‘iá»‡n thoáº¡i/ Email hoáº·c máº­t kháº©u chÆ°a Ä‘Ãºng.");
 				request.setAttribute("statusLogin", "Fail");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+			request.setAttribute("notifyLogin", "CÃ³ lá»—i xáº£y ra, xin vui lÃ²ng thá»­ láº¡i sau.");
 			request.setAttribute("statusLogin", "Fail");
 		}
 		request.getRequestDispatcher("login.jsp").forward(request, response);
