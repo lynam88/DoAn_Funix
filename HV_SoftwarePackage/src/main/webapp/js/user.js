@@ -143,3 +143,27 @@
 		$('#close_user_del').click(function(){		
 			$("#myModal").modal("hide");					
 		})	
+		
+		/**
+		 * Js functions for forgetPass page
+		 */
+
+		function validateForgotEmail(event) {
+		  
+		  const email = document.getElementById("email").value;
+		  const emailError = document.getElementById("email_error");
+
+		  if (!email) {
+		    emailError.innerHTML = "Xin Điền Vào Email";
+		    emailError.scrollIntoView();
+		    return false;
+		  } else if (!validateEmail(email)) {
+		    emailError.innerHTML = "Email Không Hợp Lệ";
+		    emailError.scrollIntoView();
+		    return false;
+		  } else {
+		    emailError.innerHTML = "";
+		  }
+		}
+
+			

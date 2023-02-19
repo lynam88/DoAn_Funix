@@ -85,9 +85,8 @@ public class UsersController extends HttpServlet {
 			try {
 				sendMail(request, response);
 			} catch (Exception e) {
-				request.setAttribute("notifyPassSent", "xxxx");
-			    request.setAttribute("statusPassSent", "Fail");
-			    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else {
 			Users u = (Users) session.getAttribute("user");
@@ -140,8 +139,8 @@ public class UsersController extends HttpServlet {
 	    //Get user from database
 	    Users u = dao.getUser(toEmail, null, false);
 	    if(u == null ) {
-	    	// tài khoản bị xoá hoặc tài khoản không tồn tại.
-	    	request.setAttribute("notifyValid", "xxxx");
+	    	// User is deleted or not registered yet
+	    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
 		    request.setAttribute("statusPassSent", "Fail");
 		    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
 		    return;

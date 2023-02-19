@@ -31,6 +31,24 @@
 		}
 	}
 	
+	.btn-bg-left {
+    	background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* blue */
+	}
+	
+	.btn-bg-center {
+	    background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* green */
+	}
+	
+	.btn-bg-right {
+	    background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* yellow */
+	}
+	
+	.btn-bg-left:hover,
+	.btn-bg-center:hover,
+	.btn-bg-right:hover {
+	    opacity: 0.8;
+	}	
+	
 	/* Donation List page */
 	.firstRow{
 		position: relative;
