@@ -9,7 +9,8 @@
 <%
 	String notifyPassSent = (String) request.getAttribute("notifyPassSent");
 	String statusPassSent = (String) request.getAttribute("statusPassSent");
-
+	String notifyValid = (String) request.getAttribute("notifyValid");
+	
 	if (notifyPassSent != null) {
 	%>
 	<div class="modal" id="sendPassModal" role="dialog">
@@ -25,7 +26,7 @@
 				</div>
 				<div class="modal-body">
 					<p class="text-center" id="sendPassMsg"
-						style="font-size: large; color: red;"><%=notifyPassSent%></p>
+						style="font-size: large; color: red;"><%=notifyPassSent%></p> --> java 
 				</div>
 			</div>
 
@@ -38,15 +39,11 @@
 		}, 500);
 		setTimeout(function() {
 			$('#sendPassModal').modal().hide();			
-			var st = "<%=statusPassSent%>";
+			var st = "<%=statusPassSent%>"; -->java 
 			if (st == "Ok") {
-				window.location.href = '/HV_SoftwarePackage/UsersController?action=login';
-			} else {
-				// remove class modal-backdrop in
-				$(".modal-backdrop").removeClass("modal-backdrop in");
 				window.history.back();
 			}
-		}, 3000);
+		}, 15000);
 	</script>
 
 	<%
@@ -85,7 +82,13 @@
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
 												name="email" class="form-control" placeholder="Nhập email">
 										</div>
-										<p id="email_error" style="color: red; position: inherit;"></p>
+										<p id="email_error" style="color: red; position: inherit;">
+										<%if(notifyValid != null ) {%>
+										<%=notifyValid%>
+										
+										<% }%>
+										
+										</p>
 										<p>
 											<span class="require" style='color: red;'>(*) Bắt buộc</span>
 										</p>

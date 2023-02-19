@@ -113,7 +113,7 @@ public class UsersDAO {
 
 	public Users getUser(String id, String password, boolean isLogin) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		Users u = new Users();
+		Users u = null;
 		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?) AND status = 1";
 		if (isLogin) {
 			sql += " AND password = ? ";
@@ -130,6 +130,7 @@ public class UsersDAO {
 		ResultSet rs = stmt.executeQuery();
 
 		if (rs.next()) {
+			u = new Users();
 			u.setName(rs.getString("name"));
 			u.setPhone(rs.getString("phone"));
 			u.setEmail(rs.getString("email"));
@@ -164,20 +165,20 @@ public class UsersDAO {
 
 	}
 	
-	public void updatePass(String email, String password) throws Exception {
+	
+	
+	public void updatePass(Users u, String password) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		try {
-			String sql = "UPDATE Users SET password = ? WHERE status = 1 AND email = ?";
-			PreparedStatement stmt = connection.prepareStatement(sql);
+		
+		String sql = "UPDATE Users SET password = ? WHERE status = 1 AND email = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setString(1, password);
-			stmt.setString(2, email);
-			stmt.executeUpdate();
-			stmt.close();
+		stmt.setString(1, password);
+		stmt.setString(2, u.getEmail());
+		stmt.executeUpdate();
+		stmt.close();
 
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
+	
 	}
 
 }

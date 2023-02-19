@@ -85,8 +85,9 @@ public class UsersController extends HttpServlet {
 			try {
 				sendMail(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				request.setAttribute("notifyPassSent", "xxxx");
+			    request.setAttribute("statusPassSent", "Fail");
+			    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
 			}
 		} else {
 			Users u = (Users) session.getAttribute("user");
@@ -119,73 +120,117 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
+	/**
+	Sends an email with a new password to a user's email address using JavaMail.
+
+	@param request the HTTP request object containing the user's email address
+
+	@param response the HTTP response object
+
+	@throws Exception if an error occurs while sending the email
+	*/
 	private void sendMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "csfawleqxoaqlhur";
-		final String toEmail = request.getParameter("email");		
-		final String newPass = RandomPasswordGenerator.regeneratePassword();
-		final String passDB = MD5Library.md5(newPass);
-		dao.updatePass(toEmail, passDB);	
-		final String subject = "LiÃªn Hoa gá»­i báº¡n máº­t kháº©u má»›i";
-		final String body = "ChÃ o báº¡n, <br/>"				
-				+ "ChÃºng tÃ´i nháº­n Ä‘Æ°á»£c yÃªu cáº§u cáº¥p láº¡i máº­t kháº©u cho tÃ i khoáº£n cá»§a báº¡n trÃªn trang web Quá»¹ Tá»« Thiá»‡n LiÃªn Hoa. Sau Ä‘Ã¢y lÃ  máº­t kháº©u má»›i cá»§a báº¡n: <br/>" 
-				+ "<span style=\"color: blue; font-weight: bold\">" 
-				+ newPass 
-				+ "</span><br/>Vui lÃ²ng Ä‘Äƒng nháº­p vÃ o tÃ i khoáº£n cá»§a báº¡n vÃ  thay Ä‘á»•i máº­t kháº©u ngay láº­p tá»©c Ä‘á»ƒ Ä‘áº£m báº£o an toÃ n cho tÃ i khoáº£n cá»§a báº¡n. Ä�á»“ng thá»�i, náº¿u báº¡n phÃ¡t hiá»‡n báº¥t ká»³ hoáº¡t Ä‘á»™ng Ä‘Ã¡ng ngá»� nÃ o trÃªn tÃ i khoáº£n cá»§a mÃ¬nh, vui lÃ²ng liÃªn há»‡ vá»›i chÃºng tÃ´i ngay láº­p tá»©c Ä‘á»ƒ chÃºng tÃ´i cÃ³ thá»ƒ há»— trá»£ vÃ  giÃºp báº¡n kháº¯c phá»¥c váº¥n Ä‘á»�. <br/>"
-				+ "ChÃºng tÃ´i luÃ´n sáºµn sÃ ng há»— trá»£ báº¡n náº¿u báº¡n cáº§n giáº£i Ä‘Ã¡p báº¥t ká»³ tháº¯c máº¯c nÃ o. Cáº£m Æ¡n báº¡n Ä‘Ã£ Ä‘á»“ng hÃ nh cÃ¹ng chÃºng tÃ´i trÃªn con Ä‘Æ°á»�ng thiá»‡n nghiá»‡p! <br/>"
-				+ "TrÃ¢n trá»�ng, <br/>"
-				+ "Ban quáº£n trá»‹ cá»§a Quá»¹ Tá»« Thiá»‡n LiÃªn Hoa.";
+	    // Sender's email and password
+	    final String fromEmail = "quytuthienlienhoa@gmail.com";
+	    final String password = "csfawleqxoaqlhur";
 
-		// Load the image file
-		String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
-		File file = new File(fullPath);
-		InputStream inputStream = new FileInputStream(file);
-		byte[] imageData = IOUtils.toByteArray(inputStream);
+	    // Recipient's email address
+	    final String toEmail = request.getParameter("email");
+	    
+	    //Get user from database
+	    Users u = dao.getUser(toEmail, null, false);
+	    if(u == null ) {
+	    	// tài khoản bị xoá hoặc tài khoản không tồn tại.
+	    	request.setAttribute("notifyValid", "xxxx");
+		    request.setAttribute("statusPassSent", "Fail");
+		    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
+		    return;
+	    }
 
-		// Create the image attachment
-		MimeBodyPart imagePart = new MimeBodyPart();
-		imagePart.attachFile(file);
-		imagePart.setContentID("<image>");
-		imagePart.setDisposition(MimeBodyPart.INLINE);
+	    // Generate a new password and update it in the database
+	    final String newPass = RandomPasswordGenerator.regeneratePassword();
+	    final String passDB = MD5Library.md5(newPass);
+	    dao.updatePass(u, passDB);
 
-		// Create the message body and attach the image
-		MimeMultipart multipart = new MimeMultipart();
-		BodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent(body, "text/html; charset=UTF-8");
-		multipart.addBodyPart(messageBodyPart);
-		multipart.addBodyPart(imagePart);
+	    // Email subject and body
+	    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
+	    final String body = "Chào bạn, <br/>" + 
+	        "Chúng tôi nhận được yêu cầu cấp lại mật khẩu cho tài khoản của bạn trên trang web Quỹ Từ Thiện Liên Hoa. Sau đây là mật khẩu mới của bạn: <br/>" +
+	        "<span style=\"color: blue; font-weight: bold\">" + newPass + "</span><br/>" +
+	        "Vui lòng đăng nhập vào tài khoản của bạn và thay đổi mật khẩu ngay lập tức để đảm bảo an toàn cho tài khoản của bạn. Đồng thời, nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào trên tài khoản của mình, vui lòng liên hệ với chúng tôi ngay lập tức để chúng tôi có thể hỗ trợ và giúp bạn khắc phục vấn đề. <br/>" +
+	        "Chúng tôi luôn sẵn sàng hỗ trợ bạn nếu bạn cần giải đáp bất kỳ thắc mắc nào. Cảm ơn bạn đã đồng hành cùng chúng tôi trên con đường thiện nghiệp! <br/>" +
+	        "Trân trọng, <br/>" +
+	        "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
 
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-		props.setProperty("mail.smtp.starttls.enable", "true");
-		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+	    // Load the logo image file
+	    String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
+	    File file = new File(fullPath);
+	    InputStream inputStream = new FileInputStream(file);
+	    byte[] imageData = IOUtils.toByteArray(inputStream);
 
-		Authenticator auth = new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(fromEmail, password);
-			}
-		};
+	    // Create the image attachment
+	    MimeBodyPart imagePart = new MimeBodyPart();
+	    imagePart.attachFile(file);
+	    imagePart.setContentID("<image>");
+	    imagePart.setDisposition(MimeBodyPart.INLINE);
 
-		Session session = Session.getInstance(props, auth);
-		MimeMessage msg = new MimeMessage(session);		
-		msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-		msg.addHeader("format", "flowed");
-		msg.addHeader("Content-Transfer-Encoding", "8bit");
-		msg.setFrom(new InternetAddress(fromEmail, "Quá»¹ Tá»« Thiá»‡n LiÃªn Hoa"));
-		msg.setReplyTo(InternetAddress.parse(fromEmail, false));
-		msg.setSubject(subject, "UTF-8");
-		msg.setContent(multipart, "text/html; charset=UTF-8");
-		msg.setSentDate(new Date());
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-		Transport.send(msg);
-		System.out.println("Gá»­i mail thÃ nh cÃ´ng");
-		request.setAttribute("notifyPassSent", "Chúng tôi đã gửi mật khẩu tới email của bạn. Bạn hãy check hộp thư của mình. Cám ơn bạn!");
-		request.setAttribute("statusPassSent", "Ok");
-		request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
+	    // Create the message body and attach the image
+	    MimeMultipart multipart = new MimeMultipart();
+	    BodyPart messageBodyPart = new MimeBodyPart();
+	    messageBodyPart.setContent(body, "text/html; charset=UTF-8");
+	    multipart.addBodyPart(messageBodyPart);
+	    multipart.addBodyPart(imagePart);
+
+	 // Create a new Properties object
+	    Properties props = new Properties();
+
+	    // Set the SMTP host and port to use for sending the email
+	    props.put("mail.smtp.host", "smtp.gmail.com");
+	    props.put("mail.smtp.port", "587");
+
+	    // Enable SMTP authentication and startTLS for secure communication
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.starttls.enable", "true");
+
+	    // Set the trust protocol for the SMTP server
+	    props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+	    // Set startTLS and SSL protocols
+	    props.setProperty("mail.smtp.starttls.enable", "true");
+	    props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+
+	    // Create a new Authenticator for SMTP authentication
+	    Authenticator auth = new Authenticator() {
+	    protected PasswordAuthentication getPasswordAuthentication() {
+	    return new PasswordAuthentication(fromEmail, password);
+	    }
+	    };
+
+	    // Create a new email session using the Properties and Authenticator objects
+	    Session session = Session.getInstance(props, auth);
+
+	    // Create a new MIME message
+	    MimeMessage msg = new MimeMessage(session);
+
+	    // Set the email headers and content
+	    msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+	    msg.addHeader("format", "flowed");
+	    msg.addHeader("Content-Transfer-Encoding", "8bit");
+	    msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
+	    msg.setReplyTo(InternetAddress.parse(fromEmail, false));
+	    msg.setSubject(subject, "UTF-8");
+	    msg.setContent(multipart, "text/html; charset=UTF-8");
+	    msg.setSentDate(new Date());
+	    msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+
+	    // Send the email and print a success message
+	    Transport.send(msg);
+	    System.out.println("Gửi mail thành công");
+
+	    // Set attributes and forward the request to a new JSP
+	    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
+	    request.setAttribute("statusPassSent", "Ok");
+	    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
 	}
 
 	private void doLogout(HttpServletRequest request, HttpServletResponse response)
