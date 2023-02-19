@@ -35,8 +35,7 @@
 							<h4 class="mt-1 mb-5 pb-1" style="color: orangered;">Quỹ Từ
 								Thiện Liên Hoa</h4>
 						</div>
-						<form action="UsersController?action=register" method="post"
-							onsubmit="return validateRegistration()">
+						<form action="UsersController?action=register" method="post">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5 mx-md-4">
@@ -90,6 +89,7 @@
 												<input type="text" id="address" name="address"
 													class="form-control" placeholder="Xin Nhập địa chỉ">
 											</div>
+											<p id="address_error" style="color: red; position: inherit;"></p>
 										</div>
 										<div class="form-outline my-3">
 											<label for="password">Mật khẩu: <span class="require"
@@ -123,7 +123,7 @@
 							<div class="row justify-content-center mt-4">
 								<div class="col-lg-6">
 									<input type="radio" id="agree" name="agree" value="yes"
-										onclick="enableButton()"> <label for="agree">Tôi
+										onclick="enableButton()"/> <label for="agree" style="color: floralwhite;">Tôi
 										đã đọc và đồng ý với các quy định của trang web</label>
 								</div>
 							</div>
@@ -131,7 +131,7 @@
 								style="padding-bottom: 3%;">
 								<div class="col-lg-6 text-center">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="submit" id="submit-button" disabled>Đăng ký</button>
+										type="button" id="submit-button" onclick="return validateSignup()"disabled>Đăng ký</button>
 								</div>
 							</div>
 						</form>
