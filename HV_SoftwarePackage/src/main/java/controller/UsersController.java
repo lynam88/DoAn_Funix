@@ -122,11 +122,8 @@ public class UsersController extends HttpServlet {
 
 	/**
 	Sends an email with a new password to a user's email address using JavaMail.
-
 	@param request the HTTP request object containing the user's email address
-
 	@param response the HTTP response object
-
 	@throws Exception if an error occurs while sending the email
 	*/
 	private void sendMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -370,17 +367,14 @@ public class UsersController extends HttpServlet {
 		if(list == null) {
 			request.setAttribute("notifyDelete", "Không được phép xoá ADMIN.");
 			request.setAttribute("statusDelete", "Fail");
+		} else {		
+			try {
+				dao.deleteUser(list);				
+			} catch (Exception e) {
+				request.setAttribute("notifyDelete", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+				request.setAttribute("statusDelete", "Fail");
+			}
 		}
-		
-		try {
-			dao.deleteUser(list);
-			request.setAttribute("notifyDelete", "Bạn đã xoá thành công.");
-			request.setAttribute("statusDelete", "Ok");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		
 	}
 

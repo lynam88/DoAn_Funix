@@ -7,6 +7,53 @@
 	<c:param name="title" value="Danh Sách Người Dùng"></c:param>
 </c:import>
 
+<%
+String notifyDelete = (String) request.getAttribute("notifyDelete");
+String statusDelete = (String) request.getAttribute("statusDelete");
+
+if (notifyDelete != null) {
+%>
+<div class="modal" id="userDelModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="text-center" id="insertMsg"
+					style="font-size: large; color: red;"><%=notifyDelete%></p>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+		setTimeout(function() {
+			$("#userDelModal").modal("show");
+		}, 500);
+		setTimeout(function() {
+			$('#userDelModal').modal().hide();
+			var st = "<%=statusDelete%>";
+				if (st == "Admin") {
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=admin';
+				} else {
+					// remove class modal-backdrop in
+					$(".modal-backdrop").removeClass("modal-backdrop in");
+					window.history.back();
+				}
+			}, 5000);
+</script>
+
+<%
+}
+%>
+
 <div class="container-fluid py-4">
 	<div class="row">
         <div class="col-12">
