@@ -39,14 +39,14 @@ if (notifyLogin != null) {
 		setTimeout(function() {
 			$('#loginModal').modal().hide();
 			var st = "<%=statusLogin%>";
-				if (st == "Ok") {
+				if (st == "Admin") {
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=admin';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
 					window.history.back();
 				}
-			}, 3000);
+			}, 5000);
 </script>
 
 <%

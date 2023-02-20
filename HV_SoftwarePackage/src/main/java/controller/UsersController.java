@@ -138,7 +138,7 @@ public class UsersController extends HttpServlet {
 	    final String toEmail = request.getParameter("email");
 	    
 	    //Get user from database
-	    Users u = dao.getUser(toEmail, null, false);
+	    Users u = dao.getUser(toEmail);
 	    if(u == null ) {
 	    	// User is deleted or not registered yet
 	    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
@@ -149,8 +149,8 @@ public class UsersController extends HttpServlet {
 
 	    // Generate a new password and update it in the database
 	    final String newPass = RandomPasswordGenerator.regeneratePassword();
-	    final String passDB = MD5Library.md5(newPass);
-	    dao.updatePass(u, passDB);
+	    final String newpassDB = MD5Library.md5(newPass);
+	    dao.updatePass(u, newpassDB);
 
 	    // Email subject and body
 	    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
@@ -276,20 +276,35 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	public Users checkLogin(String id, String password, boolean isLogin) throws Exception {
-		Users ud = dao.getUser(id, password, isLogin);
-		return ud;
-	}
-
+	
+	/**
+	Performs the login process by collecting user input from the login form, checking the user's account
+	information in the database, and creating a new session for the user. If the user has selected "remember me",
+	creates cookies for their login information. The user is then forwarded to the login page with appropriate
+	notifications based on the outcome of the login process.
+	@param request the HTTP servlet request containing the user's input from the login form
+	@param response the HTTP servlet response that will be sent to the client
+	@throws ServletException if there is an error with the servlet
+	@throws IOException if there is an error with the input or output
+	*/
 	private void doLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Set response content type and request character encoding
 		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("utf-8"); // Vietnamese
+		request.setCharacterEncoding("utf-8"); // For Vietnamese language
+			
+		// Invalidate any existing session before creating a new one
 		request.getSession(true).invalidate();
-		// collect data from a login form
+			
+		// Collect user input from the login form
 		String id = request.getParameter("loginId");
 		String password = request.getParameter("password");
+		String passDB = MD5Library.md5(password);
+			
+		// Create a new session for the user
 		session = request.getSession(true);
+			
+		// If the user has selected "remember me", create cookies for their login information
 		if (request.getParameter("remember") != null) {
 			Cookie cookiesName = new Cookie("loginId", id);
 			cookiesName.setMaxAge(300);
@@ -298,47 +313,75 @@ public class UsersController extends HttpServlet {
 			cookiesPass.setMaxAge(300);
 			response.addCookie(cookiesPass);
 		}
-		// check information of account in database
+			
+		// Check the user's account information in the database
 		try {
-			userData = checkLogin(id, password, true);
-			if (userData != null && userData.getStatus() == 1) {
-			    request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-			    request.setAttribute("statusLogin", "Ok");
-			    session.setAttribute("user", userData);
-			} else if(userData == null ) {
-		    	// User is deleted or not registered yet
-		    	request.setAttribute("notifyValid", "Tài khoản chưa được đăng ký. Xin đăng ký để sử dụng");
-			    request.setAttribute("statusPassSent", "Fail");			
-			} else if(userData.getStatus() == 2) {
-			    request.setAttribute("notifyLogin", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để kích hoạt lại!");
-			    request.setAttribute("statusLogin", "Fail");
-			} else {
-			    request.setAttribute("notifyLogin", "Số điện thoại/Email hoặc mật khẩu chưa đúng.");
-			    request.setAttribute("statusLogin", "Fail");
+			userData = dao.getUser(id);
+			
+			if (userData == null) {
+				request.setAttribute("notifyLogin", "Số điện thoại/Email chưa đúng hoặc Tài khoản chưa được đăng ký. Xin đăng ký để sử dụng");
+				request.setAttribute("statusLogin", "Fail");
+			} 
+			else if (userData != null) {
+				if (userData.getStatus() == 0) {
+					request.setAttribute("notifyLogin", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để kích hoạt lại!");
+					request.setAttribute("statusLogin", "Fail");
+				}
+				
+				else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {
+					request.setAttribute("notifyLogin", "Chúc mừng Admin đã đăng nhập thành công.");
+					request.setAttribute("statusLogin", "Admin");
+					session.setAttribute("user", userData);			
+				} 
+				
+				else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {
+					request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+					request.setAttribute("statusLogin", "User");
+					session.setAttribute("user", userData);			
+				} 
+				
+				else {
+					request.setAttribute("notifyLogin", "Mật khẩu của bạn chưa đúng.");
+					request.setAttribute("statusLogin", "Fail");
+				}
 			}
-		} catch (Exception e) {
-		    e.printStackTrace();
-		    request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-		    request.setAttribute("statusLogin", "Fail");
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+			request.setAttribute("statusLogin", "Fail");
 		}
+			
+		// Forward the request and response to the login page
 		request.getRequestDispatcher("login.jsp").forward(request, response);
+		
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, Exception {
 		String[] emails = request.getParameter("email").split(",");
-		List<Users> list = new ArrayList<Users>();
-
-		try {
-			for (String email : emails) {
-				Users u = dao.getUser(email, null, false);
-				list.add(u);
-			}
-			dao.deleteUser(list);
-
-		} catch (Exception e) {
-			throw new Exception(e);
+		List<Users> list = null;
+		
+		for (String email : emails) {
+			Users u = dao.getUser(email);
+			if(u.getRole() == 2) list.add(u);
 		}
+		
+		if(list == null) {
+			request.setAttribute("notifyDelete", "Không được phép xoá ADMIN.");
+			request.setAttribute("statusDelete", "Fail");
+		}
+		
+		try {
+			dao.deleteUser(list);
+			request.setAttribute("notifyDelete", "Bạn đã xoá thành công.");
+			request.setAttribute("statusDelete", "Ok");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response)

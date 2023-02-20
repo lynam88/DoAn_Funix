@@ -111,21 +111,14 @@ public class UsersDAO {
 		return list;
 	}
 
-	public Users getUser(String id, String password, boolean isLogin) throws Exception {
+	public Users getUser(String id) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = null;
-		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?)";
-		if (isLogin) {
-			sql += " AND password = ? ";
-		}
+		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?)";		
 
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, id);
-		stmt.setString(2, id);
-		
-		if (isLogin) {
-			stmt.setString(3, password);
-		}		
+		stmt.setString(2, id);		
 
 		ResultSet rs = stmt.executeQuery();
 
@@ -141,16 +134,10 @@ public class UsersDAO {
 			u.setStatus(Integer.parseInt(rs.getString("status")));
 		}
 		return u;
-
 	}
 
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		for (Users u : us) {
-			if (u.getRole() == 1) {
-				throw new Exception("Cannot delete ADMIN");
-			}	
-		}
 		
 		String sql = "BEGIN TRANSACTION\n";
 		sql += "UPDATE Users SET status = 0 WHERE user_role = 2 AND email in (?)\n";

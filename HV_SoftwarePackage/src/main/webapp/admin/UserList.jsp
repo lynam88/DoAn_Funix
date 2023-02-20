@@ -93,7 +93,14 @@
 					<tbody>
 						<c:forEach var="user" items="${UserList}">
 							<tr>
-								<td><input type="checkbox" class="chk" name="chk" value="<c:out value='${user.email}' />"/></td>
+								<c:choose>
+									<c:when test="${user.role == 1}">
+										<td><input type="checkbox" class="chk" name="chk" disabled value="<c:out value='${user.email}'/>"/></td>
+									</c:when>
+									<c:otherwise>
+										<td><input type="checkbox" class="chk" name="chk" value="<c:out value='${user.email}'/>"/></td>
+									</c:otherwise>
+								</c:choose>
 								<c:if test="${user.role == 1}">
 									<td>Admin</td>
 								</c:if>
@@ -104,10 +111,10 @@
 									<td></td>
 								</c:if>
 								<td>							
-										<div class="content hideContent">${user.name}</div>													
+									<div class="content hideContent">${user.name}</div>													
 								</td>
 								<td>			
-										<div class="content hideContent">${user.email}</div>								
+									<div class="content hideContent">${user.email}</div>								
 								</td>
 								<td><c:out value="${user.phone}"/></td>
 								<td><c:out value="${user.address}" /></td>
