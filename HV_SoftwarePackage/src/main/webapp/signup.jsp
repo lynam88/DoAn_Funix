@@ -131,7 +131,7 @@
 								style="padding-bottom: 3%;">
 								<div class="col-lg-6 text-center">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="button" id="submit-button" onclick="return validateSignup()"disabled>Đăng ký</button>
+										type="submit" id="submit-button" onclick="return validateSignup()"disabled>Đăng ký</button>
 								</div>
 							</div>
 						</form>

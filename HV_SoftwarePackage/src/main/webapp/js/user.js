@@ -90,7 +90,7 @@
 		  const emailError = document.getElementById("email_error");
 		  const addressError = document.getElementById("address_error");
 		  const passwordError = document.getElementById("password_error");
-		  const retypePassError = document.getElementById("retype_password");
+		  const retypePassError = document.getElementById("retype_password_error");
 
 		 
 
@@ -237,7 +237,7 @@
 		})	
 		
 		/**
-		 * Js functions for forgetPass page
+		 * Js function(s) for forgetPass page
 		 */
 
 		function validateForgotEmail(event) {

@@ -98,7 +98,6 @@ if (notifyPassSent != null) {
 											if (notifyValid != null) {
 											%>
 											<%=notifyValid%>
-
 											<%
 											}
 											%>
@@ -112,8 +111,7 @@ if (notifyPassSent != null) {
 									<div class="text-center">
 										<button
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-											type="submit" onclick="return validateForgotEmail(email)">Đặt
-											lại mật khẩu</button>
+											type="submit" onclick="return validateForgotEmail(email)">Đặt lại mật khẩu</button>
 									</div>
 								</form>
 							</div>
