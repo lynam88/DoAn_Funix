@@ -48,6 +48,7 @@ public class UsersController extends HttpServlet {
 	private String searchString;
 	private int page;
 	private HttpSession session;
+	Users userData;
 
 	public void init() {
 		dao = new UsersDAO();
@@ -299,19 +300,26 @@ public class UsersController extends HttpServlet {
 		}
 		// check information of account in database
 		try {
-			Users userData = checkLogin(id, password, true);
-			if (userData.getEmail() != null || userData.getPhone() != null) {
-				request.setAttribute("notifyLogin", "ChÃºc má»«ng báº¡n Ä‘Ã£ Ä‘Äƒng nháº­p thÃ nh cÃ´ng.");
-				request.setAttribute("statusLogin", "Ok");
-				session.setAttribute("user", userData);
+			userData = checkLogin(id, password, true);
+			if (userData != null && userData.getStatus() == 1) {
+			    request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+			    request.setAttribute("statusLogin", "Ok");
+			    session.setAttribute("user", userData);
+			} else if(userData == null ) {
+		    	// User is deleted or not registered yet
+		    	request.setAttribute("notifyValid", "Tài khoản chưa được đăng ký. Xin đăng ký để sử dụng");
+			    request.setAttribute("statusPassSent", "Fail");			
+			} else if(userData.getStatus() == 2) {
+			    request.setAttribute("notifyLogin", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để kích hoạt lại!");
+			    request.setAttribute("statusLogin", "Fail");
 			} else {
-				request.setAttribute("notifyLogin", "Sá»‘ Ä‘iá»‡n thoáº¡i/ Email hoáº·c máº­t kháº©u chÆ°a Ä‘Ãºng.");
-				request.setAttribute("statusLogin", "Fail");
+			    request.setAttribute("notifyLogin", "Số điện thoại/Email hoặc mật khẩu chưa đúng.");
+			    request.setAttribute("statusLogin", "Fail");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("notifyLogin", "CÃ³ lá»—i xáº£y ra, xin vui lÃ²ng thá»­ láº¡i sau.");
-			request.setAttribute("statusLogin", "Fail");
+		    e.printStackTrace();
+		    request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		    request.setAttribute("statusLogin", "Fail");
 		}
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}

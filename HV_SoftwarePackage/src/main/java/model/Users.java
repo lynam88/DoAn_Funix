@@ -5,7 +5,7 @@ import java.util.Date;
 public class Users {
 	private String name, phone, email, password, address;
 	private Date registrationDate;
-	private int role;
+	private int role, status;
 
 	public Users() {
 	}
@@ -75,5 +75,13 @@ public class Users {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}	
 	
 }

@@ -114,7 +114,7 @@ public class UsersDAO {
 	public Users getUser(String id, String password, boolean isLogin) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = null;
-		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?) AND status = 1";
+		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?)";
 		if (isLogin) {
 			sql += " AND password = ? ";
 		}
@@ -137,7 +137,8 @@ public class UsersDAO {
 			u.setPassword(rs.getString("password"));
 			u.setAddress(rs.getString("address"));
 			u.setRegistrationDate(rs.getDate("registration_date"));
-			u.setRole(Integer.parseInt(rs.getString("user_role"))); // set role
+			u.setRole(Integer.parseInt(rs.getString("user_role")));
+			u.setStatus(Integer.parseInt(rs.getString("status")));
 		}
 		return u;
 

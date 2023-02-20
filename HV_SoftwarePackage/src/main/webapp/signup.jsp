@@ -120,22 +120,21 @@
 									</div>
 								</div>
 							</div>
-							<div class="row justify-content-center mt-4">
+							<div class="row justify-content-center mt-4" style="margin-top: 0.5rem!mportant;">
 								<div class="col-lg-6">
 									<input type="radio" id="agree" name="agree" value="yes"
 										onclick="enableButton()"/> <label for="agree">Tôi
 										đã đọc và đồng ý với các quy định của trang web</label>
 								</div>
 							</div>
-							<div class="row justify-content-center mt-4"
-								style="padding-bottom: 3%;">
+							<div class="row justify-content-center mt-4" style="margin-top: 1rem!important;">
 								<div class="col-lg-6 text-center">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
 										type="submit" id="submit-button" onclick="return validateSignup()"disabled>Đăng ký</button>
-								</div>
+								</div>								
 							</div>
-						</form>
-						<span class="text-center">Bạn đã có tài khoản? Xin Đăng Nhập!</span>						
+							<span class="text-center" style="display: flow-root; padding-bottom: 2%;">Bạn đã có tài khoản? Xin Đăng Nhập!</span>
+						</form>									
 					</div>					
 				</div>
 			</div>
