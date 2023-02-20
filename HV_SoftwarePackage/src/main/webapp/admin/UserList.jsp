@@ -125,54 +125,55 @@ if (notifyDelete != null) {
 			
             <div class="card-body px-0 pt-0 pb-2">
               <div class="p-0">
-                <table class="table table-bordered" id="myTable">
-					<thead>
-						<tr>
-							<th style="width: 2%;">Chọn</th>
-							<th style="width: 3%;">Loại</th>
-							<th style="width: 7%;">Họ và tên</th>
-							<th style="width: 14%;">Email</th>
-							<th style="width: 5%;">Phone</th>
-							<th style="width: 5%;">Địa Chỉ</th>
-							<th style="width: 2%;">Sửa</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="user" items="${UserList}">
+	              <form action="UsersController?action=delete&email=${checked}">
+	                <table class="table table-bordered" id="myTable">
+						<thead>
 							<tr>
-								<c:choose>
-									<c:when test="${user.role == 1}">
-										<td><input type="checkbox" class="chk" name="chk" disabled value="<c:out value='${user.email}'/>"/></td>
-									</c:when>
-									<c:otherwise>
-										<td><input type="checkbox" class="chk" name="chk" value="<c:out value='${user.email}'/>"/></td>
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${user.role == 1}">
-									<td>Admin</td>
-								</c:if>
-								<c:if test="${user.role == 2}">
-									<td>User</td>
-								</c:if>
-								<c:if test="${user.role == null}">
-									<td></td>
-								</c:if>
-								<td>							
-									<div class="content hideContent">${user.name}</div>													
-								</td>
-								<td>			
-									<div class="content hideContent">${user.email}</div>								
-								</td>
-								<td><c:out value="${user.phone}"/></td>
-								<td><c:out value="${user.address}" /></td>
-								<td><a class="edit"
-									href="UsersController?action=edit&email=${user.email}&page=${currentPage}"
-									title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-										aria-hidden="true"></i></a></td>
+								<th style="width: 2%;">Chọn</th>
+								<th style="width: 3%;">Loại</th>
+								<th style="width: 7%;">Họ và tên</th>
+								<th style="width: 14%;">Email</th>
+								<th style="width: 5%;">Phone</th>
+								<th style="width: 5%;">Địa Chỉ</th>
+								<th style="width: 2%;">Sửa</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="user" items="${UserList}">
+								<tr>
+									<c:choose>
+										<c:when test="${user.role == 1}">
+											<td><input type="checkbox" class="chk" name="chk" disabled value="<c:out value='${user.email}'/>"/></td>
+										</c:when>
+										<c:otherwise>
+											<td><input type="checkbox" class="chk" name="chk" id="chk" var="checked"/></td>
+										</c:otherwise>
+									</c:choose>
+									<c:if test="${user.role == 1}">
+										<td>Admin</td>
+									</c:if>
+									<c:if test="${user.role == 2}">
+										<td>User</td>
+									</c:if>
+									<c:if test="${user.role == null}">
+										<td></td>
+									</c:if>
+									<td>							
+										<div class="content hideContent">${user.name}</div>													
+									</td>
+									<td>			
+										<div class="content hideContent">${user.email}</div>								
+									</td>
+									<td><c:out value="${user.phone}"/></td>
+									<td><c:out value="${user.address}" /></td>
+									<td><a class="edit"
+										href="UsersController?action=edit&email=${user.email}&page=${currentPage}"
+										title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
+											aria-hidden="true"></i></a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>				
 				
 				<% String searchText = (String) request.getAttribute("myInput");
 				   String searchStatus = (String) request.getAttribute("searchStatus");					
@@ -208,10 +209,12 @@ if (notifyDelete != null) {
 					<input type="button" class="btn btn-success" onclick='selects()' value="Chọn Tất Cả"/>  
 			        <input type="button" class="btn btn-success" onclick='deSelect()' value="Bỏ Chọn Tất Cả""/>
 					<div>
-					<a type="button" class="btn btn-danger deleteBtn" id="user_del"
+					<a type="submit" class="btn btn-danger deleteBtn" id="user_del"
 						 title="Xóa" data-toggle="tooltip"><i
 						class="fa fa-trash-o" aria-hidden="true"></i> Xoá các mục đã chọn</a> </div>					
 				</div>
+			</form>
+			
 				<!--Modal -->
 				<div class="modal" id="myModal" role="dialog">
 					<div class="modal-dialog modal-dialog-centered" tabindex="-1 role="document">

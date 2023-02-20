@@ -182,15 +182,17 @@
 					$("#checkMsg").modal("hide");
 				}, 2000);
 			} else {
-				$("#myModal").modal("show");
+				$("#myModal").modal("show");				
 			}
 		})
 		
 		$('#ok_user_del').click(function(){
 			var chks = document.querySelectorAll(".chk:checked");
 			var checked = [...chks].map(email => email.value).join(",");
+			document.getElementById("chk").value = checked;
+		})
 			
-			try {
+			/*	try {
 				$.ajax({
 					type : 'GET',
 					data: 'email='+checked,
@@ -227,7 +229,7 @@
 					location.reload();
 				}, 3000);
 			}
-		})
+		})*/
 		
 		$('#cancel_user_del').click(function(){		
 						$("#myModal").modal("hide");					
