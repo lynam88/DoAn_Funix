@@ -115,15 +115,15 @@
 
 											</div>
 											<p id="retype_password_error"
-												style="color: red; position: inherit;"></p>
-										</div>
+												style="color: red; position: inherit;"></p>											
+										</div>																				
 									</div>
 								</div>
 							</div>
 							<div class="row justify-content-center mt-4">
 								<div class="col-lg-6">
 									<input type="radio" id="agree" name="agree" value="yes"
-										onclick="enableButton()"/> <label for="agree" style="color: floralwhite;">Tôi
+										onclick="enableButton()"/> <label for="agree">Tôi
 										đã đọc và đồng ý với các quy định của trang web</label>
 								</div>
 							</div>
@@ -135,7 +135,8 @@
 								</div>
 							</div>
 						</form>
-					</div>
+						<span class="text-center">Bạn đã có tài khoản? Xin Đăng Nhập!</span>						
+					</div>					
 				</div>
 			</div>
 		</div>
