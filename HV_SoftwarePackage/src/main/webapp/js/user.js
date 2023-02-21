@@ -184,15 +184,16 @@
 			} else {
 				$("#myModal").modal("show");				
 			}
-		})
+		})	
+
 		
 		$('#ok_user_del').click(function(){
 			var chks = document.querySelectorAll(".chk:checked");
 			var checked = [...chks].map(email => email.value).join(",");
-			document.getElementById("chk").value = checked;
+			document.getElementById("formDel").action = "UsersController?action=delete&email="+checked;
 		})
-			
-			/*	try {
+		
+			/*try {
 				$.ajax({
 					type : 'GET',
 					data: 'email='+checked,

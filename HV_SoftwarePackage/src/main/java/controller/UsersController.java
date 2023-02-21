@@ -102,6 +102,7 @@ public class UsersController extends HttpServlet {
 						listUser(request, response);
 						break;
 					case "delete":
+						String mail = request.getParameter("email");
 						deleteUser(request, response);
 						break;
 					case "logout":
@@ -357,25 +358,28 @@ public class UsersController extends HttpServlet {
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, Exception {
 		String[] emails = request.getParameter("email").split(",");
-		List<Users> list = null;
+		List<Users> list = new ArrayList<Users>();
 		
 		for (String email : emails) {
 			Users u = dao.getUser(email);
-			if(u.getRole() == 2) list.add(u);
+			if(u != null && u.getRole() == 2) list.add(u);
 		}
 		
-		if(list == null) {
+		if(list.size() == 0) {
 			request.setAttribute("notifyDelete", "Không được phép xoá ADMIN.");
 			request.setAttribute("statusDelete", "Fail");
 		} else {		
 			try {
-				dao.deleteUser(list);				
+				dao.deleteUser(list);
+				request.setAttribute("notifyDelete", "xoá thành công.");
+				request.setAttribute("statusDelete", "ok");
 			} catch (Exception e) {
 				request.setAttribute("notifyDelete", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
 				request.setAttribute("statusDelete", "Fail");
 			}
 		}
 		
+		request.getRequestDispatcher("admin/UserList.jsp").forward(request, response);
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
