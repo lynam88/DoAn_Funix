@@ -366,19 +366,18 @@ public class UsersController extends HttpServlet {
 		}
 		
 		if(list.size() == 0) {
-			request.setAttribute("notifyDelete", "Không được phép xoá ADMIN.");
+			request.setAttribute("notifyDelete", "Bạn không được phép xoá ADMIN.");
 			request.setAttribute("statusDelete", "Fail");
 		} else {		
 			try {
 				dao.deleteUser(list);
-				request.setAttribute("notifyDelete", "xoá thành công.");
+				request.setAttribute("notifyDelete", "Bạn đã xoá thành công.");
 				request.setAttribute("statusDelete", "ok");
 			} catch (Exception e) {
 				request.setAttribute("notifyDelete", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
 				request.setAttribute("statusDelete", "Fail");
 			}
-		}
-		
+		}		
 		request.getRequestDispatcher("admin/UserList.jsp").forward(request, response);
 	}
 

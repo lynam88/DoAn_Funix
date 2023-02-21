@@ -35,22 +35,20 @@ if (notifyDelete != null) {
 
 <script>
 		setTimeout(function() {
-			$("#userDelModal").modal("show");
+			$("#userDelModal").modal("show");							
 		}, 500);
-		setTimeout(function() {
-			$('#userDelModal').modal().hide();
+		setTimeout(function() {			
 			var st = "<%=statusDelete%>	";
-				if (st == "ok") {
+			$("#userDelModal").modal("hide");
+				if (st == "ok") {			
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=UserList';
+					location.reload();
 				} else {
 					// remove class modal-backdrop in
-					$(".modal-backdrop").removeClass("modal-backdrop in");
+					$(".modal-backdrop").removeClass("modal-backdrop in");	
 					window.history.back();
 				}
-			}, 5000);
-		// remove class modal-backdrop in
-		$(".modal-backdrop").removeClass("modal-backdrop in");
-		
+			}, 3000);				
 </script>
 
 <%

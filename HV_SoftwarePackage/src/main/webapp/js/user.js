@@ -191,6 +191,7 @@
 			var chks = document.querySelectorAll(".chk:checked");
 			var checked = [...chks].map(email => email.value).join(",");
 			document.getElementById("formDel").action = "UsersController?action=delete&email="+checked;
+			$("#myModal").modal("hide");
 		})
 		
 			/*try {
