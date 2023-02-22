@@ -34,6 +34,7 @@ public class DonationsController extends HttpServlet {
 	private DonationsDAO dao;
 	private String action;
 	private String search;
+	private String status;
 	private String searchString;
 	private int page;
 	HttpSession session;
@@ -105,7 +106,7 @@ public class DonationsController extends HttpServlet {
 			search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
-		String status = request.getParameter("searchStatus");
+		status = request.getParameter("searchStatus");
 		if (status == null || status == "") {
 			status = "0";
 		}
@@ -193,12 +194,10 @@ public class DonationsController extends HttpServlet {
 	private void exportDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		ExportService exporter = new ExportService();
-		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
-		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
 		// reads input file from an absolute path
 		File downloadFile = null;
 		try {
-			downloadFile = new File(exporter.export(searchString));
+			downloadFile = new File(exporter.donationExport(searchString, status));
 			FileInputStream inStream = new FileInputStream(downloadFile);
 
 			// modifies response

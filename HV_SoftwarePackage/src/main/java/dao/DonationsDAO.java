@@ -29,7 +29,7 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM Donations WHERE donation_title like ? ESCAPE '!' AND use_yn = 1";
+			String sql = "SELECT * FROM Donations WHERE donation_title like ? AND use_yn = 1";
 			if (!searchStatus.equals("0")) {
 			    sql += " AND donation_status = ?";
 			}

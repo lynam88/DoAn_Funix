@@ -50,7 +50,7 @@
 					class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
 				</a> 
 				
-				 <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/DonationsController?action=export&myInput=${searchText}"><i
+				 <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/DonationsController?action=export"><i
 					class="fas fa-file-export"></i> Xuất File</a>
 				
 			</div>	

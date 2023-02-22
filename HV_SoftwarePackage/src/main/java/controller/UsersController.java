@@ -29,12 +29,16 @@ import javax.servlet.http.HttpSession;
 
 import commons.MD5Library;
 import commons.RandomPasswordGenerator;
+import dao.ExportService;
 import dao.UsersDAO;
+import model.Donations;
 import model.Users;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.apache.commons.io.IOUtils;
 
 
@@ -45,7 +49,9 @@ public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO dao;
 	private String action;
+	private String search;
 	private String searchString;
+	private String searchStatus;
 	private int page;
 	private HttpSession session;
 	Users userData;
@@ -98,12 +104,20 @@ public class UsersController extends HttpServlet {
 						showMainPage(request, response);
 						break;
 					case "UserList":
-					case "userSearch":
+					case "UserSearch":
 						listUser(request, response);
 						break;
+					case "new":
+						showNewForm(request, response);
+						break;
+					case "edit":
+						showEditForm(request, response);
+						break;
 					case "delete":
-						String mail = request.getParameter("email");
 						deleteUser(request, response);
+						break;
+					case "export":
+						exportUser(request, response);
 						break;
 					case "logout":
 						doLogout(request, response);
@@ -118,6 +132,105 @@ public class UsersController extends HttpServlet {
 			} else {
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
+		}
+	}
+	
+	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+	}
+	
+	private void listUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		page = 1;
+		int recordPerPage = 5;
+		search = request.getParameter("myInput");
+		if (search == null)
+			search = "";
+		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
+		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
+		searchStatus = request.getParameter("searchStatus");
+		if (searchStatus == null || searchStatus == "") {
+			searchStatus = "0";
+		}
+		request.setAttribute("searchText", searchString);
+		request.setAttribute("searchStatus", searchStatus);
+		if (request.getParameter("page") != null)
+			page = Integer.parseInt(request.getParameter("page"));
+		try {
+			dao.searchName(searchString, searchStatus);
+			int noOfRecord = dao.getNoOfRecords();
+			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
+			List<Users> listPerPage = dao.getRecord(searchString, searchStatus, page, recordPerPage);
+			request.setAttribute("UserList", listPerPage);
+			request.setAttribute("noOfPage", noOfPage);
+			request.setAttribute("currentPage", page);
+
+			RequestDispatcher rd = request.getRequestDispatcher("admin/UserList.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/UserForm.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		String email = request.getParameter("email");
+		Users existingUser = null;
+		try {
+			existingUser = dao.getUser(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/UserForm.jsp");
+		request.setAttribute("Users", existingUser);
+		page = Integer.parseInt(request.getParameter("page"));
+		request.setAttribute("page", page);
+		dispatcher.forward(request, response);
+
+	}
+	
+	private void exportUser(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		ExportService exporter = new ExportService();
+		// reads input file from an absolute path
+		File downloadFile = null;
+		try {
+			downloadFile = new File(exporter.userExport(searchString, searchStatus));
+			FileInputStream inStream = new FileInputStream(downloadFile);
+
+			// modifies response
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+			response.setContentLength((int) downloadFile.length());
+
+			// forces download
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+			response.setHeader(headerKey, headerValue);
+
+			// obtains response's output stream
+			OutputStream outStream = response.getOutputStream();
+
+			byte[] buffer = new byte[4096];
+			int bytesRead = -1;
+
+			while ((bytesRead = inStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
+
+			inStream.close();
+			outStream.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -239,41 +352,6 @@ public class UsersController extends HttpServlet {
 		}
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
-
-	private void listUser(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		page = 1;
-		int recordPerPage = 5;
-		String search = request.getParameter("myInput");
-		if (search == null)
-			search = "";
-		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
-		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
-		String searchStatus = request.getParameter("searchStatus");
-		if (searchStatus == null || searchStatus == "") {
-			searchStatus = "0";
-		}
-		request.setAttribute("searchText", searchString);
-		request.setAttribute("searchStatus", searchStatus);
-		if (request.getParameter("page") != null)
-			page = Integer.parseInt(request.getParameter("page"));
-		try {
-			dao.searchName(searchString, searchStatus);
-			int noOfRecord = dao.getNoOfRecords();
-			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Users> listPerPage = dao.getRecord(searchString, searchStatus, page, recordPerPage);
-			request.setAttribute("UserList", listPerPage);
-			request.setAttribute("noOfPage", noOfPage);
-			request.setAttribute("currentPage", page);
-
-			RequestDispatcher rd = request.getRequestDispatcher("admin/UserList.jsp");
-			rd.forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
-
 	
 	/**
 	Performs the login process by collecting user input from the login form, checking the user's account
@@ -381,9 +459,6 @@ public class UsersController extends HttpServlet {
 		request.getRequestDispatcher("admin/UserList.jsp").forward(request, response);
 	}
 
-	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher("admin/index.jsp").forward(request, response);
-	}
+	
 
 }

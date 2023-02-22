@@ -21,29 +21,34 @@ public class ExportService {
 	        return String.format("_%s.xlsx", dateTimeInfo);
 	    }
  
-    public String export(String character) throws Exception {                  
-         String file = "./Data_Export" + getFileName();
+    public String donationExport(String character, String searchStatus) throws Exception {                  
+         String file = "./Donation_Export" + getFileName();
  
         try {
         	Connection connection = new DBContext().getConnection();
-            String sql = "SELECT * FROM Donations WHERE donation_title like N'%" + character + "%' AND use_yn = 1";
- 
-            Statement statement = connection.createStatement();
- 
-            ResultSet result = statement.executeQuery(sql);
+        	String sql = "SELECT * FROM Donations WHERE donation_title like ? AND use_yn = 1";
+			if (!searchStatus.equals("0")) {
+			    sql += " AND donation_status = ?";
+			}
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, "%" + character + "%");
+			if (!searchStatus.equals("0")) {
+			    stmt.setString(2, searchStatus);
+			}
+			ResultSet rs = stmt.executeQuery();
  
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet sheet = workbook.createSheet("Data_Export");
  
-            writeHeaderLine(result, sheet);
+            writeHeaderLine(rs, sheet);
  
-            writeDataLines(result, workbook, sheet);
+            writeDataLines(rs, workbook, sheet);
  
             FileOutputStream outputStream = new FileOutputStream(file);
             workbook.write(outputStream);
             workbook.close();
  
-            statement.close();
+            stmt.close();
  
         } catch (SQLException e) {
             System.out.println("Datababse error:");
@@ -54,6 +59,53 @@ public class ExportService {
         }
         return file;
     }
+    
+    public String userExport(String character, String searchStatus) throws Exception {                  
+        String file = "./User_Export" + getFileName();
+
+       try {
+	       	Connection connection = new DBContext().getConnection();
+	       	String sql = "SELECT name, phone, email, address, registration_date, user_role "
+					+ "FROM Users "
+					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ")
+					+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
+	
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			int index = 1;
+	
+			if (!character.isEmpty()) {
+				stmt.setString(index++, "%" + character + "%");
+				stmt.setString(index++, character);
+			}
+	
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
+			}
+	
+			ResultSet rs = stmt.executeQuery();
+
+           XSSFWorkbook workbook = new XSSFWorkbook();
+           XSSFSheet sheet = workbook.createSheet("Data_Export");
+
+           writeHeaderLine(rs, sheet);
+
+           writeDataLines(rs, workbook, sheet);
+
+           FileOutputStream outputStream = new FileOutputStream(file);
+           workbook.write(outputStream);
+           workbook.close();
+
+           stmt.close();
+
+       } catch (SQLException e) {
+           System.out.println("Datababse error:");
+           e.printStackTrace();
+       } catch (IOException e) {
+           System.out.println("File IO error:");
+           e.printStackTrace();
+       }
+       return file;
+   }
  
     private void writeHeaderLine(ResultSet result, XSSFSheet sheet) throws SQLException {
         // write header line containing column names

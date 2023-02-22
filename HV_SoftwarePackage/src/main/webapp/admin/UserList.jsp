@@ -38,11 +38,10 @@ if (notifyDelete != null) {
 			$("#userDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
-			var st = "<%=statusDelete%>	";
+			var st = "<%=statusDelete%>";
 			$("#userDelModal").modal("hide");
 				if (st == "ok") {			
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=UserList';
-					location.reload();
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");	
@@ -67,7 +66,7 @@ if (notifyDelete != null) {
 				</p>
 
 				<form class="searchbar" name="searchform"
-					action="${pageContext.request.contextPath}/UsersController?action=userSearch"
+					action="${pageContext.request.contextPath}/UsersController?action=UserSearch"
 					method="post">
 
 					<input type="text" id="myInput" name="myInput" var="myInput"
@@ -92,14 +91,12 @@ if (notifyDelete != null) {
 					<a class="btn nv btn-primary pageBtn" type="button"
 						href="${pageContext.request.contextPath}/UsersController?action=new"
 						data-toggle="tooltip" data-placement="top"> <i
-						class="fa fa-plus-square"></i> Tạo mới
+						class="fa fa-plus-square"></i> Thêm User
 					</a> <a class="btn nv btn-primary pageBtn" type="button"
 						onclick="sortTable()" data-toggle="tooltip" data-placement="top">
 						<i class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
-					</a> <a class="btn nv btn-primary pageBtn" id="export" type="button"
-						data-target="#exportModal" data-toggle="modal"> <i
-						class="fas fa-file-export"></i> Xuất File
-					</a>
+					</a> <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/UsersController?action=export"><i
+					class="fas fa-file-export"></i> Xuất File</a>
 
 					<div class="modal" id="exportModal" role="dialog">
 						<div class="modal-dialog">
