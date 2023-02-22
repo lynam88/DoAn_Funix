@@ -73,6 +73,15 @@
 											</div>
 											<p id="email_error" style="color: red; position: inherit;"></p>
 										</div>
+										
+										<div class="form-outline my-3">
+										    <label for="avatar">Ảnh đại diện: </label>
+										    <div class="input-group">
+										        <span class="input-group-text"><i class="bx bx-image"></i></span>
+										        <input type="file" id="avatar" name="avatar" class="form-control">
+										    </div>								
+										</div>
+
 										<p>
 											<span class="require" style='color: red;'>(*) Bắt buộc</span>
 										</p>
@@ -120,11 +129,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="row justify-content-center mt-4" style="margin-top: 0.5rem!mportant;">
+							<div class="row justify-content-center mt-4" style="margin-top: -1.5rem!important;">
 								<div class="col-lg-6">
 									<input type="radio" id="agree" name="agree" value="yes"
-										onclick="enableButton()"/> <label for="agree">Tôi
-										đã đọc và đồng ý với các quy định của trang web</label>
+										onclick="enableButton()"/> <label for="agree" style="color: aliceblue;">Tôi đã đọc và đồng ý với các quy định của trang web</label>
 								</div>
 							</div>
 							<div class="row justify-content-center mt-4" style="margin-top: 1rem!important;">
@@ -133,7 +141,7 @@
 										type="submit" id="submit-button" onclick="return validateSignup()"disabled>Đăng ký</button>
 								</div>								
 							</div>
-							<span class="text-center" style="display: flow-root; padding-bottom: 2%;">Bạn đã có tài khoản? Xin Đăng Nhập!</span>
+							<span class="text-center" style="display: flow-root; padding-bottom: 2%; color: aliceblue;">Bạn đã có tài khoản? Xin Đăng Nhập!</span>
 						</form>									
 					</div>					
 				</div>

@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import commons.MD5Library;
 import commons.RandomPasswordGenerator;
@@ -39,6 +43,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.io.IOUtils;
 
@@ -138,25 +143,41 @@ public class UsersController extends HttpServlet {
 		}
 	}
 	
-	private void doSignup(HttpServletRequest request, HttpServletResponse response) {
+	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/htm;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		try {
+			// Get form input data
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");			
 			String address = request.getParameter("address");
 			String password = request.getParameter("password");
-			Users u = new Users(name, phone, email, address, password);
+			Part avatarPart = request.getPart("avatar");
+
+	        // Upload avatar to server
+	        String avatarFileName = Paths.get(avatarPart.getSubmittedFileName()).getFileName().toString();
+	        String avatarFilePath = "/avatars/" + avatarFileName;
+	        File avatarFile = new File(avatarFilePath);
+	        try (InputStream avatarInputStream = avatarPart.getInputStream()) {
+	            Files.copy(avatarInputStream, avatarFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	        }
+	        
+	        // Create new user object
+			Users u = new Users(name, phone, email, avatarFilePath, address, password);			
+			if(!dao.getUser(email).equals(email)) session.setAttribute("error", "Email này đã được đăng ký");
+			if(phone != null && !dao.getUser(phone).equals(phone)) session.setAttribute("error", "Số điện thoại này đã được đăng ký");
+			
+			// Insert user data to database
 			dao.insertUser(u);
-			request.setAttribute("notifySave", "ThÃªm thÃ nh cÃ´ng.");
-			request.setAttribute("statusSave", "OK");
+			request.setAttribute("notifySignup", "Đăng nhập thành công.");
+			request.setAttribute("statusSignup", "OK");
 
 		} catch (Exception ex) {
-			request.setAttribute("notifySave", "ThÃªm tháº¥t báº¡i.");
-			request.setAttribute("statusSave", "FAIL");
+			request.setAttribute("notifySignup", "Đăng nhập thất bại.");
+			request.setAttribute("statusSignup", "FAIL");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
 		dispatcher.forward(request, response);
 	}
 

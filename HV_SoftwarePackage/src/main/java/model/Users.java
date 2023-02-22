@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Users {
-	private String name, phone, email, address, password;
+	private String name, phone, email, avatarPath, address, password;
 	private Date registrationDate;
 	private int role, status;
 
@@ -20,11 +20,12 @@ public class Users {
 		this.email = email;
 	}	
 
-	public Users(String name, String phone, String email, String address, String password) {
+	public Users(String name, String phone, String email, String avatarPath, String address, String password) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
+		this.avatarPath = avatarPath;
 		this.address = address;
 		this.password = password;
 	}
@@ -51,8 +52,16 @@ public class Users {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
+	}	
 	
+	public String getAvatarPath() {
+		return avatarPath;
+	}
+
+	public void setAvatarPath(String avatarPath) {
+		this.avatarPath = avatarPath;
+	}
+
 	public String getAddress() {
 		return address;
 	}

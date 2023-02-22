@@ -135,6 +135,29 @@ public class UsersDAO {
 		}
 		return u;
 	}
+	
+	public void insertUser(Users u) throws Exception {
+		Connection connection = new DBContext().getConnection();
+		String sql = "MERGE INTO Uses AS target " +
+	               "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, " + (u.getPhone().isEmpty() ? "" : "phone" + ", email, avatar_path, address, password, registration_date) " +
+	               "ON target.email = source.email " +
+	               "WHEN NOT MATCHED BY TARGET THEN " +
+	               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail, insertDate) " +
+	               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail, GETDATE());";
+	       
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			stmt.setString(1, d.getStatus());
+			stmt.setString(2, d.getTitle());
+			stmt.setString(3, d.getContent());
+			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
+			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
+			stmt.setFloat(6, d.getTotalNeeded());
+			stmt.setString(7, d.getSrc());
+			int run = stmt.executeUpdate();
+			stmt.close();
+			if(run == 0) throw new Exception();			
+	}
 
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
