@@ -3,12 +3,12 @@ package model;
 import java.util.Date;
 
 public class Users {
-	private String name, phone, email, password, address;
+	private String name, phone, email, address, password;
 	private Date registrationDate;
 	private int role, status;
 
 	public Users() {
-	}
+	}	
 
 	public Users(int role) {
 		super();
@@ -18,6 +18,15 @@ public class Users {
 	public Users(String email) {
 		super();
 		this.email = email;
+	}	
+
+	public Users(String name, String phone, String email, String address, String password) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.password = password;
 	}
 
 	public String getName() {
@@ -43,10 +52,22 @@ public class Users {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getAddress() {
+		return address;
+	}
 
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+	
 	public String getPassword() {
 		return password;
-	}
+	}	
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -56,24 +77,12 @@ public class Users {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
-	}
-
 	public int getRole() {
 		return role;
 	}
 
 	public void setRole(int role) {
 		this.role = role;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public int getStatus() {

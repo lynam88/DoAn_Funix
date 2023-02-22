@@ -35,7 +35,7 @@
 							<h4 class="mt-1 mb-5 pb-1" style="color: orangered;">Quỹ Từ
 								Thiện Liên Hoa</h4>
 						</div>
-						<form action="UsersController?action=register" method="post">
+						<form action="UsersController?action=signup" method="post">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5 mx-md-4">

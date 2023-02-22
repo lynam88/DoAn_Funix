@@ -90,9 +90,7 @@
 		  const emailError = document.getElementById("email_error");
 		  const addressError = document.getElementById("address_error");
 		  const passwordError = document.getElementById("password_error");
-		  const retypePassError = document.getElementById("retype_password_error");
-
-		 
+		  const retypePassError = document.getElementById("retype_password_error");		 
 
 		  if (!name) {
 		    nameError.innerHTML = "Xin Điền Vào Họ Tên";
@@ -192,46 +190,7 @@
 			var checked = [...chks].map(email => email.value).join(",");
 			document.getElementById("formDel").action = "UsersController?action=delete&email="+checked;
 			$("#myModal").modal("hide");
-		})
-		
-			/*try {
-				$.ajax({
-					type : 'GET',
-					data: 'email='+checked,
-					url : '/HV_SoftwarePackage/UsersController?action=delete',
-					success : function(result) {
-						$("#myModal").modal("hide");
-						setTimeout(function() {					
-							$("#showDelete").modal("show");
-							$("#showMsg").text("Bạn đã xoá thành công");
-						}, 1000);					
-						setTimeout(function() {
-							location.reload();
-						}, 3000);
-					},
-					error: function(){
-						$("#myModal").modal("hide");
-						setTimeout(function() {					
-							$("#showDelete").modal("show");
-							$("#showMsg").text("Không được phép xoá ADMIN.");
-						}, 1000);					
-						setTimeout(function() {
-							location.reload();
-						}, 3000);
-						},
-				});
-			} catch (e) {
-
-				$("#myModal").modal("hide");
-				setTimeout(function() {					
-					$("#showDelete").modal("show");
-					$("#showMsg").text("Bạn đã xoá thất bại.");
-				}, 1000);					
-				setTimeout(function() {
-					location.reload();
-				}, 3000);
-			}
-		})*/
+		})			
 		
 		$('#cancel_user_del').click(function(){		
 						$("#myModal").modal("hide");					

@@ -146,13 +146,9 @@ public class UsersDAO {
 			stmt.setString(1, u.getEmail()); // nó chỉ truyên vô được giá trị cuối cùng cuả list vậy sửa thế nào anh
 			stmt.executeUpdate();
 		}
-
 		
 		stmt.close();
-
-	}
-	
-	
+	}	
 	
 	public void updatePass(Users u, String password) throws Exception {
 		Connection connection = new DBContext().getConnection();
@@ -164,8 +160,7 @@ public class UsersDAO {
 		stmt.setString(2, u.getEmail());
 		stmt.executeUpdate();
 		stmt.close();
-
-	
+		
 	}
 
 }

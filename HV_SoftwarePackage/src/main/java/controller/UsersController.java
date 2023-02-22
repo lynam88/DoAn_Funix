@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 
 import commons.MD5Library;
 import commons.RandomPasswordGenerator;
+import commons.Utils;
 import dao.ExportService;
 import dao.UsersDAO;
 import model.Donations;
@@ -95,6 +96,8 @@ public class UsersController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if (action.equals("signup")) {
+			doSignup(request, response);
 		} else {
 			Users u = (Users) session.getAttribute("user");
 			if (u != null && u.getRole() == 1) {
@@ -135,6 +138,28 @@ public class UsersController extends HttpServlet {
 		}
 	}
 	
+	private void doSignup(HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("text/htm;charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		try {
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");			
+			String address = request.getParameter("address");
+			String password = request.getParameter("password");
+			Users u = new Users(name, phone, email, address, password);
+			dao.insertUser(u);
+			request.setAttribute("notifySave", "ThÃªm thÃ nh cÃ´ng.");
+			request.setAttribute("statusSave", "OK");
+
+		} catch (Exception ex) {
+			request.setAttribute("notifySave", "ThÃªm tháº¥t báº¡i.");
+			request.setAttribute("statusSave", "FAIL");
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
+		dispatcher.forward(request, response);
+	}
+
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("admin/index.jsp").forward(request, response);

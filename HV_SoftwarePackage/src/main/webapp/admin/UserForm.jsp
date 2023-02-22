@@ -51,7 +51,7 @@
 				window.location.href = '/HV_SoftwarePackage/UsersController?action=UserList';
 			} else {
 				// remove class modal-backdrop in
-				$(".modal-backdrop").removeClass( "modal-backdrop in");
+				$(".modal-backdrop").removeClass("modal-backdrop in");
 				window.history.back();
 			} 
 		}, 3000);
@@ -108,11 +108,9 @@
 							aria-label=".form-select-sm example">
 							<option value="0" selected>Xin Lựa Chọn </option>
 							<option value="1"
-								<c:if test="${Users.status == 1}">selected</c:if>>Hoàn
-								Thành</option>
+								<c:if test="${Users.status == 1}">selected</c:if>>Admin</option>
 							<option value="2"
-								<c:if test="${Users.status == 2}">selected</c:if>>Chưa
-								Hoàn Thành</option>
+								<c:if test="${Users.status == 2}">selected</c:if>>User</option>
 						</select>
 						<p id="status_error" style='color: red;' />
 					</div>

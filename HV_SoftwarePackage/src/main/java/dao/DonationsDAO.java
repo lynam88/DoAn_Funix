@@ -154,9 +154,7 @@ public class DonationsDAO {
 		stmt.setString(7, d.getSrc());
 		int run = stmt.executeUpdate();
 		stmt.close();
-		if(run == 0) throw new Exception();
-			
-			
+		if(run == 0) throw new Exception();			
 	}
 
 	public void deleteDonation(List<Donations> ds) throws Exception {
