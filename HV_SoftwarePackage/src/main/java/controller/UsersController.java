@@ -22,7 +22,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -33,18 +32,14 @@ import javax.servlet.http.Part;
 
 import commons.MD5Library;
 import commons.RandomPasswordGenerator;
-import commons.Utils;
 import dao.ExportService;
 import dao.UsersDAO;
-import model.Donations;
 import model.Users;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-
 import org.apache.commons.io.IOUtils;
 
 
@@ -150,10 +145,10 @@ public class UsersController extends HttpServlet {
 			// Get form input data
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");			
-			String address = request.getParameter("address");
-			String password = request.getParameter("password");
+			String email = request.getParameter("email");
 			Part avatarPart = request.getPart("avatar");
+			String address = request.getParameter("address");
+			String password = request.getParameter("password");			
 
 	        // Upload avatar to server
 	        String avatarFileName = Paths.get(avatarPart.getSubmittedFileName()).getFileName().toString();
@@ -163,15 +158,19 @@ public class UsersController extends HttpServlet {
 	            Files.copy(avatarInputStream, avatarFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	        }
 	        
-	        // Create new user object
-			Users u = new Users(name, phone, email, avatarFilePath, address, password);			
-			if(!dao.getUser(email).equals(email)) session.setAttribute("error", "Email này đã được đăng ký");
-			if(phone != null && !dao.getUser(phone).equals(phone)) session.setAttribute("error", "Số điện thoại này đã được đăng ký");
-			
-			// Insert user data to database
-			dao.insertUser(u);
-			request.setAttribute("notifySignup", "Đăng nhập thành công.");
-			request.setAttribute("statusSignup", "OK");
+	     // Create new user object
+	        Users u = new Users(name, phone, email, avatarFilePath, address, password);
+	        if(dao.getUser(email) != null) {
+	            session.setAttribute("error", "Email này đã được đăng ký");
+	        } else if(phone != null && dao.getUser(phone) != null) {
+	            session.setAttribute("error", "Số điện thoại này đã được đăng ký");
+	        } else {
+	            // Insert user data to database
+	            dao.insertUser(u);
+	            request.setAttribute("notifySignup", "Đăng ký thành công.");
+	            request.setAttribute("statusSignup", "OK");
+	        }
+
 
 		} catch (Exception ex) {
 			request.setAttribute("notifySignup", "Đăng nhập thất bại.");

@@ -72,6 +72,14 @@
 													placeholder="Xin Nhập email">
 											</div>
 											<p id="email_error" style="color: red; position: inherit;"></p>
+											<div class="email_error" style="color: red; position: inherit;">
+											<%
+												String error = (String) session.getAttribute("error");
+												if (error != null){
+													out.println(error);
+												}
+											%>
+											</div>
 										</div>
 										
 										<div class="form-outline my-3">

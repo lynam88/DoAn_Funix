@@ -137,27 +137,31 @@ public class UsersDAO {
 	}
 	
 	public void insertUser(Users u) throws Exception {
-		Connection connection = new DBContext().getConnection();
-		String sql = "MERGE INTO Uses AS target " +
-	               "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, " + (u.getPhone().isEmpty() ? "" : "phone" + ", email, avatar_path, address, password, registration_date) " +
-	               "ON target.email = source.email " +
-	               "WHEN NOT MATCHED BY TARGET THEN " +
-	               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail, insertDate) " +
-	               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail, GETDATE());";
-	       
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			
-			stmt.setString(1, d.getStatus());
-			stmt.setString(2, d.getTitle());
-			stmt.setString(3, d.getContent());
-			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
-			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
-			stmt.setFloat(6, d.getTotalNeeded());
-			stmt.setString(7, d.getSrc());
-			int run = stmt.executeUpdate();
-			stmt.close();
-			if(run == 0) throw new Exception();			
+	    Connection connection = new DBContext().getConnection();
+	    String sql = "MERGE INTO Users AS target " +
+	                 "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, " + (u.getPhone().isEmpty() ? "" : "phone, ") + "email, avatar_path, address, password, registration_date) " +
+	                 "ON target.email = source.email " +
+	                 (u.getPhone().isEmpty() ? "" : "AND target.phone = source.phone ") +
+	                 "WHEN NOT MATCHED BY TARGET THEN " +
+	                 "INSERT (name, " + (u.getPhone().isEmpty() ? "" : "phone, ") + "email, avatar_path, address, password, registration_date) " +
+	                 "VALUES (source.name, " + (u.getPhone().isEmpty() ? "" : "source.phone, ") + "source.email, source.avatar_path, source.address, source.password, GETDATE());";
+
+	    PreparedStatement stmt = connection.prepareStatement(sql);
+
+	    stmt.setString(1, u.getName());
+	    int index = 2;
+	    if (!u.getPhone().isEmpty()) {
+	        stmt.setString(index++, u.getPhone());
+	    }
+	    stmt.setString(index++, u.getEmail());
+	    stmt.setString(index++, u.getAvatarPath());
+	    stmt.setString(index++, u.getAddress());
+	    stmt.setString(index++, u.getPassword());
+	    int run = stmt.executeUpdate();
+	    stmt.close();
+	    if (run == 0) throw new Exception();
 	}
+
 
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
@@ -166,7 +170,7 @@ public class UsersDAO {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		for (Users u : us) {			
-			stmt.setString(1, u.getEmail()); // nó chỉ truyên vô được giá trị cuối cùng cuả list vậy sửa thế nào anh
+			stmt.setString(1, u.getEmail()); 
 			stmt.executeUpdate();
 		}
 		
