@@ -2,9 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +20,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +45,12 @@ import org.apache.commons.io.IOUtils;
 /**
  * Servlet implementation class UsersController
  */
+@WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+    maxFileSize = 1024 * 1024 * 10,      // 10MB
+    maxRequestSize = 1024 * 1024 * 50    // 50MB
+)
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO dao;
@@ -139,45 +144,49 @@ public class UsersController extends HttpServlet {
 	}
 	
 	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/htm;charset=UTF-8");
-		request.setCharacterEncoding("utf-8");
-		try {
-			// Get form input data
-			String name = request.getParameter("name");
-			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");
-			Part avatarPart = request.getPart("avatar");
-			String address = request.getParameter("address");
-			String password = request.getParameter("password");			
-
-	        // Upload avatar to server
-	        String avatarFileName = Paths.get(avatarPart.getSubmittedFileName()).getFileName().toString();
-	        String avatarFilePath = "/avatars/" + avatarFileName;
-	        File avatarFile = new File(avatarFilePath);
-	        try (InputStream avatarInputStream = avatarPart.getInputStream()) {
-	            Files.copy(avatarInputStream, avatarFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-	        }
+	    response.setContentType("text/htm;charset=UTF-8");
+	    request.setCharacterEncoding("utf-8");
+	    try {
+	    	// Invalidate any existing session before creating a new one
+			request.getSession(true).invalidate();
+	        // Get form input data
+	        String name = request.getParameter("name");
+	        String phone = request.getParameter("phone");
+	        String email = request.getParameter("email");
+	        String address = request.getParameter("address");
+	        String password = request.getParameter("password");
 	        
-	     // Create new user object
-	        Users u = new Users(name, phone, email, avatarFilePath, address, password);
-	        if(dao.getUser(email) != null) {
-	            session.setAttribute("error", "Email này đã được đăng ký");
-	        } else if(phone != null && dao.getUser(phone) != null) {
-	            session.setAttribute("error", "Số điện thoại này đã được đăng ký");
+	     // Create a new session for the user
+			session = request.getSession(true);
+	
+	        // Upload avatar to server (if avatarPart exists)       	      
+	        Part avatarPart = request.getPart("avatar");
+	        String avatarName = avatarPart.getSubmittedFileName();
+	        for (Part part : request.getParts()) {
+	          part.write(request.getServletContext().getRealPath("/") + "uploads/" + avatarName);
+	        }
+	        	        
+	        // Create new user object
+	        Users u = new Users(name, phone, email, avatarName, address, password);
+	        request.setAttribute("inputUser", u);
+	        if(phone != null && dao.getUser(phone) != null) {
+	            session.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
+	        } else if(dao.getUser(email) != null) {
+		        session.setAttribute("email_error", "Email này đã được đăng ký");
 	        } else {
 	            // Insert user data to database
 	            dao.insertUser(u);
+	            System.out.println("Đăng ký thành công.");
 	            request.setAttribute("notifySignup", "Đăng ký thành công.");
 	            request.setAttribute("statusSignup", "OK");
 	        }
-
-
-		} catch (Exception ex) {
-			request.setAttribute("notifySignup", "Đăng nhập thất bại.");
-			request.setAttribute("statusSignup", "FAIL");
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
-		dispatcher.forward(request, response);
+	
+	    } catch (Exception ex) {
+	        request.setAttribute("notifySignup", "Đăng ký thất bại.");
+	        request.setAttribute("statusSignup", "FAIL");
+	    }
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+	    dispatcher.forward(request, response);
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response)

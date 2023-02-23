@@ -7,23 +7,7 @@
 	<c:param name="title" value="Đăng ký thành viên mới | Website Từ Thiện"></c:param>
 </c:import>
 
-<section class="h-100 gradient-form"
-	style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
-	<div class="row">
-		<div class="col">
-			<a href="signup.jsp" class="btn btn-outline-light btn-bg-left"><i
-				class='bx bxs-left-arrow-square'></i> Đăng Ký</a>
-		</div>
-		<div class="col text-center">
-			<a href="index.jsp" class="btn btn-outline-light btn-bg-center"><i
-				class='bx bxs-home'></i> Trang chủ</a>
-		</div>
-		<div class="col text-right">
-			<a href="login.jsp" class="btn btn-outline-light btn-bg-right">Đăng
-				Nhập <i class='bx bxs-right-arrow-square'></i>
-			</a>
-		</div>
-	</div>
+
 	<div class="container py-5 h-100">
 		<div
 			class="row d-flex justify-content-center align-items-center h-100">
@@ -35,7 +19,7 @@
 							<h4 class="mt-1 mb-5 pb-1" style="color: orangered;">Quỹ Từ
 								Thiện Liên Hoa</h4>
 						</div>
-						<form action="UsersController?action=signup" method="post">
+						<form action="UsersController?action=signup" method="post" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5 mx-md-4">
@@ -46,7 +30,7 @@
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-user"></i></span>
 												<input type="text" id="name" name="name"
-													class="form-control" placeholder="Xin Nhập họ và tên">
+													class="form-control" placeholder="Xin Nhập họ và tên" value="<c:out value='${inputUser.name}'/>">
 											</div>
 											<p id="name_error" style="color: red; position: inherit;"></p>
 										</div>
@@ -57,9 +41,17 @@
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-phone"></i></span>
 												<input type="text" id="phone" name="phone"
-													class="form-control" placeholder="Xin Nhập số điện thoại">
+													class="form-control" placeholder="Xin Nhập số điện thoại" value="<c:out value='${inputUser.phone}'/>">
 											</div>
 											<p id="phone_error" style="color: red; position: inherit;"></p>
+											<div class="phone_error" style="color: red; position: inherit;">
+											<%
+												String phone_error = (String) session.getAttribute("phone_error");
+												if (phone_error != null){
+													out.println(phone_error);
+												}
+											%>
+											</div>
 										</div>
 
 										<div class="form-outline my-3">
@@ -69,14 +61,14 @@
 												<span class="input-group-text"><i
 													class="bx bx-envelope"></i></span> <input type="email" id="email"
 													name="email" class="form-control"
-													placeholder="Xin Nhập email">
+													placeholder="Xin Nhập email" value="<c:out value='${inputUser.email}'/>">
 											</div>
 											<p id="email_error" style="color: red; position: inherit;"></p>
 											<div class="email_error" style="color: red; position: inherit;">
 											<%
-												String error = (String) session.getAttribute("error");
-												if (error != null){
-													out.println(error);
+												String email_error = (String) session.getAttribute("email_error");
+												if (email_error != null){
+													out.println(email_error);
 												}
 											%>
 											</div>
@@ -86,7 +78,7 @@
 										    <label for="avatar">Ảnh đại diện: </label>
 										    <div class="input-group">
 										        <span class="input-group-text"><i class="bx bx-image"></i></span>
-										        <input type="file" id="avatar" name="avatar" class="form-control">
+										        <input type="file" id="avatar" name="avatar" class="form-control" value="<c:out value='${inputUser.avatarPath}'/>">
 										    </div>								
 										</div>
 
@@ -104,7 +96,7 @@
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-map"></i></span>
 												<input type="text" id="address" name="address"
-													class="form-control" placeholder="Xin Nhập địa chỉ">
+													class="form-control" placeholder="Xin Nhập địa chỉ" value="<c:out value='${inputUser.address}'/>">
 											</div>
 											<p id="address_error" style="color: red; position: inherit;"></p>
 										</div>
@@ -114,7 +106,7 @@
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-lock"></i></span>
 												<input type="password" id="password" name="password"
-													class="form-control" placeholder="Xin Nhập mật khẩu"><span
+													class="form-control" placeholder="Xin Nhập mật khẩu" value="<c:out value='${inputUser.password}'/>"><span
 													class="input-group-text bx click-eye bx-hide"></span>
 											</div>
 											<p id="password_error" style="color: red; position: inherit;"></p>
@@ -127,7 +119,7 @@
 												<span class="input-group-text"><i
 													class="bx bx-lock-alt"></i></span> <input type="password"
 													id="retype_password" name="retype_password"
-													class="form-control" placeholder="Xin Nhập lại mật khẩu">
+													class="form-control" placeholder="Xin Nhập lại mật khẩu" value="<c:out value='${inputUser.password}'/>">
 												<span class="input-group-text bx click-eye bx-hide"></span>
 
 											</div>
@@ -156,6 +148,6 @@
 			</div>
 		</div>
 	</div>
-</section>
+
 
 <c:import url="footer.jsp"></c:import>

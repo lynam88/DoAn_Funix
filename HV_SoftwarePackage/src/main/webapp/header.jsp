@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -43,3 +43,21 @@
 </head>
 
 <body>
+
+<section class="h-100 gradient-form"
+	style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
+	<div class="row">
+		<div class="col">
+			<a href="${pageContext.request.contextPath}/UsersController?action=signup" class="btn btn-outline-light btn-bg-left"><i
+				class='bx bxs-left-arrow-square'></i> Đăng Ký</a>
+		</div>
+		<div class="col text-center">
+			<a href="index.jsp" class="btn btn-outline-light btn-bg-center"><i
+				class='bx bxs-home'></i> Trang chủ</a>
+		</div>
+		<div class="col text-right">
+			<a href="${pageContext.request.contextPath}/UsersController?action=login" class="btn btn-outline-light btn-bg-right">Đăng
+				Nhập <i class='bx bxs-right-arrow-square'></i>
+			</a>
+		</div>
+	</div>

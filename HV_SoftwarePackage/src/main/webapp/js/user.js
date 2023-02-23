@@ -112,7 +112,7 @@
 			phoneError.innerHTML = "Xin vui lòng nhập số điện thoại.";
 			 
 			return false;
-		  } else if (!/^(0|\+84)(3[2-9]|5[689]|7[0-9]|8[1-9]|9[0-46-9])\d{7}$/.test(phone)) {
+		  } else if (!/^\d{10,11}$/.test(phone)) {
 			phoneError.innerHTML = "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại theo định dạng 0xxx xxx xxx hoặc +84xxx xxx xxx.";
 		
 			return false;

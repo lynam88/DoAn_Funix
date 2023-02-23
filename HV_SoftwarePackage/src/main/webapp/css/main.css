@@ -3,11 +3,7 @@
 	* {
 		box-sizing: border-box;
 	}
-	
-	.gradient-custom-1{
-		background: linear-gradient(110.1deg, rgb(34, 126, 34) 2.9%, rgb(168, 251, 60) 90.3%);
-	}
-	
+			
 	/* Login page */
 	.gradient-custom-2 {
 		/* fallback for old browsers */
