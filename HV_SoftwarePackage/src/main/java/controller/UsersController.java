@@ -144,7 +144,7 @@ public class UsersController extends HttpServlet {
 	}
 	
 	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    response.setContentType("text/htm;charset=UTF-8");
+	    response.setContentType("text/html;charset=UTF-8");
 	    request.setCharacterEncoding("utf-8");
 	    try {
 	    	// Invalidate any existing session before creating a new one
@@ -155,6 +155,7 @@ public class UsersController extends HttpServlet {
 	        String email = request.getParameter("email");
 	        String address = request.getParameter("address");
 	        String password = request.getParameter("password");
+	        String passDB = MD5Library.md5(password);
 	        
 	     // Create a new session for the user
 			session = request.getSession(true);
@@ -163,11 +164,11 @@ public class UsersController extends HttpServlet {
 	        Part avatarPart = request.getPart("avatar");
 	        String avatarName = avatarPart.getSubmittedFileName();
 	        for (Part part : request.getParts()) {
-	          part.write(request.getServletContext().getRealPath("/") + "uploads/" + avatarName);
+	          part.write(request.getServletContext().getRealPath("/") + avatarName);
 	        }
 	        	        
 	        // Create new user object
-	        Users u = new Users(name, phone, email, avatarName, address, password);
+	        Users u = new Users(name, phone, email, avatarName, address, passDB);
 	        request.setAttribute("inputUser", u);
 	        if(phone != null && dao.getUser(phone) != null) {
 	            session.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
