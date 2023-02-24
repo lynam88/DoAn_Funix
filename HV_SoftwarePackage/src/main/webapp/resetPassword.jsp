@@ -50,24 +50,6 @@ if (notifyPassSent != null) {
 <%
 }
 %>
-<section class="h-100 gradient-form"
-	style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
-	<div class="row">
-		<div class="col">
-			<a href="signup.jsp" class="btn btn-outline-light btn-bg-left"><i
-				class='bx bxs-left-arrow-square'></i> Đăng Ký</a>
-		</div>
-		<div class="col text-center">
-			<a href="index.jsp" class="btn btn-outline-light btn-bg-center"><i
-				class='bx bxs-home'></i> Trang chủ</a>
-		</div>
-		<div class="col text-right">
-			<a href="login.jsp" class="btn btn-outline-light btn-bg-right">Đăng
-				Nhập <i class='bx bxs-right-arrow-square'></i>
-			</a>
-		</div>
-	</div>
-
 	<div class="container py-5 h-100">
 		<div
 			class="row d-flex justify-content-center align-items-center h-100">
@@ -81,7 +63,7 @@ if (notifyPassSent != null) {
 									<h4 class="mt-1 mb-5 pb-1" style="color: orangered;">Quỹ
 										Từ Thiện Liên Hoa</h4>
 								</div>
-								<form action="UsersController?action=sendMail" method="post">
+								<form action="UsersController?action=resetPassword" method="post">
 									<h6 style="color: blue;">CẤP LẠI MẬT KHẨU</h6>
 									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
 										tôi gửi lại mật khẩu mới cho bạn</p>
@@ -106,17 +88,21 @@ if (notifyPassSent != null) {
 										<p>
 											<span class="require" style='color: red;'>(*) Bắt buộc</span>
 										</p>
+										<div>
+										    <span>Tài khoản của bạn bị khoá? </span>
+										    <a href="#" id="recoverUser">Xin Liên Hệ!</a>
+									  	</div>
 									</div>
 									<br />
 									<div class="text-center">
 										<button
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-											type="submit" onclick="return validateForgotEmail(email)">Đặt lại mật khẩu</button>
+											type="submit" onclick="return validateForgotEmail()">Đặt lại mật khẩu</button>
 									</div>
 								</form>
 							</div>
 						</div>
-						<div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+						<div class="col-lg-6 align-items-center gradient-custom-2 rightText">
 							<div class="text-white px-3 py-4 p-md-5 mx-md-4">
 								<h4 class="text-center mb-4">Cho đi là còn mãi</h4>
 								<p class="text-center small mb-0">Một khi bạn cho đi, chính
@@ -128,5 +114,5 @@ if (notifyPassSent != null) {
 			</div>
 		</div>
 	</div>
-</section>
+
 <c:import url="footer.jsp"></c:import>

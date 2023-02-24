@@ -1,6 +1,29 @@
 	/**
 	 * Js functions for login pages
 	 */ 
+		//Glowing buttons
+		$(document).ready(function() {
+		  $("#resetPass").click(function() {
+		    $('.btn-reset-password').addClass('glow');
+		  });
+		});
+
+		$(document).ready(function() {
+			  $("#login").click(function() {
+			    $('.btn-login').addClass('glow');
+			  });
+			});
+		$(document).ready(function() {
+			  $("#signup").click(function() {
+			    $('.btn-signup').addClass('glow');
+			  });
+			});
+		$(document).ready(function() {
+			  $("#recoverUser").click(function() {
+			    $('.btn-recover-user').addClass('glow');
+			  });
+			});
+		
 		//Validate login
 		function validateLogin() {
 			const loginId = document.getElementById("loginId").value;
@@ -221,4 +244,29 @@
 		  }
 		}		
 
-				
+		/**
+		 * Js function(s) for recoverUser page
+		 */
+		function validateRecoverUser() {
+			  
+			  const feedback = document.getElementById("feedback").value;
+			  const feedbackError = document.getElementById("feedback_error");
+			  const email = document.getElementById("email").value;
+			  const emailRecoverError = document.getElementById("email_recover_error");
+
+			  if (!feedback) {
+				  feedbackError.innerHTML = "Xin Điền Vào Phản hồi";
+				  feedbackError.scrollIntoView();
+			    return false;
+			  } else {
+				  feedbackError.innerHTML = "";
+			  }
+				  
+			  if (!email) {
+				  emailRecoverError.innerHTML = "Xin Điền Vào Email";
+				  emailRecoverError.scrollIntoView();
+			    return false;
+			  } else {
+				  emailRecoverError.innerHTML = "";
+			  }
+			}		

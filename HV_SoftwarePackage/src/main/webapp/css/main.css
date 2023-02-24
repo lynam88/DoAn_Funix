@@ -3,7 +3,27 @@
 	* {
 		box-sizing: border-box;
 	}
-			
+	
+	body {
+	  min-width: 576px; /* set the minimum width to 576 pixels */
+	}
+	
+	@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+		
+	/* Apply the box-shadow to the button when it's clicked */
+	  .glow {
+	    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #32CD32 !important;
+	    animation: rotate 2s linear;
+	    animation-iteration-count: 1;	    
+	  }
+		
 	/* Login page */
 	.gradient-custom-2 {
 		/* fallback for old browsers */
@@ -12,20 +32,7 @@
 		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 		/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-	}
-	
-	@media ( min-width : 768px) {
-		.gradient-form {
-			height: 100vh !important;
-		}
-	}
-	
-	@media ( min-width : 769px) {
-		.gradient-custom-2 {
-			border-top-right-radius: .3rem;
-			border-bottom-right-radius: .3rem;
-		}
-	}
+	}	
 	
 	.btn-bg-left {
     	background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* blue */
@@ -210,4 +217,44 @@
 	    top: 90%;
 	    opacity: 0;
 	  }
+	}
+	
+	@media (min-width: 992px) { 
+		.rightForm{
+    	    position: relative !important;
+ 			top: 6% !important;
+	    }
+	    .rightText{    	    
+   			display: flex;
+	    }		
+	}	
+	
+	@media (max-width: 992px) { 
+		.rightText{    	    
+   			margin: 0 0.9rem;
+	    }	
+	}
+	
+	@media screen and (max-width: 991px) and (min-width : 768px) {
+		.gradient-form {
+			height: 100vh !important;			
+		}
+	
+		.gradient-custom-2 {
+			border-top-right-radius: .3rem;
+			border-bottom-right-radius: .3rem;
+		}
+				
+		.rightForm{
+    	    position: relative !important;
+ 			top: 13% !important;
+	    }
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {
+	    .rightForm{
+	    	position: relative !important;
+		    bottom: 15% !important;
+		    padding-bottom: 10% !important;
+	    }
 	}

@@ -11,6 +11,7 @@ import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -47,9 +48,9 @@ import org.apache.commons.io.IOUtils;
  */
 @WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-    maxFileSize = 1024 * 1024 * 10,      // 10MB
-    maxRequestSize = 1024 * 1024 * 50    // 50MB
+  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+  maxFileSize = 1024 * 1024 * 10,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -94,9 +95,16 @@ public class UsersController extends HttpServlet {
 		session = request.getSession();
 		if (action.equals("login")) {
 			doLogin(request, response);
-		} else if (action.equals("sendMail")) {
+		} else if (action.equals("resetPassword")) {
 			try {
-				sendMail(request, response);
+				resetPassword(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (action.equals("recoverUser")) {
+			try {
+				recoverUser(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,6 +151,111 @@ public class UsersController extends HttpServlet {
 		}
 	}
 	
+	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// Sender's email and password
+	    final String fromEmail = "quytuthienlienhoa@gmail.com";
+	    final String password = "csfawleqxoaqlhur";
+
+	    // Recipient's email address
+	    final String toEmail = request.getParameter("email");
+	    final String feedback = request.getParameter("feedback");
+	    
+	    //Get user from database
+	    if(toEmail != null) {
+		    Users u = dao.getUser(toEmail);
+		    if(u.getStatus() == 1 || u == null) {
+		    	session.setAttribute("email_recover_error", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
+			    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);
+			    return;
+		    }
+	
+		    // Generate a new password and update it in the database
+		    final String newPass = RandomPasswordGenerator.regeneratePassword();
+		    final String newpassDB = MD5Library.md5(newPass);
+		    dao.updatePass(u, newpassDB);
+	
+		    // Email subject and body
+		    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
+		    final String body = "Chào bạn, <br/>" + 
+		        "Chúng tôi xin chân thành cảm ơn bạn đã gửi yêu cầu phục hồi tài khoản của mình tại trang web Quỹ Từ Thiện Liên Hoa." +
+		        "Chúng tôi xác nhận đã nhận được thông tin tài khoản email, và chúng tôi đang tiến hành xác minh thông tin và tiến hành phục hồi tài khoản của bạn. <br/>" +
+		        "Chúng tôi sẽ thông báo cho bạn ngay khi tài khoản của bạn đã được khôi phục thành công. Nếu có bất kỳ câu hỏi hoặc yêu cầu nào khác, vui lòng liên hệ với chúng tôi qua email này hoặc qua trang web của chúng tôi. <br/>" +
+		        "Chúng tôi rất tiếc vì sự bất tiện này và sẽ cố gắng giải quyết vấn đề của bạn trong thời gian sớm nhất. <br/>" +		        
+		        "Trân trọng, <br/>" +
+		        "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
+	
+		    // Load the logo image file
+		    String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
+		    File file = new File(fullPath);
+		    InputStream inputStream = new FileInputStream(file);
+		    byte[] imageData = IOUtils.toByteArray(inputStream);
+	
+		    // Create the image attachment
+		    MimeBodyPart imagePart = new MimeBodyPart();
+		    imagePart.attachFile(file);
+		    imagePart.setContentID("<image>");
+		    imagePart.setDisposition(MimeBodyPart.INLINE);
+	
+		    // Create the message body and attach the image
+		    MimeMultipart multipart = new MimeMultipart();
+		    BodyPart messageBodyPart = new MimeBodyPart();
+		    messageBodyPart.setContent(body, "text/html; charset=UTF-8");
+		    multipart.addBodyPart(messageBodyPart);
+		    multipart.addBodyPart(imagePart);
+	
+		    // Create a new Properties object
+		    Properties props = new Properties();
+	
+		    // Set the SMTP host and port to use for sending the email
+		    props.put("mail.smtp.host", "smtp.gmail.com");
+		    props.put("mail.smtp.port", "587");
+	
+		    // Enable SMTP authentication and startTLS for secure communication
+		    props.put("mail.smtp.auth", "true");
+		    props.put("mail.smtp.starttls.enable", "true");
+	
+		    // Set the trust protocol for the SMTP server
+		    props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	
+		    // Set startTLS and SSL protocols
+		    props.setProperty("mail.smtp.starttls.enable", "true");
+		    props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+	
+		    // Create a new Authenticator for SMTP authentication
+		    Authenticator auth = new Authenticator() {
+			    protected PasswordAuthentication getPasswordAuthentication() {
+			    return new PasswordAuthentication(fromEmail, password);
+			    }
+		    };
+	
+		    // Create a new email session using the Properties and Authenticator objects
+		    Session session = Session.getInstance(props, auth);
+	
+		    // Create a new MIME message
+		    MimeMessage msg = new MimeMessage(session);
+	
+		    // Set the email headers and content
+		    msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+		    msg.addHeader("format", "flowed");
+		    msg.addHeader("Content-Transfer-Encoding", "8bit");
+		    msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
+		    msg.setReplyTo(InternetAddress.parse(fromEmail, false));
+		    msg.setSubject(subject, "UTF-8");
+		    msg.setContent(multipart, "text/html; charset=UTF-8");
+		    msg.setSentDate(new Date());
+		    msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+	
+		    // Send the email and print a success message
+		    Transport.send(msg);
+		    System.out.println("Gửi mail thành công");
+	
+		    // Set attributes and forward the request to a new JSP
+		    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
+		    request.setAttribute("statusPassSent", "Ok");		    
+	    }
+	    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);		
+	}
+
 	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html;charset=UTF-8");
 	    request.setCharacterEncoding("utf-8");
@@ -157,7 +270,7 @@ public class UsersController extends HttpServlet {
 	        String password = request.getParameter("password");
 	        String passDB = MD5Library.md5(password);
 	        
-	     // Create a new session for the user
+	        // Create a new session for the user
 			session = request.getSession(true);
 	
 	        // Upload avatar to server (if avatarPart exists)       	      
@@ -166,6 +279,7 @@ public class UsersController extends HttpServlet {
 	        for (Part part : request.getParts()) {
 	          part.write(request.getServletContext().getRealPath("/") + avatarName);
 	        }
+	        System.out.println(request.getServletContext().getRealPath("/") + avatarName);
 	        	        
 	        // Create new user object
 	        Users u = new Users(name, phone, email, avatarName, address, passDB);
@@ -295,7 +409,7 @@ public class UsersController extends HttpServlet {
 	@param response the HTTP response object
 	@throws Exception if an error occurs while sending the email
 	*/
-	private void sendMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	    // Sender's email and password
 	    final String fromEmail = "quytuthienlienhoa@gmail.com";
 	    final String password = "csfawleqxoaqlhur";
@@ -304,99 +418,101 @@ public class UsersController extends HttpServlet {
 	    final String toEmail = request.getParameter("email");
 	    
 	    //Get user from database
-	    Users u = dao.getUser(toEmail);
-	    if(u == null ) {
-	    	// User is deleted or not registered yet
-	    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
-		    request.setAttribute("statusPassSent", "Fail");
-		    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
-		    return;
+	    if(toEmail != null) {
+		    Users u = dao.getUser(toEmail);
+		    if(u == null ) {
+		    	// User is deleted or not registered yet
+		    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
+			    request.setAttribute("statusPassSent", "Fail");
+			    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+			    return;
+		    }
+	
+		    // Generate a new password and update it in the database
+		    final String newPass = RandomPasswordGenerator.regeneratePassword();
+		    final String newpassDB = MD5Library.md5(newPass);
+		    dao.updatePass(u, newpassDB);
+	
+		    // Email subject and body
+		    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
+		    final String body = "Chào bạn, <br/>" + 
+		        "Chúng tôi nhận được yêu cầu cấp lại mật khẩu cho tài khoản của bạn trên trang web Quỹ Từ Thiện Liên Hoa. Sau đây là mật khẩu mới của bạn: <br/>" +
+		        "<span style=\"color: blue; font-weight: bold\">" + newPass + "</span><br/>" +
+		        "Vui lòng đăng nhập vào tài khoản của bạn và thay đổi mật khẩu ngay lập tức để đảm bảo an toàn cho tài khoản của bạn. Đồng thời, nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào trên tài khoản của mình, vui lòng liên hệ với chúng tôi ngay lập tức để chúng tôi có thể hỗ trợ và giúp bạn khắc phục vấn đề. <br/>" +
+		        "Chúng tôi luôn sẵn sàng hỗ trợ bạn nếu bạn cần giải đáp bất kỳ thắc mắc nào. Cảm ơn bạn đã đồng hành cùng chúng tôi trên con đường thiện nghiệp! <br/>" +
+		        "Trân trọng, <br/>" +
+		        "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
+	
+		    // Load the logo image file
+		    String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
+		    File file = new File(fullPath);
+		    InputStream inputStream = new FileInputStream(file);
+		    byte[] imageData = IOUtils.toByteArray(inputStream);
+	
+		    // Create the image attachment
+		    MimeBodyPart imagePart = new MimeBodyPart();
+		    imagePart.attachFile(file);
+		    imagePart.setContentID("<image>");
+		    imagePart.setDisposition(MimeBodyPart.INLINE);
+	
+		    // Create the message body and attach the image
+		    MimeMultipart multipart = new MimeMultipart();
+		    BodyPart messageBodyPart = new MimeBodyPart();
+		    messageBodyPart.setContent(body, "text/html; charset=UTF-8");
+		    multipart.addBodyPart(messageBodyPart);
+		    multipart.addBodyPart(imagePart);
+	
+		    // Create a new Properties object
+		    Properties props = new Properties();
+	
+		    // Set the SMTP host and port to use for sending the email
+		    props.put("mail.smtp.host", "smtp.gmail.com");
+		    props.put("mail.smtp.port", "587");
+	
+		    // Enable SMTP authentication and startTLS for secure communication
+		    props.put("mail.smtp.auth", "true");
+		    props.put("mail.smtp.starttls.enable", "true");
+	
+		    // Set the trust protocol for the SMTP server
+		    props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	
+		    // Set startTLS and SSL protocols
+		    props.setProperty("mail.smtp.starttls.enable", "true");
+		    props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+	
+		    // Create a new Authenticator for SMTP authentication
+		    Authenticator auth = new Authenticator() {
+			    protected PasswordAuthentication getPasswordAuthentication() {
+			    return new PasswordAuthentication(fromEmail, password);
+			    }
+		    };
+	
+		    // Create a new email session using the Properties and Authenticator objects
+		    Session session = Session.getInstance(props, auth);
+	
+		    // Create a new MIME message
+		    MimeMessage msg = new MimeMessage(session);
+	
+		    // Set the email headers and content
+		    msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+		    msg.addHeader("format", "flowed");
+		    msg.addHeader("Content-Transfer-Encoding", "8bit");
+		    msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
+		    msg.setReplyTo(InternetAddress.parse(fromEmail, false));
+		    msg.setSubject(subject, "UTF-8");
+		    msg.setContent(multipart, "text/html; charset=UTF-8");
+		    msg.setSentDate(new Date());
+		    msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+	
+		    // Send the email and print a success message
+		    Transport.send(msg);
+		    System.out.println("Gửi mail thành công");
+	
+		    // Set attributes and forward the request to a new JSP
+		    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
+		    request.setAttribute("statusPassSent", "Ok");		    
 	    }
-
-	    // Generate a new password and update it in the database
-	    final String newPass = RandomPasswordGenerator.regeneratePassword();
-	    final String newpassDB = MD5Library.md5(newPass);
-	    dao.updatePass(u, newpassDB);
-
-	    // Email subject and body
-	    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
-	    final String body = "Chào bạn, <br/>" + 
-	        "Chúng tôi nhận được yêu cầu cấp lại mật khẩu cho tài khoản của bạn trên trang web Quỹ Từ Thiện Liên Hoa. Sau đây là mật khẩu mới của bạn: <br/>" +
-	        "<span style=\"color: blue; font-weight: bold\">" + newPass + "</span><br/>" +
-	        "Vui lòng đăng nhập vào tài khoản của bạn và thay đổi mật khẩu ngay lập tức để đảm bảo an toàn cho tài khoản của bạn. Đồng thời, nếu bạn phát hiện bất kỳ hoạt động đáng ngờ nào trên tài khoản của mình, vui lòng liên hệ với chúng tôi ngay lập tức để chúng tôi có thể hỗ trợ và giúp bạn khắc phục vấn đề. <br/>" +
-	        "Chúng tôi luôn sẵn sàng hỗ trợ bạn nếu bạn cần giải đáp bất kỳ thắc mắc nào. Cảm ơn bạn đã đồng hành cùng chúng tôi trên con đường thiện nghiệp! <br/>" +
-	        "Trân trọng, <br/>" +
-	        "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
-
-	    // Load the logo image file
-	    String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
-	    File file = new File(fullPath);
-	    InputStream inputStream = new FileInputStream(file);
-	    byte[] imageData = IOUtils.toByteArray(inputStream);
-
-	    // Create the image attachment
-	    MimeBodyPart imagePart = new MimeBodyPart();
-	    imagePart.attachFile(file);
-	    imagePart.setContentID("<image>");
-	    imagePart.setDisposition(MimeBodyPart.INLINE);
-
-	    // Create the message body and attach the image
-	    MimeMultipart multipart = new MimeMultipart();
-	    BodyPart messageBodyPart = new MimeBodyPart();
-	    messageBodyPart.setContent(body, "text/html; charset=UTF-8");
-	    multipart.addBodyPart(messageBodyPart);
-	    multipart.addBodyPart(imagePart);
-
-	 // Create a new Properties object
-	    Properties props = new Properties();
-
-	    // Set the SMTP host and port to use for sending the email
-	    props.put("mail.smtp.host", "smtp.gmail.com");
-	    props.put("mail.smtp.port", "587");
-
-	    // Enable SMTP authentication and startTLS for secure communication
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true");
-
-	    // Set the trust protocol for the SMTP server
-	    props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-	    // Set startTLS and SSL protocols
-	    props.setProperty("mail.smtp.starttls.enable", "true");
-	    props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
-
-	    // Create a new Authenticator for SMTP authentication
-	    Authenticator auth = new Authenticator() {
-	    protected PasswordAuthentication getPasswordAuthentication() {
-	    return new PasswordAuthentication(fromEmail, password);
-	    }
-	    };
-
-	    // Create a new email session using the Properties and Authenticator objects
-	    Session session = Session.getInstance(props, auth);
-
-	    // Create a new MIME message
-	    MimeMessage msg = new MimeMessage(session);
-
-	    // Set the email headers and content
-	    msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-	    msg.addHeader("format", "flowed");
-	    msg.addHeader("Content-Transfer-Encoding", "8bit");
-	    msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
-	    msg.setReplyTo(InternetAddress.parse(fromEmail, false));
-	    msg.setSubject(subject, "UTF-8");
-	    msg.setContent(multipart, "text/html; charset=UTF-8");
-	    msg.setSentDate(new Date());
-	    msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-
-	    // Send the email and print a success message
-	    Transport.send(msg);
-	    System.out.println("Gửi mail thành công");
-
-	    // Set attributes and forward the request to a new JSP
-	    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
-	    request.setAttribute("statusPassSent", "Ok");
-	    request.getRequestDispatcher("forgotPass.jsp").forward(request, response);
+	    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
 	}
 
 	private void doLogout(HttpServletRequest request, HttpServletResponse response)
@@ -430,8 +546,10 @@ public class UsersController extends HttpServlet {
 		// Collect user input from the login form
 		String id = request.getParameter("loginId");
 		String password = request.getParameter("password");
-		String passDB = MD5Library.md5(password);
-			
+		String passDB = null;
+		if(password != null) {
+			passDB = MD5Library.md5(password);
+		}
 		// Create a new session for the user
 		session = request.getSession(true);
 			
@@ -446,43 +564,44 @@ public class UsersController extends HttpServlet {
 		}
 			
 		// Check the user's account information in the database
-		try {
-			userData = dao.getUser(id);
-			
-			if (userData == null) {
-				request.setAttribute("notifyLogin", "Số điện thoại/Email chưa đúng hoặc Tài khoản chưa được đăng ký. Xin đăng ký để sử dụng");
-				request.setAttribute("statusLogin", "Fail");
+		if(id != null && password != null) {
+			try {
+				userData = dao.getUser(id);
+				
+				if (userData == null) {
+					request.setAttribute("notifyLogin", "Số điện thoại/Email chưa đúng hoặc Tài khoản chưa được đăng ký. Xin đăng ký để sử dụng");
+					request.setAttribute("statusLogin", "Fail");
+				} 
+				else if (userData != null) {
+					if (userData.getStatus() == 0) {
+						request.setAttribute("notifyLogin", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để kích hoạt lại!");
+						request.setAttribute("statusLogin", "Fail");
+					}
+					
+					else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {
+						request.setAttribute("notifyLogin", "Chúc mừng Admin đã đăng nhập thành công.");
+						request.setAttribute("statusLogin", "Admin");
+						session.setAttribute("user", userData);			
+					} 
+					
+					else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {
+						request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
+						request.setAttribute("statusLogin", "User");
+						session.setAttribute("user", userData);			
+					} 
+					
+					else {
+						request.setAttribute("notifyLogin", "Mật khẩu của bạn chưa đúng.");
+						request.setAttribute("statusLogin", "Fail");
+					}
+				}
 			} 
-			else if (userData != null) {
-				if (userData.getStatus() == 0) {
-					request.setAttribute("notifyLogin", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để kích hoạt lại!");
-					request.setAttribute("statusLogin", "Fail");
-				}
-				
-				else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {
-					request.setAttribute("notifyLogin", "Chúc mừng Admin đã đăng nhập thành công.");
-					request.setAttribute("statusLogin", "Admin");
-					session.setAttribute("user", userData);			
-				} 
-				
-				else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {
-					request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-					request.setAttribute("statusLogin", "User");
-					session.setAttribute("user", userData);			
-				} 
-				
-				else {
-					request.setAttribute("notifyLogin", "Mật khẩu của bạn chưa đúng.");
-					request.setAttribute("statusLogin", "Fail");
-				}
+			catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+				request.setAttribute("statusLogin", "Fail");
 			}
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-			request.setAttribute("statusLogin", "Fail");
 		}
-			
 		// Forward the request and response to the login page
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 		

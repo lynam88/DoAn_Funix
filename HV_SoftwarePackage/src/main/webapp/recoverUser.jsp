@@ -3,13 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Cấp Lại Mật Khẩu | Website Từ Thiện"></c:param>
+	<c:param name="title" value="Phục Hồi Tài Khoản | Website Từ Thiện"></c:param>
 </c:import>
 
 <%
 String notifyPassSent = (String) request.getAttribute("notifyPassSent");
 String statusPassSent = (String) request.getAttribute("statusPassSent");
-String notifyValid = (String) request.getAttribute("notifyValid");
 
 if (notifyPassSent != null) {
 %>
@@ -63,27 +62,34 @@ if (notifyPassSent != null) {
 									<h4 class="mt-1 mb-5 pb-1" style="color: orangered;">Quỹ
 										Từ Thiện Liên Hoa</h4>
 								</div>
-								<form action="UsersController?action=sendMail" method="post">
-									<h6 style="color: blue;">CẤP LẠI MẬT KHẨU</h6>
-									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
-										tôi gửi lại mật khẩu mới cho bạn</p>
+								<form action="UsersController?action=recoverUser" method="post">
+									<h6 style="color: blue;">PHỤC HÒI TÀI KHOẢN</h6>
+									<p>Chúng tôi rất tiếc vì tài khoản của bạn đã bị khóa, xin hãy điền vào nội dung phản hồi và thông tin email, chúng tôi sẽ tiến hành xử lý yêu cầu và thông báo lại cho bạn khi tài khoản của bạn được khôi phục thành công. Xin cảm ơn! </p>
 									<div class="form-outline my-3">
-										<label for="email">Email: <span class="require"
+										<label for="feedback">Nội dung phản hồi: <span class="require"
+											style="color: red;">*</span></label>
+										<div class="input-group">
+											<span class="input-group-text"><i class="bx bx-message"></i></span>
+											<textarea type="text" id="feedback" name="feedback" class="form-control" placeholder="Nhập nội dung" rows="10"></textarea>
+										</div>
+										<p id="feedback_error" style="color: red; position: inherit;">
+										<br/>								
+										<label for="email">Email cần khôi phục: <span class="require"
 											style="color: red;">*</span></label>
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
 												name="email" class="form-control" placeholder="Nhập email">
 										</div>
-										<p id="email_error" style="color: red; position: inherit;">
+										<p id="email_recover_error" style="color: red; position: inherit;">
+										<div class="email_recover_error" style="color: red; position: inherit;">
 											<%
-											if (notifyValid != null) {
+												String email_recover_error = (String) session.getAttribute("email_recover_error");
+												if (email_recover_error != null){
+													out.println(email_recover_error);
+												}
 											%>
-											<%=notifyValid%>
-											<%
-											}
-											%>
-
+											</div>
 										</p>
 										<p>
 											<span class="require" style='color: red;'>(*) Bắt buộc</span>
@@ -93,12 +99,12 @@ if (notifyPassSent != null) {
 									<div class="text-center">
 										<button
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-											type="submit" onclick="return validateForgotEmail(email)">Đặt lại mật khẩu</button>
+											type="submit" onclick="return validateRecoverUser()">Gửi Yêu Cầu Phục Hồi</button>
 									</div>
 								</form>
 							</div>
 						</div>
-						<div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+						<div class="col-lg-6 align-items-center gradient-custom-2 rightText">
 							<div class="text-white px-3 py-4 p-md-5 mx-md-4">
 								<h4 class="text-center mb-4">Cho đi là còn mãi</h4>
 								<p class="text-center small mb-0">Một khi bạn cho đi, chính

@@ -4,7 +4,7 @@
 
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Đăng nhập hệ thống | Website Từ Thiện"></c:param>
+	<c:param name="title" value="Đăng Nhập Hệ Thống | Website Từ Thiện"></c:param>
 </c:import>
 <%
 String notifyLogin = (String) request.getAttribute("notifyLogin");
@@ -156,7 +156,7 @@ if (notifyLogin != null) {
 									<div>
 										<input type="checkbox" name="remember" value="remember"
 											value="on"> <label for="remember">Remember me</label>
-										<a class="text-muted" href="forgotPass.jsp"
+										<a class="text-muted" href="#" id="resetPass"
 											style="padding-left: 10%;">Bạn quên mật khẩu?</a>
 									</div>
 									<br />
@@ -164,7 +164,10 @@ if (notifyLogin != null) {
 										<button
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
 											type="submit">Đăng nhập</button>
-										<span>Bạn chưa có tài khoản? Xin Đăng Ký!</span> 
+										<div>
+										    <span>Bạn chưa có tài khoản? </span>
+										    <a href="#" id="signup">Xin Đăng Ký!</a>
+									  	</div>
 									</div>
 
 								</form>
