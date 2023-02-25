@@ -155,9 +155,6 @@ public class UsersController extends HttpServlet {
 		// Sender's email and password
 	    final String fromEmail = "quytuthienlienhoa@gmail.com";
 	    final String password = "csfawleqxoaqlhur";
-
-	    // Invalidate any existing session before creating a new one
-	 	request.getSession(true).invalidate();
 	 	
 	    // Recipient's email address
 	    final String toEmail = request.getParameter("email");
@@ -170,8 +167,9 @@ public class UsersController extends HttpServlet {
 	    //Get user from database
 	    if(toEmail != null) {
 		    Users u = dao.getUser(toEmail);
-		    if(u.getStatus() == 1 || u == null) {
-		    	session.setAttribute("email_recover_error", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
+		    if(u.getStatus() == 1 || u == null) {		    	
+		    	request.setAttribute("notifyRecover", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
+				request.setAttribute("statusRecover", "Fail");
 			    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);
 			    return;
 		    } 
@@ -182,8 +180,8 @@ public class UsersController extends HttpServlet {
 		    // Email subject and body
 		    final String subject = "Liên Hoa tiếp nhận phản hồi của bạn";
 		    final String body = "Chào bạn, <br/>" + 
-		        "Chúng tôi xin chân thành cảm ơn bạn đã gửi yêu cầu phục hồi tài khoản của mình tại trang web Quỹ Từ Thiện Liên Hoa." +
-		        "Chúng tôi xác nhận đã nhận được thông tin tài khoản email, và chúng tôi đang tiến hành xác minh thông tin và tiến hành phục hồi tài khoản của bạn. <br/>" +
+		        "Chúng tôi cảm ơn bạn đã gửi yêu cầu phục hồi tài khoản của mình tại trang web Quỹ Từ Thiện Liên Hoa." +
+		        "Chúng tôi đã nhận được thông tin tài khoản email, và đang tiến hành xác minh thông tin cũng như xem xét việc phục hồi tài khoản cho bạn. <br/>" +
 		        "Chúng tôi sẽ thông báo cho bạn ngay khi tài khoản của bạn đã được khôi phục thành công. Nếu có bất kỳ câu hỏi hoặc yêu cầu nào khác, vui lòng liên hệ với chúng tôi qua email này hoặc qua trang web của chúng tôi. <br/>" +
 		        "Chúng tôi rất tiếc vì sự bất tiện này và sẽ cố gắng giải quyết vấn đề của bạn trong thời gian sớm nhất. <br/>" +		        
 		        "Trân trọng, <br/>" +
@@ -255,8 +253,8 @@ public class UsersController extends HttpServlet {
 		    System.out.println("Gửi mail thành công");
 	
 		    // Set attributes and forward the request to a new JSP
-		    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
-		    request.setAttribute("statusPassSent", "Ok");		    
+		    request.setAttribute("notifyRecover", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
+		    request.setAttribute("statusRecover", "Ok");		    
 	    }
 	    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);		
 	}

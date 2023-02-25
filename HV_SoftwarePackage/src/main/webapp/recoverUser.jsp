@@ -7,12 +7,12 @@
 </c:import>
 
 <%
-String notifyPassSent = (String) request.getAttribute("notifyPassSent");
-String statusPassSent = (String) request.getAttribute("statusPassSent");
+String notifyRecover = (String) request.getAttribute("notifyRecover");
+String statusRecover = (String) request.getAttribute("statusRecover");
 
-if (notifyPassSent != null) {
+if (notifyRecover != null) {
 %>
-<div class="modal" id="sendPassModal" role="dialog">
+<div class="modal" id="recoverModal" role="dialog">
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
@@ -25,7 +25,7 @@ if (notifyPassSent != null) {
 			</div>
 			<div class="modal-body">
 				<p class="text-center" id="sendPassMsg"
-					style="font-size: large; color: red;"><%=notifyPassSent%></p>
+					style="font-size: large; color: red;"><%=notifyRecover%></p>
 			</div>
 		</div>
 
@@ -34,16 +34,14 @@ if (notifyPassSent != null) {
 
 <script>
 		setTimeout(function() {
-			$("#sendPassModal").modal("show");
+			$("#loginModal").modal("show");
 		}, 500);
 		setTimeout(function() {
-			$('#sendPassModal').modal().hide();			
-			var st = "<%=statusPassSent%>
-	";
-		if (st == "Ok") {
-			window.history.back();
-		}
-	}, 15000);
+			$('#loginModal').modal().hide();				
+			// remove class modal-backdrop in
+			$(".modal-backdrop").removeClass("modal-backdrop in");
+			window.history.back();				
+		}, 5000);
 </script>
 
 <%
@@ -72,24 +70,16 @@ if (notifyPassSent != null) {
 											<span class="input-group-text"><i class="bx bx-message"></i></span>
 											<textarea type="text" id="feedback" name="feedback" class="form-control" placeholder="Nhập nội dung" rows="10"></textarea>
 										</div>
-										<p id="feedback_error" style="color: red; position: inherit;">
+										<p id="feedback_error" style="color: red; position: inherit;"></p>
 										<br/>								
 										<label for="email">Email cần khôi phục: <span class="require"
-											style="color: red;">*</span></label>
+											style="color: red;">*</span></label>									
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
 												name="email" class="form-control" placeholder="Nhập email">
 										</div>
-										<p id="email_recover_error" style="color: red; position: inherit;">
-										<div class="email_recover_error" style="color: red; position: inherit;">
-											<%
-												String email_recover_error = (String) session.getAttribute("email_recover_error");
-												if (email_recover_error != null){
-													out.println(email_recover_error);
-												}
-											%>
-											</div>
+										<p id="email_recover_error" style="color: red; position: inherit;">										
 										</p>
 										<p>
 											<span class="require" style='color: red;'>(*) Bắt buộc</span>

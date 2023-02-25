@@ -134,7 +134,8 @@ if (notifyDelete != null) {
 										<th style="width: 14%;">Email</th>
 										<th style="width: 5%;">Phone</th>
 										<th style="width: 5%;">Địa Chỉ</th>
-										<th style="width: 2%;">Sửa</th>
+										<th style="width: 2%;">Trạng Thái</th>
+										<th style="width: 2%;">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -167,6 +168,7 @@ if (notifyDelete != null) {
 						                    </td>
 											<td><c:out value="${user.phone}"/></td>
 											<td><c:out value="${user.address}"/></td>
+											<td>Active</td>
 											<td><a class="edit"
 												href="UsersController?action=edit&email=${user.email}&page=${currentPage}"
 												title="Sửa" data-toggle="tooltip"> <i
