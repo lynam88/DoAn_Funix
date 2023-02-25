@@ -156,9 +156,14 @@ public class UsersController extends HttpServlet {
 	    final String fromEmail = "quytuthienlienhoa@gmail.com";
 	    final String password = "csfawleqxoaqlhur";
 
+	    // Invalidate any existing session before creating a new one
+	 	request.getSession(true).invalidate();
+	 	
 	    // Recipient's email address
 	    final String toEmail = request.getParameter("email");
 	    final String feedback = request.getParameter("feedback");
+	    byte[] feedback_Bytes = feedback.getBytes(StandardCharsets.ISO_8859_1);
+	    String feedbackString = new String(feedback_Bytes, StandardCharsets.UTF_8);
 	    
 	    //Get user from database
 	    if(toEmail != null) {
@@ -167,15 +172,13 @@ public class UsersController extends HttpServlet {
 		    	session.setAttribute("email_recover_error", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
 			    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);
 			    return;
-		    }
-	
-		    // Generate a new password and update it in the database
-		    final String newPass = RandomPasswordGenerator.regeneratePassword();
-		    final String newpassDB = MD5Library.md5(newPass);
-		    dao.updatePass(u, newpassDB);
+		    } 
+		    
+		    //Update feedback to database
+		    dao.updateFeedback(u, feedbackString);
 	
 		    // Email subject and body
-		    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
+		    final String subject = "Liên Hoa tiếp nhận phản hồi của bạn";
 		    final String body = "Chào bạn, <br/>" + 
 		        "Chúng tôi xin chân thành cảm ơn bạn đã gửi yêu cầu phục hồi tài khoản của mình tại trang web Quỹ Từ Thiện Liên Hoa." +
 		        "Chúng tôi xác nhận đã nhận được thông tin tài khoản email, và chúng tôi đang tiến hành xác minh thông tin và tiến hành phục hồi tài khoản của bạn. <br/>" +
@@ -420,7 +423,7 @@ public class UsersController extends HttpServlet {
 	    //Get user from database
 	    if(toEmail != null) {
 		    Users u = dao.getUser(toEmail);
-		    if(u == null ) {
+		    if(u == null || u.getStatus() == 0) {
 		    	// User is deleted or not registered yet
 		    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
 			    request.setAttribute("statusPassSent", "Fail");

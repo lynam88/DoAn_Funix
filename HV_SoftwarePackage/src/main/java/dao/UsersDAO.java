@@ -166,7 +166,7 @@ public class UsersDAO {
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		
-		String sql ="UPDATE Users SET status = 0 WHERE user_role = 2 AND email = ?";
+		String sql ="UPDATE Users SET status = 0 WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		for (Users u : us) {			
@@ -180,10 +180,23 @@ public class UsersDAO {
 	public void updatePass(Users u, String password) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		
-		String sql = "UPDATE Users SET password = ? WHERE status = 1 AND email = ?";
+		String sql = "UPDATE Users SET password = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setString(1, password);
+		stmt.setString(2, u.getEmail());
+		stmt.executeUpdate();
+		stmt.close();
+		
+	}
+	
+	public void updateFeedback(Users u, String feedback) throws Exception {
+		Connection connection = new DBContext().getConnection();
+		
+		String sql = "UPDATE Users SET feedback = ? WHERE email = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		stmt.setString(1, "%" + feedback + "%");
 		stmt.setString(2, u.getEmail());
 		stmt.executeUpdate();
 		stmt.close();

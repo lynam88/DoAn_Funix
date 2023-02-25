@@ -63,7 +63,7 @@ if (notifyPassSent != null) {
 										Từ Thiện Liên Hoa</h4>
 								</div>
 								<form action="UsersController?action=recoverUser" method="post">
-									<h6 style="color: blue;">PHỤC HÒI TÀI KHOẢN</h6>
+									<h6 style="color: blue;">PHỤC HỒI TÀI KHOẢN</h6>
 									<p>Chúng tôi rất tiếc vì tài khoản của bạn đã bị khóa, xin hãy điền vào nội dung phản hồi và thông tin email, chúng tôi sẽ tiến hành xử lý yêu cầu và thông báo lại cho bạn khi tài khoản của bạn được khôi phục thành công. Xin cảm ơn! </p>
 									<div class="form-outline my-3">
 										<label for="feedback">Nội dung phản hồi: <span class="require"
