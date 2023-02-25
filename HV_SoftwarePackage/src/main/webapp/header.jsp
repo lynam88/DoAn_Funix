@@ -45,21 +45,4 @@
 <body>
 
   <section class="h-100 gradient-form" style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
-  <div class="row justify-content-between">
-    <div class="col text-center">
-      <a href="${pageContext.request.contextPath}/UsersController?action=signup" class="btn btn-outline-light btn-bg-left btn-signup"><i class='bx bxs-left-arrow-square'></i> Đăng Ký</a>
-    </div>
-    <div class="col text-center">
-      <a href="${pageContext.request.contextPath}/UsersController?action=resetPassword" class="btn btn-outline-light btn-bg-center btn-reset-password"><i class='bx bxs-lock-open'></i> Cấp Lại Mật Khẩu</a>
-    </div>
-    <div class="col text-center">
-      <a href="index.jsp" class="btn btn-outline-light btn-bg-center"><i class='bx bxs-home'></i> Trang chủ</a>
-    </div>
-    <div class="col text-center">
-      <a href="${pageContext.request.contextPath}/UsersController?action=recoverUser" class="btn btn-outline-light btn-bg-center btn-recover-user"><i class='bx bxs-shield'></i> Phục Hồi Tài Khoản</a>
-    </div>
-    <div class="col text-center">
-      <a href="${pageContext.request.contextPath}/UsersController?action=login" class="btn btn-outline-light btn-bg-right btn-login">Đăng Nhập <i class='bx bxs-right-arrow-square'></i></a>
-    </div>
-  </div>
-
+ 
