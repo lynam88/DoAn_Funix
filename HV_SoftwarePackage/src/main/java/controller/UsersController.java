@@ -265,6 +265,7 @@ public class UsersController extends HttpServlet {
 	    try {
 	    	// Invalidate any existing session before creating a new one
 			request.getSession(true).invalidate();
+			
 	        // Get form input data
 	        String name = request.getParameter("name");
 	        String phone = request.getParameter("phone");
