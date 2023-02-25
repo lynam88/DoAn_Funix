@@ -162,9 +162,11 @@ public class UsersController extends HttpServlet {
 	    // Recipient's email address
 	    final String toEmail = request.getParameter("email");
 	    final String feedback = request.getParameter("feedback");
-	    byte[] feedback_Bytes = feedback.getBytes(StandardCharsets.ISO_8859_1);
-	    String feedbackString = new String(feedback_Bytes, StandardCharsets.UTF_8);
-	    
+	    String feedbackString = null;
+	    if(feedback != null) {
+		    byte[] feedback_Bytes = feedback.getBytes(StandardCharsets.ISO_8859_1);
+		    feedbackString = new String(feedback_Bytes, StandardCharsets.UTF_8);
+		}
 	    //Get user from database
 	    if(toEmail != null) {
 		    Users u = dao.getUser(toEmail);

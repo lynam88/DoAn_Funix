@@ -196,7 +196,7 @@ public class UsersDAO {
 		String sql = "UPDATE Users SET feedback = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setString(1, "%" + feedback + "%");
+		stmt.setString(1, feedback);
 		stmt.setString(2, u.getEmail());
 		stmt.executeUpdate();
 		stmt.close();

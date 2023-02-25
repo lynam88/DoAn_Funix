@@ -6,22 +6,11 @@
 	
 	body {
 	  min-width: 576px; /* set the minimum width to 576 pixels */
-	}
-	
-	@keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-		
+	}	
+			
 	/* Apply the box-shadow to the button when it's clicked */
 	  .glow {
-	    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #32CD32 !important;
-	    animation: rotate 2s linear;
-	    animation-iteration-count: 1;	    
+	    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #32CD32 !important;	    
 	  }
 		
 	/* Login page */
