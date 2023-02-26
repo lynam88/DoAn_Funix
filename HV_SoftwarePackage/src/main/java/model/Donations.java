@@ -22,8 +22,8 @@ public class Donations {
 		this.id = id;
 	}
 	
-	public Donations(int id, String status, String title, String content, Date startDate, Date endDate, Float totalNeeded,
-			String src) {
+	public Donations(int id, String status, String title, String content, Date startDate, Date endDate,
+			Float totalNeeded, String category, String src) {
 		super();
 		this.id = id;
 		this.status = status;
@@ -32,10 +32,12 @@ public class Donations {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.totalNeeded = totalNeeded;
+		this.category = category;
 		this.src = src;
 	}
 
-	public Donations(String status, String title, String content, Date startDate, Date endDate, Float totalNeeded, String src) {
+	public Donations(String status, String title, String content, Date startDate, Date endDate,
+			Float totalNeeded, String category, String src) {
 		super();
 		this.status = status;
 		this.title = title;
@@ -43,9 +45,9 @@ public class Donations {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.totalNeeded = totalNeeded;
+		this.category = category;
 		this.src = src;
 	}
-
 	public int getId() {
 		return id;
 	}
@@ -100,6 +102,14 @@ public class Donations {
 
 	public void setTotalNeeded(Float totalNeeded) {
 		this.totalNeeded = totalNeeded;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getSrc() {

@@ -50,6 +50,7 @@ public class DonationsDAO {
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
 				d.setTotalNeeded(rs.getFloat("total_needed"));
+				d.setCategory(rs.getString("category"));
 				d.setSrc(rs.getString("thumbnail"));
 
 				list.add(d);
@@ -98,6 +99,7 @@ public class DonationsDAO {
 				d.setContent(rs.getString("donation_content"));
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
+				d.setCategory(rs.getString("category"));
 
 				list.add(d);
 			}
@@ -125,6 +127,7 @@ public class DonationsDAO {
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
 				d.setTotalNeeded(rs.getFloat("total_needed"));
+				d.setCategory(rs.getString("category"));
 				d.setSrc(rs.getString("thumbnail"));
 
 			}
@@ -137,11 +140,11 @@ public class DonationsDAO {
 	public void insertDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		String sql = "MERGE INTO Donations AS target " +
-               "USING (VALUES (?, ?, ?, ?, ?, ?, ?, GETDATE())) AS source (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail, insertDate) " +
+               "USING (VALUES (?, ?, ?, ?, ?, ?, ?, ?, GETDATE())) AS source (donation_status, donation_title, donation_content, start_date, end_date, total_needed, category, thumbnail, insertDate) " +
                "ON target.donation_title = source.donation_title " +
                "WHEN NOT MATCHED BY TARGET THEN " +
-               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, thumbnail, insertDate) " +
-               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail, GETDATE());";
+               "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, category, thumbnail, insertDate) " +
+               "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.thumbnail, source.category, GETDATE());";
        
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
@@ -151,7 +154,8 @@ public class DonationsDAO {
 		stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
 		stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
 		stmt.setFloat(6, d.getTotalNeeded());
-		stmt.setString(7, d.getSrc());
+		stmt.setString(7, d.getStatus());
+		stmt.setString(8, d.getSrc());
 		int run = stmt.executeUpdate();
 		stmt.close();
 		if(run == 0) throw new Exception();			
@@ -177,7 +181,7 @@ public class DonationsDAO {
 	public void updateDonation(Donations d) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		try {
-			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?, thumbnail = ?, updateDate = GETDATE() WHERE donation_id = "
+			String sql = "UPDATE Donations SET donation_status = ?, donation_title = ?, donation_content = ?, start_date = ?, end_date = ?, total_needed = ?, category = ?, thumbnail = ?, updateDate = GETDATE() WHERE donation_id = "
 					+ d.getId();
 			PreparedStatement stmt = connection.prepareStatement(sql);
 

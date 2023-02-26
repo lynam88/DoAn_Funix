@@ -177,8 +177,9 @@ public class DonationsController extends HttpServlet {
 				end = (Date) Utils.convertStringToDate(endDate);
 			}
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
+			String category = request.getParameter("category");
 			String src = request.getParameter("thumbnail");
-			Donations d = new Donations(status, title, content, start, end, totalNeededFloat, src);
+			Donations d = new Donations(status, title, content, start, end, totalNeededFloat, category, src);
 			dao.insertDonation(d);
 			request.setAttribute("notifySave", "Thêm thành công.");
 			request.setAttribute("statusSave", "OK");
@@ -240,11 +241,12 @@ public class DonationsController extends HttpServlet {
 		Date end = (Date) Utils.convertStringToDate(endDate);
 		String totalNeeded = request.getParameter("totalNeeded").replaceAll(",", "");
 		Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
+		String category = request.getParameter("category");
 		String content = request.getParameter("content");
 		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
 		content = new String(content_Bytes, StandardCharsets.UTF_8);
 		String src = request.getParameter("thumbnail");
-		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, src);
+		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, src);
 		try {
 			dao.updateDonation(d);
 		} catch (Exception e) {
