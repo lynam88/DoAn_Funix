@@ -211,7 +211,7 @@
 	@media (min-width: 992px) { 
 		.rightForm{
     	    position: relative !important;
- 			top: 6% !important;
+ 			top: 5% !important;
 	    }
 	    .rightText{    	    
    			display: flex;

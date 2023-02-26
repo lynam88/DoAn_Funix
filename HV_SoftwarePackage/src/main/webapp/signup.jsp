@@ -52,14 +52,16 @@ if (notifySignup != null) {
 <%
 }
 %>
-
+<div>
+<h3 class="text-center" style="color: blue;">ĐĂNG KÝ THÀNH
+					VIÊN MỚI</h3>
+</div>
 <form action="UsersController?action=signup" method="post"
 	enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-6">
-			<div class="card-body p-md-5 mx-md-4">
-				<h6 style="color: blue; display: inline-block;">ĐĂNG KÝ THÀNH
-					VIÊN MỚI</h6>
+			<div class="card-body p-md-5">
+				
 				<span class="require" style="color: red;">(*) Bắt buộc</span>
 				<div class="form-outline my-3">
 					<label for="name">Họ và tên: <span class="require"
@@ -121,12 +123,11 @@ if (notifySignup != null) {
 							value="<c:out value='${inputUser.avatarPath}'/>">
 					</div>
 				</div>
-
 			</div>
 
 		</div>
 		<div class="col-md-6">
-			<div class="card-body p-md-5 mx-md-4 rightForm">
+			<div class="card-body p-md-5 rightForm">
 				<div class="form-outline my-3">
 					<label for="address">Địa chỉ:</label>
 					<div class="input-group">
@@ -168,7 +169,7 @@ if (notifySignup != null) {
 	</div>
 	<div class="row justify-content-center mt-4"
 		style="margin-top: -1.5rem !important;">
-		<div class="col-lg-6" style="text-align: center !important;">
+		<div>
 			<input type="radio" id="agree" name="agree" value="yes"
 				onclick="enableButton()" /> <label for="agree">Tôi đã đọc
 				và đồng ý với các quy định của trang web</label>
@@ -189,10 +190,6 @@ if (notifySignup != null) {
 		</div>
 	</div>
 </form>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 
 <c:import url="footer.jsp"></c:import>
