@@ -10,6 +10,7 @@ public class Donations {
 	private Date startDate;
 	private Date endDate;
 	private Float totalNeeded;
+	private String category;
 	private String src;
 	
 	public Donations() {

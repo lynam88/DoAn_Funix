@@ -57,56 +57,52 @@
 			
             <div class="card-body px-0 pt-0 pb-2">
               <div class="p-0">
-                <table class="table table-bordered" id="myTable">
+                <table class="table table-bordered" id="myTable" style="zoom: 86%;">
 					<thead>
-						<tr>
-							<th style="width: 2%;">Chọn</th>
-							<th style="width: 6%;">Trạng Thái</th>
-							<th style="width: 6%;">Đợt Quyên Góp</th>
-							<th style="width: 20%;">Nội Dung</th>
-							<th style="width: 4%;">Bắt Đầu</th>
-							<th style="width: 4%;">Kết Thúc</th>
-							<th style="width: 2%;">Sửa</th>
-						</tr>
+					    <tr>
+					        <th style="width: 2%;">Chọn</th>
+					        <th style="width: 4%;">Hoàn Thành</th>
+					        <th style="width: 5%;">Đợt Quyên Góp</th>
+					        <th style="width: 21%;">Nội Dung</th>
+					        <th style="width: 4%;">Thời Gian</th>
+					        <th style="width: 5%;">Phân Loại</th>
+					        <th style="width: 3%;">Action</th>
+					    </tr>
 					</thead>
 					<tbody>
-						<c:forEach var="donation" items="${DonationList}">
-							<tr>
-								<td><input type="checkbox" class="chk" name="chk"
-									value="<c:out value='${donation.id}' />"></td>
-								<c:if test="${donation.status == 1}">
-									<td>Hoàn Thành</td>
-								</c:if>
-								<c:if test="${donation.status == 2}">
-									<td>Chưa Hoàn Thành</td>
-								</c:if>
-								<c:if test="${donation.status == null}">
-									<td></td>
-								</c:if>
-								<td><c:out value="" />
-									<div>
-										<div class="content hideContent">${donation.title}</div>
-										<div class="show-more">
-											<a type="button" style="color: blue;">Hiển thị thêm</a>
-										</div>
-									</div>								
-								</td>
-								<td>
-									<div>
-										<div class="content hideContent" style="zoom: 77%;">${donation.content}</div>
-										<div class="show-more">
-											<a type="button" style="color: blue;">Hiển thị thêm</a>
-										</div>
-									</div>
-								</td>
-								<td><c:out value="${donation.startDate}"/></td>
-								<td><c:out value="${donation.endDate}" /></td>
-								<td><a class="edit"
-									href="DonationsController?action=edit&id=${donation.id}&page=${currentPage}"
-									title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
-										aria-hidden="true"></i></a></td>
-							</tr>
-						</c:forEach>
+					    <c:forEach var="donation" items="${DonationList}">
+					        <tr>
+					            <td><input type="checkbox" class="chk" name="chk"
+					                value="<c:out value='${donation.id}' />"></td>
+					            <td> <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="complete" name="complete" disabled value="<c:out value='${donation.id}' />"
+					                <c:if test="${donation.status == 1}">checked</c:if>/> </div>
+					 			</td>
+					            <td><c:out value="" />
+					                <div>
+					                    <div class="content hideContent">${donation.title}</div>
+					                    <div class="show-more">
+					                        <a type="button" style="color: blue;">Hiển thị thêm</a>
+					                    </div>
+					                </div>                                
+					            </td>
+					            <td>
+					                <div>
+					                    <div class="content hideContent">${donation.content}</div>
+					                    <div class="show-more">
+					                        <a type="button" style="color: blue;">Hiển thị thêm</a>
+					                    </div>
+					                </div>
+					            </td>
+					            <td>
+					                <c:out value="${donation.startDate}"/> - <c:out value="${donation.endDate}" />
+					            </td>
+					            <td><c:out value="" /></td>
+					            <td><a class="edit"
+					                href="DonationsController?action=edit&id=${donation.id}&page=${currentPage}"
+					                title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
+					                    aria-hidden="true"></i></a></td>
+					        </tr>
+					    </c:forEach>
 					</tbody>
 				</table>
 				
