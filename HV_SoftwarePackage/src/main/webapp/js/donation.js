@@ -39,6 +39,7 @@
 		var endDate = document.getElementById("endDate").value;
 		var d1 = new Date(startDate);
 		var d2 = new Date(endDate);
+		var category = document.getElementById("category").value;
 		
 		if (status=="Xin Lựa Chọn" || status == 0) {
 			document.getElementById("status_error").innerHTML = "Xin chọn Trạng Thái";
@@ -81,6 +82,13 @@
 			return false;
 		} else {
 			document.getElementById("totalNeeded_error").innerHTML =  "";
+		}
+		if (category=="Xin Lựa Chọn" || category == 0) {
+			document.getElementById("category_error").innerHTML =  "Xin chọn phân loại";
+			document.getElementById("category_error").scrollIntoView();
+			return false;
+		} else {
+			document.getElementById("category_error").innerHTML =  "";
 		}
 	    if (content =="" || content == null)
 	    {

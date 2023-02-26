@@ -140,7 +140,7 @@ if (notifySave != null) {
 				</div>
 				<p id="title_error" style='color: red;' />
 			</div>
-			<div class="form-group" >
+			<div class="form-group" style="padding-top: 5%;">
 				<div>
 					<label for="title">Ngày Bắt Đầu <span class="require">*</span></label>
 					<label for="title" style="float: right;">Ngày Kết Thúc <span
@@ -153,11 +153,12 @@ if (notifySave != null) {
 						type="date" class="form-control" name="endDate"
 						style="width: 45%; float: right; margin-top: 0;" id="endDate"
 						value="<c:out value='${donations.endDate}'/>" />
+				
+					<p id="date1_error" style="color: red;" />
+					<p id="date2_error" style="color: red;float: right;" />
 				</div>
-				<p id="date1_error" style='color: red;' />
-				<p id="date2_error" style='color: red;' />
 			</div>
-			<div class="form-group" style="padding-top: 4%;">
+			<div class="form-group" style="padding-top: 5%;">
 				<div>
 					<label for="title">Tổng Số Tiền Cần Quyên Góp (VNĐ) <span
 						class="require">*</span>
@@ -180,11 +181,12 @@ if (notifySave != null) {
 						<option value="4" <c:if test="${donations.category == 4}">selected</c:if>>Đầu Tư Cơ Sở Vật Chất</option>
 						<option value="5" <c:if test="${donations.category == 5}">selected</c:if>>Bảo Vệ Môi Trường</option>
 					</select>
-				</div>
-				<p id="totalNeeded_error" style='color: red;' />
+				</div >
+				<p id="totalNeeded_error" style="color: red;padding-top: 5%;" />
+				<p id="category_error" style="color: red; float: right;" />
 			</div>
 
-			<div class="form-group" style="padding-top: 4%;">
+			<div class="form-group">
 				<label for="thumbnail">Hình Đại Diện </label>
 				<textarea class="form-control" id="thumbnail" name="thumbnail">${donations.src}</textarea>
 			</div>
