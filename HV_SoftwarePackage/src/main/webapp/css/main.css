@@ -80,11 +80,11 @@
 		margin: 0;
 		padding-left: 2%;
 	}
-	#searchStatus {
+	#searchStatus, #searchCategory {
 		border: 1px solid #ccc;
 		border-radius: 19px;
 		height: 40px;
-		width: 18%;
+		width: 25%;
 		margin: 5px;
 		padding-left: 40px;
 	}

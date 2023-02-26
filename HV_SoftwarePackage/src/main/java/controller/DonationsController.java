@@ -35,6 +35,7 @@ public class DonationsController extends HttpServlet {
 	private String action;
 	private String search;
 	private String status;
+	private String category;
 	private String searchString;
 	private int page;
 	HttpSession session;
@@ -107,18 +108,23 @@ public class DonationsController extends HttpServlet {
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
 		status = request.getParameter("searchStatus");
+		category = request.getParameter("searchCategory");
 		if (status == null || status == "") {
 			status = "0";
 		}
+		if (category == null || category == "") {
+			category = "0";
+		}
 		request.setAttribute("searchText", searchString);
 		request.setAttribute("searchStatus", status);
+		request.setAttribute("searchCategory", category);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			dao.search(searchString, status);
+			dao.search(searchString, status, category);
 			int noOfRecord = dao.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Donations> listPerPage = dao.getRecord(searchString, status, page, recordPerPage);
+			List<Donations> listPerPage = dao.getRecord(searchString, status, category, page, recordPerPage);
 			request.setAttribute("DonationList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
@@ -198,7 +204,7 @@ public class DonationsController extends HttpServlet {
 		// reads input file from an absolute path
 		File downloadFile = null;
 		try {
-			downloadFile = new File(exporter.donationExport(searchString, status));
+			downloadFile = new File(exporter.donationExport(searchString, status, category));
 			FileInputStream inStream = new FileInputStream(downloadFile);
 
 			// modifies response

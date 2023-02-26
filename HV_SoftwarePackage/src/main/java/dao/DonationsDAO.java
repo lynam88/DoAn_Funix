@@ -22,10 +22,11 @@ public class DonationsDAO {
 	/**
 	 * @param character text in the input for searching name
 	 * @param searchStatus status of the donation for searching
+	 * @param category 
 	 * @return list of donations
 	 * @throws Exception
 	 */
-	public List<Donations> search(String character, String searchStatus) throws Exception {
+	public List<Donations> search(String character, String searchStatus, String category) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
@@ -33,10 +34,17 @@ public class DonationsDAO {
 			if (!searchStatus.equals("0")) {
 			    sql += " AND donation_status = ?";
 			}
+			if (!category.equals("0")) {
+			    sql += " AND category = ?";
+			}
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, "%" + character + "%");
+			int index = 2;
 			if (!searchStatus.equals("0")) {
-			    stmt.setString(2, searchStatus);
+			    stmt.setString(index++, searchStatus);
+			}
+			if (!category.equals("0")) {
+			    stmt.setString(index++, category);
 			}
 			ResultSet rs = stmt.executeQuery();
 
@@ -68,16 +76,19 @@ public class DonationsDAO {
 
 	}
 
-	public List<Donations> getRecord(String character, String searchStatus, int pageNo, int recordPerPage) throws Exception {
+	public List<Donations> getRecord(String character, String searchStatus, String category, int pageNo, int recordPerPage) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, COUNT(*) OVER() AS total"
+			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, category, COUNT(*) OVER() AS total"
 					+ " FROM Donations"
 					+ " WHERE use_yn = 1"
 					+ " AND donation_title like ? ESCAPE '!'";
 			if (!searchStatus.equals("0")) {
 				sql += " AND donation_status = ?";
+			}
+			if (!category.equals("0")) {
+				sql += " AND category = ?";
 			}
 			sql += " ORDER BY end_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
@@ -86,6 +97,9 @@ public class DonationsDAO {
 			int index = 2;
 	        if (!searchStatus.equals("0")) {
 	        	stmt.setString(index++, searchStatus);
+	        }
+	        if (!category.equals("0")) {
+	        	stmt.setString(index++, category);
 	        }
 	        stmt.setInt(index++, pageNo);
 			stmt.setInt(index++, recordPerPage);
@@ -191,7 +205,8 @@ public class DonationsDAO {
 			stmt.setDate(4, new java.sql.Date(d.getStartDate().getTime()));
 			stmt.setDate(5, new java.sql.Date(d.getEndDate().getTime()));
 			stmt.setFloat(6, d.getTotalNeeded());
-			stmt.setString(7, d.getSrc());
+			stmt.setString(7, d.getCategory());
+			stmt.setString(8, d.getSrc());
 			stmt.executeUpdate();
 			stmt.close();
 

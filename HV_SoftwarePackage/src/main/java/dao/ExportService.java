@@ -21,7 +21,7 @@ public class ExportService {
 	        return String.format("_%s.xlsx", dateTimeInfo);
 	    }
  
-    public String donationExport(String character, String searchStatus) throws Exception {                  
+    public String donationExport(String character, String searchStatus, String category) throws Exception {                  
          String file = "./Donation_Export" + getFileName();
  
         try {
@@ -30,10 +30,17 @@ public class ExportService {
 			if (!searchStatus.equals("0")) {
 			    sql += " AND donation_status = ?";
 			}
+			if (!category.equals("0")) {
+			    sql += " AND category = ?";
+			}
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, "%" + character + "%");
+			int index = 2;
 			if (!searchStatus.equals("0")) {
-			    stmt.setString(2, searchStatus);
+			    stmt.setString(index++, searchStatus);
+			}
+			if (!category.equals("0")) {
+			    stmt.setString(index++, category);
 			}
 			ResultSet rs = stmt.executeQuery();
  

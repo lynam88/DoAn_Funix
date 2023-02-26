@@ -24,14 +24,27 @@
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
 					<select id="searchStatus" name="searchStatus">
-						<option value="0" selected>Tất cả</option>
+						<option value="0" selected>Trạng Thái Quyên Góp</option>
 						<option value="1"
 						<c:if test="${searchStatus == 1}">selected</c:if>>Hoàn
 						Thành</option>
 						<option value="2"
 						<c:if test="${searchStatus == 2}">selected</c:if>>Chưa
 						Hoàn Thành</option>
-					</select>				
+					</select>
+					<select id="searchCategory" name="searchCategory">
+						<option value="0" selected>Phân Loại Quyên Góp</</option>
+						<option value="1"
+						<c:if test="${searchCategory == 1}">selected</c:if>>Vì Trẻ Em</option>
+						<option value="2"
+						<c:if test="${searchCategory == 2}">selected</c:if>>Người Già, Người Khuyết Tật</option>
+						<option value="2"
+						<c:if test="${searchCategory == 3}">selected</c:if>>Bệnh Hiểm Nghèo</option>
+						<option value="2"
+						<c:if test="${searchCategory == 4}">selected</c:if>>Đầu Tư Cơ Sở Vật Chất</option>
+						<option value="2"
+						<c:if test="${searchCategory == 5}">selected</c:if>>Bảo Vệ Môi Trường</option>
+					</select>								
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
 					</button>
@@ -62,10 +75,10 @@
 					    <tr>
 					        <th style="width: 2%;">Chọn</th>
 					        <th style="width: 4%;">Hoàn Thành</th>
-					        <th style="width: 5%;">Đợt Quyên Góp</th>
+					        <th style="width: 6%;">Đợt Quyên Góp</th>
 					        <th style="width: 21%;">Nội Dung</th>
 					        <th style="width: 4%;">Thời Gian</th>
-					        <th style="width: 5%;">Phân Loại</th>
+					        <th style="width: 4%;">Phân Loại</th>
 					        <th style="width: 3%;">Action</th>
 					    </tr>
 					</thead>
@@ -77,7 +90,7 @@
 					            <td> <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="complete" name="complete" disabled value="<c:out value='${donation.id}' />"
 					                <c:if test="${donation.status == 1}">checked</c:if>/> </div>
 					 			</td>
-					            <td><c:out value="" />
+					            <td>
 					                <div>
 					                    <div class="content hideContent">${donation.title}</div>
 					                    <div class="show-more">
@@ -96,7 +109,13 @@
 					            <td>
 					                <c:out value="${donation.startDate}"/> - <c:out value="${donation.endDate}" />
 					            </td>
-					            <td><c:out value="" /></td>
+					            <td>
+					            	<c:if test="${donation.category == 1}">Vì trẻ em</c:if>					            
+					            	<c:if test="${donation.category == 2}">Người Già, Người Khuyết Tật</c:if>
+					            	<c:if test="${donation.category == 3}">Bệnh Hiểm Nghèo</c:if>
+					            	<c:if test="${donation.category == 4}">Đầu Tư Cơ Sở Vật Chất</c:if>
+					            	<c:if test="${donation.category == 5}">Bảo Vệ Môi Trường</c:if>
+					            </td>
 					            <td><a class="edit"
 					                href="DonationsController?action=edit&id=${donation.id}&page=${currentPage}"
 					                title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
