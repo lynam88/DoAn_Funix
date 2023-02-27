@@ -125,7 +125,7 @@ if (notifySave != null) {
 								<c:if test="${donations.status == 2}">selected</c:if>>Chưa
 								Hoàn Thành</option>
 						</select>
-						<p id="status_error" style='color: red;' />
+						<p id="status_error" />
 					</div>
 				</c:if>
 			</div>
@@ -138,9 +138,9 @@ if (notifySave != null) {
 					<input type="text" class="form-control" id="title" name="title"
 					value="<c:out value='${donations.title}'/>" />
 				</div>
-				<p id="title_error" style='color: red;font-size: 15px;' />
+				<p id="title_error" />
 			</div>
-			<div class="form-group">
+			<div class="form-group" style="padding-top: 4%;">
 				<div>
 					<label for="title">Ngày Bắt Đầu <span class="require">*</span></label>
 					<label for="title" style="float: right;">Ngày Kết Thúc <span
@@ -153,8 +153,8 @@ if (notifySave != null) {
 						type="date" class="form-control" name="endDate"
 						style="width: 45%; float: right; margin-top: 0;" id="endDate"
 						value="<c:out value='${donations.endDate}'/>" />
-					<p id="date1_error" style="color: red;width: 45%; float: left; font-size: 15px;" />
-					<p id="date2_error" style="color: red;width: 45%; float: right; font-size: 15px;" />			
+					<p id="date1_error" />
+					<p id="date2_error" />			
 				</div>				
 			</div>
 			<div class="form-group" style="padding-top: 10%;">
@@ -181,11 +181,11 @@ if (notifySave != null) {
 						<option value="5" <c:if test="${donations.category == 5}">selected</c:if>>Bảo Vệ Môi Trường</option>
 					</select>
 				</div >
-				<p id="totalNeeded_error" style="color: red;padding-top: 5%;" />
-				<p id="category_error" style="color: red; float: right;" />
+				<p id="totalNeeded_error" />
+				<p id="category_error" />
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" style="padding-top: 10%;">
 				<label for="thumbnail">Hình Đại Diện </label>
 				<textarea class="form-control" id="thumbnail" name="thumbnail">${donations.src}</textarea>
 			</div>
@@ -193,7 +193,7 @@ if (notifySave != null) {
 			<div class="form-group" >
 				<label for="content">Nội dung <span class="require">*</span></label>
 				<textarea class="form-control" id="content" name="content">${donations.content}</textarea>
-				<p id="content_error" style='color: red;' />
+				<p id="content_error" />
 			</div>
 
 			<section id="sec-1">
