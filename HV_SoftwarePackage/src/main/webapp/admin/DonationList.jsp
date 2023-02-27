@@ -32,18 +32,18 @@
 						<c:if test="${searchStatus == 2}">selected</c:if>>Chưa
 						Hoàn Thành</option>
 					</select>
-					<select id="searchCategory" name="searchCategory">
+					<select id="category" name="category">
 						<option value="0" selected>Phân Loại Quyên Góp</</option>
 						<option value="1"
-						<c:if test="${searchCategory == 1}">selected</c:if>>Vì Trẻ Em</option>
+						<c:if test="${category == 1}">selected</c:if>>Vì Trẻ Em</option>
 						<option value="2"
-						<c:if test="${searchCategory == 2}">selected</c:if>>Người Già, Người Khuyết Tật</option>
-						<option value="2"
-						<c:if test="${searchCategory == 3}">selected</c:if>>Bệnh Hiểm Nghèo</option>
-						<option value="2"
-						<c:if test="${searchCategory == 4}">selected</c:if>>Đầu Tư Cơ Sở Vật Chất</option>
-						<option value="2"
-						<c:if test="${searchCategory == 5}">selected</c:if>>Bảo Vệ Môi Trường</option>
+						<c:if test="${category == 2}">selected</c:if>>Người Già, Người Khuyết Tật</option>
+						<option value="3"
+						<c:if test="${category == 3}">selected</c:if>>Bệnh Hiểm Nghèo</option>
+						<option value="4"
+						<c:if test="${category == 4}">selected</c:if>>Đầu Tư Cơ Sở Vật Chất</option>
+						<option value="5"
+						<c:if test="${category == 5}">selected</c:if>>Bảo Vệ Môi Trường</option>
 					</select>								
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -133,7 +133,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&category=${category}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -144,13 +144,13 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>

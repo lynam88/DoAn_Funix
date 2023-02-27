@@ -108,7 +108,7 @@ public class DonationsController extends HttpServlet {
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
 		status = request.getParameter("searchStatus");
-		category = request.getParameter("searchCategory");
+		category = request.getParameter("category");
 		if (status == null || status == "") {
 			status = "0";
 		}
@@ -117,7 +117,7 @@ public class DonationsController extends HttpServlet {
 		}
 		request.setAttribute("searchText", searchString);
 		request.setAttribute("searchStatus", status);
-		request.setAttribute("searchCategory", category);
+		request.setAttribute("category", category);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {

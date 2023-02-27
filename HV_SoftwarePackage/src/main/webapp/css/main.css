@@ -98,7 +98,7 @@
 		margin: 0;
 		padding-left: 2%;
 	}
-	#searchStatus, #searchCategory {
+	#searchStatus, #category {
 		border: 1px solid #ccc;
 		border-radius: 19px;
 		height: 40px;
