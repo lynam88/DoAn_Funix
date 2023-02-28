@@ -331,7 +331,7 @@ h6, .h6 {
 }
 
 .nav-dropdown{
-	padding-top: 0.9rem;
+	padding-top: 1.3rem;
 }
 
 .dropdown-toggle{
@@ -3325,7 +3325,7 @@ input[type="button"].btn-block {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 200%; }
+  width: 300%; }
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
