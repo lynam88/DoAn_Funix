@@ -330,6 +330,16 @@ h6, .h6 {
 	width:25%;	
 }
 
+.nav-dropdown{
+	padding-top: 0.9rem;
+}
+
+.dropdown-toggle{
+    padding-left: 1.1rem;
+    position: relative;
+    bottom: 0.5rem;
+}
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300; }
@@ -7293,7 +7303,8 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #f86f2d; }
+/*   color: #f86f2d;  */
+  }
   a:hover {
     text-decoration: none;
     color: #f86f2d; }

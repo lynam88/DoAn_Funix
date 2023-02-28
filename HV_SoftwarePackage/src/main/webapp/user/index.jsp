@@ -44,20 +44,8 @@
 	     <div class="collapse navbar-collapse" id="ftco-nav">
 		  <ul class="navbar-nav ml-auto">
 		    <li class="nav-item active"><a href="index.html" class="nav-link">Trang Chủ</a></li>
-<!-- 		    <li class="nav-item dropdown"> -->
-<!-- 		      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!-- 		        Hoàn Cảnh Quyên Góp -->
-<!-- 		      </a> -->
-<!-- 		      <div class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
-<!-- 		        <a class="dropdown-item" href="#">Vì Trẻ Em</a> -->
-<!-- 		        <a class="dropdown-item" href="#">Người Già, Người Khuyết Tật</a> -->
-<!-- 		        <a class="dropdown-item" href="#">Bệnh Hiểm Nghèo</a> -->
-<!-- 		        <a class="dropdown-item" href="#">Đầu Tư Cơ Sở Vật Chất</a> -->
-<!-- 		        <a class="dropdown-item" href="#">Bảo Vệ Môi Trường</a>    -->
-<!-- 		      </div> -->
-<!-- 		    </li> -->
 			<li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	          <a class="dropdown-toggle nav-item" data-toggle="dropdown" href="#">
 		        Hoàn Cảnh Quyên Góp
  		      </a>
 	          <ul class="dropdown-menu">
