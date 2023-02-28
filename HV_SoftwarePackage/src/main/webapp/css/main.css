@@ -6,25 +6,7 @@
 	
 	body {
 	  min-width: 576px; /* set the minimum width to 576 pixels */
-	}
-	#status_error, #title_error, #content_error{
-		color: red;
-		font-size: 15px;
-	}
-	
-	#date1_error, #totalNeeded_error {
-		color: red;
-		width: 45%; 
-		float: left; 
-		font-size: 15px;
-	} 
-	
-	#date2_error, #category_error {
-		color: red;
-		width: 45%; 
-		float: right; 
-		font-size: 15px;
-	} 	
+	}	
 			
 	/* Apply the box-shadow to the button when it's clicked */
 	  .glow {
@@ -178,6 +160,25 @@
 	#sec-1 {
 	  background-color: rgb(214, 228, 92);
 	}
+	
+	#status_error, #title_error, #content_error{
+		color: red;
+		font-size: 15px;
+	}
+	
+	#date1_error, #totalNeeded_error {
+		color: red;
+		width: 45%; 
+		float: left; 
+		font-size: 15px;
+	} 
+	
+	#date2_error, #category_error {
+		color: red;
+		width: 45%; 
+		float: right; 
+		font-size: 15px;
+	} 	
 	
 	.scroll-down {
 	  height: 50px;
