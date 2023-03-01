@@ -110,13 +110,12 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="${pageContext.request.contextPath}/js/donation.js"></script>
-  <script src="${pageContext.request.contextPath}/js/user.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/plugins/chartjs.min.js"></script>
+  <script src="${pageContext.request.contextPath}/admin/js/donation.js"></script>
+  <script src="${pageContext.request.contextPath}/template/admin/assets/js/core/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/admin/assets/js/core/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/admin/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/admin/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/admin/assets/js/plugins/chartjs.min.js"></script>
   <script>
  	    if ( location.search.split('action=')[1] == "index"){
 	    	 var ctx1 = document.getElementById("chart-line").getContext("2d");
@@ -216,7 +215,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="${pageContext.request.contextPath}/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+  <script src="${pageContext.request.contextPath}/template/admin/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
   
   <script>
 	var classCr = location.search.split('action=')[1];

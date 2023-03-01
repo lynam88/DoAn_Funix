@@ -13,7 +13,7 @@
 <!-- Latest compiled and minified CSS -->
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/main.css">
+	href="${pageContext.request.contextPath}/admin/css/admin.css">
 <link
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
@@ -46,7 +46,7 @@
 <body>
 
 	<section class="h-100 gradient-form"
-		style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');">
+		style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
 		<div class="container py-5 h-100">
 			<div
 				class="row d-flex justify-content-center align-items-center h-100">

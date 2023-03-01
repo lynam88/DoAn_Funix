@@ -12,8 +12,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">  
-  <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/template/admin/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/template/admin/assets/img/favicon.png">
   <title>
     ${param.title}
   </title>
@@ -21,16 +21,16 @@
   <!-- Fonts and icons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
-  <link href="${pageContext.request.contextPath}/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="${pageContext.request.contextPath}/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/template/admin/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/template/admin/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="${pageContext.request.contextPath}/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/template/admin/assets/css/nucleo-svg.css" rel="stylesheet" />
   
  <!-- CSS Files -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
-  <link id="pagestyle" href="${pageContext.request.contextPath}/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin/css/admin.css">
+  <link id="pagestyle" href="${pageContext.request.contextPath}/template/admin/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
   <link	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>	
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
@@ -64,7 +64,7 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0 logo" href="#">
-        <img src="${pageContext.request.contextPath}/assets/img/logo-ct-dark.png" class="navbar-brand-img" alt="main_logo" style="float: left;">
+        <img src="${pageContext.request.contextPath}/template/admin/assets/img/logo-ct-dark.png" class="navbar-brand-img" alt="main_logo" style="float: left;">
         <span class="ms-1 font-weight-bold">Website Từ Thiện</span>
       </a>
     </div>
@@ -94,7 +94,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/billing.html">
+          <a class="nav-link " href="">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>

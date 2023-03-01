@@ -65,7 +65,7 @@
   </nav>
     <!-- END nav -->
     
-    <div class="hero-wrap" style="background-image: url('${pageContext.request.contextPath}/assets/img/carousel-4.jpg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap" style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">

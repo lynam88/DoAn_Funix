@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+	* {
+		box-sizing: border-box;
+	}
+	
+	body {
+	  min-width: 576px; /* set the minimum width to 576 pixels */
+	}	
+			
+	/* Apply the box-shadow to the button when it's clicked */
+	  .glow {
+	    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #32CD32 !important;	    
+	  }
+		
+	/* Login page */
+	.gradient-custom-2 {
+		/* fallback for old browsers */
+		background: #fccb90;
+		/* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+		/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+	}	
+	
+	.btn-bg-left {
+    	background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* blue */
+	}
+	
+	.btn-bg-center {
+	    background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* green */
+	}
+	
+	.btn-bg-right {
+	    background-color: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important; /* yellow */
+	}
+	
+	.btn-bg-left:hover,
+	.btn-bg-center:hover,
+	.btn-bg-right:hover {
+	    opacity: 0.8;
+	}	
+	
+	@media (min-width: 992px) { 
+		.rightForm{
+    	    position: relative !important;
+ 			top: 5% !important;
+	    }
+	    .rightText{    	    
+   			display: flex;
+	    }		
+	}	
+	
+	@media (max-width: 992px) { 
+		.rightText{    	    
+   			margin: 0 0.9rem;
+	    }	
+	}
+	
+	@media screen and (max-width: 991px) and (min-width : 768px) {
+		.gradient-form {
+			height: 100vh !important;			
+		}
+	
+		.gradient-custom-2 {
+			border-top-right-radius: .3rem;
+			border-bottom-right-radius: .3rem;
+		}
+				
+		.rightForm{
+    	    position: relative !important;
+ 			top: 13% !important;
+	    }
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {
+	    .rightForm{
+	    	position: relative !important;
+		    bottom: 15% !important;
+		    padding-bottom: 10% !important;
+	    }
+	}

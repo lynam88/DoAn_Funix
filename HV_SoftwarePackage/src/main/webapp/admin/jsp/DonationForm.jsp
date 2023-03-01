@@ -103,7 +103,7 @@ if (notifySave != null) {
 							<option value="1">Hoàn Thành</option>
 							<option value="2">Chưa Hoàn Thành</option>
 						</select>
-						<p id="status_error" style='color: red;' />
+						<p id="status_error" />
 					</div>
 				</c:if>
 
