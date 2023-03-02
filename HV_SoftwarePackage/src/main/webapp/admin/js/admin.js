@@ -63,7 +63,7 @@
 			document.getElementById("date1_error").innerHTML =  "";
 		}
 		if (d1 > d2) {
-			document.getElementById("date2_error").innerHTML = "Ngày Bắt Đầu phải trước Ngày Kết Thúc";
+			document.getElementById("date2_error").innerHTML = "Ngày Kết Thúc phải sau Ngày Bắt Đầu";
 			document.getElementById("date2_error").scrollIntoView();
 			return false;
 		} else {

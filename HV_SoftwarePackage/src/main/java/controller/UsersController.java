@@ -91,7 +91,7 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "admin" : action;
+		action = action == null ? "login" : action;
 		session = request.getSession();
 		if (action.equals("login")) {
 			doLogin(request, response);
@@ -146,7 +146,7 @@ public class UsersController extends HttpServlet {
 					throw new ServletException(ex);
 				}
 			} else {
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 			}
 		}
 	}
@@ -170,7 +170,7 @@ public class UsersController extends HttpServlet {
 		    if(u.getStatus() == 1 || u == null) {		    	
 		    	request.setAttribute("notifyRecover", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
 				request.setAttribute("statusRecover", "Fail");
-			    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);
+			    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);
 			    return;
 		    } 
 		    
@@ -256,7 +256,7 @@ public class UsersController extends HttpServlet {
 		    request.setAttribute("notifyRecover", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
 		    request.setAttribute("statusRecover", "Ok");		    
 	    }
-	    request.getRequestDispatcher("recoverUser.jsp").forward(request, response);		
+	    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);		
 	}
 
 	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -304,13 +304,13 @@ public class UsersController extends HttpServlet {
 	        request.setAttribute("notifySignup", "Đăng ký thất bại.");
 	        request.setAttribute("statusSignup", "FAIL");
 	    }
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/signup.jsp");
 	    dispatcher.forward(request, response);
 	}
 
 	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("admin/index.jsp").forward(request, response);
+		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
 	
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
@@ -339,7 +339,7 @@ public class UsersController extends HttpServlet {
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
-			RequestDispatcher rd = request.getRequestDispatcher("admin/UserList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/UserList.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -349,7 +349,7 @@ public class UsersController extends HttpServlet {
 	
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/UserForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/UserForm.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -363,7 +363,7 @@ public class UsersController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/UserForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/UserForm.jsp");
 		request.setAttribute("Users", existingUser);
 		page = Integer.parseInt(request.getParameter("page"));
 		request.setAttribute("page", page);
@@ -428,7 +428,7 @@ public class UsersController extends HttpServlet {
 		    	// User is deleted or not registered yet
 		    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
 			    request.setAttribute("statusPassSent", "Fail");
-			    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+			    request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
 			    return;
 		    }
 	
@@ -516,7 +516,7 @@ public class UsersController extends HttpServlet {
 		    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
 		    request.setAttribute("statusPassSent", "Ok");		    
 	    }
-	    request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+	    request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
 	}
 
 	private void doLogout(HttpServletRequest request, HttpServletResponse response)
@@ -525,7 +525,7 @@ public class UsersController extends HttpServlet {
 		if (session != null) {
 			session.invalidate();
 		}
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 	}
 	
 	/**
@@ -607,7 +607,7 @@ public class UsersController extends HttpServlet {
 			}
 		}
 		// Forward the request and response to the login page
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 		
 	}
 

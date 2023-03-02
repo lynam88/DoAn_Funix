@@ -10,32 +10,35 @@
     
     <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,400i,600,700" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="shortcut icon" href="#">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/animate.css">
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/aos.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/jquery.timepicker.css">
 
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/icomoon.css">
+
+    <link rel="stylesheet" href="../../template/user/css/style.css">
   </head>
   <body>
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">   	
       <a class="navbar-brand" href="index.jsp">
-        <img id="logo" src="${pageContext.request.contextPath}/media/logo.jpg" alt="logo">
+        <img id="logo" src="${pageContext.request.contextPath}/user/media/logo.jpg" alt="logo">
       Quỹ Từ Thiện Liên Hoa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
@@ -160,7 +163,7 @@
     				<div class="carousel-cause owl-carousel">
 	    				<div class="item">
 	    					<div class="cause-entry">
-		    					<a href="#" class="img" style="background-image: url(images/cause-1.jpg);"></a>
+		    					<a href="#" class="img" style="background-image: url(url(${pageContext.request.contextPath}/template/user/images/cause-1.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
 		    						<h3><a href="#">Clean water for the urban area</a></h3>
 		    						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
@@ -174,7 +177,7 @@
 	    				</div>
 	    				<div class="item">
 	    					<div class="cause-entry">
-		    					<a href="#" class="img" style="background-image: url(images/cause-2.jpg);"></a>
+		    					<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-2.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
 		    						<h3><a href="#">Clean water for the urban area</a></h3>
 		    						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
@@ -188,7 +191,7 @@
 	    				</div>
 	    				<div class="item">
 	    					<div class="cause-entry">
-		    					<a href="#" class="img" style="background-image: url(images/cause-3.jpg);"></a>
+		    					<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-3.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
 		    						<h3><a href="#">Clean water for the urban area</a></h3>
 		    						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
@@ -202,7 +205,7 @@
 	    				</div>
 	    				<div class="item">
 	    					<div class="cause-entry">
-		    					<a href="#" class="img" style="background-image: url(images/cause-4.jpg);"></a>
+		    					<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-4.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
 		    						<h3><a href="#">Clean water for the urban area</a></h3>
 		    						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
@@ -216,7 +219,7 @@
 	    				</div>
 	    				<div class="item">
 	    					<div class="cause-entry">
-		    					<a href="#" class="img" style="background-image: url(images/cause-5.jpg);"></a>
+		    					<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-5.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
 		    						<h3><a href="#">Clean water for the urban area</a></h3>
 		    						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
@@ -230,7 +233,7 @@
 	    				</div>
 	    				<div class="item">
 	    					<div class="cause-entry">
-		    					<a href="#" class="img" style="background-image: url(images/cause-6.jpg);"></a>
+		    					<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-6.jpg);"></a>
 		    					<div class="text p-3 p-md-4">
 		    						<h3><a href="#">Clean water for the urban area</a></h3>
 		    						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life</p>
@@ -260,7 +263,7 @@
         	<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
         			<div class="d-flex mb-4">
-        				<div class="img" style="background-image: url(images/person_1.jpg);"></div>
+        				<div class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/person_1.jpg);"></div>
         				<div class="info ml-4">
         					<h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
         					<span class="position">Donated Just now</span>
@@ -274,7 +277,7 @@
         	<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
         			<div class="d-flex mb-4">
-        				<div class="img" style="background-image: url(images/person_2.jpg);"></div>
+        				<div class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/person_2.jpg);"></div>
         				<div class="info ml-4">
         					<h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
         					<span class="position">Donated Just now</span>
@@ -288,7 +291,7 @@
         	<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
         			<div class="d-flex mb-4">
-        				<div class="img" style="background-image: url(images/person_3.jpg);"></div>
+        				<div class="img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/person_3.jpg);"></div>
         				<div class="info ml-4">
         					<h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
         					<span class="position">Donated Just now</span>
@@ -305,44 +308,44 @@
 
     <section class="ftco-gallery">
     	<div class="d-md-flex">
-	    	<a href="images/cause-2.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-2.jpg);">
+	    	<a href="images/cause-2.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-2.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="images/cause-3.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-3.jpg);">
+	    	<a href="images/cause-3.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-3.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="images/cause-4.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-4.jpg);">
+	    	<a href="images/cause-4.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-4.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="images/cause-5.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-5.jpg);">
+	    	<a href="images/cause-5.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-5.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
     	</div>
     	<div class="d-md-flex">
-	    	<a href="images/cause-6.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-6.jpg);">
+	    	<a href="${pageContext.request.contextPath}/template/user/images/cause-6.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-6.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="images/image_3.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_3.jpg);">
+	    	<a href="${pageContext.request.contextPath}/template/user/images/image_3.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_3.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="images/image_1.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_1.jpg);">
+	    	<a href="${pageContext.request.contextPath}/template/user/images/image_1.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_1.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="images/image_2.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_2.jpg);">
+	    	<a href="${pageContext.request.contextPath}/template/user/images/image_2.jpg" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_2.jpg);">
 	    		<div class="icon d-flex justify-content-center align-items-center">
 	    			<span class="icon-search"></span>
 	    		</div>
@@ -361,7 +364,7 @@
         <div class="row d-flex">
           <div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('${pageContext.request.contextPath}/template/user/images/image_1.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<div class="meta mb-3">
@@ -376,7 +379,7 @@
           </div>
           <div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('${pageContext.request.contextPath}/template/user/images/image_2.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<div class="meta mb-3">
@@ -391,7 +394,7 @@
           </div>
           <div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('${pageContext.request.contextPath}/template/user/images/image_3.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<div class="meta mb-3">
@@ -418,7 +421,7 @@
         <div class="row">
         	<div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/event-1.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('${pageContext.request.contextPath}/template/user/images/event-1.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<div class="meta mb-3">
@@ -435,7 +438,7 @@
           </div>
           <div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/event-2.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('${pageContext.request.contextPath}/template/user/images/event-2.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<div class="meta mb-3">
@@ -452,7 +455,7 @@
           </div>
           <div class="col-md-4 d-flex ftco-animate">
           	<div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/event-3.jpg');">
+              <a href="blog-single.html" class="block-20" style="background-image: url('${pageContext.request.contextPath}/template/user/images/event-3.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<div class="meta mb-3">
@@ -471,12 +474,12 @@
       </div>
     </section>
 		
-		<section class="ftco-section-3 img" style="background-image: url(images/bg_3.jpg);">
+		<section class="ftco-section-3 img" style="background-image: url(${pageContext.request.contextPath}/template/user/images/bg_3.jpg);">
     	<div class="overlay"></div>
     	<div class="container">
     		<div class="row d-md-flex">
     		<div class="col-md-6 d-flex ftco-animate">
-    			<div class="img img-2 align-self-stretch" style="background-image: url(images/bg_4.jpg);"></div>
+    			<div class="img img-2 align-self-stretch" style="background-image: url(${pageContext.request.contextPath}/template/user/images/bg_4.jpg);"></div>
     		</div>
     		<div class="col-md-6 volunteer pl-md-5 ftco-animate">
     			<h3 class="mb-3">Be a volunteer</h3>
@@ -518,7 +521,7 @@
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Bài Viết Gần Đây</h2>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_1.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
                   <div class="meta">
@@ -529,7 +532,7 @@
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_2.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
                   <div class="meta">
@@ -565,30 +568,24 @@
         </div>
       </div>
     </footer>
-    
-  
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/bootstrap-datepicker.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/jquery.timepicker.min.js"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/scrollax.min.js"></script>
+ <%--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="${pageContext.request.contextPath}/template/user/js/google-map.js"></script> --%>
+   <script src="${pageContext.request.contextPath}/template/user/js/main.js"></script>
     
   </body>
 </html>

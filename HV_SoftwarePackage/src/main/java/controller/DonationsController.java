@@ -88,13 +88,13 @@ public class DonationsController extends HttpServlet {
 				throw new ServletException(ex);
 			}
 		} else {
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 		}
 	}
 
 	private void showDashboard(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -129,7 +129,7 @@ public class DonationsController extends HttpServlet {
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
-			RequestDispatcher rd = request.getRequestDispatcher("admin/DonationList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/DonationList.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -139,7 +139,7 @@ public class DonationsController extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/DonationForm.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -153,7 +153,7 @@ public class DonationsController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/DonationForm.jsp");
 		request.setAttribute("donations", existingDonation);
 		page = Integer.parseInt(request.getParameter("page"));
 		request.setAttribute("page", page);
@@ -194,7 +194,7 @@ public class DonationsController extends HttpServlet {
 			request.setAttribute("notifySave", "Thêm thất bại.");
 			request.setAttribute("statusSave", "FAIL");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/DonationForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/DonationForm.jsp");
 		dispatcher.forward(request, response);
 	}
 

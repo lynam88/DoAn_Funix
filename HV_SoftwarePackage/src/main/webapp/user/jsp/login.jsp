@@ -46,7 +46,7 @@ if (notifyLogin != null) {
 					$(".modal-backdrop").removeClass("modal-backdrop in");
 					window.history.back();
 				}
-			}, 5000);
+			}, 2000);
 </script>
 
 <%
