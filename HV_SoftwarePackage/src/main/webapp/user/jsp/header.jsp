@@ -33,7 +33,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/icomoon.css">
 
-    <link rel="stylesheet" href="../../template/user/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/user/css/user.css">
+    
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    
   </head>
   <body>
     
@@ -69,3 +73,11 @@
 	</div>
   </nav>
     <!-- END nav -->
+	<section class="h-100 gradient-form" style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-xl-10">	
+					<div class="card rounded-3 text-black">
+						<div class="row g-0">
+							<div class="col-lg-6">
+								<div class="card-body p-md-5 mx-md-4">
