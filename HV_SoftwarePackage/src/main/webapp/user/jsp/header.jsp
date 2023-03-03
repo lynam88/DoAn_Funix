@@ -66,18 +66,11 @@
 	        </li>
 		    <li class="nav-item"><a href="causes.html" class="nav-link">Liên Hệ</a></li>
 		    <li class="nav-item"><a href="donate.html" class="nav-link">Hướng Dẫn Đóng Góp</a></li>
-		    <li class="nav-item"><a href="event.html" class="nav-link">Đăng Ký</a></li>
-		    <li class="nav-item"><a href="contact.html" class="nav-link">Đăng Nhập</a></li>
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=signup" class="nav-link">Đăng Ký</a></li>
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
 		  </ul>
 		</div>
 	</div>
   </nav>
     <!-- END nav -->
-	<section class="h-100 gradient-form" style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
-		<div class="container py-5 h-100">
-			<div class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col-xl-10">	
-					<div class="card rounded-3 text-black">
-						<div class="row g-0">
-							<div class="col-lg-6">
-								<div class="card-body p-md-5 mx-md-4">
+								

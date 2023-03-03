@@ -27,10 +27,10 @@
 		//Validate login
 		function validateLogin() {
 			const loginId = document.getElementById("loginId").value;
-			const password = document.getElementById("password").value;
+			const loginPass = document.getElementById("loginPass").value;
 			
 			const loginIdError = document.getElementById("loginId_error");
-			const passwordError = document.getElementById("password_error");
+			const loginPassError = document.getElementById("loginPass_error");
 			
 			if (!loginId) {
 				loginIdError.innerHTML = "Xin Điền Vào Số Điện Thoại Hoặc Email";
@@ -44,16 +44,16 @@
 				loginIdError.innerHTML =  "";
 			}
 			
-			if (!password) {
-				passwordError.innerHTML = "Xin Điền Vào Mật Khẩu";
-				passwordError.scrollIntoView();
+			if (!loginPass) {
+				loginPassError.innerHTML = "Xin Điền Vào Mật Khẩu";
+				loginPassError.scrollIntoView();
 				return false;
-			} else if (password.length < 8) {
-				passwordError.innerHTML = "Mật Khẩu Phải Tối Thiểu 8 Ký Tự";
-				passwordError.scrollIntoView();
+			} else if (loginPass.length < 8) {
+				loginPassError.innerHTML = "Mật Khẩu Phải Tối Thiểu 8 Ký Tự";
+				loginPassError.scrollIntoView();
 				return false;
 			} else {
-				passwordError.innerHTML =  "";
+				loginPassError.innerHTML =  "";
 			}
 			
 			return true;
@@ -105,15 +105,15 @@
 		  const phone = document.getElementById("phone").value;
 		  const email = document.getElementById("email").value;
 		  const address = document.getElementById("address").value;
-		  const password = document.getElementById("password").value;
-		  const retypePass = document.getElementById("retype_password").value;
+		  const signupPass = document.getElementById("signupPass").value;
+		  const retypeSignupPass = document.getElementById("retype_signupPass").value;
 
 		  const nameError = document.getElementById("name_error");
 		  const phoneError = document.getElementById("phone_error");
 		  const emailError = document.getElementById("email_error");
 		  const addressError = document.getElementById("address_error");
-		  const passwordError = document.getElementById("password_error");
-		  const retypePassError = document.getElementById("retype_password_error");		 
+		  const signupPassError = document.getElementById("signupPass_error");
+		  const retypeSignupPassError = document.getElementById("retype_signupPass_error");		 
 
 		  if (!name) {
 		    nameError.innerHTML = "Xin Điền Vào Họ Tên";
@@ -144,7 +144,7 @@
 		  }
 
 		  if (!email) {
-		    emailError.innerHTML = "Xin Điền Vào Email là bắt buộc.";
+		    emailError.innerHTML = "Xin Điền Vào Email.";
 		 
 		    return false;
 		  } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -163,28 +163,28 @@
 		    addressError.innerHTML = "";
 		  }
 
-		  if (!password) {
-		    passwordError.innerHTML = "Xin Điền Vào Mật khẩu.";
+		  if (!signupPass) {
+		    signupPassError.innerHTML = "Xin Điền Vào Mật khẩu.";
 
 		    return false;
-		  } else if (password.length < 8) {
-		    passwordError.innerHTML = "Mật khẩu phải dài hơn 8 ký tự.";
+		  } else if (signupPass.length < 8) {
+		    signupPassError.innerHTML = "Mật khẩu phải dài hơn 8 ký tự.";
 	
 		    return false;
 		  } else {
-		    passwordError.innerHTML = "";
+		    signupPassError.innerHTML = "";
 		  }
 
-		  if (!retypePass) {
-		    retypePassError.innerHTML = "Xin Điền Vào Nhập lại mật khẩu.";
+		  if (!retypeSignupPass) {
+			retypeSignupPassError.innerHTML = "Xin Điền Vào Nhập lại mật khẩu.";
 		
 		    return false;
-		  } else if (password !== retypePass) {
-			retypePassError.innerHTML = "Nhập lại mật khẩu không trùng khớp.";
+		  } else if (signupPass !== retypeSignupPass) {
+			retypeSignupPassError.innerHTML = "Nhập lại mật khẩu không trùng khớp.";
 
 			return false;
 		  } else {
-			retypePassError.innerHTML = "";
+			retypeSignupPassError.innerHTML = "";
 		  }
 		  return true;
 		  }

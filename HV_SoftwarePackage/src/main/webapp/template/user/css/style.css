@@ -374,7 +374,6 @@ hr {
 
 small,
 .small {
-  font-size: 80%;
   font-weight: 400; }
 
 mark,
@@ -3620,7 +3619,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+/*   border: 1px solid rgba(0, 0, 0, 0.125); */
   border-radius: 0.25rem; }
   .card > hr {
     margin-right: 0;
@@ -7311,7 +7310,7 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: rgba(255, 255, 255, 0.8); 
+  color: #0088cc; 
   }
   a:hover {
     text-decoration: none;
@@ -8301,6 +8300,7 @@ textarea.form-control {
   background: #3c312e; }
 
 .ftco-footer {
+  padding: 3% 0% 0% !important;
   font-size: 16px;
   padding: 7em 0;
   background: #252525; }

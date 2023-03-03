@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <footer class="ftco-footer ftco-section img">
     	<div class="overlay"></div>
       <div class="container">
         <div class="row mb-5">
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Về Chúng Tôi</h2>
               <p>Quỹ từ thiện Liên Hoa là một tổ chức phi lợi nhuận hoạt động với mục đích hỗ trợ những người có hoàn cảnh khó khăn và giúp đỡ những địa phương chưa được phát triển. Sứ mệnh của chúng tôi là tạo ra một thế giới nơi mà mọi người có thể sống một cuộc sống an vui, hạnh phúc và đầy đủ hơn. Hãy tham gia và đóng góp cho Quỹ từ thiện Liên Hoa để cùng chung tay xây dựng một tương lai tốt đẹp hơn cho tất cả chúng ta.</p>
@@ -45,7 +47,7 @@
             </div>
           </div>
          
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="ftco-footer-widget mb-4">
             	<h2 class="ftco-heading-2">Bạn Có Thắc Mắc</h2>
             	<div class="block-23 mb-3">

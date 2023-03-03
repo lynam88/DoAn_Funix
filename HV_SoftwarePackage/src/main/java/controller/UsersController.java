@@ -549,10 +549,10 @@ public class UsersController extends HttpServlet {
 			
 		// Collect user input from the login form
 		String id = request.getParameter("loginId");
-		String password = request.getParameter("password");
+		String loginPass = request.getParameter("loginPass");
 		String passDB = null;
-		if(password != null) {
-			passDB = MD5Library.md5(password);
+		if(loginPass != null) {
+			passDB = MD5Library.md5(loginPass);
 		}
 		// Create a new session for the user
 		session = request.getSession(true);
@@ -562,50 +562,55 @@ public class UsersController extends HttpServlet {
 			Cookie cookiesName = new Cookie("loginId", id);
 			cookiesName.setMaxAge(300);
 			response.addCookie(cookiesName);
-			Cookie cookiesPass = new Cookie("password", password);
+			Cookie cookiesPass = new Cookie("loginPass", loginPass);
 			cookiesPass.setMaxAge(300);
 			response.addCookie(cookiesPass);
 		}
 			
 		// Check the user's account information in the database
-		if(id != null && password != null) {
+		if(id != null && loginPass != null) {
 			try {
 				userData = dao.getUser(id);
 				
-				if (userData == null) {
-					request.setAttribute("notifyLogin", "Số điện thoại/Email chưa đúng hoặc Tài khoản chưa được đăng ký. Xin đăng ký để sử dụng");
-					request.setAttribute("statusLogin", "Fail");
+				if (userData == null || !userData.getPassword().equals(passDB)) {
+					request.setAttribute("notifyLogin", "Thông tin đăng nhập chưa đúng hoặc tài khoản chưa được đăng ký.");				
+					
+					// Forward the request and response to the login page
+					request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+					return;
 				} 
-				else if (userData != null) {
-					if (userData.getStatus() == 0) {
-						request.setAttribute("notifyLogin", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để kích hoạt lại!");
-						request.setAttribute("statusLogin", "Fail");
-					}
+				
+				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {						
+					session.setAttribute("user", userData);	
 					
-					else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {
-						request.setAttribute("notifyLogin", "Chúc mừng Admin đã đăng nhập thành công.");
-						request.setAttribute("statusLogin", "Admin");
-						session.setAttribute("user", userData);			
-					} 
+					// Forward the request and response to the admin page
+					request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
+					return;
+				} 
+				
+				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {					
+					session.setAttribute("user", userData);
 					
-					else if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {
-						request.setAttribute("notifyLogin", "Chúc mừng bạn đã đăng nhập thành công.");
-						request.setAttribute("statusLogin", "User");
-						session.setAttribute("user", userData);			
-					} 
+					// Forward the request and response to the user page
+					request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
+					return;
+				} 				 
+				
+				if (userData.getStatus() == 0) {
+					request.setAttribute("notifyLogin", "Tài khoản đã bị khoá, vui lòng liên hệ admin.");						
 					
-					else {
-						request.setAttribute("notifyLogin", "Mật khẩu của bạn chưa đúng.");
-						request.setAttribute("statusLogin", "Fail");
-					}
+					// Forward the request and response to the login page
+					request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+					return;
 				}
+				
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
-				request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-				request.setAttribute("statusLogin", "Fail");
+				request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");					
 			}
 		}
+		
 		// Forward the request and response to the login page
 		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 		
