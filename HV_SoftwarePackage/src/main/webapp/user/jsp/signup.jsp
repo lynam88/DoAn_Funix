@@ -45,7 +45,7 @@ if (notifySignup != null) {
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
-					window.location.href = '/HV_SoftwarePackage/user/jsp/signup.jsp';
+					window.history.back();
 				}
 			}, 5000);
 </script>
@@ -121,7 +121,7 @@ if (notifySignup != null) {
 												<span class="input-group-text"><i class="bx bx-map"></i></span>
 												<input type="text" id="address" name="address"
 													class="form-control" placeholder="Xin nhập địa chỉ"
-													value="${inputUser.address}">
+													value="${inputUser.address}"/>
 											</div>
 											<p id="address_error"></p>
 										</div>
@@ -130,8 +130,7 @@ if (notifySignup != null) {
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-lock"></i></span>
 												<input type="password" id="signupPass" name="signupPass"
-													class="form-control" placeholder="Xin nhập mật khẩu"
-													value="<c:out value='${inputUser.password}'/>"><span
+													class="form-control" placeholder="Xin nhập mật khẩu" value="${signupPass}"/><span
 													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 											</div>
 											<p id="signupPass_error" ></p>
@@ -145,7 +144,7 @@ if (notifySignup != null) {
 													class="bx bx-lock-alt"></i></span> <input type="password"
 													id="retype_signupPass" name="retype_signupPass"
 													class="form-control" placeholder="Xin nhập lại mật khẩu"
-													value="<c:out value='${inputUser.password}'/>"> <span
+													value="${signupPass}"/> <span
 													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 
 											</div>

@@ -69,10 +69,10 @@
 			return re.test(phone);
 		}
 
-		//show - hide password			
+		//show - hide password
 		$(".click-eye").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
-			  var input = $("#password");
+			  var input = $("#loginPass");
 			  if (input.attr("type") === "password") {
 			    input.attr("type", "text");
 			  } else {
@@ -82,7 +82,17 @@
 		
 		$(".click-eye").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
-			  var input = $("#retype_password");
+			  var input = $("#signupPass");
+			  if (input.attr("type") === "password") {
+			    input.attr("type", "text");
+			  } else {
+			    input.attr("type", "password");
+			  }
+			});
+		
+		$(".click-eye").click(function() {
+			  $(this).toggleClass("bx-show bx-hide");
+			  var input = $("#retype_signupPass");
 			  if (input.attr("type") === "password") {
 			    input.attr("type", "text");
 			  } else {

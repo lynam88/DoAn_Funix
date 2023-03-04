@@ -111,13 +111,16 @@ public class UsersController extends HttpServlet {
 			}
 		} else if (action.equals("signup")) {
 			doSignup(request, response);
-		} else {
+		} else if (action.equals("user")) {
+			showUserPage(request, response);
+		}		
+		else {
 			Users u = (Users) session.getAttribute("user");
 			if (u != null && u.getRole() == 1) {
 				try {
 					switch (action) {
 					case "admin":
-						showMainPage(request, response);
+						showAdminPage(request, response);
 						break;
 					case "UserList":
 					case "UserSearch":
@@ -139,7 +142,7 @@ public class UsersController extends HttpServlet {
 						doLogout(request, response);
 						break;
 					default:
-						showMainPage(request, response);
+						showAdminPage(request, response);
 						break;
 					}
 				} catch (Exception ex) {
@@ -151,6 +154,11 @@ public class UsersController extends HttpServlet {
 		}
 	}
 	
+	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
+		
+	}
+
 	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
 	    final String fromEmail = "quytuthienlienhoa@gmail.com";
@@ -286,26 +294,18 @@ public class UsersController extends HttpServlet {
 	        // Create new user object
 	        Users u = new Users(name, phone, email, avatarName, address, passDB);
 	        request.setAttribute("inputUser", u);
+	        request.setAttribute("signupPass", password);
 	        if(phone != null && dao.getUser(phone) != null) {
-	            request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/signup.jsp");
-	    	    dispatcher.forward(request, response);
-	    	    return;
+	            request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");	           
 	            
 	        } else if(dao.getUser(email) != null) {
-	        	request.setAttribute("email_error", "Email này đã được đăng ký");
-	        	RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/signup.jsp");
-	    	    dispatcher.forward(request, response);
-	    	    return;
+	        	request.setAttribute("email_error", "Email này đã được đăng ký");	        	
 	    	    
 	        } else {
 	            // Insert user data to database
 	            dao.insertUser(u);
 	            request.setAttribute("notifySignup", "Đăng ký thành công.");
-	            request.setAttribute("statusSignup", "OK");
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/login.jsp");
-	    	    dispatcher.forward(request, response);
-	    	    return;
+	            request.setAttribute("statusSignup", "OK");	           
 	        }
 	
 	    } catch (Exception ex) {
@@ -316,7 +316,7 @@ public class UsersController extends HttpServlet {
 	    dispatcher.forward(request, response);
 	}
 
-	private void showMainPage(HttpServletRequest request, HttpServletResponse response)
+	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
