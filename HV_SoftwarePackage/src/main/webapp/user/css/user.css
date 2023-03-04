@@ -147,5 +147,28 @@
 	    padding-left: 5%;
 	}
 	
+	.require {
+	  color: red;
+	}	
 	
+	#name_error, #phone_error, .phone_error, #email_error, .email_error, #address_error, #signupPass_error, #retype_signupPass_error{
+		color: red;
+		position: inherit;
+	}
+	
+	.rules{
+		margin-top: 0.5rem !important;
+	}
+	
+	.signupBtn{
+		margin-top: 1rem !important;	
+	}
+	
+	.signupBottom{
+		display: flow-root; padding-bottom: 5%;
+	}
+	
+	#login{
+		color: aquamarine;
+	}
 	

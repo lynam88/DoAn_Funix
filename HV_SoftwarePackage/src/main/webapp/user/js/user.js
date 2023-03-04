@@ -116,7 +116,7 @@
 		  const retypeSignupPassError = document.getElementById("retype_signupPass_error");		 
 
 		  if (!name) {
-		    nameError.innerHTML = "Xin Điền Vào Họ Tên";
+		    nameError.innerHTML = "Xin điền vào họ tên";
 
 		    return false;
 		  } else if (name.length < 2) {
@@ -144,7 +144,7 @@
 		  }
 
 		  if (!email) {
-		    emailError.innerHTML = "Xin Điền Vào Email.";
+		    emailError.innerHTML = "Xin điền vào email.";
 		 
 		    return false;
 		  } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -164,7 +164,7 @@
 		  }
 
 		  if (!signupPass) {
-		    signupPassError.innerHTML = "Xin Điền Vào Mật khẩu.";
+		    signupPassError.innerHTML = "Xin điền vào mật khẩu.";
 
 		    return false;
 		  } else if (signupPass.length < 8) {
@@ -176,11 +176,11 @@
 		  }
 
 		  if (!retypeSignupPass) {
-			retypeSignupPassError.innerHTML = "Xin Điền Vào Nhập lại mật khẩu.";
+			retypeSignupPassError.innerHTML = "Xin nhập lại mật khẩu.";
 		
 		    return false;
 		  } else if (signupPass !== retypeSignupPass) {
-			retypeSignupPassError.innerHTML = "Nhập lại mật khẩu không trùng khớp.";
+			retypeSignupPassError.innerHTML = "Mật khẩu không trùng khớp.";
 
 			return false;
 		  } else {

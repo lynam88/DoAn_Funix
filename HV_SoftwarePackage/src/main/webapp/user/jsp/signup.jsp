@@ -67,45 +67,37 @@ if (notifySignup != null) {
 							method="post" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-6">
-									<div class="card-body p-md-5">
-
-										<span class="require" style="color: red;">(*) Bắt buộc</span>
+									<div class="card-body p-md-5">																				
+										<span class="require">(*) Bắt buộc</span>
 										<div class="form-outline my-3">
-											<label for="name">Họ và tên: <span class="require"
-												style="color: red;">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-user"></i></span>
-												<input type="text" id="name" name="name"
-													class="form-control" placeholder="Xin nhập họ và tên"
-													value="<c:out value='${inputUser.name}'/>">
-											</div>
-											<p id="name_error" style="color: red; position: inherit;"></p>
+										  <label for="name">Họ và tên: <span class="require">*</span></label>
+										  <div class="input-group">
+										    <span class="input-group-text"><i class="bx bx-user"></i></span>
+										    <input type="text" id="name" name="name" class="form-control" placeholder="Xin nhập họ và tên" value="<c:out value='${inputUser.name}'/>">
+										  </div>
+										  <p id="name_error"></p>
 										</div>
-
+										
 										<div class="form-outline my-3">
-											<label for="phone">Số điện thoại: <span
-												class="require" style="color: red;">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-phone"></i></span>
-												<input type="text" id="phone" name="phone"
-													class="form-control" placeholder="Xin nhập số điện thoại"
-													value="<c:out value='${inputUser.phone}'/>">
-											</div>
-											<p id="phone_error" style="color: red; position: inherit;"></p>
-											<div class="phone_error"
-												style="color: red; position: inherit;">
-												<%
+										  <label for="phone">Số điện thoại: <span class="require">*</span></label>
+										  <div class="input-group">
+										    <span class="input-group-text"><i class="bx bx-phone"></i></span>
+										    <input type="text" id="phone" name="phone" class="form-control" placeholder="Xin nhập số điện thoại" value="<c:out value='${inputUser.phone}'/>">
+										  </div>
+										  <p id="phone_error"></p>
+										  <div class="phone_error">
+										  		<%
 												String phone_error = (String) session.getAttribute("phone_error");
 												if (phone_error != null) {
 													out.println(phone_error);
 												}
 												%>
-											</div>
+										  </div>
 										</div>
+										
 
 										<div class="form-outline my-3">
-											<label for="email">Email: <span class="require"
-												style="color: red;">*</span></label>
+											<label for="email">Email: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
 													class="bx bx-envelope"></i></span> <input type="email" id="email"
@@ -113,9 +105,8 @@ if (notifySignup != null) {
 													placeholder="Xin nhập email"
 													value="<c:out value='${inputUser.email}'/>">
 											</div>
-											<p id="email_error" style="color: red; position: inherit;"></p>
-											<div class="email_error"
-												style="color: red; position: inherit;">
+											<p id="email_error"></p>
+											<div class="email_error">
 												<%
 												String email_error = (String) session.getAttribute("email_error");
 												if (email_error != null) {
@@ -147,49 +138,45 @@ if (notifySignup != null) {
 													class="form-control" placeholder="Xin nhập địa chỉ"
 													value="${inputUser.address}">
 											</div>
-											<p id="address_error" style="color: red; position: inherit;"></p>
+											<p id="address_error"></p>
 										</div>
 										<div class="form-outline my-3">
-											<label for="password">Mật khẩu: <span class="require"
-												style="color: red;">*</span></label>
+											<label for="password">Mật khẩu: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-lock"></i></span>
 												<input type="password" id="signupPass" name="signupPass"
 													class="form-control" placeholder="Xin nhập mật khẩu"
-													value="<c:out value='${inputUser.signupPass}'/>"><span
+													value="<c:out value='${inputUser.password}'/>"><span
 													class="input-group-text bx click-eye bx-hide"></span>
 											</div>
-											<p id="signupPass_error" style="color: red; position: inherit;"></p>
+											<p id="signupPass_error" ></p>
 										</div>
 
 										<div class="form-outline my-3">
 											<label for="password">Xin nhập lại mật khẩu: <span
-												class="require" style="color: red;">*</span></label>
+												class="require" >*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
 													class="bx bx-lock-alt"></i></span> <input type="password"
 													id="retype_signupPass" name="retype_signupPass"
 													class="form-control" placeholder="Xin nhập lại mật khẩu"
-													value="<c:out value='${inputUser.signupPass}'/>"> <span
+													value="<c:out value='${inputUser.password}'/>"> <span
 													class="input-group-text bx click-eye bx-hide"></span>
 
 											</div>
-											<p id="retype_signupPass_error"
-												style="color: red; position: inherit;"></p>
+											<p id="retype_signupPass_error"></p>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="row justify-content-center mt-4"
-								style="margin-top: 0.5rem !important;">
+							<div class="row justify-content-center mt-4 rules">
 								<div>
 									<input type="radio" id="agree" name="agree" value="yes"
 										onclick="enableButton()" /> <label for="agree">Tôi đã
 										đọc và đồng ý với các quy định của trang web</label>
 								</div>
 							</div>
-							<div class="row justify-content-center mt-4"
-								style="margin-top: 1rem !important;">
+							<div class="row justify-content-center mt-4 signupBtn">
 								<div class="col-lg-6 text-center">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
 										type="submit" id="submit-button"
@@ -197,9 +184,9 @@ if (notifySignup != null) {
 								</div>
 							</div>
 							<div class="col text-center">
-								<div style="display: flow-root; padding-bottom: 5%;">
+								<div class="signupBottom">
 									<span class="text-center">Bạn đã có tài khoản? </span> <a
-										href="#" id="login" style="color: aquamarine;">Xin Đăng
+										href="#" id="login">Xin Đăng
 										Nhập!</a>
 								</div>
 							</div>
