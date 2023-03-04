@@ -8,8 +8,8 @@
 </c:import>
 
 <%
-String notifySignup = (String) request.getAttribute("notifyLogin");
-String statusSignup = (String) request.getAttribute("statusLogin");
+String notifySignup = (String) request.getAttribute("notifySignup");
+String statusSignup = (String) request.getAttribute("statusSignup");
 
 if (notifySignup != null) {
 %>
@@ -40,7 +40,7 @@ if (notifySignup != null) {
 		setTimeout(function() {
 			$('#signupModal').modal().hide();
 			var st = "<%=statusSignup%>";
-				if (st == "Ok") {
+				if (st == "OK") {
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=login';
 				} else {
 					// remove class modal-backdrop in
@@ -63,7 +63,7 @@ if (notifySignup != null) {
 							<h3 class="text-center" >ĐĂNG KÝ THÀNH
 								VIÊN MỚI</h3>
 						</div>
-						<form class="signupForm" action="UsersController?action=signup"
+						<form class="signupForm" action="${pageContext.request.contextPath}/UsersController?action=signup"
 							method="post" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-md-6">
@@ -79,7 +79,7 @@ if (notifySignup != null) {
 										</div>
 										
 										<div class="form-outline my-3">
-										  <label for="phone">Số điện thoại: <span class="require">*</span></label>
+										  <label for="phone">Số điện thoại: </label>
 										  <div class="input-group">
 										    <span class="input-group-text"><i class="bx bx-phone"></i></span>
 										    <input type="text" id="phone" name="phone" class="form-control" placeholder="Xin nhập số điện thoại" value="<c:out value='${inputUser.phone}'/>">

@@ -117,77 +117,74 @@
 
 		  if (!name) {
 		    nameError.innerHTML = "Xin điền vào họ tên";
-
 		    return false;
+		    
 		  } else if (name.length < 2) {
 		    nameError.innerHTML = "Họ tên phải dài hơn 2 chữ cái";
-
 		    return false;
+		    
 		  } else if (!/^[a-zA-Z ]+$/.test(name)) {
-		    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";
-	
+		    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";	
 		    return false;
+		    
 		  } else {
 		    nameError.innerHTML =  "";
 		  }
-
-		  if (!phone) {
-			phoneError.innerHTML = "Xin vui lòng nhập số điện thoại.";
-			 
+		 
+		  if (phone && !/^\d{10,11}$/.test(phone)) {
+			phoneError.innerHTML = "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại theo định dạng 0xxx xxx xxx hoặc +84xxx xxx xxx.";		
 			return false;
-		  } else if (!/^\d{10,11}$/.test(phone)) {
-			phoneError.innerHTML = "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại theo định dạng 0xxx xxx xxx hoặc +84xxx xxx xxx.";
-		
-			return false;
+			
 		  } else {
 			phoneError.innerHTML = "";
 		  }
 
 		  if (!email) {
-		    emailError.innerHTML = "Xin điền vào email.";
-		 
+		    emailError.innerHTML = "Xin điền vào email.";		 
 		    return false;
+		    
 		  } else if (!/\S+@\S+\.\S+/.test(email)) {
 		    emailError.innerHTML = "Email phải có định dạng user@example.com.";
-
 		    return false;
+		    
 		  } else {
 		    emailError.innerHTML = "";
 		  }
 
 		  if (address && address.length < 5) {
 		    addressError.innerHTML = "Địa chỉ phải dài hơn 5 ký tự.";
-
 		    return false;
+		    
 		  } else {
 		    addressError.innerHTML = "";
 		  }
 
 		  if (!signupPass) {
 		    signupPassError.innerHTML = "Xin điền vào mật khẩu.";
-
 		    return false;
+		    
 		  } else if (signupPass.length < 8) {
-		    signupPassError.innerHTML = "Mật khẩu phải dài hơn 8 ký tự.";
-	
+		    signupPassError.innerHTML = "Mật khẩu phải dài hơn 8 ký tự.";	
 		    return false;
+		    
 		  } else {
 		    signupPassError.innerHTML = "";
 		  }
 
 		  if (!retypeSignupPass) {
-			retypeSignupPassError.innerHTML = "Xin nhập lại mật khẩu.";
-		
+			retypeSignupPassError.innerHTML = "Xin nhập lại mật khẩu.";		
 		    return false;
+		    
 		  } else if (signupPass !== retypeSignupPass) {
 			retypeSignupPassError.innerHTML = "Mật khẩu không trùng khớp.";
-
 			return false;
+			
 		  } else {
 			retypeSignupPassError.innerHTML = "";
 		  }
+		  
 		  return true;
-		  }
+		}
 		
 		/**
 		 * Js functions for admin pages

@@ -104,12 +104,7 @@
 		.gradient-custom-2 {
 			border-top-right-radius: .3rem;
 			border-bottom-right-radius: .3rem;			
-		}
-				
-		.rightForm{
-    	    position: relative !important;
- 			top: 13% !important;
-	    }
+		}	
 	    
 	     .loginForm{
 	    	margin-top: 15%;
@@ -181,7 +176,14 @@
 	    	margin-top: -5.5rem !important;
 	    }
 	    .signupForm {
-	    padding-right: 5%;
+	    	padding-right: 5%;
 	    }	   
 	}
 	
+	@media screen and (max-width: 991px) and (min-width : 768px) {					
+		.rightForm{
+   	       	position: relative !important;
+		    top: 5% !important;
+		    right: 10%;
+	    }	    
+	}

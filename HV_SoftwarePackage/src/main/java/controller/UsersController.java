@@ -262,21 +262,19 @@ public class UsersController extends HttpServlet {
 	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html;charset=UTF-8");
 	    request.setCharacterEncoding("utf-8");
-	    try {
-	    	// Invalidate any existing session before creating a new one
-			request.getSession(true).invalidate();
+	    try {	
 			
 	        // Get form input data
 	        String name = request.getParameter("name");
 	        String phone = request.getParameter("phone");
 	        String email = request.getParameter("email");
 	        String address = request.getParameter("address");
-	        String password = request.getParameter("password");
-	        String passDB = MD5Library.md5(password);
-	        
-	        // Create a new session for the user
-			session = request.getSession(true);
-	
+	        String password = request.getParameter("signupPass");
+	        String passDB = null;
+	        if(password != null) {
+	        	passDB = MD5Library.md5(password);
+	        }
+
 	        // Upload avatar to server (if avatarPart exists)       	      
 	        Part avatarPart = request.getPart("avatar");
 	        String avatarName = avatarPart.getSubmittedFileName();
@@ -289,15 +287,25 @@ public class UsersController extends HttpServlet {
 	        Users u = new Users(name, phone, email, avatarName, address, passDB);
 	        request.setAttribute("inputUser", u);
 	        if(phone != null && dao.getUser(phone) != null) {
-	            session.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
+	            request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/signup.jsp");
+	    	    dispatcher.forward(request, response);
+	    	    return;
+	            
 	        } else if(dao.getUser(email) != null) {
-		        session.setAttribute("email_error", "Email này đã được đăng ký");
+	        	request.setAttribute("email_error", "Email này đã được đăng ký");
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/signup.jsp");
+	    	    dispatcher.forward(request, response);
+	    	    return;
+	    	    
 	        } else {
 	            // Insert user data to database
 	            dao.insertUser(u);
-	            System.out.println("Đăng ký thành công.");
 	            request.setAttribute("notifySignup", "Đăng ký thành công.");
 	            request.setAttribute("statusSignup", "OK");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/login.jsp");
+	    	    dispatcher.forward(request, response);
+	    	    return;
 	        }
 	
 	    } catch (Exception ex) {
