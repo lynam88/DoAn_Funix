@@ -143,6 +143,10 @@
    		padding-top: 5%;
 	}
 	
+	.signUpTitle h3{
+		color: blue;
+	}
+	
 	.signupForm{
 	    padding-left: 5%;
 	}
@@ -170,5 +174,14 @@
 	
 	#login{
 		color: aquamarine;
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {
+	    .rules{
+	    	margin-top: -5.5rem !important;
+	    }
+	    .signupForm {
+	    padding-right: 5%;
+	    }	   
 	}
 	

@@ -60,7 +60,7 @@ if (notifySignup != null) {
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="signUpTitle">
-							<h3 class="text-center" style="color: blue;">ĐĂNG KÝ THÀNH
+							<h3 class="text-center" >ĐĂNG KÝ THÀNH
 								VIÊN MỚI</h3>
 						</div>
 						<form class="signupForm" action="UsersController?action=signup"
@@ -186,8 +186,7 @@ if (notifySignup != null) {
 							<div class="col text-center">
 								<div class="signupBottom">
 									<span class="text-center">Bạn đã có tài khoản? </span> <a
-										href="#" id="login">Xin Đăng
-										Nhập!</a>
+										href="#" id="login">Xin Đăng Nhập!</a>
 								</div>
 							</div>
 						</form>
