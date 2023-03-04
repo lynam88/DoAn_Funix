@@ -45,7 +45,7 @@ if (notifySignup != null) {
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
-					window.history.back();
+					window.location.href = '/HV_SoftwarePackage/user/jsp/signup.jsp';
 				}
 			}, 5000);
 </script>
@@ -84,15 +84,8 @@ if (notifySignup != null) {
 										    <span class="input-group-text"><i class="bx bx-phone"></i></span>
 										    <input type="text" id="phone" name="phone" class="form-control" placeholder="Xin nhập số điện thoại" value="<c:out value='${inputUser.phone}'/>">
 										  </div>
-										  <p id="phone_error"></p>
-										  <div class="phone_error">
-										  		<%
-												String phone_error = (String) session.getAttribute("phone_error");
-												if (phone_error != null) {
-													out.println(phone_error);
-												}
-												%>
-										  </div>
+										  <p id="phone_error">${phone_error}</p>
+										  
 										</div>
 										
 
@@ -105,15 +98,7 @@ if (notifySignup != null) {
 													placeholder="Xin nhập email"
 													value="<c:out value='${inputUser.email}'/>">
 											</div>
-											<p id="email_error"></p>
-											<div class="email_error">
-												<%
-												String email_error = (String) session.getAttribute("email_error");
-												if (email_error != null) {
-													out.println(email_error);
-												}
-												%>
-											</div>
+											<p id="email_error">${email_error}</p>											
 										</div>
 
 										<div class="form-outline my-3">
@@ -147,7 +132,7 @@ if (notifySignup != null) {
 												<input type="password" id="signupPass" name="signupPass"
 													class="form-control" placeholder="Xin nhập mật khẩu"
 													value="<c:out value='${inputUser.password}'/>"><span
-													class="input-group-text bx click-eye bx-hide"></span>
+													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 											</div>
 											<p id="signupPass_error" ></p>
 										</div>
@@ -161,7 +146,7 @@ if (notifySignup != null) {
 													id="retype_signupPass" name="retype_signupPass"
 													class="form-control" placeholder="Xin nhập lại mật khẩu"
 													value="<c:out value='${inputUser.password}'/>"> <span
-													class="input-group-text bx click-eye bx-hide"></span>
+													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 
 											</div>
 											<p id="retype_signupPass_error"></p>
