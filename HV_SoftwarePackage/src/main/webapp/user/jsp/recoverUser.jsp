@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Phục Hồi Tài Khoản | Website Từ Thiện"></c:param>
+	<c:param name="title" value="Phục Hồi Tài Khoản | Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%
@@ -42,7 +42,7 @@ if (notifyRecover != null) {
 		if (st == "Ok") {
 			window.location.href = '/HV_SoftwarePackage/UsersController?action=recoverUser';
 		}
-	}, 5000);
+	}, 7000);
 </script>
 
 <%
@@ -71,7 +71,7 @@ if (notifyRecover != null) {
 											<span class="input-group-text"><i
 												class="bx bx-message"></i></span>
 											<textarea type="text" id="feedback" name="feedback"
-												class="form-control" placeholder="Nhập nội dung" rows="10" value="${feedback}"></textarea>
+												class="form-control" placeholder="Nhập nội dung" rows="10">${feedback}</textarea>
 										</div>
 										<p id="feedback_error"></p>
 										<br /> <label for="email">Email cần khôi phục: <span
@@ -81,7 +81,7 @@ if (notifyRecover != null) {
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
 												name="email" class="form-control" placeholder="Nhập email" value="${toEmail}">
 										</div>
-										<p id="email_recover_error">${notifyRecover}</p>
+										<p id="email_recover_error">${notifyValid}</p>
 										<p>
 											<span class="require">(*) Bắt buộc</span>
 										</p>

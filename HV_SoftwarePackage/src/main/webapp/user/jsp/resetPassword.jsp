@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Cấp Lại Mật Khẩu | Website Từ Thiện"></c:param>
+	<c:param name="title" value="Cấp Lại Mật Khẩu | Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%

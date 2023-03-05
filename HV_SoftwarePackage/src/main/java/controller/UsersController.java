@@ -178,7 +178,7 @@ public class UsersController extends HttpServlet {
 	    if(toEmail != null) {
 		    Users u = dao.getUser(toEmail);
 		    if(u == null || u.getStatus() == 1) {		    	
-		    	request.setAttribute("notifyRecover", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
+		    	request.setAttribute("notifyValid", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
 			    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);
 			    return;
 		    } 
@@ -197,7 +197,7 @@ public class UsersController extends HttpServlet {
 		        "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
 	
 		    // Load the logo image file
-		    String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
+		    String fullPath = request.getServletContext().getRealPath("user/media/logo.jpg");
 		    File file = new File(fullPath);
 		    InputStream inputStream = new FileInputStream(file);
 		    byte[] imageData = IOUtils.toByteArray(inputStream);
@@ -262,7 +262,7 @@ public class UsersController extends HttpServlet {
 		    System.out.println("Gửi mail thành công");
 	
 		    // Set attributes and forward the request to a new JSP
-		    request.setAttribute("notifyRecover", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
+		    request.setAttribute("notifyRecover", "Chúng tôi vừa nhận được yêu cầu khôi phục tài khoản từ bạn. Chúng tôi sẽ xem xét và phản hồi email trong thời gain sớm nhất. Cám ơn bạn!");
 		    request.setAttribute("statusRecover", "Ok");		    
 	    }
 	    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);		

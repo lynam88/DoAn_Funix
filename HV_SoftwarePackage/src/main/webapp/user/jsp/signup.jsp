@@ -4,7 +4,7 @@
 
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Đăng Ký Thành Viên Mới | Website Từ Thiện"></c:param>
+	<c:param name="title" value="Đăng Ký Thành Viên Mới | Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%
@@ -154,6 +154,7 @@ if (notifySignup != null) {
 									</div>
 								</div>
 							</div>
+							
 							<div class="row justify-content-center mt-4 rules">
 								<div>
 									<input type="radio" id="agree" name="agree" value="yes"
