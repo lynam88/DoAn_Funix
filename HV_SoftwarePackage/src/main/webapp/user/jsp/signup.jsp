@@ -51,7 +51,8 @@ if (notifySignup != null) {
 </script>
 <%
 }
-%><section class="h-100 gradient-form"
+%>
+<section class="h-100 gradient-form"
 	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
 	<div class="container py-5 h-100">
 		<div

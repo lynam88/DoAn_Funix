@@ -49,57 +49,70 @@ if (notifyPassSent != null) {
 <%
 }
 %>
+<section class="h-100 gradient-form"
+	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
+	<div class="container py-5 h-100">
+		<div
+			class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col-xl-12">
+				<div class="card rounded-3 text-black">
+					<div class="row g-0">
+						<div class="col-lg-6">
+							<div class="card-body p-md-5 mx-md-4">
+								<form class="resetPassForm" action="UsersController?action=resetPassword"
+									method="post">
+									<h4>CẤP LẠI MẬT KHẨU</h4>
+									<br/>
+									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
+										tôi gửi lại mật khẩu mới cho bạn</p>
+									<div class="form-outline my-3">
+										<label for="email">Email: <span class="require"
+											style="color: red;">*</span></label>
+										<div class="input-group">
+											<span class="input-group-text"><i
+												class="bx bx-envelope"></i></span> <input type="email" id="email"
+												name="email" class="form-control" placeholder="Nhập email">
+										</div>
+										<p id="email_error" style="color: red; position: inherit;">
+											<%
+											if (notifyValid != null) {
+											%>
+											<%=notifyValid%>
+											<%
+											}
+											%>
 
-<form action="UsersController?action=resetPassword" method="post">
-	<h6 style="color: blue;">CẤP LẠI MẬT KHẨU</h6>
-	<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng tôi gửi
-		lại mật khẩu mới cho bạn</p>
-	<div class="form-outline my-3">
-		<label for="email">Email: <span class="require"
-			style="color: red;">*</span></label>
-		<div class="input-group">
-			<span class="input-group-text"><i class="bx bx-envelope"></i></span>
-			<input type="email" id="email" name="email" class="form-control"
-				placeholder="Nhập email">
+										</p>
+										<p>
+											<span class="require" style='color: red;'>(*) Bắt buộc</span>
+										</p>
+										<div>
+											<span>Tài khoản của bạn bị khoá? </span> <a href="#"
+												id="recoverUser">Xin Liên Hệ!</a>
+										</div>
+									</div>
+									<br />
+									<div class="text-center submitBtn">
+										<button
+											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+											type="submit" onclick="return validateForgotEmail()">Đặt
+											lại mật khẩu</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div
+							class="col-lg-6 d-flex align-items-center gradient-custom-2 rightSide">
+							<div class="text-white px-3 py-4 rightText">
+								<h1 class="text-center mb-4">Cho đi là còn mãi</h1>
+								<p class="text-center small mb-0">Một khi bạn cho đi, chính
+									là lúc bạn được nhận lại.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<p id="email_error" style="color: red; position: inherit;">
-			<%
-			if (notifyValid != null) {
-			%>
-			<%=notifyValid%>
-			<%
-			}
-			%>
-
-		</p>
-		<p>
-			<span class="require" style='color: red;'>(*) Bắt buộc</span>
-		</p>
-		<div>
-			<span>Tài khoản của bạn bị khoá? </span> <a href="#" id="recoverUser">Xin
-				Liên Hệ!</a>
-		</div>
 	</div>
-	<br />
-	<div class="text-center">
-		<button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-			type="submit" onclick="return validateForgotEmail()">Đặt lại
-			mật khẩu</button>
-	</div>
-</form>
-</div>
-</div>
-<div class="col-lg-6 align-items-center gradient-custom-2 rightText">
-	<div class="text-white px-3 py-4 p-md-5 mx-md-4">
-		<h4 class="text-center mb-4">Cho đi là còn mãi</h4>
-		<p class="text-center small mb-0">Một khi bạn cho đi, chính là lúc
-			bạn được nhận lại.</p>
-	</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
+</section>
 <c:import url="footer.jsp"></c:import>

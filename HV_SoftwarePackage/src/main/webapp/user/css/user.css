@@ -23,6 +23,10 @@
 		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 	}
 	
+	h4 {
+		color: blue;
+	}
+	
 	.loginForm{
 		margin-top: 40%;
 	}
@@ -189,4 +193,15 @@
 	}
 	
 	.signupPassIcon{
-		padding-top: 5%;	}
+		padding-top: 5%;	
+	}
+	
+	/* Reset Password Page */
+		
+	.resetPassForm{
+		margin-top: 20%;
+	}	
+	
+	.submitBtn{
+		margin-bottom: 20%;
+	}

@@ -20,7 +20,7 @@
 								<form class="loginForm"
 									action="${pageContext.request.contextPath}/UsersController?action=login"
 									method="post" onsubmit="return validateLogin()">
-									<h4 style="color: blue;">MỜI BẠN ĐĂNG NHẬP VÀO TÀI KHOẢN</h4>
+									<h4>MỜI BẠN ĐĂNG NHẬP VÀO TÀI KHOẢN</h4>
 									<%
 									Cookie[] cookies = request.getCookies();
 									String id = "";
