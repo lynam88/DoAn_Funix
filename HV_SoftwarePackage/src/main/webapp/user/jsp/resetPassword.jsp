@@ -66,14 +66,13 @@ if (notifyPassSent != null) {
 									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
 										tôi gửi lại mật khẩu mới cho bạn</p>
 									<div class="form-outline my-3">
-										<label for="email">Email: <span class="require"
-											style="color: red;">*</span></label>
+										<label for="email">Email: <span class="require">*</span></label>
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
 												name="email" class="form-control" placeholder="Nhập email">
 										</div>
-										<p id="email_error" style="color: red; position: inherit;">
+										<p id="email_error">
 											<%
 											if (notifyValid != null) {
 											%>
@@ -84,7 +83,7 @@ if (notifyPassSent != null) {
 
 										</p>
 										<p>
-											<span class="require" style='color: red;'>(*) Bắt buộc</span>
+											<span class="require">(*) Bắt buộc</span>
 										</p>
 										<div>
 											<span>Tài khoản của bạn bị khoá? </span> <a href="#"
