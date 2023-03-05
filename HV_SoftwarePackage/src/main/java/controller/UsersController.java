@@ -167,6 +167,8 @@ public class UsersController extends HttpServlet {
 	    // Recipient's email address
 	    final String toEmail = request.getParameter("email");
 	    final String feedback = request.getParameter("feedback");
+    	request.setAttribute("toEmail", toEmail);
+    	request.setAttribute("feedback", feedback);
 	    String feedbackString = null;
 	    if(feedback != null) {
 		    byte[] feedback_Bytes = feedback.getBytes(StandardCharsets.ISO_8859_1);
@@ -175,9 +177,8 @@ public class UsersController extends HttpServlet {
 	    //Get user from database
 	    if(toEmail != null) {
 		    Users u = dao.getUser(toEmail);
-		    if(u.getStatus() == 1 || u == null) {		    	
+		    if(u == null || u.getStatus() == 1) {		    	
 		    	request.setAttribute("notifyRecover", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
-				request.setAttribute("statusRecover", "Fail");
 			    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);
 			    return;
 		    } 

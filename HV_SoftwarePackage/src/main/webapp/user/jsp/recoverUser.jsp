@@ -34,13 +34,14 @@ if (notifyRecover != null) {
 
 <script>
 	setTimeout(function() {
-		$("#loginModal").modal("show");
+		$("#recoverModal").modal("show");
 	}, 500);
 	setTimeout(function() {
-		$('#loginModal').modal().hide();
-		// remove class modal-backdrop in
-		$(".modal-backdrop").removeClass("modal-backdrop in");
-		window.history.back();
+		$('#recoverModal').modal().hide();
+		var st = "<%=statusRecover%>";
+		if (st == "Ok") {
+			window.location.href = '/HV_SoftwarePackage/UsersController?action=recoverUser';
+		}
 	}, 5000);
 </script>
 
@@ -57,7 +58,7 @@ if (notifyRecover != null) {
 					<div class="row g-0">
 						<div class="col-lg-6">
 							<div class="card-body p-md-5 mx-md-4">
-								<form action="UsersController?action=recoverUser" method="post">
+								<form action="${pageContext.request.contextPath}/UsersController?action=recoverUser" method="post">
 									<h4>PHỤC HỒI TÀI KHOẢN</h4>
 									<p id="recoverText">Chúng tôi rất tiếc vì tài khoản của bạn đã bị khóa, xin
 										hãy điền vào nội dung phản hồi và thông tin email, chúng tôi
@@ -70,7 +71,7 @@ if (notifyRecover != null) {
 											<span class="input-group-text"><i
 												class="bx bx-message"></i></span>
 											<textarea type="text" id="feedback" name="feedback"
-												class="form-control" placeholder="Nhập nội dung" rows="10"></textarea>
+												class="form-control" placeholder="Nhập nội dung" rows="10" value="${feedback}"></textarea>
 										</div>
 										<p id="feedback_error"></p>
 										<br /> <label for="email">Email cần khôi phục: <span
@@ -78,9 +79,9 @@ if (notifyRecover != null) {
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
-												name="email" class="form-control" placeholder="Nhập email">
+												name="email" class="form-control" placeholder="Nhập email" value="${toEmail}">
 										</div>
-										<p id="email_recover_error"></p>
+										<p id="email_recover_error">${notifyRecover}</p>
 										<p>
 											<span class="require">(*) Bắt buộc</span>
 										</p>
