@@ -1,5 +1,5 @@
 	/**
-	 * Js functions for login pages
+	 * Js functions for login page
 	 */ 
 		//Validate login
 		function validateLogin() {
@@ -210,7 +210,7 @@
 		/**
 		 * Js function(s) for forgetPass page
 		 */
-
+		//Validate email
 		function validateForgotEmail(event) {
 		  
 		  const email = document.getElementById("email").value;
@@ -232,6 +232,7 @@
 		/**
 		 * Js function(s) for recoverUser page
 		 */
+		//Validate inputs
 		function validateRecoverUser() {
 			  
 			  const feedback = document.getElementById("feedback").value;
@@ -255,3 +256,21 @@
 				  emailRecoverError.innerHTML = "";
 			  }
 			}		
+		
+		/**
+		 * Js functions for rules page
+		 */ 
+		// Validate checkbox
+		function validateRulesCheck() {
+			  var checkBox = document.getElementById("agree");
+			  var errorMessage = document.getElementById("chk-error");
+			  if (checkBox.checked == false) {
+			    errorMessage.innerHTML = "Bạn phải đồng ý với các điều khoản và nội quy của trang web để tiếp tục đăng ký";			 
+			    return false;
+			  } else {
+			    errorMessage.innerHTML = "";
+			    return true;
+			  }
+		}
+
+		 

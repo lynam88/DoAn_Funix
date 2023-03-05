@@ -153,18 +153,11 @@ if (notifySignup != null) {
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>							
 							
-							<div class="row justify-content-center mt-4 rules">
-								<div>
-									<input type="radio" id="agree" name="agree" value="yes"
-										onclick="enableButton()" /> <label for="agree">Tôi đã
-										đọc và đồng ý với các quy định của trang web</label>
-								</div>
-							</div>
-							<div class="row justify-content-center mt-4 signupBtn">
+							<div class="row justify-content-center signupBtm">
 								<div class="col-lg-6 text-center">
-									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
+									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3 signupBtn"
 										type="submit" id="submit-button"
 										onclick="return validateSignup()" disabled>Đăng ký</button>
 								</div>

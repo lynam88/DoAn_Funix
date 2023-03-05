@@ -95,7 +95,7 @@
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
 											type="submit">Đăng nhập</button>
 										<div>
-											<span>Bạn chưa có tài khoản? </span> <a href="${pageContext.request.contextPath}/UsersController?action=signup" id="signup">Xin
+											<span>Bạn chưa có tài khoản? </span> <a href="${pageContext.request.contextPath}/user/jsp/rules.jsp" id="signup">Xin
 												Đăng Ký!</a>
 										</div>
 									</div>

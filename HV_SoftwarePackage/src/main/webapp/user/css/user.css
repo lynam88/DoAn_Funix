@@ -159,7 +159,8 @@
 	}
 	
 	.signupBtn{
-		margin-top: 1rem !important;	
+		margin-top: -1rem !important;
+		width: 30%;	
 	}
 	
 	.signupBottom{
@@ -170,12 +171,13 @@
 		color: aquamarine;
 	}
 	
-	@media screen and (max-width: 768px) and (min-width: 360px)  {
-	    .rules{
-	    	margin-top: -5.5rem !important;
-	    }
+	@media screen and (max-width: 768px) and (min-width: 360px)  {	    
 	    .signupForm {
 	    	padding-right: 5%;
+	    }
+	    
+	    .signupBtm{
+	   		margin-top: -15%;
 	    }	   
 	}
 	
@@ -221,9 +223,9 @@
 	/* Rules Page */
 	
 	.rules {
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 20px;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
 	}
 	
 	.rules h1 {
@@ -239,4 +241,38 @@
 	
 	.rules li {
 		margin-bottom: 10px;
+	}
+	
+	strong{
+		color: black;
+	}
+	
+	#rulesAgree{
+		margin-left: 20%
+	}
+	
+	.rulesBtn{
+		margin-left: 45%;
+	}
+	
+	#chk-error{
+		color: red;
+		position: inherit;
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {
+	    .rules{
+		    margin-top: -5.5rem !important;
+	   		padding: 100px;
+	    }
+	    
+	    .rulesBtn{
+			margin-left: 25%;
+		} 
+		
+		#agree{
+			position: absolute;
+		    margin-top: 1%;
+		    margin-left: -5%;
+		}		      
 	}
