@@ -1,29 +1,6 @@
 	/**
 	 * Js functions for login pages
 	 */ 
-		//Glowing buttons
-		$(document).ready(function() {
-		  $("#resetPass").click(function() {
-		    $('.btn-reset-password').addClass('glow');
-		  });
-		});
-
-		$(document).ready(function() {
-			  $("#login").click(function() {
-			    $('.btn-login').addClass('glow');
-			  });
-			});
-		$(document).ready(function() {
-			  $("#signup").click(function() {
-			    $('.btn-signup').addClass('glow');
-			  });
-			});
-		$(document).ready(function() {
-			  $("#recoverUser").click(function() {
-			    $('.btn-recover-user').addClass('glow');
-			  });
-			});
-		
 		//Validate login
 		function validateLogin() {
 			const loginId = document.getElementById("loginId").value;
@@ -78,8 +55,13 @@
 			  } else {
 			    input.attr("type", "password");
 			  }
-			});
+			});		
 		
+		/**
+		 * Js functions for signup pages
+		 */
+		
+		//show - hide password
 		$(".click-eye").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
 			  var input = $("#signupPass");
@@ -99,10 +81,6 @@
 			    input.attr("type", "password");
 			  }
 			});
-		
-		/**
-		 * Js functions for signup pages
-		 */
 		
 		//Register button 
 		function enableButton() {

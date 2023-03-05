@@ -41,9 +41,9 @@ if (notifyPassSent != null) {
 			$('#sendPassModal').modal().hide();			
 			var st = "<%=statusPassSent%>";
 		if (st == "Ok") {
-			window.history.back();
+			window.location.href = '/HV_SoftwarePackage/UsersController?action=resetPassword';
 		}
-	}, 15000);
+	}, 5000);
 </script>
 
 <%
@@ -70,23 +70,14 @@ if (notifyPassSent != null) {
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bx bx-envelope"></i></span> <input type="email" id="email"
-												name="email" class="form-control" placeholder="Nhập email">
+												name="email" class="form-control" placeholder="Nhập email" value="${toEmail}">
 										</div>
-										<p id="email_error">
-											<%
-											if (notifyValid != null) {
-											%>
-											<%=notifyValid%>
-											<%
-											}
-											%>
-
-										</p>
+										<p id="email_error">${notifyValid}</p>
 										<p>
 											<span class="require">(*) Bắt buộc</span>
 										</p>
 										<div>
-											<span>Tài khoản của bạn bị khoá? </span> <a href="#"
+											<span id="recoverText">Tài khoản của bạn bị khoá? </span> <a href="${pageContext.request.contextPath}/UsersController?action=recoverUser"
 												id="recoverUser">Xin Liên Hệ!</a>
 										</div>
 									</div>

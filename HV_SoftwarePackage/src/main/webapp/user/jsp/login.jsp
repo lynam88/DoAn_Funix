@@ -87,7 +87,7 @@
 									<div class="remember">
 									    <input type="checkbox" id="remember" name="remember"> 
 									    <label for="remember">Remember me</label>
-									    <a class="text-muted" href="#" id="resetPass" style="padding-left: 30%;">Bạn quên mật khẩu?</a>
+									    <a href="${pageContext.request.contextPath}/UsersController?action=resetPassword" id="resetPass" style="padding-left: 30%;">Bạn quên mật khẩu?</a>
 									</div>
 
 									<div class="text-center pt-1 mb-5 pb-1">
@@ -95,7 +95,7 @@
 											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
 											type="submit">Đăng nhập</button>
 										<div>
-											<span>Bạn chưa có tài khoản? </span> <a href="#" id="signup">Xin
+											<span>Bạn chưa có tài khoản? </span> <a href="${pageContext.request.contextPath}/UsersController?action=signup" id="signup">Xin
 												Đăng Ký!</a>
 										</div>
 									</div>

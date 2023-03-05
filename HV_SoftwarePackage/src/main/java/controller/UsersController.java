@@ -428,14 +428,14 @@ public class UsersController extends HttpServlet {
 
 	    // Recipient's email address
 	    final String toEmail = request.getParameter("email");
+	    request.setAttribute("toEmail", toEmail);
 	    
 	    //Get user from database
 	    if(toEmail != null) {
 		    Users u = dao.getUser(toEmail);
 		    if(u == null || u.getStatus() == 0) {
 		    	// User is deleted or not registered yet
-		    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
-			    request.setAttribute("statusPassSent", "Fail");
+		    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");			
 			    request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
 			    return;
 		    }
@@ -456,7 +456,7 @@ public class UsersController extends HttpServlet {
 		        "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
 	
 		    // Load the logo image file
-		    String fullPath = request.getServletContext().getRealPath("/media/logo.jpg");
+		    String fullPath = request.getServletContext().getRealPath("user/media/logo.jpg");
 		    File file = new File(fullPath);
 		    InputStream inputStream = new FileInputStream(file);
 		    byte[] imageData = IOUtils.toByteArray(inputStream);
@@ -521,7 +521,7 @@ public class UsersController extends HttpServlet {
 		    System.out.println("Gửi mail thành công");
 	
 		    // Set attributes and forward the request to a new JSP
-		    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Xin bạn kiểm tra hộp thư của mình. Cám ơn bạn!");
+		    request.setAttribute("notifyPassSent", "Chúng tôi vừa gửi mật khẩu tới email của bạn. Vui lòng kiểm tra hộp thư của mình. Cám ơn bạn!");
 		    request.setAttribute("statusPassSent", "Ok");		    
 	    }
 	    request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);

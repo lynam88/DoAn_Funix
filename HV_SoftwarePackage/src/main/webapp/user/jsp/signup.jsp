@@ -171,7 +171,7 @@ if (notifySignup != null) {
 							<div class="col text-center">
 								<div class="signupBottom">
 									<span class="text-center">Bạn đã có tài khoản? </span> <a
-										href="#" id="login">Xin Đăng Nhập!</a>
+										href="${pageContext.request.contextPath}/UsersController?action=login">Xin Đăng Nhập!</a>
 								</div>
 							</div>
 						</form>

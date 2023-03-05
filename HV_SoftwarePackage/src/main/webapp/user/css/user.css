@@ -7,11 +7,6 @@
 	body {
 	  min-width: 576px; /* set the minimum width to 576 pixels */
 	}	
-			
-	/* Apply the box-shadow to the button when it's clicked */
-	  .glow {
-	    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #32CD32 !important;	    
-	  }
 		
 	/* Login page */
 	.gradient-custom-2 {
@@ -28,7 +23,7 @@
 	}
 	
 	.loginForm{
-		margin-top: 30%;
+		margin-top: 20%;
 	}
 	
 	.login-form {
@@ -92,8 +87,8 @@
 	    }
 	    .rightSide{    	    
    			display: flex;
-   			padding-bottom: 25%;
-    		padding-top: 25%;
+   			padding-bottom: 20%;
+    		padding-top: 20%;
 	    }		
 	}	
 	
@@ -204,4 +199,21 @@
 	
 	.submitBtn{
 		margin-bottom: 10%;
+	}
+	
+	span{
+		color: black;
+	}
+	
+	label{
+		color: black;
+	}
+	
+	#recoverText{
+		color: black;
+	}
+	
+	#feedback_error, #email_recover_error{
+		color: red;
+		position: inherit;
 	}
