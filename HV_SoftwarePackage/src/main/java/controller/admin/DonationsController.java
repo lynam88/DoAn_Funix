@@ -33,7 +33,7 @@ import model.Donations;
 @WebServlet(name = "DonationsController", urlPatterns = { "/DonationsController" })
 public class DonationsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DonationsDAO dao;
+	private DonationsDAO donationsDAO;
 	private String action;
 	private String search;
 	private String status;
@@ -43,7 +43,7 @@ public class DonationsController extends HttpServlet {
 	HttpSession session;
 
 	public void init() {
-		dao = new DonationsDAO();
+		donationsDAO = new DonationsDAO();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -123,15 +123,15 @@ public class DonationsController extends HttpServlet {
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			dao.search(searchString, status, category);
-			int noOfRecord = dao.getNoOfRecords();
+			donationsDAO.search(searchString, status, category);
+			int noOfRecord = donationsDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Donations> listPerPage = dao.getRecord(searchString, status, category, page, recordPerPage);
+			List<Donations> listPerPage = donationsDAO.getRecord(searchString, status, category, page, recordPerPage);
 			request.setAttribute("DonationList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
-			RequestDispatcher rd = request.getRequestDispatcher("jsp/DonationList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/DonationList.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -150,7 +150,7 @@ public class DonationsController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Donations existingDonation = null;
 		try {
-			existingDonation = dao.getDonation(id);
+			existingDonation = donationsDAO.getDonation(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,7 +188,7 @@ public class DonationsController extends HttpServlet {
 			String category = request.getParameter("category");
 			String src = request.getParameter("thumbnail");
 			Donations d = new Donations(status, title, content, start, end, totalNeededFloat, category, src);
-			dao.insertDonation(d);
+			donationsDAO.insertDonation(d);
 			request.setAttribute("notifySave", "Thêm thành công.");
 			request.setAttribute("statusSave", "OK");
 
@@ -256,7 +256,7 @@ public class DonationsController extends HttpServlet {
 		String src = request.getParameter("thumbnail");
 		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, src);
 		try {
-			dao.updateDonation(d);
+			donationsDAO.updateDonation(d);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -275,7 +275,7 @@ public class DonationsController extends HttpServlet {
 				Donations d = new Donations(Integer.parseInt(id));
 				list.add(d);
 			}
-			dao.deleteDonation(list);
+			donationsDAO.deleteDonation(list);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}

@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +11,6 @@ import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -54,7 +53,7 @@ import org.apache.commons.io.IOUtils;
 )
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UsersDAO dao;
+	private UsersDAO usersDAO;
 	private String action;
 	private String search;
 	private String searchString;
@@ -64,7 +63,7 @@ public class UsersController extends HttpServlet {
 	Users userData;
 
 	public void init() {
-		dao = new UsersDAO();
+		usersDAO = new UsersDAO();
 	}
 
 	/**
@@ -176,7 +175,7 @@ public class UsersController extends HttpServlet {
 		}
 	    //Get user from database
 	    if(toEmail != null) {
-		    Users u = dao.getUser(toEmail);
+		    Users u = usersDAO.getUser(toEmail);
 		    if(u == null || u.getStatus() == 1) {		    	
 		    	request.setAttribute("notifyValid", "Tài khoản chưa bị khoá hoặc chưa đăng ký. Xin kiểm tra lại email.");
 			    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);
@@ -184,7 +183,7 @@ public class UsersController extends HttpServlet {
 		    } 
 		    
 		    //Update feedback to database
-		    dao.updateFeedback(u, feedbackString);
+		    usersDAO.updateFeedback(u, feedbackString);
 	
 		    // Email subject and body
 		    final String subject = "Liên Hoa tiếp nhận phản hồi của bạn";
@@ -296,15 +295,15 @@ public class UsersController extends HttpServlet {
 	        Users u = new Users(name, phone, email, avatarName, address, passDB);
 	        request.setAttribute("inputUser", u);
 	        request.setAttribute("signupPass", password);
-	        if(phone != null && dao.getUser(phone) != null) {
+	        if(phone != null && usersDAO.getUser(phone) != null) {
 	            request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");	           
 	            
-	        } else if(dao.getUser(email) != null) {
+	        } else if(usersDAO.getUser(email) != null) {
 	        	request.setAttribute("email_error", "Email này đã được đăng ký");	        	
 	    	    
 	        } else {
 	            // Insert user data to database
-	            dao.insertUser(u);
+	            usersDAO.insertUser(u);
 	            request.setAttribute("notifySignup", "Đăng ký thành công.");
 	            request.setAttribute("statusSignup", "OK");	           
 	        }
@@ -340,10 +339,10 @@ public class UsersController extends HttpServlet {
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			dao.searchName(searchString, searchStatus);
-			int noOfRecord = dao.getNoOfRecords();
+			usersDAO.searchName(searchString, searchStatus);
+			int noOfRecord = usersDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Users> listPerPage = dao.getRecord(searchString, searchStatus, page, recordPerPage);
+			List<Users> listPerPage = usersDAO.getRecord(searchString, searchStatus, page, recordPerPage);
 			request.setAttribute("UserList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
@@ -367,7 +366,7 @@ public class UsersController extends HttpServlet {
 		String email = request.getParameter("email");
 		Users existingUser = null;
 		try {
-			existingUser = dao.getUser(email);
+			existingUser = usersDAO.getUser(email);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -433,7 +432,7 @@ public class UsersController extends HttpServlet {
 	    
 	    //Get user from database
 	    if(toEmail != null) {
-		    Users u = dao.getUser(toEmail);
+		    Users u = usersDAO.getUser(toEmail);
 		    if(u == null || u.getStatus() == 0) {
 		    	// User is deleted or not registered yet
 		    	request.setAttribute("notifyValid", "Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");			
@@ -444,7 +443,7 @@ public class UsersController extends HttpServlet {
 		    // Generate a new password and update it in the database
 		    final String newPass = RandomPasswordGenerator.regeneratePassword();
 		    final String newpassDB = MD5Library.md5(newPass);
-		    dao.updatePass(u, newpassDB);
+		    usersDAO.updatePass(u, newpassDB);
 	
 		    // Email subject and body
 		    final String subject = "Liên Hoa gửi bạn mật khẩu mới";
@@ -579,7 +578,7 @@ public class UsersController extends HttpServlet {
 		// Check the user's account information in the database
 		if(id != null && loginPass != null) {
 			try {
-				userData = dao.getUser(id);
+				userData = usersDAO.getUser(id);
 				
 				if (userData == null || !userData.getPassword().equals(passDB)) {
 					request.setAttribute("notifyLogin", "Thông tin đăng nhập chưa đúng hoặc tài khoản chưa được đăng ký.");				
@@ -631,7 +630,7 @@ public class UsersController extends HttpServlet {
 		List<Users> list = new ArrayList<Users>();
 		
 		for (String email : emails) {
-			Users u = dao.getUser(email);
+			Users u = usersDAO.getUser(email);
 			if(u != null && u.getRole() == 2) list.add(u);
 		}
 		
@@ -640,7 +639,7 @@ public class UsersController extends HttpServlet {
 			request.setAttribute("statusDelete", "Fail");
 		} else {		
 			try {
-				dao.deleteUser(list);
+				usersDAO.deleteUser(list);
 				request.setAttribute("notifyDelete", "Bạn đã xoá thành công.");
 				request.setAttribute("statusDelete", "ok");
 			} catch (Exception e) {

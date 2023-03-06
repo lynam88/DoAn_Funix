@@ -38,7 +38,7 @@
     <url-pattern>/DonationsController</url-pattern>
   </servlet-mapping>  -->
   
-  <servlet>
+  <!-- <servlet>
     <description></description>
     <display-name>UsersController</display-name>
     <servlet-name>UsersController</servlet-name>
@@ -47,7 +47,7 @@
   <servlet-mapping>
     <servlet-name>UsersController</servlet-name>
     <url-pattern>/UsersController</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <servlet>
     <description></description>
     <display-name>DownloadFileServlet</display-name>
