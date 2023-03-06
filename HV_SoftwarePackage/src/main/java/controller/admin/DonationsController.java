@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import model.Donations;
 /**
  * Servlet implementation class DonationsController
  */
+@WebServlet(name = "DonationsController", urlPatterns = { "/DonationsController" })
 public class DonationsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO dao;
@@ -129,7 +131,7 @@ public class DonationsController extends HttpServlet {
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
-			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/DonationList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("jsp/DonationList.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception

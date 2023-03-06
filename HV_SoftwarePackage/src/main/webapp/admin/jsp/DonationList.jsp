@@ -19,7 +19,7 @@
 			</p>
 
 			<form class="searchbar" name="searchform"
-				action="${pageContext.request.contextPath}/DonationsController?action=DonationSearch" method="post">
+				action="${pageContext.request.contextPath}/controller/admin/DonationsController?action=DonationSearch" method="post">
 				
 					<input type="text" id="myInput" name="myInput" var="myInput"
 						placeholder="Nhập từ khoá..." value="${searchText}">
@@ -53,7 +53,7 @@
 			<p class="pageTitle"><b>CHỨC NĂNG CHÍNH:</b></p>
 			<div class="pageTitle">
 				
-				<a	class="btn nv btn-primary functionBtnBtn" type="button" href="${pageContext.request.contextPath}/DonationsController?action=new"
+				<a	class="btn nv btn-primary functionBtnBtn" type="button" href="${pageContext.request.contextPath}/controller/admin/DonationsController?action=new"
 					data-toggle="tooltip" data-placement="top"> <i
 					class="fa fa-plus-square"></i> Tạo mới 
 				</a> 		
@@ -63,7 +63,7 @@
 					class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
 				</a> 
 				
-				 <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/DonationsController?action=export"><i
+				 <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/controller/admin/DonationsController?action=export"><i
 					class="fas fa-file-export"></i> Xuất File</a>
 				
 			</div>	
@@ -133,7 +133,7 @@
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&category=${category}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/controller/admin/DonationsController?action=DonationList&myInput=${searchText}&category=${category}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		
@@ -144,13 +144,13 @@
 							    </li>
 							</c:when>
 							<c:otherwise>								
-								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=${i}">${i}</a></li>
+								<li class="page-item" ><a type="button" class="btn page-link" href="${pageContext.request.contextPath}/controller/admin/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=${i}">${i}</a></li>
 							</c:otherwise>
 						</c:choose>						
 				   </c:forEach>			   
 				   
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=${noOfPage}">Last</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/controller/admin/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=${noOfPage}">Last</a>
 				    </li>
 				    
 				  </ul>

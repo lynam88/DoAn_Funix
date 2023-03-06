@@ -140,7 +140,7 @@
 			$.ajax({
 				type : 'GET',
 				data: 'id='+checked,
-				url : '/HV_SoftwarePackage/DonationsController?action=delete',
+				url : '/HV_SoftwarePackage/controller/admin/DonationsController?action=delete',
 				success : function(result) {
 					$("#myModal").modal("hide");
 					setTimeout(function() {					

@@ -73,12 +73,12 @@
       <ul class="navbar-nav">
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
-	        <a class="nav-link index" href="${pageContext.request.contextPath}/DonationsController?action=index">
+	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=admin">
 	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ</h6>
 	        </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link DonationList" href="${pageContext.request.contextPath}/DonationsController?action=DonationList">
+          <a class="nav-link DonationList" href="${pageContext.request.contextPath}/admin/DonationsController?action=DonationList">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>

@@ -26,7 +26,7 @@
             <div class="block-18 color-1 align-items-stretch">
               <div class="text">
               	<span>Số tiền đã quyên góp</span>
-                <span><strong class="number" data-number="523000000">0</strong>
+                <span><strong class="number" data-number="523000000000">0</strong>
                 <span>cho hơn 15 hoàn cảnh</span>
               </div>
             </div>
