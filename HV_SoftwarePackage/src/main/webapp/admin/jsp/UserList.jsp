@@ -41,7 +41,7 @@ if (notifyDelete != null) {
 			var st = "<%=statusDelete%>";
 			$("#userDelModal").modal("hide");
 				if (st == "ok") {			
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=UserList';
+					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");	
@@ -66,7 +66,7 @@ if (notifyDelete != null) {
 				</p>
 
 				<form class="searchbar" name="searchform"
-					action="${pageContext.request.contextPath}/UsersController?action=UserSearch"
+					action="${pageContext.request.contextPath}/ManageUsersController?action=UserSearch"
 					method="post">
 
 					<input type="text" id="myInput" name="myInput" var="myInput"
@@ -89,13 +89,13 @@ if (notifyDelete != null) {
 				<div class="pageTitle">
 
 					<a class="btn nv btn-primary pageBtn" type="button"
-						href="${pageContext.request.contextPath}/UsersController?action=new"
+						href="${pageContext.request.contextPath}/ManageUsersController?action=new"
 						data-toggle="tooltip" data-placement="top"> <i
 						class="fa fa-plus-square"></i> Thêm User
 					</a> <a class="btn nv btn-primary pageBtn" type="button"
 						onclick="sortTable()" data-toggle="tooltip" data-placement="top">
 						<i class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
-					</a> <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/UsersController?action=export"><i
+					</a> <a class="btn nv btn-primary functionBtn" href="${pageContext.request.contextPath}/ManageUsersController?action=export"><i
 					class="fas fa-file-export"></i> Xuất File</a>
 
 					<div class="modal" id="exportModal" role="dialog">
@@ -170,7 +170,7 @@ if (notifyDelete != null) {
 											<td><c:out value="${user.address}"/></td>
 											<td>Active</td>
 											<td><a class="edit"
-												href="UsersController?action=edit&email=${user.email}&page=${currentPage}"
+												href="ManageUsersController?action=edit&email=${user.email}&page=${currentPage}"
 												title="Sửa" data-toggle="tooltip"> <i
 													class="fa fa-pencil" aria-hidden="true"></i>
 											</a></td>
@@ -189,7 +189,7 @@ if (notifyDelete != null) {
 
 								<li class="page-item"><a type="button"
 									class="btn page-link"
-									href="${pageContext.request.contextPath}/UsersController?action=UserList&myInput=${searchText}&searchStatus=${searchStatus}&page=1"
+									href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchStatus=${searchStatus}&page=1"
 									tabindex="-1">First</a></li>
 
 								<c:forEach var="i" begin="1" end="${noOfPage}">
@@ -202,14 +202,14 @@ if (notifyDelete != null) {
 										<c:otherwise>
 											<li class="page-item"><a type="button"
 												class="btn page-link"
-												href="${pageContext.request.contextPath}/UsersController?action=UserList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+												href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 
 								<li class="page-item"><a type="button"
 									class="btn page-link"
-									href="${pageContext.request.contextPath}/UsersController?action=UserList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+									href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 								</li>
 
 							</ul>

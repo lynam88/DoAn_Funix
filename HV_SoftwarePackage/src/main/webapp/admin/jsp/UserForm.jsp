@@ -48,7 +48,7 @@
 			$('#insertModal').modal().hide();
 			var st = "<%=statusSave%>";
 			if (st == "OK") {
-				window.location.href = '/HV_SoftwarePackage/UsersController?action=UserList';
+				window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
 			} else {
 				// remove class modal-backdrop in
 				$(".modal-backdrop").removeClass("modal-backdrop in");
@@ -74,10 +74,10 @@
 				</h1>
 
 				<c:if test="${Users != null}">
-					<form action="UsersController?action=update&page=${page}" method="post" onsubmit="return validateUser()">
+					<form action="ManageUsersController?action=update&page=${page}" method="post" onsubmit="return validateUser()">
 				</c:if>
 				<c:if test="${Users == null}">
-					<form action="UsersController?action=insert" method="post" onsubmit="return validateUser()">
+					<form action="ManageUsersController?action=insert" method="post" onsubmit="return validateUser()">
 				</c:if>
 
 				<c:if test="${Users != null}">
@@ -183,7 +183,7 @@
 					<button type="button" class="btn btn-success" 
 						onclick="return resetFunction()">Nhập Lại Dữ Liệu</button>
 					<a type="button" class="btn btn-default"
-						href="/HV_SoftwarePackage/UsersController?action=UserList">Hủy</a>
+						href="/HV_SoftwarePackage/ManageUsersController?action=UserList">Hủy</a>
 				</div>
 				<div class="modal" id="addModal" role="dialog">
 					<div class="modal-dialog">
