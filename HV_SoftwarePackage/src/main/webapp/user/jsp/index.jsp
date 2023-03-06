@@ -25,27 +25,27 @@
     			<div class="col-md-5 d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 color-1 align-items-stretch">
               <div class="text">
-              	<span>Served Over</span>
-                <strong class="number" data-number="1432805">0</strong>
-                <span>Children in 190 countries in the world</span>
+              	<span>Số tiền đã quyên góp</span>
+                <span><strong class="number" data-number="523000000">0</strong>
+                <span>cho hơn 15 hoàn cảnh</span>
               </div>
             </div>
           </div>
           <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 color-2 align-items-stretch">
               <div class="text">
-              	<h3 class="mb-4">Donate Money</h3>
-              	<p>Even the all-powerful Pointing has no control about the blind texts.</p>
-              	<p><a href="#" class="btn btn-white px-3 py-2 mt-2">Donate Now</a></p>
+              	<h3 class="mb-4">Ủng hộ Quỹ</h3>
+              	<p>Hãy đóng góp để chung tay xây dựng cộng đồng.</p>
+              	<p><a href="#" class="btn btn-white px-3 py-2 mt-2">Quyên Góp</a></p>
               </div>
             </div>
           </div>
           <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 color-3 align-items-stretch">
               <div class="text">
-              	<h3 class="mb-4">Be a Volunteer</h3>
-              	<p>Even the all-powerful Pointing has no control about the blind texts.</p>
-              	<p><a href="#" class="btn btn-white px-3 py-2 mt-2">Be A Volunteer</a></p>
+              	<h3 class="mb-4">Tình nguyện viên</h3>
+              	<p>Hãy đăng ký và cùng chúng tôi lan tỏa tình yêu thương!</p>
+              	<p><a href="#" class="btn btn-white px-3 py-2 mt-2">Đăng ký</a></p>
               </div>
             </div>
           </div>
@@ -60,8 +60,8 @@
             <div class="media block-6 d-flex services p-3 py-4 d-block">
               <div class="icon d-flex mb-3"><span class="flaticon-donation-1"></span></div>
               <div class="media-body pl-4">
-                <h3 class="heading">Make Donation</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <h3 class="heading">Chung tay quyên góp</h3>
+                <p>Sự đóng góp của bạn có thể tạo ra sự khác biệt lớn trong cuộc sống của những người cần giúp đỡ. Với sự hỗ trợ của bạn, chúng tôi có thể cung cấp thực phẩm, chỗ ở, giáo dục và chăm sóc sức khỏe cho những người có nhu cầu. </p>
               </div>
             </div>      
           </div>
@@ -69,8 +69,8 @@
             <div class="media block-6 d-flex services p-3 py-4 d-block">
               <div class="icon d-flex mb-3"><span class="flaticon-charity"></span></div>
               <div class="media-body pl-4">
-                <h3 class="heading">Become A Volunteer</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <h3 class="heading">Trở thành tình nguyện viên</h3>
+                <p>Tình nguyện là một cách tuyệt vời để cảm ơn cộng đồng và tạo ra tác động tích cực đến cuộc sống của mọi người. Dù bạn có vài giờ một tuần hay vài ngày một tháng, chúng tôi có các cơ hội cho bạn tham gia. </p>
               </div>
             </div>      
           </div>
@@ -78,8 +78,8 @@
             <div class="media block-6 d-flex services p-3 py-4 d-block">
               <div class="icon d-flex mb-3"><span class="flaticon-donation"></span></div>
               <div class="media-body pl-4">
-                <h3 class="heading">Sponsorship</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <h3 class="heading">Mạnh thường quân</h3>
+                <p>Tài trợ là một cách hiệu quả để hỗ trợ công việc của chúng tôi và giúp chúng tôi đạt được mục tiêu. Bằng cách tài trợ cho một dự án, bạn có thể ảnh hưởng trực tiếp đến cuộc sống của những người cần giúp đỡ. .</p>
               </div>
             </div>    
           </div>
@@ -92,8 +92,8 @@
     	<div class="container-fluid">
     		<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-5 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Our Causes</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <h2 class="mb-4">Các Đợt Quyên Góp của Quỹ</h2>
+            <p>Hãy cùng chúng tôi đóng góp để giúp đỡ những người đang đối mặt với hoàn cảnh khó khăn như bệnh tật, thiên tai, nghèo đói và thiếu hụt giáo dục.</p>
           </div>
         </div>
     		<div class="row">
