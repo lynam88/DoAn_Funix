@@ -45,7 +45,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * Servlet implementation class UsersController
  */
-@WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
+@WebServlet(name = "ManageUsersController", urlPatterns = { "/ManageUsersController" })
 @MultipartConfig(
   fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
   maxFileSize = 1024 * 1024 * 10,      // 10 MB
