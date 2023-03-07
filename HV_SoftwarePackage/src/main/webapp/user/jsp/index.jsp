@@ -237,67 +237,18 @@
 </section>
 
 <section class="ftco-gallery">
-	<div class="d-md-flex">
-		<a href="images/cause-2.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-2.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
+	<div class="row">
+		<c:forEach var="donation" items="${DonationList}">
+			<div class="col-md-3 ftco-animate">
+				<div>
+					${donation.src}			
+				</div>
 			</div>
-		</a> <a href="images/cause-3.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-3.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a> <a href="images/cause-4.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-4.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a> <a href="images/cause-5.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-5.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a>
-	</div>
-	<div class="d-md-flex">
-		<a
-			href="${pageContext.request.contextPath}/template/user/images/cause-6.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/cause-6.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a> <a
-			href="${pageContext.request.contextPath}/template/user/images/image_3.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_3.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a> <a
-			href="${pageContext.request.contextPath}/template/user/images/image_1.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_1.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a> <a
-			href="${pageContext.request.contextPath}/template/user/images/image_2.jpg"
-			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
-			style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_2.jpg);">
-			<div class="icon d-flex justify-content-center align-items-center">
-				<span class="icon-search"></span>
-			</div>
-		</a>
+		</c:forEach>
 	</div>
 </section>
 
-<section class="ftco-section">
+<%-- <section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center mb-5 pb-3">
 			<div class="col-md-7 heading-section ftco-animate text-center">
@@ -536,7 +487,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> --%>
 
 <c:import url="footer.jsp"></c:import>
 
