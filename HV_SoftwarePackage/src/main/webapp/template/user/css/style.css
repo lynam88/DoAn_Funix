@@ -7773,8 +7773,7 @@ h1, h2, h3, h4, h5,
     display: block;
     height: 300px; }
   @media (min-width: 768px) {
-    .cause-entry .text {
-      margin-top: -40px !important;
+    .cause-entry .text {      
       background: #fff;
       width: 90%;
       margin: 0 auto; } }
@@ -8428,7 +8427,11 @@ textarea.form-control {
   width: 100%; }
   @media (max-width: 991.98px) {
     #map {
-      height: 300px; } }
+      height: 300px; }
+      .ftco-intro .block-18 .text strong {
+	    font-size: 30px;
+		}
+       }
 
 @-webkit-keyframes pulse {
   0% {

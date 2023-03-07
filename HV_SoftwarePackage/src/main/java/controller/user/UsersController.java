@@ -3,6 +3,7 @@ package controller.user;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -30,6 +31,7 @@ import commons.MD5Library;
 import commons.RandomPasswordGenerator;
 import dao.DonationsDAO;
 import dao.UsersDAO;
+import model.Donations;
 import model.Users;
 
 import java.io.File;
@@ -123,9 +125,10 @@ public class UsersController extends HttpServlet {
 	}
 	
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws Exception {		
-		donationsDAO.search("", "", "");
+		List<Donations> listDonations = donationsDAO.search("", "0", "0");
 		int noOfRecord = donationsDAO.getNoOfRecords();
 		request.setAttribute("noOfRecord", noOfRecord);
+		request.setAttribute("DonationList", listDonations);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 
