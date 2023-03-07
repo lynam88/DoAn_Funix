@@ -2,10 +2,7 @@ package controller.user;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -31,14 +28,13 @@ import javax.servlet.http.Part;
 
 import commons.MD5Library;
 import commons.RandomPasswordGenerator;
-import dao.ExportService;
+import dao.DonationsDAO;
 import dao.UsersDAO;
 import model.Users;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import org.apache.commons.io.IOUtils;
 
 
@@ -54,6 +50,7 @@ import org.apache.commons.io.IOUtils;
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDAO;
+	private DonationsDAO donationsDAO;
 	private String action;
 	private String search;
 	private String searchString;
@@ -64,6 +61,7 @@ public class UsersController extends HttpServlet {
 
 	public void init() {
 		usersDAO = new UsersDAO();
+		donationsDAO = new DonationsDAO();
 	}
 
 	/**
@@ -90,7 +88,7 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "login" : action;
+		action = action == null ? "user" : action;
 		session = request.getSession();
 		switch (action) {
 		    case "login":
@@ -114,14 +112,21 @@ public class UsersController extends HttpServlet {
 		        doSignup(request, response);
 		        break;
 		    case "user":
-		        showUserPage(request, response);
+			try {
+				showUserPage(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		        break;
 		}
 	}
 	
-	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws Exception {		
+		donationsDAO.search("", "", "");
+		int noOfRecord = donationsDAO.getNoOfRecords();
+		request.setAttribute("noOfRecord", noOfRecord);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
-		
 	}
 
 	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {

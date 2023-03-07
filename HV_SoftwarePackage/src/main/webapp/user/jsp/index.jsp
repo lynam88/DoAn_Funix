@@ -27,7 +27,7 @@
               <div class="text">
               	<span>Số tiền đã quyên góp</span>
                 <span><strong class="number" data-number="523000000000">0</strong>
-                <span>cho hơn 15 hoàn cảnh</span>
+                <span>cho hơn <c:out value="${noOfRecord}"></c:out> hoàn cảnh</span>
               </div>
             </div>
           </div>
