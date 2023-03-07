@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<c:import url="header.jsp">
-	<c:param name="title"
-		value="Đăng Ký Thành Viên Mới | Từ Thiện Liên Hoa"></c:param>
-</c:import>
+
 
 <section class="h-100 gradient-form"
 	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
