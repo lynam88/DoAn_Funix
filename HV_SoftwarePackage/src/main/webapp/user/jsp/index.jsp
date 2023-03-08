@@ -239,7 +239,7 @@
 <section class="ftco-gallery">
 	<div class="row">
 		<c:forEach var="donation" items="${DonationList}">
-			<div class="col-md-3 ftco-animate">
+			<div class="col-md-4 ftco-animate">
 				<div>
 					${donation.src}			
 				</div>
