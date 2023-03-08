@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:import url="/header.jsp">
+	<c:param name="title" value="Danh Sách Đợt Quyên Góp"></c:param>
+</c:import>
+
+<div class="container-fluid py-4">
+	<%
+	String notify = (String) request.getAttribute("notifySave");
+	String status = (String) request.getAttribute("statusSave");
+	
+	if(notify != null) {
+	%>
+	<div class="modal fade" id="insertModal">
+		<div class="modal-dialog">
+	
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<p class="text-center" id="insertMsg"
+						style="font-size: large; color: red;"><%=notify%></p>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+	
+	<script>
+		
+		$("#insertModal").modal();
+		setTimeout(function() {
+			$('#insertModal').modal().hide();
+			var st = "<%=status%>";
+			if (st == "OK") {
+				window.location.href = '/HV_SoftwarePackage/ControllerServlet';
+			}
+		}, 3000);
+		
+	</script>
+	
+	<%}%>
+
+	<c:import url="/footer.jsp"></c:import>
