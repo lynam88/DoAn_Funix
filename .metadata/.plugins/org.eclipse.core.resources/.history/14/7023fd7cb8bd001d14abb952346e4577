@@ -1,0 +1,309 @@
+@charset "UTF-8";
+
+	* {
+		box-sizing: border-box;
+	}
+	
+	body {
+	  min-width: 576px; /* set the minimum width to 576 pixels */
+	}	
+		
+	/* Login page */
+	.gradient-custom-2 {
+		/* fallback for old browsers */
+		background: #fccb90;
+		/* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+		/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+	}
+	
+	h4 {
+		color: blue;
+	}
+	
+	.loginForm{
+		margin-top: 20%;
+	}
+	
+	.login-form {
+	    top: 35px;
+	    position: relative;
+	}
+	
+	#loginId{
+		position: absolute;
+    	padding-left: 30px;
+	}
+	
+	.login-icon {
+	    top: 15px;
+	    left: 10px;
+	    position: absolute;
+	}
+	
+	#loginId_error{
+		color: red;
+	    position: inherit;
+	    top: 60px;	
+	}
+	
+	#loginPass{
+		position: relative;
+	    top: 100px;
+	    padding-left: 30px;
+	}	
+		
+	.loginPass-eye-icon {
+	    position: relative;
+	    left: 93%;
+	    top: 60px;
+	}
+	
+	.loginPass-icon {
+	    position: relative;
+	    top: 60px;
+	    right: 12px;
+	}
+	
+	#loginPass_error{
+		color: red;
+	    position: relative;
+	    top: 75px;	 
+	}
+	
+	.rightText{
+		width: 100%;
+	}
+	
+	.remember{
+		margin-top: 100px;
+	}
+	
+	@media (min-width: 992px) { 
+		.rightForm{
+    	    position: relative !important;
+ 			top: 5% !important; 			
+	    }
+	    .rightSide{    	    
+   			display: flex;
+   			padding-bottom: 20%;
+    		padding-top: 20%;
+	    }		
+	}	
+	
+	@media (max-width: 992px) { 
+		.rightSide{    	    
+   			margin: 0 0.9rem;
+	    }	
+	}
+	
+	@media screen and (max-width: 991px) and (min-width : 768px) {	
+	
+		.gradient-custom-2 {
+			border-top-right-radius: .3rem;
+			border-bottom-right-radius: .3rem;			
+		}	
+	    
+	     .loginForm{
+	    	margin-top: 15%;
+	    }
+	    
+	    .pt-5, .py-5 {
+		    padding-top: 3rem !important;
+		}
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {
+	    .rightForm{
+	    	position: relative !important;
+		    bottom: 15% !important;
+		    padding-bottom: 10% !important;
+	    }
+	    
+	    .loginForm{
+	    	margin-top: 15%;
+	    }
+	    
+	    .pt-5, .py-5 {
+		    padding-top: 3rem !important;
+		}
+	}
+	
+	/* Signup page */
+	
+	.signUpTitle{
+		width: 100%;
+   		padding-top: 5%;
+	}
+	
+	.signUpTitle h3{
+		color: blue;
+	}
+	
+	.signupForm{
+	    padding-left: 5%;
+	}
+	
+	.require {
+	  color: red;
+	}	
+	
+	#name_error, #phone_error, .phone_error, #email_error, .email_error, #address_error, #signupPass_error, #retype_signupPass_error{
+		color: red;
+		position: inherit;
+	}
+	
+	.rules{
+		margin-top: 0.5rem !important;
+	}
+	
+	.signupBtn{
+		margin-top: -1rem !important;
+		width: 30%;	
+	}
+	
+	.signupBottom{
+		display: flow-root; padding-bottom: 5%;
+	}
+	
+	#login{
+		color: aquamarine;
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {	    
+	    .signupForm {
+	    	padding-right: 5%;
+	    }
+	    
+	    .signupBtm{
+	   		margin-top: -15%;
+	    }	   
+	}
+	
+	@media screen and (max-width: 991px) and (min-width : 768px) {					
+		.rightForm{
+   	       	position: relative !important;
+		    top: 5% !important;
+		    right: 10%;
+	    }	    
+	}
+	
+	.signupPassIcon{
+		padding-top: 5%;	
+	}
+	
+	/* Reset Password Page */
+		
+	.resetPassForm{
+		margin-top: 10%;
+	}	
+	
+	.submitBtn{
+		margin-bottom: 10%;
+	}
+	
+	span{
+		color: black;
+	}
+	
+	label{
+		color: black;
+	}
+	
+	#recoverText{
+		color: black;
+	}
+	
+	#feedback_error, #email_recover_error{
+		color: red;
+		position: inherit;
+	}
+	
+	/* Rules Page */
+	
+	.rules {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;		
+	}
+	
+	.rules h1 {
+		font-size: 28px;
+		text-align: center;
+	}
+	
+	.rules ul {
+		list-style-type: square;
+		margin: 0;
+		padding: 0 0 0 20px;
+	}
+	
+	.rules li {
+		margin-bottom: 10px;
+	}
+	
+	strong{
+		color: black;
+	}
+	
+	#rulesAgree{
+		margin-left: 20%
+	}
+	
+	.rulesBtn{
+		margin-left: 45%;
+	}
+	
+	#chk-error{
+		color: red;
+		position: inherit;
+	}
+	
+	@media screen and (max-width: 768px) and (min-width: 360px)  {
+	    .rules{
+		    margin-top: -5.5rem !important;
+	   		padding: 100px;
+	   		margin-bottom: -5%;
+	    }
+	    
+	    .rulesBtn{
+			margin-left: 25%;
+		} 
+		
+		#agree{
+			position: absolute;
+		    margin-top: 1%;
+		    margin-left: -5%;
+		}		      
+	}
+	
+	/* Contact Page */
+		
+	  @media screen and (max-width: 991px) and (min-width : 768px) {					
+			.leftContact{
+				padding-bottom: 45%;
+			}			
+		}	
+		
+		.contact{
+			padding: 5%;
+		}	
+		
+		.leftContact{
+			color: black;
+		}		
+		
+	/* Index Page */
+		
+	.img-fluid {
+	  object-fit: contain;
+	  height: 100%;
+	  width: 100%;
+	}						
+			
+	.gallery{
+		display: flex; 
+		justify-content: center; 
+		align-items: center;
+	}

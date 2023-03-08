@@ -1,117 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="">
-		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
-	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">
-		<item key="org.eclipse.jdt.search.resultpage.limit" value="1000"/>
-		<item key="org.eclipse.jdt.search.resultpage.limit_enabled" value="TRUE"/>
+	<section name="SearchDialog.ScopePart">
+		<item value="0" key="scope"/>
 	</section>
-	<section name="SearchDialog">
-		<item key="PREVIOUS_PAGE" value="org.eclipse.search.internal.ui.text.TextSearchPage"/>
-	</section>
-	<section name="Search">
-		<list key="Search.processedPageIds">
-			<item value="org.eclipse.search.internal.ui.text.TextSearchPage"/>
-			<item value="org.eclipse.egit.ui.commitSearchPage"/>
-			<item value="org.eclipse.jdt.ui.JavaSearchPage"/>
-			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
-		</list>
-		<list key="Search.enabledPageIds">
-			<item value="org.eclipse.search.internal.ui.text.TextSearchPage"/>
-			<item value="org.eclipse.egit.ui.commitSearchPage"/>
-			<item value="org.eclipse.jdt.ui.JavaSearchPage"/>
-			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
-		</list>
+	<section name="">
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
 	</section>
 	<section name="TextSearchPage">
-		<item key="CASE_SENSITIVE" value="true"/>
-		<item key="REG_EX_SEARCH" value="false"/>
-		<item key="WHOLE_WORD" value="true"/>
-		<item key="SEARCH_DERIVED" value="false"/>
-		<item key="SEARCH_IN_BINARIES" value="false"/>
-		<item key="HISTORY_SIZE" value="12"/>
-		<section name="HISTORY0">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="&lt;section class=&quot;h-100 gradient-form&quot;"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="EXTENSIONS">
-			<item key="0" value="*"/>
-		</section>
-		<section name="HISTORY1">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="admin/DonationsController"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="HISTORY2">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="/controller/admin"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="HISTORY3">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="/admin/controller/admin/"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="HISTORY4">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="/DonationsController"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="HISTORY5">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="password-icon"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
+		<item value="12" key="HISTORY_SIZE"/>
+		<item value="true" key="CASE_SENSITIVE"/>
+		<item value="false" key="REG_EX_SEARCH"/>
+		<item value="true" key="WHOLE_WORD"/>
+		<item value="false" key="SEARCH_DERIVED"/>
+		<item value="false" key="SEARCH_IN_BINARIES"/>
 		<section name="HISTORY6">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="password-eye-icon"/>
-			<item key="scope" value="0"/>
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="password-icon" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
@@ -119,35 +29,23 @@
 			</list>
 		</section>
 		<section name="HISTORY7">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="container"/>
-			<item key="scope" value="0"/>
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="password-eye-icon" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
 			<list key="workingSets">
 			</list>
 		</section>
-		<section name="HISTORY8">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="nav-item"/>
-			<item key="scope" value="0"/>
-			<list key="fileNamePatterns">
-				<item value="*"/>
-			</list>
-			<list key="workingSets">
-			</list>
-		</section>
-		<section name="HISTORY9">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="searchCategory"/>
-			<item key="scope" value="0"/>
+		<section name="HISTORY4">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="/admin/controller/admin/" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
@@ -155,23 +53,110 @@
 			</list>
 		</section>
 		<section name="HISTORY10">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="recoverAccount"/>
-			<item key="scope" value="0"/>
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="searchCategory" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
 			<list key="workingSets">
 			</list>
+		</section>
+		<section name="HISTORY5">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="/DonationsController" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="EXTENSIONS">
+			<item value="*" key="0"/>
 		</section>
 		<section name="HISTORY11">
-			<item key="ignoreCase" value="false"/>
-			<item key="isRegExSearch" value="false"/>
-			<item key="isWholeWord" value="true"/>
-			<item key="textPattern" value="forgotPass"/>
-			<item key="scope" value="0"/>
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="recoverAccount" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY8">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="container" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY9">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="nav-item" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY2">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="admin/DonationsController" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY3">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="/controller/admin" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY0">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="| Từ Thiện Liên Hoa" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY1">
+			<item value="false" key="ignoreCase"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="isWholeWord"/>
+			<item value="&lt;section class=&quot;h-100 gradient-form&quot;" key="textPattern"/>
+			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
 			</list>
@@ -179,31 +164,52 @@
 			</list>
 		</section>
 	</section>
-	<section name="SearchDialog.ScopePart">
-		<item key="scope" value="0"/>
-	</section>
-	<section name="DialogBounds_SearchDialog">
-		<item key="DIALOG_X_ORIGIN" value="1088"/>
-		<item key="DIALOG_Y_ORIGIN" value="111"/>
-		<item key="DIALOG_WIDTH" value="520"/>
-		<item key="DIALOG_HEIGHT" value="462"/>
-		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
-	</section>
 	<section name="org.eclipse.search.text.FileSearchResultPage">
-		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
+	</section>
+	<section name="Search">
+		<list key="Search.processedPageIds">
+			<item value="org.eclipse.search.internal.ui.text.TextSearchPage"/>
+			<item value="org.eclipse.egit.ui.commitSearchPage"/>
+			<item value="org.eclipse.jdt.ui.JavaSearchPage"/>
+			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
+			<item value="org.eclipse.rse.internal.files.ui.search.searchPage"/>
+			<item value="org.eclipse.mylyn.tasks.ui.search.page"/>
+			<item value="org.eclipse.wst.jsdt.ui.JavaSearchPage"/>
+		</list>
+		<list key="Search.enabledPageIds">
+			<item value="org.eclipse.search.internal.ui.text.TextSearchPage"/>
+			<item value="org.eclipse.egit.ui.commitSearchPage"/>
+			<item value="org.eclipse.jdt.ui.JavaSearchPage"/>
+			<item value="org.eclipse.pde.internal.ui.search.SearchPage"/>
+			<item value="org.eclipse.rse.internal.files.ui.search.searchPage"/>
+			<item value="org.eclipse.mylyn.tasks.ui.search.page"/>
+			<item value="org.eclipse.wst.jsdt.ui.JavaSearchPage"/>
+		</list>
 	</section>
 	<section name="ReplaceDialog2">
 		<list key="replace_with">
+			<item value="| Quỹ Từ Thiện Liên Hoa"/>
 			<item value="DonationsController"/>
 			<item value=""/>
 			<item value="/controller/admin/"/>
 			<item value="/controller/admin/DonationsController"/>
 			<item value="controller/admin/DonationsController"/>
 			<item value="/admin/DonationsController"/>
-			<item value="admin/DonationsController"/>
 		</list>
 	</section>
-	<section name="">
-		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+	<section name="SearchDialog">
+		<item value="org.eclipse.search.internal.ui.text.TextSearchPage" key="PREVIOUS_PAGE"/>
+	</section>
+	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">
+		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
+		<item value="TRUE" key="org.eclipse.jdt.search.resultpage.limit_enabled"/>
+	</section>
+	<section name="DialogBounds_SearchDialog">
+		<item value="717" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="461" key="DIALOG_HEIGHT"/>
+		<item value="657" key="DIALOG_X_ORIGIN"/>
+		<item value="111" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

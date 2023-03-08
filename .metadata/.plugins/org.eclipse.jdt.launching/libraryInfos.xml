@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <libraryInfos>
-    <libraryInfo home="E:\Dream Job\PRJ321x_02_VN\jdk-11.0.2" version="11.0.2"/>
+<libraryInfo home="E:\Dream Job\PRJ321x_02_VN\jdk-11.0.2" version="11.0.2"/>
+<libraryInfo home="D:\Timecount2019\New folder\JDK" version="1.8.0_351">
+<bootpath>
+<entry path="D:\Timecount2019\New folder\JDK\lib\resources.jar"/>
+<entry path="D:\Timecount2019\New folder\JDK\lib\rt.jar"/>
+<entry path="D:\Timecount2019\New folder\JDK\lib\jsse.jar"/>
+<entry path="D:\Timecount2019\New folder\JDK\lib\jce.jar"/>
+<entry path="D:\Timecount2019\New folder\JDK\lib\charsets.jar"/>
+<entry path="D:\Timecount2019\New folder\JDK\lib\jfr.jar"/>
+<entry path="D:\Timecount2019\New folder\JDK\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="D:\Timecount2019\New folder\JDK\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="D:\Timecount2019\New folder\JDK\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
 </libraryInfos>

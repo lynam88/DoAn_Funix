@@ -278,40 +278,12 @@
 		}		      
 	}
 	
-	/* Rules Page */
-  
-	  @media screen and (max-width: 1200px) and (min-width : 768px) {					
-			.emailFooter{
-				padding-left: 10%;
-			} 			
-		}
-			
-	  @media (min-width : 768px) {					
-			.leftContact{
-				padding-bottom: 39%;
-			}
-		}	
-	
-	 @media (max-width : 768px) {					
-			.leftContact{
-				padding-top: 15%;
-			}			
-						
-		}
-		
-	  @media screen and (max-width: 991px) and (min-width : 768px) {					
-			.leftContact{
-				padding-bottom: 45%;
-			}			
-		}	
+	/* Contact Page */
 		
 		.contact{
 			padding: 5%;
-		}	
-		
-		.leftContact{
 			color: black;
-		}
+		}		
 		
 	/* Index Page */
 		
