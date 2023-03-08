@@ -54,7 +54,7 @@
 	              <ul>
 	                <li><span class="icon icon-map-marker"></span><span class="text">152 Nguyễn Hữu Dật, P. Tây Thạnh, Q. Tân Phú, TP. HCM</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+84 931967923</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">quytuthienlienhoa@gmail.com</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text emailFooter">quytuthienlienhoa@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>

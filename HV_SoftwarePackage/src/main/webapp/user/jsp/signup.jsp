@@ -4,7 +4,7 @@
 
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Đăng Ký Thành Viên Mới | Từ Thiện Liên Hoa"></c:param>
+	<c:param name="title" value="Đăng Ký Thành Viên Mới | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%

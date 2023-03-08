@@ -4,7 +4,7 @@
 
 <c:import url="header.jsp">
 	<c:param name="title"
-		value="Đăng Ký Thành Viên Mới | Từ Thiện Liên Hoa"></c:param>
+		value="Nội Quy Trang Web | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <section class="h-100 gradient-form"
@@ -16,7 +16,7 @@
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="rules">
-							<h1 class="text-center text-primary">Nội quy trang web Quỹ Từ Thiện Liên Hoa</h1>
+							<h4 class="text-center">Nội quy trang web Quỹ Từ Thiện Liên Hoa</h4>
 							<p>Vui lòng đọc kỹ nội quy trước khi tiến hành đăng ký tài
 								khoản trên trang web.</p>
 							<ul>

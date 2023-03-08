@@ -225,7 +225,7 @@
 	.rules {
 		max-width: 800px;
 		margin: 0 auto;
-		padding: 20px;
+		padding: 20px;		
 	}
 	
 	.rules h1 {
@@ -264,6 +264,7 @@
 	    .rules{
 		    margin-top: -5.5rem !important;
 	   		padding: 100px;
+	   		margin-bottom: -5%;
 	    }
 	    
 	    .rulesBtn{
@@ -276,3 +277,40 @@
 		    margin-left: -5%;
 		}		      
 	}
+	
+	/* Rules Page */
+  
+	  @media screen and (max-width: 1200px) and (min-width : 768px) {					
+			.emailFooter{
+				padding-left: 10%;
+			} 			
+		}
+			
+	  @media (min-width : 768px) {					
+			.leftContact{
+				padding-bottom: 39%;
+			}
+		}	
+	
+	 @media (max-width : 768px) {					
+			.leftContact{
+				padding-top: 15%;
+			}
+			
+						
+		}
+		
+	  @media screen and (max-width: 991px) and (min-width : 768px) {					
+			.leftContact{
+				padding-bottom: 45%;
+			}			
+		}	
+		
+		.contact{
+			padding: 5%;
+		}	
+		
+		.leftContact{
+			color: black;
+		}
+		
