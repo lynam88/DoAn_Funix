@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>HV_SoftwarePackage</display-name>
+  <welcome-file-list>
+    <welcome-file>/user</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>ConnectorServlet</servlet-name>
+    <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+    <init-param>
+      <description>
+				Path to configuration file can be relative path inside application,
+				absolute path on local file system or UNC path.
+			</description>
+      <param-name>XMLConfig</param-name>
+      <param-value>/WEB-INF/config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConnectorServlet</servlet-name>
+    <url-pattern>
+			/ckfinder/core/connector/java/connector.java
+		</url-pattern>
+  </servlet-mapping>
+<!--   <servlet>
+    <description></description>
+    <display-name>DonationsController</display-name>
+    <servlet-name>DonationsController</servlet-name>
+    <servlet-class>controller.DonationsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DonationsController</servlet-name>
+    <url-pattern>/DonationsController</url-pattern>
+  </servlet-mapping>  -->
+  
+  <!-- <servlet>
+    <description></description>
+    <display-name>UsersController</display-name>
+    <servlet-name>UsersController</servlet-name>
+    <servlet-class>controller.UsersController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsersController</servlet-name>
+    <url-pattern>/UsersController</url-pattern>
+  </servlet-mapping> -->
+  <servlet>
+    <description></description>
+    <display-name>DownloadFileServlet</display-name>
+    <servlet-name>DownloadFileServlet</servlet-name>
+    <servlet-class>controller.DownloadFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadFileServlet</servlet-name>
+    <url-pattern>/DownloadFileServlet</url-pattern>
+  </servlet-mapping>
+</web-app>

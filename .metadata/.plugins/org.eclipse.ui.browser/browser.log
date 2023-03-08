@@ -1,0 +1,77 @@
+
+thg 2 11, 2023 09:30:43.83 NEW SESSION
+thg 2 11, 2023 09:30:44.07 [5300:4016:0211/093043.831:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 11, 2023 09:30:58.43 [5300:856:0211/093058.429:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+
+thg 2 11, 2023 15:53:49.63 NEW SESSION
+thg 2 11, 2023 15:53:49.70 [3288:4764:0211/155349.629:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 11, 2023 15:54:13.62 [3288:2188:0211/155413.618:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+
+thg 2 12, 2023 07:59:47.88 NEW SESSION
+thg 2 12, 2023 07:59:48.20 [2528:3060:0212/075947.885:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+
+thg 2 14, 2023 10:32:22.67 NEW SESSION
+thg 2 14, 2023 10:32:22.73 [5400:3468:0214/103222.676:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 14, 2023 10:32:23.01 [5400:1600:0214/103223.014:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 14, 2023 10:32:32.17 [5400:3148:0214/103226.554:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+
+thg 2 14, 2023 10:51:32.47 NEW SESSION
+thg 2 14, 2023 10:51:34.50 [4936:5152:0214/105132.468:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 14, 2023 10:51:45.77 [4936:5152:0214/105141.614:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 14, 2023 10:51:45.78 [4936:5152:0214/105142.969:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+
+thg 2 15, 2023 08:43:18.03 NEW SESSION
+thg 2 15, 2023 08:43:19.20 [4280:3372:0215/084317.897:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 15, 2023 08:43:41.19 [4280:5032:0215/084341.193:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 15, 2023 08:43:43.84 [4280:4236:0215/084341.309:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+thg 2 15, 2023 08:43:49.79 [4280:4100:0215/084349.796:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+
+thg 2 16, 2023 18:02:37.59 NEW SESSION
+thg 2 16, 2023 18:02:37.66 [5572:5688:0216/180237.593:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 16, 2023 18:02:59.33 [5572:5992:0216/180259.330:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 16, 2023 18:02:59.39 [5572:5556:0216/180259.394:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+thg 2 16, 2023 18:03:13.58 [5572:1268:0216/180305.083:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 16, 2023 18:03:52.11 [5572:5556:0216/180352.112:ERROR:device_event_log_impl.cc(215)] [18:03:52.112] FIDO: webauthn_api.cc:57 Windows WebAuthn API failed to load
+
+thg 2 21, 2023 17:47:18.74 NEW SESSION
+thg 2 21, 2023 17:47:18.82 [2760:6128:0221/174718.738:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 2 21, 2023 17:47:46.48 [2760:4468:0221/174746.483:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 21, 2023 17:47:46.80 [2760:4288:0221/174746.809:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+thg 2 21, 2023 17:47:52.08 [2760:4468:0221/174752.084:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 2 21, 2023 17:48:10.38 [2760:4288:0221/174810.382:ERROR:device_event_log_impl.cc(215)] [17:48:10.381] FIDO: webauthn_api.cc:57 Windows WebAuthn API failed to load
+
+thg 3 02, 2023 17:58:03.94 NEW SESSION
+thg 3 02, 2023 17:58:04.06 [3800:1892:0302/175803.939:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 02, 2023 17:58:05.07 [3800:5860:0302/175805.070:ERROR:component_installer.cc(290)] Failed to read manifest or verify installation for CRLSet (C:\Users\USER\AppData\Local\Google\Chrome\User Data\CertificateRevocation\7887).: The system cannot find the file specified. (0x2)
+thg 3 02, 2023 17:58:37.30 [3800:1952:0302/175822.552:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+
+thg 3 02, 2023 20:54:48.21 NEW SESSION
+thg 3 02, 2023 20:54:48.26 [6092:4940:0302/205442.182:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 02, 2023 20:54:53.18 [6092:3712:0302/205453.188:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 3 02, 2023 20:54:55.25 [6092:3712:0302/205455.256:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+
+thg 3 04, 2023 10:21:48.58 NEW SESSION
+thg 3 04, 2023 10:21:48.69 [2444:2212:0304/102148.585:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+
+thg 3 06, 2023 17:21:27.47 NEW SESSION
+thg 3 06, 2023 17:21:27.63 [2676:1160:0306/172127.467:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+thg 3 06, 2023 17:23:48.83 [5308:5608:0306/172348.835:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 06, 2023 17:24:03.75 [5308:5616:0306/172351.028:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 3 06, 2023 17:24:03.75 [5308:5440:0306/172352.909:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+
+thg 3 06, 2023 18:22:02.84 NEW SESSION
+thg 3 06, 2023 18:22:02.88 [4428:1744:0306/182202.845:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 06, 2023 18:22:13.96 [4428:1744:0306/182213.965:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 06, 2023 18:22:18.37 [4428:6068:0306/182218.374:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 3 06, 2023 18:22:30.46 [4428:6068:0306/182220.659:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+
+thg 3 07, 2023 08:41:07.67 NEW SESSION
+thg 3 07, 2023 08:41:08.46 [3760:4012:0307/084107.667:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 07, 2023 08:41:27.79 [3760:2556:0307/084127.791:ERROR:network_service_instance_impl.cc(539)] Network service crashed, restarting service.
+thg 3 07, 2023 08:41:27.89 [3760:4012:0307/084127.889:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 3 07, 2023 08:41:34.06 [3760:3508:0307/084134.060:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 3 07, 2023 08:41:50.66 [3760:2556:0307/084150.662:ERROR:device_event_log_impl.cc(215)] [08:41:50.662] FIDO: webauthn_api.cc:57 Windows WebAuthn API failed to load
+thg 3 07, 2023 08:41:52.11 [3760:2556:0307/084152.104:ERROR:interface_endpoint_client.cc(695)] Message 0 rejected by interface blink.mojom.WidgetHost
+thg 3 07, 2023 08:42:08.95 [4756:4848:0307/084208.949:ERROR:external_registry_loader_win.cc(158)] File C:\Program Files\BkavHome\SiteAdvisor\BkavChrSiteAdvisor.crx for key Software\Google\Chrome\Extensions\pcnancbdijenfaameanloddnkbjhfaal does not exist or is not readable.
+thg 3 07, 2023 08:42:09.50 [4756:4864:0307/084209.503:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
+thg 3 07, 2023 08:42:11.98 [4756:4852:0307/084211.984:ERROR:web_app_icon_manager.cc(60)] Could not read icon file: C:\Users\USER\AppData\Local\Google\Chrome\User Data\Profile 2\Web Applications\Manifest Resources\aghbiahbpaijignceidepookljebhfak\Icons\32.png
