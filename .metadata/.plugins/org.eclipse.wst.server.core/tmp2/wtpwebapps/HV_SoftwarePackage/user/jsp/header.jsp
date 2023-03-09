@@ -64,8 +64,8 @@
 	            <li><a class="dropdown-item" href="#">Bảo Vệ Môi Trường</a></li>
 	          </ul>
 	        </li>
-		    <li class="nav-item"><a href="causes.html" class="nav-link">Liên Hệ</a></li>
-		    <li class="nav-item"><a href="donate.html" class="nav-link">Hướng Dẫn Đóng Góp</a></li>
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/contact.jsp" class="nav-link">Liên Hệ</a></li>
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/donateGuide.jsp" class="nav-link">Hướng Dẫn Đóng Góp</a></li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/rules.jsp" class="nav-link">Đăng Ký</a></li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
 		  </ul>

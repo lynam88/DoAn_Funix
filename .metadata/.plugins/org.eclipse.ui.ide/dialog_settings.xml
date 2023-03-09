@@ -28,6 +28,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\shini\DoAn_Funix\HV_SoftwarePackage"/>
 			<item value="E:\Dream Job\SWP490x_01-A_VN_DN\jar_files\gmail\java-playground-gmail-api"/>
 		</list>
 	</section>

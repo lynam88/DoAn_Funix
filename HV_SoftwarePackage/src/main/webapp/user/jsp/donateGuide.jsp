@@ -29,12 +29,12 @@
 								cách:</p>
 							<ul>
 								<li>Chuyển khoản qua tài khoản ngân hàng:</li>
-								<p>Số tài khoản: XXXXXXXX</p>
+								<p>Số tài khoản: 1234567890</p>
 								<p>Tên ngân hàng: ABC</p>
 								<p>Chủ tài khoản: Quỹ Từ Thiện Liên Hoa</p>
 								<li>Đóng góp trực tiếp tại văn phòng của Quỹ Từ Thiện Liên
 									Hoa.</li>
-								<p>Địa chỉ: Số X, đường Y, phường Z, thành phố Hồ Chí Minh</p>
+								<p>Địa chỉ: 152 Nguyễn Hữu Dật, P. Tây Thạnh, Q. Tân Phú, TP. HCM</p>
 								<li>Qua trang web của chúng tôi:</li>
 								<p>Chọn mục "Đóng góp" trên trang chủ của Quỹ Từ Thiện Liên
 									Hoa và làm theo hướng dẫn trên trang.</p>
