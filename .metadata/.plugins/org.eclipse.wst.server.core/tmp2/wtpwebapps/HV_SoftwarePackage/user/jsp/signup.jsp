@@ -65,7 +65,7 @@ if (notifySignup != null) {
 								VIÊN MỚI</h3>
 						</div>
 						<form class="signupForm" action="${pageContext.request.contextPath}/UsersController?action=signup"
-							method="post" enctype="multipart/form-data">
+							method="post" enctype="multipart/form-data" onsubmit="return validateSignup()">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5">																				
@@ -107,8 +107,7 @@ if (notifySignup != null) {
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-image"></i></span>
 												<input type="file" id="avatar" name="avatar"
-													class="form-control"
-													value="<c:out value='${inputUser.avatarPath}'/>">
+													class="form-control">
 											</div>
 										</div>
 									</div>
@@ -158,8 +157,7 @@ if (notifySignup != null) {
 							<div class="row justify-content-center signupBtm">
 								<div class="col-lg-6 text-center">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3 signupBtn"
-										type="submit" id="submit-button"
-										onclick="return validateSignup()" disabled>Đăng ký</button>
+										type="submit" id="submit-button">Đăng ký</button>
 								</div>
 							</div>
 							<div class="col text-center">

@@ -44,11 +44,10 @@ import org.apache.commons.io.IOUtils;
  * Servlet implementation class UsersController
  */
 @WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
-@MultipartConfig(
-  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-  maxFileSize = 1024 * 1024 * 10,      // 10 MB
-  maxRequestSize = 1024 * 1024 * 100   // 100 MB
-)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+maxFileSize = 1024 * 1024 * 50, // 50MB
+maxRequestSize = 1024 * 1024 * 50) // 50MB
+
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDAO;
@@ -259,11 +258,15 @@ public class UsersController extends HttpServlet {
 
 	        // Upload avatar to server (if avatarPart exists)       	      
 	        Part avatarPart = request.getPart("avatar");
-	        String avatarName = avatarPart.getSubmittedFileName();
-	        for (Part part : request.getParts()) {
-	          part.write(request.getServletContext().getRealPath("/") + avatarName);
+ 	        long avatarSize = avatarPart.getSize();
+	        String avatarName = null;
+	        if(avatarSize > 0) {
+		        avatarName = avatarPart.getSubmittedFileName();
+		        for (Part part : request.getParts()) {
+		          part.write(request.getServletContext().getRealPath("/") + avatarName);
+		        }
+		        System.out.println(request.getServletContext().getRealPath("/") + avatarName);
 	        }
-	        System.out.println(request.getServletContext().getRealPath("/") + avatarName);
 	        	        
 	        // Create new user object
 	        Users u = new Users(name, phone, email, avatarName, address, passDB);
