@@ -16,15 +16,15 @@
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="rules">
-							<h4 class="text-center">Hướng dẫn đóng góp cho
-								Quỹ Từ Thiện Liên Hoa</h4>
+							<h2 class="text-center text-primary">Hướng dẫn đóng góp cho
+								Quỹ Từ Thiện Liên Hoa</h2>
 							<p>Chào mừng bạn đến với trang hướng dẫn đóng góp cho Quỹ Từ
 								Thiện Liên Hoa. Quỹ Từ Thiện Liên Hoa là một tổ chức phi lợi
 								nhuận được thành lập để giúp đỡ những người có hoàn cảnh khó
 								khăn trong xã hội. Chúng tôi mong muốn nhận được sự đóng góp của
 								cộng đồng để có thể thực hiện được các dự án từ thiện.</p>
 
-							<h2>Cách thức đóng góp</h2>
+							<h4>Cách thức đóng góp</h4>
 							<p>Bạn có thể đóng góp cho Quỹ Từ Thiện Liên Hoa bằng nhiều
 								cách:</p>
 							<ul>
@@ -40,7 +40,7 @@
 									Hoa và làm theo hướng dẫn trên trang.</p>
 							</ul>
 
-							<h2>Chúng tôi cần sự đóng góp của bạn</h2>
+							<h4>Chúng tôi cần sự đóng góp của bạn</h4>
 							<p>Chúng tôi tin rằng với sự đóng góp của cộng đồng, chúng
 								tôi có thể thực hiện được các dự án từ thiện và giúp đỡ được
 								nhiều người khó khăn trong xã hội. Nếu bạn có bất kỳ câu hỏi hay

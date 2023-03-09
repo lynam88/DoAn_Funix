@@ -279,12 +279,18 @@
 		}		      
 	}
 	
-	/* Contact Page */
-		
+	/* Contact Page */		
 		.contact{
 			padding: 5%;
 			color: black;
 		}		
+		
+		@media (min-width: 1200px) { 
+		#contactMail{
+				margin-right: 0%;
+	    		margin-left: -5%;
+		}
+	}		
 		
 	/* Index Page */
 		
@@ -299,3 +305,6 @@
 		justify-content: center; 
 		align-items: center;
 	}
+	
+	/* Donate Guide Page */
+	

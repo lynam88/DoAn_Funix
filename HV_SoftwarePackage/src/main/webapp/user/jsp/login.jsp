@@ -18,11 +18,11 @@
 						<div class="row g-0">
 							<div class="col-lg-6">
 								<div class="card-body p-md-5 mx-md-4">
-
+								
 									<form class="loginForm"
 										action="${pageContext.request.contextPath}/UsersController?action=login"
 										method="post" onsubmit="return validateLogin()">
-										<h4>MỜI BẠN ĐĂNG NHẬP VÀO TÀI KHOẢN</h4>
+										<h4 class="text-primary">MỜI BẠN ĐĂNG NHẬP VÀO TÀI KHOẢN</h4>
 										<%
 										Cookie[] cookies = request.getCookies();
 										String id = "";
@@ -48,7 +48,6 @@
 											</span>
 											<p id="loginId_error" />
 										</div>
-
 										<div class="form-outline mb-4">
 											<input type="password" id="loginPass" name="loginPass"
 												placeholder="Mật khẩu" class="form-control"
@@ -58,11 +57,12 @@
 												class="bx bx-key"></i>
 											</span>
 											<p id="loginPass_error" />
-
 										</div>
+										
 										<%
 										} else {
 										%>
+										
 										<div class="form-outline mb-4 login-form">
 											<input type="text" id="loginId" name="loginId"
 												class="form-control"
@@ -104,8 +104,8 @@
 													id="signup">Xin Đăng Ký!</a>
 											</div>
 										</div>
-
 									</form>
+									
 								</div>
 							</div>
 

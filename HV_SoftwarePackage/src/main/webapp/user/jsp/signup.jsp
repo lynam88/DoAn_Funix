@@ -61,8 +61,7 @@ if (notifySignup != null) {
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="signUpTitle">
-							<h3 class="text-center" >ĐĂNG KÝ THÀNH
-								VIÊN MỚI</h3>
+							<h3 class="text-center text-primary" >ĐĂNG KÝ THÀNH VIÊN MỚI</h3>
 						</div>
 						<form class="signupForm" action="${pageContext.request.contextPath}/UsersController?action=signup"
 							method="post" enctype="multipart/form-data" onsubmit="return validateSignup()">

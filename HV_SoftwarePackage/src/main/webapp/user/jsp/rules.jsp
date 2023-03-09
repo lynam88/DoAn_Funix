@@ -17,7 +17,7 @@
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="rules">
-							<h4 class="text-center">Nội quy trang web Quỹ Từ Thiện Liên Hoa</h4>
+							<h2 class="text-center text-primary">Nội quy trang web Quỹ Từ Thiện Liên Hoa</h2>
 							<p>Vui lòng đọc kỹ nội quy trước khi tiến hành đăng ký tài
 								khoản trên trang web.</p>
 							<ul>
@@ -52,7 +52,7 @@
 									thay đổi nội quy bất cứ lúc nào và người dùng sẽ được thông báo
 									về những thay đổi này.</li>
 							</ul>
-							<form id="rulesForm" action="${pageContext.request.contextPath}/UsersController?action=signup" method="post" onsubmit="return validateRulesCheck()">
+							<form id="rulesForm" action="${pageContext.request.contextPath}/user/jsp/signup.jsp" method="post" onsubmit="return validateRulesCheck()">
 								<div id="rulesAgree">
 									<input type="checkbox" name="agree" id="agree">								
 									<label for="agree">Tôi đã đọc và đồng ý với các điều

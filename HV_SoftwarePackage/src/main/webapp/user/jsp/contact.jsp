@@ -7,55 +7,66 @@
 		value="Liên Hệ Với Chúng Tôi | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
-<section class="h-100 gradient-form"
-	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
-	<div class="container py-5 h-100">
-		<div class="row d-flex justify-content-center align-items-center h-100">
-			<div class="col-xl-12">
-				<div class="card rounded-3 text-black">
-					<div class="row g-0 contact">					
-							<div class="col-md-6">
-								<h4>Liên hệ với Quỹ từ thiện Liên Hoa</h4>
-								<p>Nếu bạn muốn liên hệ với Quỹ từ thiện Liên Hoa để đóng
-									góp, tài trợ hoặc cần hỗ trợ từ Quỹ, vui lòng điền thông tin
-									vào biểu mẫu bên dưới:</p>
-								<form action="" method="post" enctype="text/plain">
-									<div class="form-group">
-										<label for="name">Họ và tên:</label> <input type="text"
-											id="name" name="name" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="email">Địa chỉ email:</label> <input type="email"
-											id="email" name="email" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label for="phone">Số điện thoại:</label> <input type="tel"
-											id="phone" name="phone" class="form-control">
-									</div>
-									<div class="form-group">
-										<label for="message">Nội dung tin nhắn:</label>
-										<textarea id="message" name="message" rows="5"
-											class="form-control" required></textarea>
-									</div>
-									<button type="submit" class="btn btn-primary">Gửi</button>
-									<button type="reset" class="btn btn-secondary">Xóa</button>
-								</form>
-							</div>
-							<div class="col-md-6">
-								<h4>Thông tin liên hệ</h4>
-								<p>Quỹ từ thiện Liên Hoa</p>
-								<ul>
-									<li>Địa chỉ: 152 Nguyễn Hữu Dật, P. Tây Thạnh, Q. Tân Phú,
-										TP. HCM</li>
-									<li>Điện thoại: (+84) 931967923</li>
-									<li>Email: quytuthienlienhoa@gmail.com</li>
-								</ul>
-							</div>					
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+  <div class="hero-wrap" style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.jsp">Trang Chủ</a></span> <span>Liên Hệ</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Liên Hệ Với Chúng Tôi</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <section class="ftco-section contact-section ftco-degree-bg">
+      <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+          <div class="col-md-12 mb-4">
+            <h2 class="text-primary">Thông tin liên hệ</h2>
+          </div>
+          <div class="w-100"></div>
+          <div class="col-md-3">
+            <p><span>Địa chỉ:</span> 152 Nguyễn Hữu Dật, P. Tây Thạnh, Q. Tân Phú,
+										TP. HCM</p>
+          </div>
+          <div class="col-md-3">
+            <p><span>Điện thoại:</span> <a href="tel://+84931967923">(+84) 931967923</a></p>
+          </div>
+          <div class="col-md-3">
+            <p><span id="contactMail">Email:</span> <a href="mailto:quytuthienlienhoa@gmail.com">quytuthienlienhoa@gmail.com</a></p>
+          </div>
+          <div class="col-md-3">
+            <p><span>Website:</span> <a href="#">quytuthienlienhoa.com</a></p>
+          </div>
+        </div>
+        <div class="row block-9">
+          <div class="col-md-6 pr-md-5">
+          	<h4 class="mb-4">Bạn có câu hỏi?</h4>
+            <form action="#">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Họ và tên">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Địa chỉ email">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Chủ đề">
+              </div>
+              <div class="form-group">
+                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Nội dung tin nhắn"></textarea>
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Gửi" class="btn btn-primary py-3 px-5">
+              </div>
+            </form>
+          
+          </div>
+
+          <div class="col-md-6" id="map"></div>
+        </div>
+      </div>
+    </section>   
 
 <c:import url="footer.jsp"></c:import>

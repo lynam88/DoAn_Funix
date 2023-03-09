@@ -53,10 +53,6 @@ public class UsersController extends HttpServlet {
 	private UsersDAO usersDAO;
 	private DonationsDAO donationsDAO;
 	private String action;
-	private String search;
-	private String searchString;
-	private String searchStatus;
-	private int page;
 	private HttpSession session;
 	Users userData;
 
@@ -172,7 +168,7 @@ public class UsersController extends HttpServlet {
 		    String fullPath = request.getServletContext().getRealPath("user/media/logo.jpg");
 		    File file = new File(fullPath);
 		    InputStream inputStream = new FileInputStream(file);
-		    byte[] imageData = IOUtils.toByteArray(inputStream);
+		    IOUtils.toByteArray(inputStream);
 	
 		    // Create the image attachment
 		    MimeBodyPart imagePart = new MimeBodyPart();
@@ -263,9 +259,8 @@ public class UsersController extends HttpServlet {
 	        if(avatarSize > 0) {
 		        avatarName = avatarPart.getSubmittedFileName();
 		        for (Part part : request.getParts()) {
-		          part.write(request.getServletContext().getRealPath("/") + avatarName);
-		        }
-		        System.out.println(request.getServletContext().getRealPath("/") + avatarName);
+		            part.write("C:\\upload\\" + avatarName);
+		        }		     
 	        }
 	        	        
 	        // Create new user object
@@ -337,7 +332,7 @@ public class UsersController extends HttpServlet {
 		    String fullPath = request.getServletContext().getRealPath("user/media/logo.jpg");
 		    File file = new File(fullPath);
 		    InputStream inputStream = new FileInputStream(file);
-		    byte[] imageData = IOUtils.toByteArray(inputStream);
+		    IOUtils.toByteArray(inputStream);
 	
 		    // Create the image attachment
 		    MimeBodyPart imagePart = new MimeBodyPart();
