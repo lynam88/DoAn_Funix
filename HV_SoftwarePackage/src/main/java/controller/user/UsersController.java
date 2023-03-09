@@ -116,9 +116,26 @@ public class UsersController extends HttpServlet {
 				e.printStackTrace();
 			}
 		        break;
+		    case "donationPost":
+				showDonationPost(request, response);
+				break;
 		}
 	}
 	
+	private void showDonationPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		Donations existingDonation = null;
+		try {
+			existingDonation = donationsDAO.getDonation(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("donation", existingDonation);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationPost.jsp");
+		dispatcher.forward(request, response);
+	}
+
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws Exception {		
 		List<Donations> listDonations = donationsDAO.search("", "0", "0");
 		int noOfRecord = donationsDAO.getNoOfRecords();

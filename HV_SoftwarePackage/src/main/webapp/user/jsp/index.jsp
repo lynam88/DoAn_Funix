@@ -140,10 +140,10 @@
 						<div class="item">
 							<div class="cause-entry">
 								${donation.src}
-								<div class="text p-3 p-md-4">
+								<div class="text p-3 p-md-4">								
 									<h3>
-										<a href="#">${donation.title}</a>
-									</h3>
+										<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.title}</a>
+									</h3>									
 									<span class="donation-time mb-3 d-block">Quyên góp mới nhất cách đây 0 ngày</span>
 									<div class="progress custom-progress-success">
 										<div class="progress-bar bg-primary" role="progressbar"
