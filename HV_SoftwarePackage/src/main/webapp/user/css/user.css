@@ -306,5 +306,9 @@
 		align-items: center;
 	}
 	
-	/* Donate Guide Page */
+	/* Donate Post Page */
+	.donationPost{
+		color:black;
+	}
+	
 	
