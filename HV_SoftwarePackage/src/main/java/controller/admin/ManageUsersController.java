@@ -95,10 +95,7 @@ public class ManageUsersController extends HttpServlet {
 		Users u = (Users) session.getAttribute("user");
 		if (u != null && u.getRole() == 1) {
 			try {
-				switch (action) {
-				case "admin":
-					showAdminPage(request, response);
-					break;
+				switch (action) {				
 				case "UserList":
 				case "UserSearch":
 					listUser(request, response);
@@ -114,12 +111,9 @@ public class ManageUsersController extends HttpServlet {
 					break;
 				case "export":
 					exportUser(request, response);
-					break;
-				case "logout":
-					doLogout(request, response);
-					break;
+					break;				
 				default:
-					showAdminPage(request, response);
+					listUser(request, response);
 					break;
 				}
 			} catch (Exception ex) {
@@ -129,12 +123,7 @@ public class ManageUsersController extends HttpServlet {
 			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 		}
 		
-	}
-	
-	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
-	}
+	}	
 	
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
@@ -228,105 +217,8 @@ public class ManageUsersController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private void doLogout(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-	}
+	}	
 	
-	/**
-	Performs the login process by collecting user input from the login form, checking the user's account
-	information in the database, and creating a new session for the user. If the user has selected "remember me",
-	creates cookies for their login information. The user is then forwarded to the login page with appropriate
-	notifications based on the outcome of the login process.
-	@param request the HTTP servlet request containing the user's input from the login form
-	@param response the HTTP servlet response that will be sent to the client
-	@throws ServletException if there is an error with the servlet
-	@throws IOException if there is an error with the input or output
-	*/
-	private void doLogin(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// Set response content type and request character encoding
-		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("utf-8"); // For Vietnamese language
-			
-		// Invalidate any existing session before creating a new one
-		request.getSession(true).invalidate();
-			
-		// Collect user input from the login form
-		String id = request.getParameter("loginId");
-		String loginPass = request.getParameter("loginPass");
-		String passDB = null;
-		if(loginPass != null) {
-			passDB = MD5Library.md5(loginPass);
-		}
-		// Create a new session for the user
-		session = request.getSession(true);
-			
-		// If the user has selected "remember me", create cookies for their login information
-		if (request.getParameter("remember") != null) {
-			Cookie cookiesName = new Cookie("loginId", id);
-			cookiesName.setMaxAge(300);
-			response.addCookie(cookiesName);
-			Cookie cookiesPass = new Cookie("loginPass", loginPass);
-			cookiesPass.setMaxAge(300);
-			response.addCookie(cookiesPass);
-		}
-			
-		// Check the user's account information in the database
-		if(id != null && loginPass != null) {
-			try {
-				userData = usersDAO.getUser(id);
-				
-				if (userData == null || !userData.getPassword().equals(passDB)) {
-					request.setAttribute("notifyLogin", "Thông tin đăng nhập chưa đúng hoặc tài khoản chưa được đăng ký.");				
-					
-					// Forward the request and response to the login page
-					request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-					return;
-				} 
-				
-				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {						
-					session.setAttribute("user", userData);	
-					
-					// Forward the request and response to the admin page
-					request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
-					return;
-				} 
-				
-				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {					
-					session.setAttribute("user", userData);
-					
-					// Forward the request and response to the user page
-					request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
-					return;
-				} 				 
-				
-				if (userData.getStatus() == 0) {
-					request.setAttribute("notifyLogin", "Tài khoản đã bị khoá, vui lòng liên hệ admin.");						
-					
-					// Forward the request and response to the login page
-					request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-					return;
-				}
-				
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-				request.setAttribute("notifyLogin", "Có lỗi xảy ra, xin vui lòng thử lại sau.");					
-			}
-		}
-		
-		// Forward the request and response to the login page
-		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-		
-	}
-
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, Exception {
 		String[] emails = request.getParameter("email").split(",");

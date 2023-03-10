@@ -83,7 +83,7 @@ public class DonationsController extends HttpServlet {
 					exportDonation(request, response);
 					break;
 				default:
-					showDashboard(request, response);
+					listDonation(request, response);
 					break;
 				}
 			} catch (Exception ex) {
@@ -92,12 +92,6 @@ public class DonationsController extends HttpServlet {
 		} else {
 			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 		}
-	}
-
-	private void showDashboard(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/index.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	private void listDonation(HttpServletRequest request, HttpServletResponse response)

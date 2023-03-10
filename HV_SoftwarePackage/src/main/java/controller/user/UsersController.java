@@ -85,8 +85,9 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "user" : action;
+		action = action == null ? "dashboard" : action;
 		session = request.getSession();
+		Users u = (Users) session.getAttribute("user");
 		switch (action) {
 		    case "login":
 		        doLogin(request, response);
@@ -108,13 +109,27 @@ public class UsersController extends HttpServlet {
 		    case "signup":
 		        doSignup(request, response);
 		        break;
-		    case "user":
-			try {
-				showUserPage(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		    case "dashboard":
+		        if (u != null && u.getRole() == 1) {		        
+		            showAdminPage(request, response);		            
+		        } else if (u != null && u.getRole() == 2) {
+		        	try {
+						showUserPage(request, response);
+					} catch (ServletException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}		        
+		        } else {
+					try {
+						showDashboard(request, response);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		        }
 		        break;
 		    case "donations":
 			try {
@@ -127,7 +142,40 @@ public class UsersController extends HttpServlet {
 		    case "donationPost":
 				showDonationPost(request, response);
 				break;
+		    case "logout":
+				doLogout(request, response);
+				break;	
 		}
+	}
+	
+	private void doLogout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+	}
+	
+	private void showDashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Donations> listDonations = donationsDAO.search("", "0", "0");
+		int noOfRecord = donationsDAO.getNoOfRecords();
+		request.setAttribute("noOfRecord", noOfRecord);
+		request.setAttribute("DonationList", listDonations);
+		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
+	}
+
+	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, Exception {		
+		List<Donations> listDonations = donationsDAO.search("", "0", "0");
+		int noOfRecord = donationsDAO.getNoOfRecords();
+		request.setAttribute("noOfRecord", noOfRecord);
+		request.setAttribute("DonationList", listDonations);
+		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
+	}
+	
+	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
 	
 	private void showDonations(HttpServletRequest request, HttpServletResponse response) throws Exception {		
@@ -161,15 +209,7 @@ public class UsersController extends HttpServlet {
 		request.setAttribute("donation", existingDonation);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationPost.jsp");
 		dispatcher.forward(request, response);
-	}
-
-	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws Exception {		
-		List<Donations> listDonations = donationsDAO.search("", "0", "0");
-		int noOfRecord = donationsDAO.getNoOfRecords();
-		request.setAttribute("noOfRecord", noOfRecord);
-		request.setAttribute("DonationList", listDonations);
-		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
-	}
+	}	
 
 	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
@@ -500,7 +540,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);	
 					
 					// Forward the request and response to the admin page
-					request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
+					request.getRequestDispatcher("UsersController?action=dashboard").forward(request, response);
 					return;
 				} 
 				
@@ -508,7 +548,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);
 					
 					// Forward the request and response to the user page
-					request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
+					request.getRequestDispatcher("UsersController?action=dashboard").forward(request, response);
 					return;
 				} 				 
 				
