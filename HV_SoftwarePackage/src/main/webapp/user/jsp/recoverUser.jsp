@@ -48,18 +48,27 @@ if (notifyRecover != null) {
 <%
 }
 %>
-<section class="h-100 gradient-form"
-	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
-	<div class="container py-5 h-100">
-		<div
-			class="row d-flex justify-content-center align-items-center h-100">
+<div class="hero-wrap" style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="${pageContext.request.contextPath}/UsersController?action=user">Trang Chủ</a></span> <span>Phục hồi tài khoản</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Phục hồi tài khoản</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<section class="ftco-section ftco-degree-bg">
+	<div class="container">
+		<div class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-xl-12">
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
-						<div class="col-lg-6">
-							<div class="card-body p-md-5 mx-md-4">
+						<div class="col-lg-6">						
 								<form action="${pageContext.request.contextPath}/UsersController?action=recoverUser" method="post">
-									<h4>PHỤC HỒI TÀI KHOẢN</h4>
+									<h4 class="text-primary">PHỤC HỒI TÀI KHOẢN</h4>
 									<p id="recoverText">Chúng tôi rất tiếc vì tài khoản của bạn đã bị khóa, xin
 										hãy điền vào nội dung phản hồi và thông tin email, chúng tôi
 										sẽ tiến hành xử lý yêu cầu và thông báo lại cho bạn khi tài
@@ -89,12 +98,11 @@ if (notifyRecover != null) {
 									<br />
 									<div class="text-center">
 										<button
-											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+											class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 recoverBtn"
 											type="submit" onclick="return validateRecoverUser()">Gửi
 											Yêu Cầu Phục Hồi</button>
 									</div>
-								</form>
-							</div>
+								</form>				
 						</div>
 						<div
 							class="col-lg-6 d-flex align-items-center gradient-custom-2 rightSide">

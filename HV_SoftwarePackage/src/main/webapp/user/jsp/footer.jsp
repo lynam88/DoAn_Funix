@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
 <footer class="ftco-footer ftco-section img">
     	<div class="overlay"></div>
       <div class="container">
@@ -22,28 +20,19 @@
           <div class="col-md-4">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Bài Viết Gần Đây</h2>
+              <c:forEach var="donation" begin="1" end="2" items="${DonationList}">
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_1.jpg);"></a>
+                <a id="posts" href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.src} </a>
                 <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+                  <h3 class="heading"><a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.title} </a></h3>
                   <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                    <div><a href="#"><span class="icon-calendar"></span>${donation.insertDate}</a></div>
                     <div><a href="#"><span class="icon-person"></span> Admin</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 19</a></div>
                   </div>
                 </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(${pageContext.request.contextPath}/template/user/images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                  </div>
-                </div>
-              </div>
+              </div> 
+              </c:forEach>             
             </div>
           </div>
          
@@ -85,8 +74,6 @@
   <script src="${pageContext.request.contextPath}/template/user/js/bootstrap-datepicker.js"></script>
   <script src="${pageContext.request.contextPath}/template/user/js/jquery.timepicker.min.js"></script>
   <script src="${pageContext.request.contextPath}/template/user/js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="${pageContext.request.contextPath}/template/user/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath}/template/user/js/main.js"></script>
   <script src="${pageContext.request.contextPath}/user/js/user.js"></script>
     

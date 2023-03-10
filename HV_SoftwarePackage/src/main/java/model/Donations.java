@@ -12,6 +12,7 @@ public class Donations {
 	private Float totalNeeded;
 	private String category;
 	private String src;
+	private Date insertDate;
 	
 	public Donations() {
 		super();
@@ -119,4 +120,12 @@ public class Donations {
 	public void setSrc(String src) {
 		this.src = src;
 	}
+
+	public Date getInsertDate() {
+		return insertDate;
+	}
+
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}	
 }

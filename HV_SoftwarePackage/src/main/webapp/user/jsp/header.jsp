@@ -43,7 +43,7 @@
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">   	
-      <a class="navbar-brand" href="index.jsp">
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/UsersController?action=user">
         <img id="logo" src="${pageContext.request.contextPath}/user/media/logo.jpg" alt="logo">
       Quỹ Từ Thiện Liên Hoa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,14 +54,15 @@
 		  <ul class="navbar-nav ml-auto">
 		    <li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=user" class="nav-link">Trang Chủ</a></li>
 			<li class="dropdown nav-dropdown">
-	          <a class="dropdown-toggle nav-item nav-link" data-toggle="dropdown" href="#">
+	          <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
 		        Hoàn Cảnh Quyên Góp
  		      </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="#">Vì Trẻ Em</a></li>
-	            <li><a class="dropdown-item" href="#">Người Già, Người Khuyết Tật</a></li>
-	            <li><a class="dropdown-item" href="#">Bệnh Hiểm Nghèo</a></li>
-	            <li><a class="dropdown-item" href="#">Bảo Vệ Môi Trường</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=1">Vì Trẻ Em</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=2">Người Già, Người Khuyết Tật</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=3">Bệnh Hiểm Nghèo</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=4">Đầu Tư Cơ Sở Vật Chất</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=5">Bảo Vệ Môi Trường</a></li>
 	          </ul>
 	        </li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/contact.jsp" class="nav-link">Liên Hệ</a></li>

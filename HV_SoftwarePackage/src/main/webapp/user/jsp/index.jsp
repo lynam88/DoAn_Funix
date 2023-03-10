@@ -140,18 +140,35 @@
 						<div class="item">
 							<div class="cause-entry">
 								${donation.src}
-								<div class="text p-3 p-md-4">								
-									<h3>
-										<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.title}</a>
-									</h3>									
-									<span class="donation-time mb-3 d-block">Quyên góp mới nhất cách đây 0 ngày</span>
+								<div class="text p-3 p-md-4">
+									<h4>
+										<a
+											href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">
+											${donation.title} </a>
+									</h4>
+									<span class="donation-time mb-3 d-block"> Quyên góp mới
+										nhất cách đây 0 ngày </span>
 									<div class="progress custom-progress-success">
 										<div class="progress-bar bg-primary" role="progressbar"
 											style="width: 50%" aria-valuenow="50" aria-valuemin="0"
 											aria-valuemax="100"></div>
 									</div>
-									<fmt:formatNumber type="number" pattern="#,##0" value="${donation.totalNeeded}" var="myNum" />
-									<span class="fund-raised d-block">Đã quyên góp được 0 trên tổng số tiền <c:out value="${myNum}"></c:out> VNĐ</span>				
+									<fmt:formatNumber type="number" pattern="#,##0"
+										value="${donation.totalNeeded}" var="myNum" />
+									<div>
+										<span class="fund-raised d-block float-left leftText">
+											Đã quyên góp được 0 trên tổng số tiền <c:out value="${myNum}"></c:out>
+											VNĐ
+										</span>
+										<c:if test="${donation.status == 1}">
+										<a href="${pageContext.request.contextPath}/UsersController?action=donations" class="btn btn-success float-right"
+											role="button" aria-pressed="true">Đã hoàn thành</a>
+										</c:if>
+										<c:if test="${donation.status == 2}">
+										<button type="button" class="btn btn-primary float-right">
+											Quyên góp</button>
+										</c:if>	
+									</div>
 								</div>
 							</div>
 						</div>
@@ -159,6 +176,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </section>
 
@@ -240,9 +258,7 @@
 	<div class="row">
 		<c:forEach var="donation" items="${DonationList}">
 			<div class="ftco-animate d-inline-block">
-				<div class="img-fluid">
-					${donation.src}			
-				</div>
+				<div class="img-fluid">${donation.src}</div>
 			</div>
 		</c:forEach>
 	</div>

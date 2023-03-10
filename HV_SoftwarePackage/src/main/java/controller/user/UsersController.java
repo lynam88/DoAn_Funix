@@ -116,10 +116,37 @@ public class UsersController extends HttpServlet {
 				e.printStackTrace();
 			}
 		        break;
+		    case "donations":
+			try {
+				showDonations(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				break;
 		    case "donationPost":
 				showDonationPost(request, response);
 				break;
 		}
+	}
+	
+	private void showDonations(HttpServletRequest request, HttpServletResponse response) throws Exception {		
+		int page = 1;
+		int recordPerPage = 6;
+		String category = request.getParameter("category");
+		if (category == null || category == "") {
+			category = "0";
+		}
+		if (request.getParameter("page") != null)
+			page = Integer.parseInt(request.getParameter("page"));
+		donationsDAO.search("", "0", category);
+		int noOfRecord = donationsDAO.getNoOfRecords();
+		int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
+		List<Donations> listPerPage = donationsDAO.getRecord("", "0", category, page, recordPerPage);		
+		request.setAttribute("DonationList", listPerPage);
+		request.setAttribute("noOfPage", noOfPage);
+		request.setAttribute("currentPage", page);
+		request.getRequestDispatcher("user/jsp/donations.jsp").forward(request, response);
 	}
 	
 	private void showDonationPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

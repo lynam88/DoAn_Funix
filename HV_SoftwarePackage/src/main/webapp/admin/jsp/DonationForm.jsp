@@ -173,7 +173,7 @@ if (notifySave != null) {
 						style="width: 45%; float: left; margin-top: 0;" class="form-control" value="${myNum}" /> 
 					<select class="form-select form-select-sm" id="category" style="width: 45%; float: right; margin-top: 0; font-size: 0.875rem;"
 						name="category" aria-label=".form-select-sm example">
-						<option selected>Xin Lựa Chọn</option>					
+						<option value="0" selected>Xin Lựa Chọn</option>					
 						<option value="1" <c:if test="${donations.category == 1}">selected</c:if>>Vì Trẻ Em</option>
 						<option value="2" <c:if test="${donations.category == 2}">selected</c:if>>Người Già, Người Khuyết Tật</option>
 						<option value="3" <c:if test="${donations.category == 3}">selected</c:if>>Bệnh Hiểm Nghèo</option>

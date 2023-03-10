@@ -37,6 +37,8 @@ public class DonationsDAO {
 			if (!category.equals("0")) {
 			    sql += " AND category = ?";
 			}
+			sql += " ORDER BY end_date DESC";
+			
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, "%" + character + "%");
 			int index = 2;
@@ -80,7 +82,7 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, category, COUNT(*) OVER() AS total"
+			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, category, thumbnail, COUNT(*) OVER() AS total"
 					+ " FROM Donations"
 					+ " WHERE use_yn = 1"
 					+ " AND donation_title like ? ESCAPE '!'";
@@ -114,7 +116,8 @@ public class DonationsDAO {
 				d.setStartDate(rs.getDate("start_date"));
 				d.setEndDate(rs.getDate("end_date"));
 				d.setCategory(rs.getString("category"));
-
+				d.setSrc(rs.getString("thumbnail"));
+				
 				list.add(d);
 			}
 		} catch (SQLException ex) {
@@ -143,7 +146,8 @@ public class DonationsDAO {
 				d.setTotalNeeded(rs.getFloat("total_needed"));
 				d.setCategory(rs.getString("category"));
 				d.setSrc(rs.getString("thumbnail"));
-
+				d.setInsertDate(rs.getDate("insertDate"));
+				
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();

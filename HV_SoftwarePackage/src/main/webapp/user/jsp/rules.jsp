@@ -7,10 +7,20 @@
 		value="Nội Quy Trang Web | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
-<main>
-<section class="h-100 gradient-form"
-	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');">
-	<div class="container py-5 h-100">
+  <div class="hero-wrap" style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+          <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="${pageContext.request.contextPath}/UsersController?action=user">Trang Chủ</a></span> <span>Đăng Ký</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Nội quy trang web</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<section class="ftco-section ftco-degree-bg">
+	<div class="container">
 		<div
 			class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-xl-12">
@@ -68,6 +78,5 @@
 		</div>
 	</div>
 </section>
-</main>
 
 <c:import url="footer.jsp"></c:import>

@@ -306,9 +306,27 @@
 		align-items: center;
 	}
 	
+	.leftText{
+		width: 50%;
+	}
+	
 	/* Donate Post Page */
 	.donationPost{
 		color:black;
 	}
+	.donationInfo{
+		padding: 0%;
+	}
 	
+	/* Recover Page */
+	@media (min-width: 992px) { 	
+		.recoverBtn{
+			margin-bottom: 0rem !important;
+		}
+	}
 	
+	/* Footer Page */
+	
+	#posts{
+		zoom: 20%;
+	}

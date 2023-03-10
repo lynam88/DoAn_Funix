@@ -12,13 +12,12 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.jsp">Trang Chủ</a></span> <span>Liên Hệ</span></p>
+             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="${pageContext.request.contextPath}/UsersController?action=user">Trang Chủ</a></span> <span>Liên Hệ</span></p>
             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Liên Hệ Với Chúng Tôi</h1>
           </div>
         </div>
       </div>
     </div>
-
     
     <section class="ftco-section contact-section ftco-degree-bg">
       <div class="container">
@@ -64,7 +63,9 @@
           
           </div>
 
-          <div class="col-md-6" id="map"></div>
+          <div class="col-md-6" id="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0129307189413!2d106.62853185003742!3d10.810321161486149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175295f38e6af1f%3A0x10c7cf29481fb273!2zMTUyIMSQLiBOZ3V54buFbiBI4buvdSBE4bqtdCwgUGjGsOG7nW5nIDE1LCBUw6JuIFBow7osIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1678457124754!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
         </div>
       </div>
     </section>   
