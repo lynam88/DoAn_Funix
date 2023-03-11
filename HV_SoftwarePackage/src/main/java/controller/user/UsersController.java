@@ -54,7 +54,6 @@ public class UsersController extends HttpServlet {
 	private DonationsDAO donationsDAO;
 	private String action;
 	private HttpSession session;
-	private List<Donations> listDonations;
 	Users userData;
 
 	public void init() {
@@ -87,6 +86,13 @@ public class UsersController extends HttpServlet {
 			throws ServletException, IOException {
 		action = request.getParameter("action");
 		action = action == null ? "dashboard" : action;
+		try {
+			List<Donations> listDonations = donationsDAO.search("", "0", "0");
+			request.setAttribute("DonationList", listDonations);
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		session = request.getSession();
 		Users u = (Users) session.getAttribute("user");
 		switch (action) {
@@ -149,10 +155,8 @@ public class UsersController extends HttpServlet {
 	}	
 	
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, Exception {		
-		listDonations = donationsDAO.search("", "0", "0");
 		int noOfRecord = donationsDAO.getNoOfRecords();
-		request.setAttribute("noOfRecord", noOfRecord);
-		request.setAttribute("DonationList", listDonations);
+		request.setAttribute("noOfRecord", noOfRecord);		
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 	
@@ -351,7 +355,6 @@ public class UsersController extends HttpServlet {
 	        request.setAttribute("notifySignup", "Đăng ký thất bại.");
 	        request.setAttribute("statusSignup", "FAIL");
 	    }
-	    request.setAttribute("DonationList", listDonations);
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/signup.jsp");
 	    dispatcher.forward(request, response);
 	}
