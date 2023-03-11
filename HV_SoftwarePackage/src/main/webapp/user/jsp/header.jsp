@@ -66,22 +66,28 @@
 	          </ul>
 	        </li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/contact.jsp" class="nav-link">Liên Hệ</a></li>
-		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/donationGuide.jsp" class="nav-link">Hướng Dẫn Đóng Góp</a></li>
-		    <c:if test="">
-		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/rules.jsp" class="nav-link">Đăng Ký</a></li>
-		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
-		    </c:if>
-		    <li class="dropdown nav-dropdown user">		    	
-			    <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
-			        ${user.name}
-	 		     </a>
-		    	<ul class="dropdown-menu">		   			
-				    <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
-				    <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
-				    <li><div class="dropdown-divider"></div></li>
-				    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a></li>				
-				</ul>
-			</li>	
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/donationGuide.jsp" class="nav-link">Hướng Dẫn Đóng Góp</a></li>		  
+		    <c:choose>
+			  <c:when test="${user != null}">
+			    <!-- User is logged in -->
+			    <li class="dropdown nav-dropdown user">		    	
+						    <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
+						        ${user.name}
+				 		     </a>
+					    	<ul class="dropdown-menu">		   			
+							    <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+							    <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+							    <li><div class="dropdown-divider"></div></li>
+							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a></li>				
+							</ul>
+						</li>	
+			  </c:when>
+			  <c:otherwise>
+			    <!-- User is not logged in -->
+			    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/rules.jsp" class="nav-link">Đăng Ký</a></li>
+			    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
+			  </c:otherwise>
+			</c:choose>	    
 		  </ul>		
 		</div>
 	</div>
