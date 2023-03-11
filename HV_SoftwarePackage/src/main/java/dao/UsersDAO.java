@@ -127,6 +127,7 @@ public class UsersDAO {
 			u.setName(rs.getString("name"));
 			u.setPhone(rs.getString("phone"));
 			u.setEmail(rs.getString("email"));
+			u.setAvatarPath(rs.getString("avatar_path"));
 			u.setPassword(rs.getString("password"));
 			u.setAddress(rs.getString("address"));
 			u.setRegistrationDate(rs.getDate("registration_date"));

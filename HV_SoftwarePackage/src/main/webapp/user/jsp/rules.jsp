@@ -62,7 +62,7 @@
 									thay đổi nội quy bất cứ lúc nào và người dùng sẽ được thông báo
 									về những thay đổi này.</li>
 							</ul>
-							<form id="rulesForm" action="${pageContext.request.contextPath}/user/jsp/signup.jsp" method="post" onsubmit="return validateRulesCheck()">
+							<form id="rulesForm" action="${pageContext.request.contextPath}/UsersController?action=signup" method="post" onsubmit="return validateRulesCheck()">
 								<div id="rulesAgree">
 									<input type="checkbox" name="agree" id="agree">								
 									<label for="agree">Tôi đã đọc và đồng ý với các điều

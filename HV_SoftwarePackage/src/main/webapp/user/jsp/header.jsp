@@ -43,7 +43,7 @@
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">   	
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/UsersController?action=user">
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/UsersController?action=dashboard">
         <img id="logo" src="${pageContext.request.contextPath}/user/media/logo.jpg" alt="logo">
       Quỹ Từ Thiện Liên Hoa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,12 +65,13 @@
 	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=5">Bảo Vệ Môi Trường</a></li>
 	          </ul>
 	        </li>
-		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/contact.jsp" class="nav-link">Liên Hệ</a></li>
-		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/donationGuide.jsp" class="nav-link">Hướng Dẫn Đóng Góp</a></li>		  
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=contact" class="nav-link">Liên Hệ</a></li>
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=donationGuide" class="nav-link">Hướng Dẫn Đóng Góp</a></li>		  
 		    <c:choose>
 			  <c:when test="${user != null}">
 			    <!-- User is logged in -->
-			    <li class="dropdown nav-dropdown user">		    	
+			    <li class="dropdown nav-dropdown user">
+			    			<img src="${user.avatarPath}" alt="Avatar" class="avatar">		    	
 						    <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
 						        ${user.name}
 				 		     </a>
@@ -84,7 +85,7 @@
 			  </c:when>
 			  <c:otherwise>
 			    <!-- User is not logged in -->
-			    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/rules.jsp" class="nav-link">Đăng Ký</a></li>
+			    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=rules" class="nav-link">Đăng Ký</a></li>
 			    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
 			  </c:otherwise>
 			</c:choose>	    

@@ -37,6 +37,8 @@ import model.Users;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.PrintWriter;
+
 import org.apache.commons.io.IOUtils;
 
 
@@ -128,6 +130,15 @@ public class UsersController extends HttpServlet {
 					}
 		        }
 		        break;
+		    case "contact":
+		        showContact(request, response);
+		        break;
+		    case "donationGuide":
+		        showDonationGuide(request, response);
+		        break; 
+		    case "rules":
+		        showRules(request, response);
+		        break;
 		    case "donations":
 			try {
 				showDonations(request, response);
@@ -145,6 +156,18 @@ public class UsersController extends HttpServlet {
 		}
 	}
 	
+	private void showRules(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/rules.jsp").forward(request, response);
+	}
+
+	private void showDonationGuide(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/donationGuide.jsp").forward(request, response);
+	}
+
+	private void showContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/contact.jsp").forward(request, response);
+	}
+
 	private void doLogout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		session = request.getSession(false);
@@ -306,6 +329,19 @@ public class UsersController extends HttpServlet {
 	    }
 	    request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);		
 	}
+	
+
+    // Extract file name from content-disposition header of file part
+    private String getFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
 
 	private void doSignup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html;charset=UTF-8");
@@ -323,32 +359,40 @@ public class UsersController extends HttpServlet {
 	        	passDB = MD5Library.md5(password);
 	        }
 
-	        // Upload avatar to server (if avatarPart exists)       	      
-	        Part avatarPart = request.getPart("avatar");
- 	        long avatarSize = avatarPart.getSize();
-	        String avatarName = null;
-	        if(avatarSize > 0) {
-		        avatarName = avatarPart.getSubmittedFileName();
-		        for (Part part : request.getParts()) {
-		            part.write("C:\\upload\\" + avatarName);
-		        }		     
-	        }
-	        	        
-	        // Create new user object
-	        Users u = new Users(name, phone, email, avatarName, address, passDB);
-	        request.setAttribute("inputUser", u);
-	        request.setAttribute("signupPass", password);
-	        if(phone != null && usersDAO.getUser(phone) != null) {
-	            request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");	           
-	            
-	        } else if(usersDAO.getUser(email) != null) {
-	        	request.setAttribute("email_error", "Email này đã được đăng ký");	        	
-	    	    
-	        } else {
-	            // Insert user data to database
-	            usersDAO.insertUser(u);
-	            request.setAttribute("notifySignup", "Đăng ký thành công.");
-	            request.setAttribute("statusSignup", "OK");	           
+	        // Upload avatar to server (if avatarPart exists)
+	        if(email != null) {	        	
+				 response.setContentType("text/html;charset=UTF-8");
+	             PrintWriter out = response.getWriter();
+
+	             // Get the file upload information
+	             Part filePart = request.getPart("avatar");
+	             String fileName = getFileName(filePart);
+	             String uploadPath = getServletContext().getRealPath("") + "uploads";
+	             File uploadDir = new File(uploadPath);
+	             if (!uploadDir.exists()) uploadDir.mkdir();
+	             
+	             String avatarPath = uploadPath + File.separator + fileName;
+	             filePart.write(avatarPath);
+	             System.out.println(fileName + " uploaded successfully!");         
+	             System.out.println(uploadPath);         
+
+		        	        
+		        // Create new user object
+		        Users u = new Users(name, phone, email, avatarPath, address, passDB);
+		        request.setAttribute("inputUser", u);
+		        request.setAttribute("signupPass", password);
+		        if(phone != null && usersDAO.getUser(phone) != null) {
+		            request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");	           
+		            
+		        } else if(usersDAO.getUser(email) != null) {
+		        	request.setAttribute("email_error", "Email này đã được đăng ký");	        	
+		    	    
+		        } else {
+		            // Insert user data to database
+		            usersDAO.insertUser(u);
+		            request.setAttribute("notifySignup", "Đăng ký thành công.");
+		            request.setAttribute("statusSignup", "OK");	           
+		        }
 	        }
 	
 	    } catch (Exception ex) {
