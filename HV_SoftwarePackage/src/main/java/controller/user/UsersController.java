@@ -160,6 +160,7 @@ public class UsersController extends HttpServlet {
 	private void showDashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Donations> listDonations = donationsDAO.search("", "0", "0");
 		int noOfRecord = donationsDAO.getNoOfRecords();
+		Users u = (Users) session.getAttribute("user");
 		request.setAttribute("noOfRecord", noOfRecord);
 		request.setAttribute("DonationList", listDonations);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);

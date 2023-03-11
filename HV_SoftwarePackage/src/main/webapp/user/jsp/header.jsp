@@ -67,9 +67,11 @@
 	        </li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/contact.jsp" class="nav-link">Liên Hệ</a></li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/donationGuide.jsp" class="nav-link">Hướng Dẫn Đóng Góp</a></li>
+		    <c:if test="">
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/user/jsp/rules.jsp" class="nav-link">Đăng Ký</a></li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
-		    <li class="dropdown nav-dropdown">		    	
+		    </c:if>
+		    <li class="dropdown nav-dropdown user">		    	
 			    <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
 			        ${user.name}
 	 		     </a>
@@ -77,7 +79,7 @@
 				    <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
 				    <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
 				    <li><div class="dropdown-divider"></div></li>
-				    <li><a class="dropdown-item" href="#">Đăng xuất</a></li>				
+				    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a></li>				
 				</ul>
 			</li>	
 		  </ul>		

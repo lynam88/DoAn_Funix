@@ -325,8 +325,12 @@
 		}
 	}
 	
-	/* Footer Page */
+	/* Header Page */	
+	.user{
+		margin-left: 30%;
+	}
 	
+	/* Footer Page */	
 	#posts{
 		zoom: 20%;
 	}
