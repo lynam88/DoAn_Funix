@@ -47,7 +47,7 @@ if (notifySignup != null) {
 					$(".modal-backdrop").removeClass("modal-backdrop in");
 					window.history.back();
 				}
-			}, 5000);
+			}, 3000);
 </script>
 <%
 }

@@ -73,7 +73,7 @@
       <ul class="navbar-nav">
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
-	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=admin">
+	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=dashboard">
 	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ</h6>
 	        </a>
         </li>

@@ -248,10 +248,8 @@
 		var content = '';
 		var thumbnail = '';
 		$(document).ready(function() {
-			content = CKEDITOR.replace('content');
-			thumbnail = CKEDITOR.replace('thumbnail');
-			CKFinder.setupCKEditor(content, 'ckfinder/');
-			CKFinder.setupCKEditor(thumbnail, 'ckfinder/');
+			content = CKEDITOR.replace('content');			
+			CKFinder.setupCKEditor(content, 'ckfinder/');			
 		});
 	 }
 	</script> 

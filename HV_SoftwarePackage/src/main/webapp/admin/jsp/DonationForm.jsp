@@ -187,7 +187,8 @@ if (notifySave != null) {
 
 			<div class="form-group" style="padding-top: 10%;">
 				<label for="thumbnail">Hình Đại Diện </label>
-				<textarea class="form-control" id="thumbnail" name="thumbnail">${donations.src}</textarea>
+				<img src="${user.avatarPath}" alt="Thumbnail" class="thumbnail">
+				<input type="file" id="thumbnail" name="avatar" class="form-control">
 			</div>
 
 			<div class="form-group" >
