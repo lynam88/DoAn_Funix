@@ -90,7 +90,7 @@ if (notifySignup != null) {
 										</div>
 										
 										<div class="form-outline my-3">
-										  <label for="phone">Số điện thoại: </label>
+										  <label for="phone">Số điện thoại: <span class="require">*</span></label>
 										  <div class="input-group">
 										    <span class="input-group-text"><i class="bx bx-phone"></i></span>
 										    <input type="text" id="phone" name="phone" class="form-control" placeholder="Xin nhập số điện thoại" value="<c:out value='${inputUser.phone}'/>">

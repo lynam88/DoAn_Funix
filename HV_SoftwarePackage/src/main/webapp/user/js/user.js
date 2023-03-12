@@ -87,7 +87,7 @@
 			document.getElementById("submit-button").disabled = false;
 		}
 		
-		//Validate login
+		//Validate signup
 		function validateSignup() {
 		  const name = document.getElementById("name").value;
 		  const phone = document.getElementById("phone").value;
@@ -119,7 +119,11 @@
 		    nameError.innerHTML =  "";
 		  }
 		 
-		  if (phone && !/^\d{10,11}$/.test(phone)) {
+		  if (!phone) {
+			phoneError.innerHTML = "Xin điền vào số điện thoại";
+		    return false;
+			    
+		  } else if (!/^\d{10,11}$/.test(phone)) {
 			phoneError.innerHTML = "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại theo định dạng 0xxx xxx xxx hoặc +84xxx xxx xxx.";		
 			return false;
 			
