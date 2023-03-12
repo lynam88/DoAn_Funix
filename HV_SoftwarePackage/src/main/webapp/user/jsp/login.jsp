@@ -55,7 +55,7 @@
 											<span class="symbol-input100 login-icon"> <i
 												class="bx bx-user"></i>
 											</span>
-											<p id="loginId_error" />
+											<p id="loginId_error">${notifyLogin}</p>
 										</div>
 										<div class="form-outline mb-4">
 											<input type="password" id="loginPass" name="loginPass"

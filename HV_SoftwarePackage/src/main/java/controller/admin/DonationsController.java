@@ -14,12 +14,14 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import commons.Utils;
 import dao.DonationsDAO;
@@ -31,6 +33,9 @@ import model.Donations;
  * Servlet implementation class DonationsController
  */
 @WebServlet(name = "DonationsController", urlPatterns = { "/DonationsController" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+maxFileSize = 1024 * 1024 * 50, // 50MB
+maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class DonationsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO donationsDAO;
@@ -134,7 +139,8 @@ public class DonationsController extends HttpServlet {
 	}
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		request.setAttribute("maxId", donationsDAO.getMaxId());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/DonationForm.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -162,6 +168,7 @@ public class DonationsController extends HttpServlet {
 		response.setContentType("text/htm;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		try {
+			int id = Integer.parseInt(request.getParameter("maxId"));
 			String status = request.getParameter("status");
 			String title = request.getParameter("title");
 			byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
@@ -180,15 +187,23 @@ public class DonationsController extends HttpServlet {
 			}
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
 			String category = request.getParameter("category");
-			String src = request.getParameter("thumbnail");
-			Donations d = new Donations(status, title, content, start, end, totalNeededFloat, category, src);
+			
+			String pathServer = request.getServletContext().getRealPath("");
+			String folderThumbnail = "admin/media/thumbnail/";
+			File uploadDir = new File(pathServer + folderThumbnail); 
+			if (!uploadDir.exists()) uploadDir.mkdir();
+			String thumbnailPath = folderThumbnail + id + ".jpg";
+			
+			Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, thumbnailPath);
 			donationsDAO.insertDonation(d);
-			request.setAttribute("notifySave", "Thêm thành công.");
-			request.setAttribute("statusSave", "OK");
+			request.setAttribute("notifyDonation", "Thêm thành công.");
+			request.setAttribute("statusDonation", "OK");
+			Part filePart = request.getPart("thumbnail");
+			filePart.write(pathServer+"/"+ thumbnailPath);
 
 		} catch (Exception ex) {
-			request.setAttribute("notifySave", "Thêm thất bại.");
-			request.setAttribute("statusSave", "FAIL");
+			request.setAttribute("notifyDonation", "Thêm thất bại.");
+			request.setAttribute("statusDonation", "FAIL");
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/DonationForm.jsp");
 		dispatcher.forward(request, response);
@@ -247,13 +262,24 @@ public class DonationsController extends HttpServlet {
 		String content = request.getParameter("content");
 		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
 		content = new String(content_Bytes, StandardCharsets.UTF_8);
+		
 		String src = request.getParameter("thumbnail");
+		String pathServer = request.getServletContext().getRealPath("");
+		String folderThumbnail = "admin/media/thumbnail/";
+		File uploadDir = new File(pathServer + folderThumbnail); 
+		if (!uploadDir.exists()) uploadDir.mkdir();
+		String thumbnailPath = folderThumbnail + id + ".jpg";
+		
 		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, src);
 		try {
 			donationsDAO.updateDonation(d);
+			request.setAttribute("notifyDonation", "Cập nhật thành công.");
+			request.setAttribute("statusDonation", "OK");
+			Part filePart = request.getPart("thumbnail");
+			filePart.write(pathServer+"/"+ thumbnailPath);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("notifyDonation", "Cập nhật thất bại.");
+			request.setAttribute("statusDonation", "FAIL");
 		}
 		page = Integer.parseInt(request.getParameter("page"));
 		response.sendRedirect("DonationsController?action=DonationList&page=" + page);

@@ -124,6 +124,10 @@
 	  scroll-behavior: smooth;
 	}
 	
+	.thumbnail{
+		width: 50%;
+	}
+	
 	#sec-1 {
 	  background-color: rgb(214, 228, 92);
 	}

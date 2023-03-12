@@ -218,4 +218,16 @@ public class DonationsDAO {
 			ex.printStackTrace();
 		}
 	}
+	
+	public int getMaxId() throws Exception {
+		Connection connection = new DBContext().getConnection();
+		Statement stmt = connection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT MAX(donation_id) as maxId FROM Donations"); 
+		int maxId = 0;
+		
+		if (rs.next()) {
+			maxId = rs.getInt("maxId");
+		}
+		return maxId;			
+	}
 }

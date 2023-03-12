@@ -16,12 +16,12 @@
 </c:if>
 
 <%
-String notifySave = (String) request.getAttribute("notifySave");
-String statusSave = (String) request.getAttribute("statusSave");
+String notifyDonation = (String) request.getAttribute("notifyDonation");
+String statusDonation = (String) request.getAttribute("statusDonation");
 
-if (notifySave != null) {
+if (notifyDonation != null) {
 %>
-<div class="modal" id="insertModal" role="dialog">
+<div class="modal" id="donationModal" role="dialog">
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
@@ -34,7 +34,7 @@ if (notifySave != null) {
 			</div>
 			<div class="modal-body">
 				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifySave%></p>
+					style="font-size: large; color: red;"><%=notifyDonation%></p>
 			</div>
 		</div>
 
@@ -43,10 +43,10 @@ if (notifySave != null) {
 
 <script>
 
-		$("#insertModal").modal("show");
+		$("#donationModal").modal("show");
 		setTimeout(function() {
-			$('#insertModal').modal().hide();
-			var st = "<%=statusSave%>";
+			$('#donationModal').modal().hide();
+			var st = "<%=statusDonation%>";
 				if (st == "OK") {
 					window.location.href = '/HV_SoftwarePackage/DonationsController?action=DonationList';
 				} else {
@@ -76,16 +76,21 @@ if (notifySave != null) {
 
 			<c:if test="${donations != null}">
 				<form action="DonationsController?action=update&page=${page}"
-					method="post" onsubmit="return validateDonation()">
+					method="post" onsubmit="return validateDonation()" enctype="multipart/form-data">
 			</c:if>
 			<c:if test="${donations == null}">
 				<form action="DonationsController?action=insert" method="post"
-					onsubmit="return validateDonation()">
+					onsubmit="return validateDonation()" enctype="multipart/form-data">
 			</c:if>
 
 			<c:if test="${donations != null}">
 				<input type="hidden" name="id"
 					value="<c:out value='${donations.id}' />" />
+			</c:if>
+			
+			<c:if test="${donations == null}">
+				<input type="hidden" name="maxId"
+					value="<c:out value='${maxId}' />" />
 			</c:if>
 
 			<div>
@@ -187,8 +192,9 @@ if (notifySave != null) {
 
 			<div class="form-group" style="padding-top: 10%;">
 				<label for="thumbnail">Hình Đại Diện </label>
-				<img src="${user.avatarPath}" alt="Thumbnail" class="thumbnail">
-				<input type="file" id="thumbnail" name="avatar" class="form-control">
+				<c:if test="${donations != null}"><img src="${donations.src}" alt="Thumbnail" class="thumbnail"></c:if>
+				<input type="file" id="thumbnail" name="thumbnail" class="form-control">
+				<p/>
 			</div>
 
 			<div class="form-group" >
