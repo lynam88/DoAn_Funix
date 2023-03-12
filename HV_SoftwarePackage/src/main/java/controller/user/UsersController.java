@@ -371,9 +371,11 @@ public class UsersController extends HttpServlet {
 				passDB = MD5Library.md5(password);
 			}
 			
-			String uploadPath = "user/media/avatar";
-			File uploadDir = new File(uploadPath); if (!uploadDir.exists()) uploadDir.mkdir();
-			String avatarPath = uploadPath + File.separator + phone+".jpg";
+			String pathServer = request.getServletContext().getRealPath("");
+			String folderAvatar = "user/media/avatar/";
+			File uploadDir = new File(pathServer+folderAvatar); 
+			if (!uploadDir.exists()) uploadDir.mkdir();
+			String avatarPath = folderAvatar + phone+".jpg";
 			
 
 			// Create new user object
@@ -392,7 +394,7 @@ public class UsersController extends HttpServlet {
 				request.setAttribute("notifySignup", "Đăng ký thành công.");
 				request.setAttribute("statusSignup", "OK");
 				Part filePart = request.getPart("avatar");
-				filePart.write(avatarPath);
+				filePart.write(pathServer+"/"+avatarPath);
 			}
 
 		} catch (Exception ex) {
