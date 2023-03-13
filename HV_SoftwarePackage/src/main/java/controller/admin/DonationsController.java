@@ -261,16 +261,15 @@ public class DonationsController extends HttpServlet {
 		String category = request.getParameter("category");
 		String content = request.getParameter("content");
 		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
-		content = new String(content_Bytes, StandardCharsets.UTF_8);
-		
-		String src = request.getParameter("thumbnail");
+		content = new String(content_Bytes, StandardCharsets.UTF_8);		
+	
 		String pathServer = request.getServletContext().getRealPath("");
 		String folderThumbnail = "admin/media/thumbnail/";
 		File uploadDir = new File(pathServer + folderThumbnail); 
 		if (!uploadDir.exists()) uploadDir.mkdir();
 		String thumbnailPath = folderThumbnail + id + ".jpg";
 		
-		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, src);
+		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, thumbnailPath);
 		try {
 			donationsDAO.updateDonation(d);
 			request.setAttribute("notifyDonation", "Cập nhật thành công.");

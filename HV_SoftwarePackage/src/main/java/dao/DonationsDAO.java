@@ -183,17 +183,17 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 
 		String	sql = "BEGIN TRANSACTION\n";
-			  	sql = "UPDATE Donations SET use_yn = 0 WHERE donation_id in (";
-		    for (int i = 0; i < ds.size(); i++) {
+			  	sql += "UPDATE Donations SET use_yn = 0 WHERE donation_id in (";
+		    for (int i = 0; i < ds.size() - 1; i++) {
 		        sql += "?,";
 		    }
-		    	sql = sql.substring(0, sql.length() - 1) + ")\n";
+		    	sql += "?)\n";
 		    	sql += "COMMIT TRANSACTION";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
 		for (int i = 0; i < ds.size(); i++) {
 	        stmt.setInt(i + 1, ds.get(i).getId());
-	    }
+	    }	
 
 		stmt.executeUpdate();
 		stmt.close();
