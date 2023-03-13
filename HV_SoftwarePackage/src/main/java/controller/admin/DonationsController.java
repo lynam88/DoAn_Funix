@@ -188,18 +188,22 @@ public class DonationsController extends HttpServlet {
 			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
 			String category = request.getParameter("category");
 			
+			Part filePart = request.getPart("thumbnail");
+			long fileSize = filePart.getSize();
+			String thumbnailPath = null;
+			if(fileSize > 0) {
 			String pathServer = request.getServletContext().getRealPath("");
 			String folderThumbnail = "admin/media/thumbnail/";
 			File uploadDir = new File(pathServer + folderThumbnail); 
 			if (!uploadDir.exists()) uploadDir.mkdir();
-			String thumbnailPath = folderThumbnail + id + ".jpg";
+			thumbnailPath = folderThumbnail + id + ".jpg";		
+			filePart.write(pathServer+"/"+ thumbnailPath);
+			}						
 			
 			Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, thumbnailPath);
 			donationsDAO.insertDonation(d);
 			request.setAttribute("notifyDonation", "Thêm thành công.");
-			request.setAttribute("statusDonation", "OK");
-			Part filePart = request.getPart("thumbnail");
-			filePart.write(pathServer+"/"+ thumbnailPath);
+			request.setAttribute("statusDonation", "OK");			
 
 		} catch (Exception ex) {
 			request.setAttribute("notifyDonation", "Thêm thất bại.");
@@ -263,19 +267,24 @@ public class DonationsController extends HttpServlet {
 		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
 		content = new String(content_Bytes, StandardCharsets.UTF_8);		
 	
+		Part filePart = request.getPart("thumbnail");
+		long fileSize = filePart.getSize();
+		String thumbnailPath = null;
+		if(fileSize > 0) {
 		String pathServer = request.getServletContext().getRealPath("");
 		String folderThumbnail = "admin/media/thumbnail/";
 		File uploadDir = new File(pathServer + folderThumbnail); 
 		if (!uploadDir.exists()) uploadDir.mkdir();
-		String thumbnailPath = folderThumbnail + id + ".jpg";
+		thumbnailPath = folderThumbnail + id + ".jpg";		
+		filePart.write(pathServer+"/"+ thumbnailPath);
+		}						
 		
 		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, thumbnailPath);
 		try {
 			donationsDAO.updateDonation(d);
 			request.setAttribute("notifyDonation", "Cập nhật thành công.");
 			request.setAttribute("statusDonation", "OK");
-			Part filePart = request.getPart("thumbnail");
-			filePart.write(pathServer+"/"+ thumbnailPath);
+
 		} catch (Exception e) {
 			request.setAttribute("notifyDonation", "Cập nhật thất bại.");
 			request.setAttribute("statusDonation", "FAIL");

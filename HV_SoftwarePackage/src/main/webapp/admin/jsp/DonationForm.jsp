@@ -192,7 +192,7 @@ if (notifyDonation != null) {
 
 			<div class="form-group" style="padding-top: 10%;">
 				<label for="thumbnail">Hình Đại Diện </label>
-				<c:if test="${donations != null}"><img src="${donations.src}" alt="Thumbnail" class="thumbnail"></c:if>
+				<c:if test="${donations.src != null}"><img src="${donations.src}" alt="Thumbnail" class="thumbnail"></c:if>
 				<input type="file" id="thumbnail" name="thumbnail" class="form-control">
 				<p/>
 			</div>
