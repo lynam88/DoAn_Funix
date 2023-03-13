@@ -114,6 +114,26 @@ public class UsersController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "contact":
+			showContact(request, response);
+			break;
+		case "donationGuide":
+			showDonationGuide(request, response);
+			break;
+		case "donations":
+			try {
+				showDonations(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "donationPost":
+			showDonationPost(request, response);
+			break;
+		case "rules":
+			showRules(request, response);
+			break;	
 		case "signupForm":
 			showSignupForm(request, response);
 			break;
@@ -132,30 +152,17 @@ public class UsersController extends HttpServlet {
 				}
 			}
 			break;
-		case "contact":
-			showContact(request, response);
-			break;
-		case "donationGuide":
-			showDonationGuide(request, response);
-			break;
-		case "rules":
-			showRules(request, response);
-			break;
-		case "donations":
-			try {
-				showDonations(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case "donationPost":
-			showDonationPost(request, response);
-			break;
+		case "userInfo":
+			showUserInfo(request, response);
+			break;	
 		case "logout":
 			doLogout(request, response);
 			break;
 		}
+	}
+
+	private void showUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/user.jsp").forward(request, response);			
 	}
 
 	private void showSignupForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -381,6 +388,7 @@ public class UsersController extends HttpServlet {
 			if (!uploadDir.exists()) uploadDir.mkdir();
 			avatarPath = folderAvatar + phone + ".jpg";			
 			filePart.write(pathServer+"/"+avatarPath);
+			System.out.println(pathServer+avatarPath);
 			}
 
 			// Create new user object

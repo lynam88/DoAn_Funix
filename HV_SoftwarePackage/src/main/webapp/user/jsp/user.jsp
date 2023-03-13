@@ -55,7 +55,7 @@
 												<span class="input-group-text"><i class="bx bx-user"></i></span>
 												<input type="text" id="name" name="name"
 													class="form-control" placeholder="Xin nhập họ và tên"
-													value="<c:out value='${inputUser.name}'/>">
+													value="<c:out value='${user.name}'/>">
 											</div>
 											<p id="name_error"></p>
 										</div>
@@ -66,7 +66,7 @@
 												<span class="input-group-text"><i class="bx bx-phone"></i></span>
 												<input type="text" id="phone" name="phone"
 													class="form-control" placeholder="Xin nhập số điện thoại"
-													value="<c:out value='${inputUser.phone}'/>">
+													value="<c:out value='${user.phone}'/>">
 											</div>
 											<p id="phone_error">${phone_error}</p>
 
@@ -80,60 +80,35 @@
 													class="bx bx-envelope"></i></span> <input type="email" id="email"
 													name="email" class="form-control"
 													placeholder="Xin nhập email"
-													value="<c:out value='${inputUser.email}'/>">
+													value="<c:out value='${user.email}'/>">
 											</div>
 											<p id="email_error">${email_error}</p>
-										</div>
-
-										<div class="form-outline my-3">
-											<label for="avatar">Ảnh đại diện: </label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-image"></i></span>
-												<input type="file" id="avatar" name="avatar"
-													class="form-control">
-											</div>
-										</div>
+										</div>										
 									</div>
 
 								</div>
 								<div class="col-md-6">
 									<div class="card-body p-md-5 rightForm">
 										<div class="form-outline my-3">
+											<c:if test="${user.avatarPath != null }"><div><img src="${user.avatarPath}" alt="Avatar" class="avatar"></div></c:if>
+											<label for="avatar">Ảnh đại diện: </label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-image"></i></span>
+												<input type="file" id="avatar" name="avatar"
+													class="form-control">
+											</div>
+										</div>									
+										<div class="form-outline my-3">
 											<label for="address">Địa chỉ:</label>
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-map"></i></span>
 												<input type="text" id="address" name="address"
 													class="form-control" placeholder="Xin nhập địa chỉ"
-													value="${inputUser.address}" />
+													value="${user.address}" />
 											</div>
 											<p id="address_error"></p>
 										</div>
-										<div class="form-outline my-3">
-											<label for="password">Mật khẩu: <span class="require">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-lock"></i></span>
-												<input type="password" id="signupPass" name="signupPass"
-													class="form-control" placeholder="Xin nhập mật khẩu"
-													value="${signupPass}" /><span
-													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
-											</div>
-											<p id="signupPass_error"></p>
-										</div>
-
-										<div class="form-outline my-3">
-											<label for="password">Xin nhập lại mật khẩu: <span
-												class="require">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i
-													class="bx bx-lock-alt"></i></span> <input type="password"
-													id="retype_signupPass" name="retype_signupPass"
-													class="form-control" placeholder="Xin nhập lại mật khẩu"
-													value="${signupPass}" /> <span
-													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
-
-											</div>
-											<p id="retype_signupPass_error"></p>
-										</div>
+										
 									</div>
 								</div>
 							</div>
