@@ -162,7 +162,7 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void showUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("user/jsp/user.jsp").forward(request, response);			
+		request.getRequestDispatcher("user/jsp/userInfo.jsp").forward(request, response);			
 	}
 
 	private void showSignupForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
