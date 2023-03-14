@@ -21,8 +21,8 @@
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Bài Viết Gần Đây</h2>
               <c:forEach var="donation" begin="1" end="2" items="${DonationList}">
-              <div class="block-21 mb-4 d-flex">
-                <a id="posts" href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.src} </a>
+              <div class="block-21 mb-4 d-flex">                
+ 				<a class="blog-img mr-4" href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}" style="background-image: url(${donation.src});"></a>
                 <div class="text">
                   <h3 class="heading"><a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.title} </a></h3>
                   <div class="meta">
@@ -31,7 +31,7 @@
                     <div><a href="#"><span class="icon-chat"></span> 19</a></div>
                   </div>
                 </div>
-              </div> 
+              </div>             
               </c:forEach>             
             </div>
           </div>

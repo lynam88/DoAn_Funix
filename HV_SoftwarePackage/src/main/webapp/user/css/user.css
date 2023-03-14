@@ -310,6 +310,10 @@
 		width: 50%;
 	}
 	
+	.thumbnail{
+		zoom: 80%;
+	}
+	
 	/* Donate Post Page */
 	.donationPost{
 		color:black;

@@ -38,7 +38,7 @@
 			<c:forEach var="donation" items="${DonationList}">
 				<div class="col-md-4 ftco-animate">
 					<div class="cause-entry">
-						<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.src} </a>
+						<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id} class="img" style="background-image: url(${donation.src});"></a>
 						<div class="text p-3 p-md-4">
 							<h4>
 								<a

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="header.jsp">
 	<c:param name="title" value="Trang Chủ Quỹ Từ Thiện Liên Hoa"></c:param>
@@ -139,7 +140,7 @@
 					<c:forEach var="donation" items="${DonationList}">
 						<div class="item">
 							<div class="cause-entry">
-								<a href="#" class="img" style="background-image: url(${donation.src});"></a>
+								<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}" class="img thumbnail" style="background-image: url(${donation.src});"></a>
 								<div class="text p-3 p-md-4">
 									<h4>
 										<a
@@ -255,17 +256,16 @@
 </section>
 
 <section class="ftco-gallery">
-	<div class="d-md-flex">
-		<c:forEach var="donation" items="${DonationList}">			
-	    	<a href="${donation.src}" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${donation.src});">
-	    		<div class="icon d-flex justify-content-center align-items-center">
-	    			<span class="icon-search"></span>
-	    		</div>
-	    	</a>
-		</c:forEach>
-	</div>
+	<c:forEach var="donation" items="${DonationList}" varStatus="row">
+		<c:if test="${row.index % 4 == 0}"><div class="d-md-flex"></c:if>
+		<a href="${donation.src}" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${donation.src});">
+				<div class="icon d-flex justify-content-center align-items-center">
+					<span class="icon-search"></span>
+				</div>
+		</a>	
+		<c:if test="${(row.index + 1) % 4 == 0}"></div></c:if>		
+	</c:forEach>
 </section>
-
 
 <%-- <section class="ftco-section">
 	<div class="container">
