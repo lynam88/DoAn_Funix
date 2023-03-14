@@ -42,9 +42,9 @@
 							<h3 class="text-center text-primary">THÔNG TIN NGƯỜI DÙNG</h3>
 						</div>
 						<form class="editForm"
-							action="${pageContext.request.contextPath}/UsersController?action=update"
+							action="${pageContext.request.contextPath}/UsersController?action=updateUserInfo"
 							method="post" enctype="multipart/form-data"
-							onsubmit="return validateSignup()">
+							onsubmit="return validateUpdate()">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
@@ -61,7 +61,7 @@
 										</div>
 
 										<div class="form-outline my-3">
-											<label for="phone">Số điện thoại: </label>
+											<label for="phone">Số điện thoại: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-phone"></i></span>
 												<input type="text" id="phone" name="phone"
@@ -89,15 +89,17 @@
 								</div>
 								<div class="col-md-6">
 									<div class="card-body p-md-5 rightForm">
-										<div class="form-outline my-3">
-											<c:if test="${user.avatarPath != null }"><div><img src="${user.avatarPath}" alt="Avatar" class="avatar"></div></c:if>
+										<div class="form-outline my-3">											
 											<label for="avatar">Ảnh đại diện: </label>
 											<div class="input-group">
 												<span class="input-group-text"><i class="bx bx-image"></i></span>
 												<input type="file" id="avatar" name="avatar"
 													class="form-control">
 											</div>
-										</div>									
+										</div>
+										
+										<c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatarInfo"></c:if>
+																			
 										<div class="form-outline my-3">
 											<label for="address">Địa chỉ:</label>
 											<div class="input-group">

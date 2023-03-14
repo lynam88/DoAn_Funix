@@ -357,3 +357,12 @@
 	#posts{
 		zoom: 20%;
 	}
+	
+	/* Info Page */	
+	.avatarInfo{
+		margin-top: 5%;
+	    width: 80px;
+	    height: 80px;
+	    vertical-align: middle;   
+   		border-radius: 50%;
+	}

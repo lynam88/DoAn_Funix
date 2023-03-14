@@ -18,7 +18,16 @@ public class Users {
 	public Users(String email) {
 		super();
 		this.email = email;
-	}	
+	}
+	
+	public Users(String name, String phone, String email, String avatarPath, String address) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.avatarPath = avatarPath;
+		this.address = address;
+	}
 
 	public Users(String name, String phone, String email, String avatarPath, String address, String password) {
 		super();

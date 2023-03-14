@@ -277,4 +277,69 @@
 			  }
 		}
 
-		 
+		/**
+		 * Js functions for info page
+		 */
+		
+		//Validate update
+				function validateUpdate() {
+				  const name = document.getElementById("name").value;
+				  const phone = document.getElementById("phone").value;
+				  const email = document.getElementById("email").value;
+				  const address = document.getElementById("address").value;
+
+				  const nameError = document.getElementById("name_error");
+				  const phoneError = document.getElementById("phone_error");
+				  const emailError = document.getElementById("email_error");
+				  const addressError = document.getElementById("address_error");
+
+				  if (!name) {
+				    nameError.innerHTML = "Xin điền vào họ tên";
+				    return false;
+				    
+				  } else if (name.length < 2) {
+				    nameError.innerHTML = "Họ tên phải dài hơn 2 chữ cái";
+				    return false;
+				    
+				  } else if (!/^[a-zA-Z ]+$/.test(name)) {
+				    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";	
+				    return false;
+				    
+				  } else {
+				    nameError.innerHTML =  "";
+				  }
+				 
+				  if (!phone) {
+					phoneError.innerHTML = "Xin điền vào số điện thoại";
+				    return false;
+					    
+				  } else if (!/^\d{10,11}$/.test(phone)) {
+					phoneError.innerHTML = "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại theo định dạng 0xxx xxx xxx hoặc +84xxx xxx xxx.";		
+					return false;
+					
+				  } else {
+					phoneError.innerHTML = "";
+				  }
+
+				  if (!email) {
+				    emailError.innerHTML = "Xin điền vào email.";		 
+				    return false;
+				    
+				  } else if (!/\S+@\S+\.\S+/.test(email)) {
+				    emailError.innerHTML = "Email phải có định dạng user@example.com.";
+				    return false;
+				    
+				  } else {
+				    emailError.innerHTML = "";
+				  }
+
+				  if (address && address.length < 5) {
+				    addressError.innerHTML = "Địa chỉ phải dài hơn 5 ký tự.";
+				    return false;
+				    
+				  } else {
+				    addressError.innerHTML = "";
+				  }				 
+				  
+				  return true;
+				}

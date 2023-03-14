@@ -154,11 +154,63 @@ public class UsersController extends HttpServlet {
 			break;
 		case "userInfo":
 			showUserInfo(request, response);
+			break;
+		case "updateUserInfo":
+			updateUserInfo(request, response);
 			break;	
 		case "logout":
 			doLogout(request, response);
 			break;
 		}
+	}
+
+	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		try {
+
+			// Get form input data
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");
+			String address = request.getParameter("address");			
+			
+			Part filePart = request.getPart("avatar");
+			long fileSize = filePart.getSize();
+			String avatarPath = null;
+			if(fileSize > 0) {
+			String pathServer = request.getServletContext().getRealPath("");
+			String folderAvatar = "user/media/avatar/";
+			File uploadDir = new File(pathServer+folderAvatar); 
+			if (!uploadDir.exists()) uploadDir.mkdir();
+			avatarPath = folderAvatar + phone + ".jpg";			
+			filePart.write(pathServer+"/"+avatarPath);
+			System.out.println(pathServer+avatarPath);
+			}
+
+			// Create new user object
+			Users u = new Users(name, phone, email, avatarPath, address);
+			request.setAttribute("user", u);
+			if (phone != null && usersDAO.getUser(phone) != null) {
+				request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
+
+			} else if (usersDAO.getUser(email) != null) {
+				request.setAttribute("email_error", "Email này đã được đăng ký");
+
+			} else {
+				// Insert user data to database
+				usersDAO.updateUser(u);
+				request.setAttribute("notifySignup", "Cập nhật thành công.");
+				request.setAttribute("statusSignup", "OK");		
+			}
+
+		} catch (Exception ex) {
+			request.setAttribute("notifySignup", "Cập nhật thất bại.");
+			request.setAttribute("statusSignup", "FAIL");
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/userInfo.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 
 	private void showUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

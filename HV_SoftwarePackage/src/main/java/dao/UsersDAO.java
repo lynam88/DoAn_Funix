@@ -162,6 +162,21 @@ public class UsersDAO {
 	    stmt.close();
 	    if (run == 0) throw new Exception();
 	}
+	
+	public void updateUser(Users u) throws Exception {
+		Connection connection = new DBContext().getConnection();		
+		String sql = "UPDATE Users SET name = ?, phone = ?, email = ?, avatar_path = ?, address = ? WHERER email = "
+				+ u.getEmail();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		stmt.setString(1, u.getName());
+		stmt.setString(2, u.getPhone());
+		stmt.setString(3, u.getEmail());
+		stmt.setString(4, u.getAvatarPath());
+		stmt.setString(5, u.getAddress());
+		stmt.executeUpdate();
+		stmt.close();	
+	}
 
 
 	public void deleteUser(List<Users> us) throws Exception {
