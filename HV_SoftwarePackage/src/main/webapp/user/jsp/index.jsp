@@ -139,7 +139,7 @@
 					<c:forEach var="donation" items="${DonationList}">
 						<div class="item">
 							<div class="cause-entry">
-								${donation.src}
+								<a href="#" class="img" style="background-image: url(${donation.src});"></a>
 								<div class="text p-3 p-md-4">
 									<h4>
 										<a
@@ -255,11 +255,13 @@
 </section>
 
 <section class="ftco-gallery">
-	<div class="row">
-		<c:forEach var="donation" items="${DonationList}">
-			<div class="ftco-animate d-inline-block">
-				<div class="img-fluid">${donation.src}</div>
-			</div>
+	<div class="d-md-flex">
+		<c:forEach var="donation" items="${DonationList}">			
+	    	<a href="${donation.src}" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${donation.src});">
+	    		<div class="icon d-flex justify-content-center align-items-center">
+	    			<span class="icon-search"></span>
+	    		</div>
+	    	</a>
 		</c:forEach>
 	</div>
 </section>

@@ -154,8 +154,8 @@ if (notifyDonation != null) {
 				<div>
 					<input type="date" class="form-control" name="startDate"
 						style="width: 45%; float: left; margin-top: 0;" id="startDate"
-						value="<c:out value='${donations.startDate}'/>" /> <input
-						type="date" class="form-control" name="endDate"
+						value="<c:out value='${donations.startDate}'/>" /> 
+					<input type="date" class="form-control" name="endDate"
 						style="width: 45%; float: right; margin-top: 0;" id="endDate"
 						value="<c:out value='${donations.endDate}'/>" />
 					<p id="date1_error" />
