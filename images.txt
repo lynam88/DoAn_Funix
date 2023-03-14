@@ -1,0 +1,2 @@
+C:\Users\shini\DoAn_Funix\.metadata\.plugins\org.eclipse.wst.server.core\tmp2\wtpwebapps\HV_SoftwarePackage\admin\media\thumbnail
+C:\Users\shini\DoAn_Funix\.metadata\.plugins\org.eclipse.wst.server.core\tmp2\wtpwebapps\HV_SoftwarePackage\user\media\avatar

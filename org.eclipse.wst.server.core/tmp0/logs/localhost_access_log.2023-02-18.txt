@@ -1,0 +1,8 @@
+127.0.0.1 - - [18/Feb/2023:09:55:10 +0700] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:14 +0700] "GET /HV_SoftwarePackage/ HTTP/1.1" 200 5311
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:15 +0700] "GET /HV_SoftwarePackage/css/main.css HTTP/1.1" 200 3647
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:17 +0700] "GET /HV_SoftwarePackage/js/user.js HTTP/1.1" 200 4161
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:18 +0700] "GET /HV_SoftwarePackage/assets/img/carousel-4.jpg HTTP/1.1" 200 191268
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:20 +0700] "GET /favicon.ico HTTP/1.1" 404 762
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:23 +0700] "GET /HV_SoftwarePackage/forgotPass.jsp HTTP/1.1" 200 4402
+0:0:0:0:0:0:0:1 - - [18/Feb/2023:09:55:30 +0700] "POST /HV_SoftwarePackage/UsersController?action=sendMail HTTP/1.1" 200 -
