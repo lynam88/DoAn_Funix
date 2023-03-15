@@ -358,7 +358,7 @@
 		zoom: 20%;
 	}
 	
-	/* Info Page */	
+	/* Info Pages */	
 	.avatarInfo{
 		margin-top: 5%;
 	    width: 80px;
@@ -389,4 +389,10 @@
 	.updatePassForm{	
 		padding-left: 30%;
 	    width: 75%;
+	}
+	
+	@media (max-width: 768px) {
+		#pass-submit-button{
+			margin-top: 15%;	    	
+		}
 	}

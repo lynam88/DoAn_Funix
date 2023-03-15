@@ -77,7 +77,7 @@
 				 		     </a>
 					    	<ul class="dropdown-menu">		   			
 							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=userInfo">Thông tin cá nhân</a></li>
-							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=passInfo">Đổi mật khẩu</a></li>
+							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a></li>
 							    <li><div class="dropdown-divider"></div></li>
 							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a></li>				
 							</ul>

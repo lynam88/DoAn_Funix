@@ -141,7 +141,7 @@ if (notifySignup != null) {
 												<span class="input-group-text"><i class="bx bx-lock"></i></span>
 												<input type="password" id="signupPass" name="signupPass"
 													class="form-control" placeholder="Xin nhập mật khẩu" value="${signupPass}"/><span
-													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
+													class="input-group-text bx click-eye-1 bx-hide signupPassIcon"></span>
 											</div>
 											<p id="signupPass_error" ></p>
 										</div>
@@ -155,7 +155,7 @@ if (notifySignup != null) {
 													id="retype_signupPass" name="retype_signupPass"
 													class="form-control" placeholder="Xin nhập lại mật khẩu"
 													value="${signupPass}"/> <span
-													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
+													class="input-group-text bx click-eye-2 bx-hide signupPassIcon"></span>
 
 											</div>
 											<p id="retype_signupPass_error"></p>

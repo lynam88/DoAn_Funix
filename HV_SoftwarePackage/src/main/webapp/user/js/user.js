@@ -62,7 +62,7 @@
 		 */
 		
 		//show - hide password
-		$(".click-eye").click(function() {
+		$(".click-eye-1").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
 			  var input = $("#signupPass");
 			  if (input.attr("type") === "password") {
@@ -72,7 +72,7 @@
 			  }
 			});
 		
-		$(".click-eye").click(function() {
+		$(".click-eye-2").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
 			  var input = $("#retype_signupPass");
 			  if (input.attr("type") === "password") {
@@ -345,9 +345,9 @@
 		}
 				
 		//show - hide password	
-		$(".clickEye").click(function() {
+		$(".click-eye-3").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
-			  var input = $("#oldPass");
+			  var input = $("#old-pass");
 			  if (input.attr("type") === "password") {
 			    input.attr("type", "text");
 			  } else {
@@ -355,3 +355,67 @@
 			  }
 			});
 		
+		$(".click-eye-4").click(function() {
+			  $(this).toggleClass("bx-show bx-hide");
+			  var input = $("#new-pass");
+			  if (input.attr("type") === "password") {
+			    input.attr("type", "text");
+			  } else {
+			    input.attr("type", "password");
+			  }
+			});
+		
+		$(".click-eye-5").click(function() {
+			  $(this).toggleClass("bx-show bx-hide");
+			  var input = $("#retype_newPass");
+			  if (input.attr("type") === "password") {
+			    input.attr("type", "text");
+			  } else {
+			    input.attr("type", "password");
+			  }
+			});
+		
+		//Validate signup
+		function validateSignup() {		
+		  const oldPass = document.getElementById("old-pass").value;
+		  const newPass = document.getElementById("new-pass").value;
+		  const retypeNewPass = document.getElementById("retype-new-pass").value;
+
+		  const oldPassError = document.getElementById("old-pass-error");
+		  const newPassError = document.getElementById("new-pass-error");
+		  const retypeNewPassError = document.getElementById("retype-new-pass");
+		 
+		  if (!oldPass) {
+			  oldPassError.innerHTML = "Xin điền vào mật khẩu.";
+			  return false;
+		    
+		  } else {
+			  oldPassError.innerHTML = "";
+		  }
+		  
+		  if (!newPass) {
+			  newPassError.innerHTML = "Xin điền vào mật khẩu.";
+			  return false;
+		    
+		  } else if (newPass.length < 8) {
+			  newPassError.innerHTML = "Mật khẩu phải dài hơn 8 ký tự.";	
+			  return false;
+		    
+		  } else {
+			  newPassError.innerHTML = "";
+		  }
+
+		  if (!retypeNewPass) {
+			  retypeNewPassError.innerHTML = "Xin nhập lại mật khẩu.";		
+			  return false;
+		    
+		  } else if (newPass !== retypeNewPass) {
+			  retypeNewPassError.innerHTML = "Mật khẩu không trùng khớp.";
+			  return false;
+			
+		  } else {
+			  retypeNewPassError.innerHTML = "";
+		  }
+		  
+		  return true;
+		}

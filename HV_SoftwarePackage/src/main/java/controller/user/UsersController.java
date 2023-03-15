@@ -159,8 +159,11 @@ public class UsersController extends HttpServlet {
 		case "updateUserInfo":
 			updateUserInfo(request, response);
 			break;
-		case "passInfo":
+		case "showUpdatePassInfo":
 			showPassInfo(request, response);
+			break;
+		case "updatePassInfo":
+			updatePassInfo(request, response);
 			break;
 		case "logout":
 			doLogout(request, response);
@@ -168,8 +171,12 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
+	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+
 	private void showPassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("user/jsp/passInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("user/jsp/updatePassInfo.jsp").forward(request, response);
 	}
 
 	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
