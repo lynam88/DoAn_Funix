@@ -88,36 +88,45 @@ if (notifyUpdate != null) {
 						<div class="signUpTitle">
 							<h3 class="text-center text-primary">ĐỔI MẬT KHẨU</h3>
 						</div>
-						<form class="updateForm"
-							action="${pageContext.request.contextPath}/UsersController?action=updateUserInfo"
-							method="post" enctype="multipart/form-data"
-							onsubmit="return validateUpdate()">
+						<form class="updatePassForm" action="${pageContext.request.contextPath}/UsersController?action=updatePassInfo"
+							method="post" onsubmit="return validateUpdate()">
 							<div class="row">
 								<div class="card-body p-md-5">
 									<span class="require">(*) Bắt buộc</span>
 									<div class="form-outline my-3">
-										<label for="password">Mật khẩu: <span class="require">*</span></label>
+										<label for="password">Mật khẩu cũ: <span class="require">*</span></label>
 										<div class="input-group">
 											<span class="input-group-text"><i class="bx bx-lock"></i></span>
-											<input type="password" id="signupPass" name="signupPass"
-												class="form-control" placeholder="Xin nhập mật khẩu"
-												value="${signupPass}" /><span
-												class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
+											<input type="password" id="oldPass" name="oldPass"
+												class="form-control" placeholder="Xin nhập mật khẩu cũ"
+												value="${user.email}" /><span
+												class="input-group-text bx clickEye bx-hide signupPassIcon"></span>
+										</div>
+										<p id="signupPass_error"></p>
+									</div>
+									
+									<div class="form-outline my-3">
+										<label for="password">Mật khẩu mới: <span class="require">* (ít nhất 8 ký tự)</span></label>
+										<div class="input-group">
+											<span class="input-group-text"><i class="bx bx-lock"></i></span>
+											<input type="password" id="newPass" name="newPass"
+												class="form-control" placeholder="Xin nhập mật khẩu mới"
+												value="${newPass}" /><span
+												class="input-group-text bx clickEye bx-hide signupPassIcon"></span>
 										</div>
 										<p id="signupPass_error"></p>
 									</div>
 
 									<div class="form-outline my-3">
 										<label for="password">Xin nhập lại mật khẩu: <span
-											class="require">*</span></label>
+											class="require">* (ít nhất 8 ký tự)</span></label>
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bx bx-lock-alt"></i></span> <input type="password"
-												id="retype_signupPass" name="retype_signupPass"
+												id="retype_newPass" name="retype_newPass"
 												class="form-control" placeholder="Xin nhập lại mật khẩu"
-												value="${signupPass}" /> <span
-												class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
-
+												value="${newPass}" /> <span
+												class="input-group-text bx clickEye bx-hide signupPassIcon"></span>
 										</div>
 										<p id="retype_signupPass_error"></p>
 									</div>
