@@ -173,6 +173,7 @@ public class UsersController extends HttpServlet {
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
+			String originEmail = request.getParameter("originEmail");
 			String address = request.getParameter("address");			
 			
 			Part filePart = request.getPart("avatar");
@@ -191,15 +192,12 @@ public class UsersController extends HttpServlet {
 			// Create new user object
 			Users u = new Users(name, phone, email, avatarPath, address);
 			request.setAttribute("user", u);
-			if (phone != null && usersDAO.getUser(phone) != null) {
-				request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
-
-			} else if (usersDAO.getUser(email) != null) {
+			if (usersDAO.getUser(email) != null && !usersDAO.getUser(email).equals(originEmail)) {
 				request.setAttribute("email_error", "Email này đã được đăng ký");
 
 			} else {
 				// Insert user data to database
-				usersDAO.updateUser(u);
+				usersDAO.updateUser(u, originEmail);
 				request.setAttribute("notifySignup", "Cập nhật thành công.");
 				request.setAttribute("statusSignup", "OK");		
 			}

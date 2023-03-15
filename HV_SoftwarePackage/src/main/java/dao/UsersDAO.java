@@ -163,10 +163,10 @@ public class UsersDAO {
 	    if (run == 0) throw new Exception();
 	}
 	
-	public void updateUser(Users u) throws Exception {
+	public void updateUser(Users u, String originEmail) throws Exception {
 		Connection connection = new DBContext().getConnection();		
 		String sql = "UPDATE Users SET name = ?, phone = ?, email = ?, avatar_path = ?, address = ? WHERER email = "
-				+ u.getEmail();
+				+ originEmail;
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setString(1, u.getName());

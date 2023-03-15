@@ -81,6 +81,9 @@
 													name="email" class="form-control"
 													placeholder="Xin nhập email"
 													value="<c:out value='${user.email}'/>">
+													<input type="hidden" id="email"
+													name="originEmail" class="form-control"													
+													value="<c:out value='${user.email}'/>">
 											</div>
 											<p id="email_error">${email_error}</p>
 										</div>										
