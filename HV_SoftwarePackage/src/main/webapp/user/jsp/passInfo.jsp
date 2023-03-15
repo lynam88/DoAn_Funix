@@ -42,7 +42,7 @@ if (notifyUpdate != null) {
 			$('#updateModal').modal().hide();
 			var st = "<%=statusUpdate%>";
 				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=userInfo';
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");

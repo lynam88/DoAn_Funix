@@ -56,6 +56,7 @@ public class UsersController extends HttpServlet {
 	private String action;
 	private HttpSession session;
 	Users userData;
+	Users sessionUser;
 
 	public void init() {
 		usersDAO = new UsersDAO();
@@ -94,7 +95,7 @@ public class UsersController extends HttpServlet {
 			e2.printStackTrace();
 		}
 		session = request.getSession();
-		Users u = (Users) session.getAttribute("user");
+		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {
 		case "login":
 			doLogin(request, response);
@@ -139,7 +140,7 @@ public class UsersController extends HttpServlet {
 			doSignup(request, response);
 			break;
 		case "dashboard":
-			if (u != null && u.getRole() == 1) {
+			if (sessionUser != null && sessionUser.getRole() == 1) {
 				showAdminPage(request, response);
 			} else {
 				try {
@@ -176,9 +177,9 @@ public class UsersController extends HttpServlet {
 			// Get form input data
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");
-			String originEmail = request.getParameter("originEmail");
-			String address = request.getParameter("address");			
+			String email = request.getParameter("email");		
+			String address = request.getParameter("address");
+			String originEmail = sessionUser.getEmail();
 			
 			Part filePart = request.getPart("avatar");
 			long fileSize = filePart.getSize();
@@ -194,14 +195,14 @@ public class UsersController extends HttpServlet {
 			}
 
 			// Create new user object
-			Users u = new Users(name, phone, email, avatarPath, address);
-			session.setAttribute("user", u);
+			Users u = new Users(name, phone, email, avatarPath, address);			
 			if (usersDAO.getUser(email) != null && !email.equals(originEmail)) {
 				request.setAttribute("email_error", "Email này đã được đăng ký");
 
 			} else {
 				// Insert user data to database
 				usersDAO.updateUser(u, originEmail);
+				session.setAttribute("user", u);
 				request.setAttribute("notifyUpdate", "Cập nhật thành công.");
 				request.setAttribute("statusUpdate", "OK");		
 			}
@@ -210,7 +211,7 @@ public class UsersController extends HttpServlet {
 			request.setAttribute("notifyUpdate", "Cập nhật thất bại.");
 			request.setAttribute("statusUpdate", "FAIL");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/userInfo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/updateUserInfo.jsp");
 		dispatcher.forward(request, response);
 		
 	}

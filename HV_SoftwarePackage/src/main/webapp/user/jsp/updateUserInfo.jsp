@@ -39,8 +39,7 @@ if (notifyUpdate != null) {
 		}, 500);
 		setTimeout(function() {
 			$('#updateModal').modal().hide();
-			var st = "<%=statusUpdate%>
-	";
+			var st = "<%=statusUpdate%>";
 				if (st == "OK") {
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
 				} else {
@@ -71,8 +70,7 @@ if (notifyUpdate != null) {
 							Chủ</a></span> <span>Thông tin người dùng</span>
 				</p>
 				<h1 class="mb-3 bread"
-					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Thông
-					tin người dùng</h1>
+					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Thông tin người dùng</h1>
 			</div>
 		</div>
 	</div>
@@ -88,67 +86,88 @@ if (notifyUpdate != null) {
 						<div class="signUpTitle">
 							<h3 class="text-center text-primary">THÔNG TIN NGƯỜI DÙNG</h3>
 						</div>
-						<form class="infoForm"
+						<form class="updateForm"
 							action="${pageContext.request.contextPath}/UsersController?action=updateUserInfo"
 							method="post" enctype="multipart/form-data"
 							onsubmit="return validateUpdate()">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
+										<span class="require">(*) Bắt buộc</span>
 										<div class="form-outline my-3">
+											<label for="name">Họ và tên: <span class="require">*</span></label>
 											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-user"></i></span><span>Họ
-													và tên: ${user.name}</span>
+												<span class="input-group-text"><i class="bx bx-user"></i></span>
+												<input type="text" id="name" name="name"
+													class="form-control" placeholder="Xin nhập họ và tên"
+													value="<c:out value='${user.name}'/>">
 											</div>
+											<p id="name_error"></p>
 										</div>
 
 										<div class="form-outline my-3">
+											<label for="phone">Số điện thoại: <span class="require">*</span></label>
 											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-phone"></i></span><span>Số
-													điện thoại: ${user.phone}</span>
+												<span class="input-group-text"><i class="bx bx-phone"></i></span>
+												<input type="text" id="phone" name="phone"
+													class="form-control" placeholder="Xin nhập số điện thoại"
+													value="<c:out value='${user.phone}'/>">
 											</div>
+											<p id="phone_error">${phone_error}</p>
+
 										</div>
 
 
 										<div class="form-outline my-3">
+											<label for="email">Email: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
-													class="bx bx-envelope"></i></span><span>Email:
-													${user.email}</span>
+													class="bx bx-envelope"></i></span> <input type="email" id="email"
+													name="email" class="form-control"
+													placeholder="Xin nhập email"
+													value="<c:out value='${user.email}'/>">
+													<input type="hidden" name="originEmail"	value="<c:out value='${originEmail}'/>">
 											</div>
-										</div>
+											<p id="email_error">${email_error}</p>
+										</div>										
 									</div>
 
 								</div>
 								<div class="col-md-6">
 									<div class="card-body p-md-5 rightForm">
-										<c:if test="${user.avatarPath != null }">
-											<div class="form-outline my-3">
-												<div class="input-group">
-													<span class="input-group-text"><i
-														class="bx bx-image"></i></span> <span>Ảnh đại diện:</span> <img
-														src="${user.avatarPath}" alt="Avatar" class="avatarInfo">
-
-												</div>
-											</div>
-										</c:if>
-										<div class="form-outline my-3">
-											<div class="input-group rightInfo">
-												<span class="input-group-text"><i class="bx bx-map"></i></span><span>Địa
-													chỉ: ${user.address}</span>
+										<div class="form-outline my-3">											
+											<label for="avatar">Ảnh đại diện: </label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-image"></i></span>
+												<input type="file" id="avatar" name="avatar"
+													class="form-control">
 											</div>
 										</div>
-
+										
+										<c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatarInfo"></c:if>
+																			
+										<div class="form-outline my-3">
+											<label for="address">Địa chỉ:</label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-map"></i></span>
+												<input type="text" id="address" name="address"
+													class="form-control" placeholder="Xin nhập địa chỉ"
+													value="${user.address}" />
+											</div>
+											<p id="address_error"></p>
+										</div>
+										
 									</div>
 								</div>
 							</div>
 
 							<div class="row justify-content-center signupBtm">
 								<div class="col-lg-6 text-center">
-									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
+									<button
+										class="btn btn-primary fa-lg gradient-custom-2 mb-3"
 										type="submit" id="submit-button">Cập nhật tài khoản</button>
 								</div>
-							</div>
+							</div>							
 						</form>
 					</div>
 				</div>
