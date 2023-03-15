@@ -4,7 +4,7 @@
 
 <c:import url="header.jsp">
 	<c:param name="title"
-		value="Thông tin người dùng | Quỹ Từ Thiện Liên Hoa"></c:param>
+		value="Cập nhật thông tin người dùng | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%
@@ -41,7 +41,7 @@ if (notifyUpdate != null) {
 			$('#updateModal').modal().hide();
 			var st = "<%=statusUpdate%>";
 				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=userInfo';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
@@ -67,10 +67,10 @@ if (notifyUpdate != null) {
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
 					<span class="mr-2"><a
 						href="${pageContext.request.contextPath}/UsersController?action=user">Trang
-							Chủ</a></span> <span>Thông tin người dùng</span>
+							Chủ</a></span> <span>Cập nhật thông tin người dùng</span>
 				</p>
 				<h1 class="mb-3 bread"
-					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Thông tin người dùng</h1>
+					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Cập nhật thông tin người dùng</h1>
 			</div>
 		</div>
 	</div>
@@ -84,7 +84,7 @@ if (notifyUpdate != null) {
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="signUpTitle">
-							<h3 class="text-center text-primary">THÔNG TIN NGƯỜI DÙNG</h3>
+							<h3 class="text-center text-primary">CẬP NHẬT THÔNG TIN NGƯỜI DÙNG</h3>
 						</div>
 						<form class="updateForm"
 							action="${pageContext.request.contextPath}/UsersController?action=updateUserInfo"
@@ -116,8 +116,23 @@ if (notifyUpdate != null) {
 											<p id="phone_error">${phone_error}</p>
 
 										</div>
+<div class="form-outline my-3">											
+											<label for="avatar">Ảnh đại diện: </label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-image"></i></span>
+												<input type="file" id="avatar" name="avatar"
+													class="form-control">
+											</div>
+										</div>
+										
+										<c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatarInfo"></c:if>
 
+										
+									</div>
 
+								</div>
+								<div class="col-md-6">
+									<div class="card-body p-md-5 rightForm">
 										<div class="form-outline my-3">
 											<label for="email">Email: <span class="require">*</span></label>
 											<div class="input-group">
@@ -130,21 +145,6 @@ if (notifyUpdate != null) {
 											</div>
 											<p id="email_error">${email_error}</p>
 										</div>										
-									</div>
-
-								</div>
-								<div class="col-md-6">
-									<div class="card-body p-md-5 rightForm">
-										<div class="form-outline my-3">											
-											<label for="avatar">Ảnh đại diện: </label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-image"></i></span>
-												<input type="file" id="avatar" name="avatar"
-													class="form-control">
-											</div>
-										</div>
-										
-										<c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatarInfo"></c:if>
 																			
 										<div class="form-outline my-3">
 											<label for="address">Địa chỉ:</label>

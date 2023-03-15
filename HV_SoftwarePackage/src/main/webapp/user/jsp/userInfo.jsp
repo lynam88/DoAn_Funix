@@ -89,56 +89,54 @@ if (notifyUpdate != null) {
 							<h3 class="text-center text-primary">THÔNG TIN NGƯỜI DÙNG</h3>
 						</div>
 						<form class="infoForm"
-							action="${pageContext.request.contextPath}/UsersController?action=updateUserInfo"
-							method="post" enctype="multipart/form-data"
-							onsubmit="return validateUpdate()">
+							action="${pageContext.request.contextPath}/UsersController?action=showUpdateInfoForm"
+							method="post">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
 										<div class="form-outline my-3">
 											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-user"></i></span><span>Họ
-													và tên: ${user.name}</span>
+												<span class="input-group-text"><i class="bx bx-user"></i></span>
+												<span>Họ và tên: ${user.name}</span>
 											</div>
 										</div>
 
 										<div class="form-outline my-3">
 											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-phone"></i></span><span>Số
-													điện thoại: ${user.phone}</span>
+												<span class="input-group-text"><i class="bx bx-phone"></i></span>
+												<span>Số điện thoại: ${user.phone}</span>
 											</div>
 										</div>
 
-
-										<div class="form-outline my-3">
-											<div class="input-group">
-												<span class="input-group-text"><i
-													class="bx bx-envelope"></i></span><span>Email:
-													${user.email}</span>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="col-md-6">
-									<div class="card-body p-md-5 rightForm">
 										<c:if test="${user.avatarPath != null }">
 											<div class="form-outline my-3">
 												<div class="input-group">
 													<span class="input-group-text"><i
-														class="bx bx-image"></i></span> <span>Ảnh đại diện:</span> <img
-														src="${user.avatarPath}" alt="Avatar" class="avatarInfo">
-
+														class="bx bx-image"></i></span> <span>Ảnh đại diện:</span>
 												</div>
+												<img src="${user.avatarPath}" alt="Avatar"
+													class="avatarInfo">
 											</div>
 										</c:if>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="card-body p-md-5">
 										<div class="form-outline my-3">
-											<div class="input-group rightInfo">
-												<span class="input-group-text"><i class="bx bx-map"></i></span><span>Địa
-													chỉ: ${user.address}</span>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class="bx bx-envelope"></i></span> <span>Email:
+													${user.email}</span>
 											</div>
 										</div>
 
+										<div class="form-outline my-3">
+											<div class="input-group rightInfo">
+												<span class="input-group-text"><i class="bx bx-map"></i></span>
+												<span>Địa chỉ: ${user.address}</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -146,7 +144,7 @@ if (notifyUpdate != null) {
 							<div class="row justify-content-center signupBtm">
 								<div class="col-lg-6 text-center">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="submit" id="submit-button">Cập nhật tài khoản</button>
+										type="submit" id="show-update-button">Cập nhật tài khoản</button>
 								</div>
 							</div>
 						</form>

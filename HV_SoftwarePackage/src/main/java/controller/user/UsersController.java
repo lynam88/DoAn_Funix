@@ -153,6 +153,9 @@ public class UsersController extends HttpServlet {
 		case "userInfo":
 			showUserInfo(request, response);
 			break;
+		case "showUpdateInfoForm":
+			showUpdateInfoForm(request, response);
+			break;
 		case "updateUserInfo":
 			updateUserInfo(request, response);
 			break;
@@ -213,6 +216,11 @@ public class UsersController extends HttpServlet {
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/updateUserInfo.jsp");
 		dispatcher.forward(request, response);
+		
+	}
+	
+	private void showUpdateInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/updateUserInfo.jsp").forward(request, response);
 		
 	}
 

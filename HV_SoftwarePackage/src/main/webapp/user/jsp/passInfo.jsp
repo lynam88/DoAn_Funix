@@ -4,8 +4,7 @@
 
 
 <c:import url="header.jsp">
-	<c:param name="title"
-		value="Đổi mật khẩu | Quỹ Từ Thiện Liên Hoa"></c:param>
+	<c:param name="title" value="Đổi mật khẩu | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%
@@ -40,7 +39,8 @@ if (notifyUpdate != null) {
 		}, 500);
 		setTimeout(function() {
 			$('#updateModal').modal().hide();
-			var st = "<%=statusUpdate%>";
+			var st = "<%=statusUpdate%>
+	";
 				if (st == "OK") {
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
 				} else {
@@ -71,7 +71,8 @@ if (notifyUpdate != null) {
 							Chủ</a></span> <span>Đổi mật khẩu</span>
 				</p>
 				<h1 class="mb-3 bread"
-					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Đổi mật khẩu</h1>
+					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Đổi
+					mật khẩu</h1>
 			</div>
 		</div>
 	</div>
@@ -85,53 +86,50 @@ if (notifyUpdate != null) {
 				<div class="card rounded-3 text-black">
 					<div class="row g-0">
 						<div class="signUpTitle">
-							<h3 class="text-center text-primary">THÔNG TIN NGƯỜI DÙNG</h3>
+							<h3 class="text-center text-primary">ĐỔI MẬT KHẨU</h3>
 						</div>
 						<form class="updateForm"
 							action="${pageContext.request.contextPath}/UsersController?action=updateUserInfo"
 							method="post" enctype="multipart/form-data"
 							onsubmit="return validateUpdate()">
 							<div class="row">
-								<div class="col-md-6">
-									<div class="card-body p-md-5">
-										<span class="require">(*) Bắt buộc</span>
-										<div class="form-outline my-3">
-											<label for="password">Mật khẩu: <span class="require">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-lock"></i></span>
-												<input type="password" id="signupPass" name="signupPass"
-													class="form-control" placeholder="Xin nhập mật khẩu" value="${signupPass}"/><span
-													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
-											</div>
-											<p id="signupPass_error" ></p>
+								<div class="card-body p-md-5">
+									<span class="require">(*) Bắt buộc</span>
+									<div class="form-outline my-3">
+										<label for="password">Mật khẩu: <span class="require">*</span></label>
+										<div class="input-group">
+											<span class="input-group-text"><i class="bx bx-lock"></i></span>
+											<input type="password" id="signupPass" name="signupPass"
+												class="form-control" placeholder="Xin nhập mật khẩu"
+												value="${signupPass}" /><span
+												class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 										</div>
+										<p id="signupPass_error"></p>
+									</div>
 
-										<div class="form-outline my-3">
-											<label for="password">Xin nhập lại mật khẩu: <span
-												class="require" >*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i
-													class="bx bx-lock-alt"></i></span> <input type="password"
-													id="retype_signupPass" name="retype_signupPass"
-													class="form-control" placeholder="Xin nhập lại mật khẩu"
-													value="${signupPass}"/> <span
-													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
+									<div class="form-outline my-3">
+										<label for="password">Xin nhập lại mật khẩu: <span
+											class="require">*</span></label>
+										<div class="input-group">
+											<span class="input-group-text"><i
+												class="bx bx-lock-alt"></i></span> <input type="password"
+												id="retype_signupPass" name="retype_signupPass"
+												class="form-control" placeholder="Xin nhập lại mật khẩu"
+												value="${signupPass}" /> <span
+												class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 
-											</div>
-											<p id="retype_signupPass_error"></p>
 										</div>
-										
+										<p id="retype_signupPass_error"></p>
 									</div>
 								</div>
 							</div>
 
 							<div class="row justify-content-center signupBtm">
 								<div class="col-lg-6 text-center">
-									<button
-										class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="submit" id="submit-button">Cập nhật tài khoản</button>
+									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
+										type="submit" id="submit-button">Cập nhật mật khẩu</button>
 								</div>
-							</div>							
+							</div>
 						</form>
 					</div>
 				</div>

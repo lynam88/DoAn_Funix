@@ -378,3 +378,10 @@
 	.infoForm{
 		padding-left: 20%;
 	}
+	
+	@media (max-width: 768px) {
+		#show-update-button{
+			margin-top: 15%;
+	    	margin-right: 54%;
+		}
+	}
