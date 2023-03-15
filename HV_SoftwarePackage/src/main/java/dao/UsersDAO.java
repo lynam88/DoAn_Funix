@@ -165,8 +165,7 @@ public class UsersDAO {
 	
 	public void updateUser(Users u, String originEmail) throws Exception {
 		Connection connection = new DBContext().getConnection();		
-		String sql = "UPDATE Users SET name = ?, phone = ?, email = ?, avatar_path = ?, address = ? WHERER email = "
-				+ originEmail;
+		String sql = "UPDATE Users SET name = ?, phone = ?, email = ?, avatar_path = ?, address = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		stmt.setString(1, u.getName());
@@ -174,6 +173,7 @@ public class UsersDAO {
 		stmt.setString(3, u.getEmail());
 		stmt.setString(4, u.getAvatarPath());
 		stmt.setString(5, u.getAddress());
+		stmt.setString(6, originEmail);
 		stmt.executeUpdate();
 		stmt.close();	
 	}

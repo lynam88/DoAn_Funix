@@ -191,20 +191,20 @@ public class UsersController extends HttpServlet {
 
 			// Create new user object
 			Users u = new Users(name, phone, email, avatarPath, address);
-			request.setAttribute("user", u);
-			if (usersDAO.getUser(email) != null && !usersDAO.getUser(email).equals(originEmail)) {
+			session.setAttribute("user", u);
+			if (usersDAO.getUser(email) != null && !email.equals(originEmail)) {
 				request.setAttribute("email_error", "Email này đã được đăng ký");
 
 			} else {
 				// Insert user data to database
 				usersDAO.updateUser(u, originEmail);
-				request.setAttribute("notifySignup", "Cập nhật thành công.");
-				request.setAttribute("statusSignup", "OK");		
+				request.setAttribute("notifyUpdate", "Cập nhật thành công.");
+				request.setAttribute("statusUpdate", "OK");		
 			}
 
 		} catch (Exception ex) {
-			request.setAttribute("notifySignup", "Cập nhật thất bại.");
-			request.setAttribute("statusSignup", "FAIL");
+			request.setAttribute("notifyUpdate", "Cập nhật thất bại.");
+			request.setAttribute("statusUpdate", "FAIL");
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/userInfo.jsp");
 		dispatcher.forward(request, response);
