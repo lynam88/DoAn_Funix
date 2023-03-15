@@ -27,8 +27,8 @@
                   <h3 class="heading"><a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">${donation.title} </a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span>${donation.insertDate}</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                    <!-- <div><a href="#"><span class="icon-person"></span>Admin</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> 19</a></div> -->
                   </div>
                 </div>
               </div>             

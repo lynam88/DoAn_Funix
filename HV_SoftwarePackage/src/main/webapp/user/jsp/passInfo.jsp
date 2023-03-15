@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <c:import url="header.jsp">
 	<c:param name="title"
-		value="Thông tin người dùng | Quỹ Từ Thiện Liên Hoa"></c:param>
+		value="Đổi mật khẩu | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <%
@@ -67,10 +68,10 @@ if (notifyUpdate != null) {
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
 					<span class="mr-2"><a
 						href="${pageContext.request.contextPath}/UsersController?action=user">Trang
-							Chủ</a></span> <span>Thông tin người dùng</span>
+							Chủ</a></span> <span>Đổi mật khẩu</span>
 				</p>
 				<h1 class="mb-3 bread"
-					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Thông tin người dùng</h1>
+					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Đổi mật khẩu</h1>
 			</div>
 		</div>
 	</div>
@@ -95,68 +96,29 @@ if (notifyUpdate != null) {
 									<div class="card-body p-md-5">
 										<span class="require">(*) Bắt buộc</span>
 										<div class="form-outline my-3">
-											<label for="name">Họ và tên: <span class="require">*</span></label>
+											<label for="password">Mật khẩu: <span class="require">*</span></label>
 											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-user"></i></span>
-												<input type="text" id="name" name="name"
-													class="form-control" placeholder="Xin nhập họ và tên"
-													value="<c:out value='${user.name}'/>">
+												<span class="input-group-text"><i class="bx bx-lock"></i></span>
+												<input type="password" id="signupPass" name="signupPass"
+													class="form-control" placeholder="Xin nhập mật khẩu" value="${signupPass}"/><span
+													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 											</div>
-											<p id="name_error"></p>
+											<p id="signupPass_error" ></p>
 										</div>
 
 										<div class="form-outline my-3">
-											<label for="phone">Số điện thoại: <span class="require">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-phone"></i></span>
-												<input type="text" id="phone" name="phone"
-													class="form-control" placeholder="Xin nhập số điện thoại"
-													value="<c:out value='${user.phone}'/>">
-											</div>
-											<p id="phone_error">${phone_error}</p>
-
-										</div>
-
-
-										<div class="form-outline my-3">
-											<label for="email">Email: <span class="require">*</span></label>
+											<label for="password">Xin nhập lại mật khẩu: <span
+												class="require" >*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
-													class="bx bx-envelope"></i></span> <input type="email" id="email"
-													name="email" class="form-control"
-													placeholder="Xin nhập email"
-													value="<c:out value='${user.email}'/>">
-													<input type="hidden" id="email"
-													name="originEmail" class="form-control"													
-													value="<c:out value='${user.email}'/>">
-											</div>
-											<p id="email_error">${email_error}</p>
-										</div>										
-									</div>
+													class="bx bx-lock-alt"></i></span> <input type="password"
+													id="retype_signupPass" name="retype_signupPass"
+													class="form-control" placeholder="Xin nhập lại mật khẩu"
+													value="${signupPass}"/> <span
+													class="input-group-text bx click-eye bx-hide signupPassIcon"></span>
 
-								</div>
-								<div class="col-md-6">
-									<div class="card-body p-md-5 rightForm">
-										<div class="form-outline my-3">											
-											<label for="avatar">Ảnh đại diện: </label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-image"></i></span>
-												<input type="file" id="avatar" name="avatar"
-													class="form-control">
 											</div>
-										</div>
-										
-										<c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatarInfo"></c:if>
-																			
-										<div class="form-outline my-3">
-											<label for="address">Địa chỉ:</label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-map"></i></span>
-												<input type="text" id="address" name="address"
-													class="form-control" placeholder="Xin nhập địa chỉ"
-													value="${user.address}" />
-											</div>
-											<p id="address_error"></p>
+											<p id="retype_signupPass_error"></p>
 										</div>
 										
 									</div>

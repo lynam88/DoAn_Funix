@@ -62,6 +62,7 @@ public class DonationsDAO {
 				d.setTotalNeeded(rs.getFloat("total_needed"));
 				d.setCategory(rs.getString("category"));
 				d.setSrc(rs.getString("thumbnail"));
+				d.setInsertDate(rs.getDate("insertDate"));
 
 				list.add(d);
 				this.noOfRecords++;

@@ -90,8 +90,7 @@ public class UsersController extends HttpServlet {
 		try {
 			List<Donations> listDonations = donationsDAO.search("", "0", "0");
 			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {
-			// TODO Auto-generated catch block
+		} catch (Exception e2) {			
 			e2.printStackTrace();
 		}
 		session = request.getSession();
@@ -123,8 +122,7 @@ public class UsersController extends HttpServlet {
 		case "donations":
 			try {
 				showDonations(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {				
 				e.printStackTrace();
 			}
 			break;
@@ -146,8 +144,7 @@ public class UsersController extends HttpServlet {
 			} else {
 				try {
 					showUserPage(request, response);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+				} catch (Exception e1) {					
 					e1.printStackTrace();
 				}
 			}
@@ -157,11 +154,18 @@ public class UsersController extends HttpServlet {
 			break;
 		case "updateUserInfo":
 			updateUserInfo(request, response);
-			break;	
+			break;
+		case "passInfo":
+			showPassInfo(request, response);
+			break;
 		case "logout":
 			doLogout(request, response);
 			break;
 		}
+	}
+
+	private void showPassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/passInfo.jsp").forward(request, response);
 	}
 
 	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
