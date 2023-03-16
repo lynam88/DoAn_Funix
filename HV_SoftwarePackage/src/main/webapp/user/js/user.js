@@ -367,7 +367,7 @@
 		
 		$(".click-eye-5").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
-			  var input = $("#retype_newPass");
+			  var input = $("#retype-new-Pass");
 			  if (input.attr("type") === "password") {
 			    input.attr("type", "text");
 			  } else {

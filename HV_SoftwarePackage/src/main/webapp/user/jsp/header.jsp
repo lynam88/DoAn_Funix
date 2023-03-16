@@ -72,7 +72,7 @@
 			    <!-- User is logged in -->
 			    <li class="dropdown nav-dropdown user">
 			    			<c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatar"></c:if>		    	
-						    <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
+						    <a class="dropdown-toggle nav-item nav-link" >
 						        ${user.name}
 				 		     </a>
 					    	<ul class="dropdown-menu">		   			

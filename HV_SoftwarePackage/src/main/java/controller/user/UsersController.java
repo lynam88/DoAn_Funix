@@ -171,7 +171,7 @@ public class UsersController extends HttpServlet {
 		}
 	}
 
-	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) {
+	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oldPass = request.getParameter("old-pass");
 		String newPass = request.getParameter("new-pass");
 		String originPass = sessionUser.getPassword();	
@@ -188,10 +188,11 @@ public class UsersController extends HttpServlet {
 			request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thất bại.");
 			request.setAttribute("statusUpdatePass", "Fail");
 		}
+		response.sendRedirect("user/jsp/updatePassInfo.jsp");
 	}
 
 	private void showPassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("user/jsp/updatePassInfo.jsp").forward(request, response);
+		response.sendRedirect("user/jsp/updatePassInfo.jsp");
 	}
 
 	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
