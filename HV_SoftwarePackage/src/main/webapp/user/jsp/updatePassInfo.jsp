@@ -41,7 +41,8 @@ if (notifyUpdatePass != null) {
 			$('#updatePassModal').modal().hide();
 			var st = "<%=statusUpdatePass%>";
 				if (st == "Ok") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=showUpdatePassInfo';
+					alert("OK")
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=dashboard';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
@@ -88,7 +89,7 @@ if (notifyUpdatePass != null) {
 							<h3 class="text-center text-primary">ĐỔI MẬT KHẨU</h3>
 						</div>
 						<form class="updatePassForm" action="${pageContext.request.contextPath}/UsersController?action=updatePassInfo"
-							method="post" onsubmit="return validateUpdatePass()">
+							method="post">
 							<div class="row">
 								<div class="card-body p-md-5">
 									<span class="require">(*) Bắt buộc</span>
@@ -100,7 +101,7 @@ if (notifyUpdatePass != null) {
 												class="form-control" placeholder="Xin nhập mật khẩu cũ"/><span
 												class="input-group-text bx click-eye-3 bx-hide signupPassIcon"></span>
 										</div>
-										<p id="old-pass-error">${old-pass-error}</p>
+										<p id="old-pass-error">${oldPassError}</p>
 									</div>
 									
 									<div class="form-outline my-3">
@@ -109,7 +110,7 @@ if (notifyUpdatePass != null) {
 											<span class="input-group-text"><i class="bx bx-lock"></i></span>
 											<input type="password" id="new-pass" name="new-pass"
 												class="form-control" placeholder="Xin nhập mật khẩu mới"
-												value="${newPass}" /><span
+												value="<c:out value='${newPass}'/>" /><span
 												class="input-group-text bx click-eye-4 bx-hide signupPassIcon"></span>
 										</div>
 										<p id="new-pass-error"></p>

@@ -37,8 +37,6 @@ import model.Users;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.PrintWriter;
-
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -173,26 +171,31 @@ public class UsersController extends HttpServlet {
 
 	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oldPass = request.getParameter("old-pass");
+		String oldPassDB = MD5Library.md5(oldPass);
 		String newPass = request.getParameter("new-pass");
+		String newPassDB = MD5Library.md5(newPass);
+		request.setAttribute("newPass", newPass);
 		String originPass = sessionUser.getPassword();	
 		
 		try {
-			if(oldPass != originPass) {
-				request.setAttribute("old-pass-error", "Mật khẩu cũ chưa đúng");
+			if(!oldPassDB.equals(originPass)) {
+				request.setAttribute("oldPassError", "Mật khẩu cũ chưa đúng");
 			} else {	
-				usersDAO.updatePass(sessionUser, newPass);
+				usersDAO.updatePass(sessionUser, newPassDB);
 				request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thành công.");
-				request.setAttribute("statusUpdatePass", "Ok");
+				request.setAttribute("statusUpdatePass", "Ok");				
 			}
 		} catch (Exception e) {
 			request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thất bại.");
 			request.setAttribute("statusUpdatePass", "Fail");
 		}
-		response.sendRedirect("user/jsp/updatePassInfo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/updatePassInfo.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void showPassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("user/jsp/updatePassInfo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/updatePassInfo.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -367,7 +367,7 @@
 		
 		$(".click-eye-5").click(function() {
 			  $(this).toggleClass("bx-show bx-hide");
-			  var input = $("#retype-new-Pass");
+			  var input = $("#retype-new-pass");
 			  if (input.attr("type") === "password") {
 			    input.attr("type", "text");
 			  } else {
@@ -375,7 +375,7 @@
 			  }
 			});
 		
-		//Validate signup
+		//Validate 
 		function validateUpdatePass() {		
 		  const oldPass = document.getElementById("old-pass").value;
 		  const newPass = document.getElementById("new-pass").value;
