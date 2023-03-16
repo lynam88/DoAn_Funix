@@ -8,12 +8,12 @@
 </c:import>
 
 <%
-String notifyUpdate = (String) request.getAttribute("notifyUpdate");
-String statusUpdate = (String) request.getAttribute("statusUpdate");
+String notifyUpdatePass = (String) request.getAttribute("notifyUpdatePass");
+String statusUpdatePass = (String) request.getAttribute("statusUpdatePass");
 
-if (notifyUpdate != null) {
+if (notifyUpdatePass != null) {
 %>
-<div class="modal" id="updateModal" role="dialog">
+<div class="modal" id="updatePassModal" role="dialog">
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
@@ -26,7 +26,7 @@ if (notifyUpdate != null) {
 			</div>
 			<div class="modal-body">
 				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifyUpdate%></p>
+					style="font-size: large; color: red;"><%=notifyUpdatePass%></p>
 			</div>
 		</div>
 
@@ -35,14 +35,13 @@ if (notifyUpdate != null) {
 
 <script>
 		setTimeout(function() {
-			$("#updateModal").modal("show");
+			$("#updatePassModal").modal("show");
 		}, 500);
 		setTimeout(function() {
-			$('#updateModal').modal().hide();
-			var st = "<%=statusUpdate%>
-	";
-				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
+			$('#updatePassModal').modal().hide();
+			var st = "<%=statusUpdatePass%>";
+				if (st == "Ok") {
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=showUpdatePassInfo';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
@@ -101,7 +100,7 @@ if (notifyUpdate != null) {
 												class="form-control" placeholder="Xin nhập mật khẩu cũ"/><span
 												class="input-group-text bx click-eye-3 bx-hide signupPassIcon"></span>
 										</div>
-										<p id="old-pass-error"></p>
+										<p id="old-pass-error">${old-pass-error}</p>
 									</div>
 									
 									<div class="form-outline my-3">

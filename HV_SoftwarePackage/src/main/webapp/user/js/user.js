@@ -376,14 +376,14 @@
 			});
 		
 		//Validate signup
-		function validateSignup() {		
+		function validateUpdatePass() {		
 		  const oldPass = document.getElementById("old-pass").value;
 		  const newPass = document.getElementById("new-pass").value;
 		  const retypeNewPass = document.getElementById("retype-new-pass").value;
 
 		  const oldPassError = document.getElementById("old-pass-error");
 		  const newPassError = document.getElementById("new-pass-error");
-		  const retypeNewPassError = document.getElementById("retype-new-pass");
+		  const retypeNewPassError = document.getElementById("retype-new-pass-error");
 		 
 		  if (!oldPass) {
 			  oldPassError.innerHTML = "Xin điền vào mật khẩu.";
@@ -394,7 +394,7 @@
 		  }
 		  
 		  if (!newPass) {
-			  newPassError.innerHTML = "Xin điền vào mật khẩu.";
+			  newPassError.innerHTML = "Xin điền vào mật khẩu mới.";
 			  return false;
 		    
 		  } else if (newPass.length < 8) {

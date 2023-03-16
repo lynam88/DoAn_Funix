@@ -172,7 +172,22 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) {
+		String oldPass = request.getParameter("old-pass");
+		String newPass = request.getParameter("new-pass");
+		String originPass = sessionUser.getPassword();	
 		
+		try {
+			if(oldPass != originPass) {
+				request.setAttribute("old-pass-error", "Mật khẩu cũ chưa đúng");
+			} else {	
+				usersDAO.updatePass(sessionUser, newPass);
+				request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thành công.");
+				request.setAttribute("statusUpdatePass", "Ok");
+			}
+		} catch (Exception e) {
+			request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thất bại.");
+			request.setAttribute("statusUpdatePass", "Fail");
+		}
 	}
 
 	private void showPassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

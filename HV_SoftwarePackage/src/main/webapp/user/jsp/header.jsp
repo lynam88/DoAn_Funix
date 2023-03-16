@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/user/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/user/css/user.css">
     
-	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
   </head>
   <body>

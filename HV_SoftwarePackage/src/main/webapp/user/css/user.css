@@ -396,3 +396,7 @@
 			margin-top: 15%;	    	
 		}
 	}
+	#old-pass-error, #new-pass-error, #retype-new-pass-error{
+		color: red;
+		position: inherit;
+	}
