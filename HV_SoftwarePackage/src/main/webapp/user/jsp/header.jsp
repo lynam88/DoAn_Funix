@@ -86,7 +86,7 @@
 			  <c:otherwise>
 			    <!-- User is not logged in -->
 			    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=rules" class="nav-link">Đăng Ký</a></li>
-			    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=login" class="nav-link">Đăng Nhập</a></li>
+			    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=showLoginPage" class="nav-link">Đăng Nhập</a></li>
 			  </c:otherwise>
 			</c:choose>	    
 		  </ul>		

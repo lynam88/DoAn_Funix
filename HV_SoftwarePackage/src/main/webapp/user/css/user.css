@@ -380,9 +380,14 @@
 	}
 	
 	@media (max-width: 768px) {
-		#show-update-button{
-			margin-top: 15%;
+		#show-update-button{			
 	    	margin-right: 54%;
+		}
+	}
+	
+	@media (min-width: 992px) {
+		#show-update-button{			
+	    	margin-left: 50%;
 		}
 	}
 	

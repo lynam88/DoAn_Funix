@@ -62,15 +62,14 @@
 									thay đổi nội quy bất cứ lúc nào và người dùng sẽ được thông báo
 									về những thay đổi này.</li>
 							</ul>
-							<form id="rulesForm" action="${pageContext.request.contextPath}/UsersController?action=signupForm" method="post" onsubmit="return validateRulesCheck()">
 								<div id="rulesAgree">
 									<input type="checkbox" name="agree" id="agree">								
 									<label for="agree">Tôi đã đọc và đồng ý với các điều
 										khoản và nội quy của trang web</label> 
 									<p id="chk-error"></p>
 								</div>								
-								<button type="submit" class="btn btn-primary fa-lg gradient-custom-2 mb-3 rulesBtn">Đăng ký tài khoản</button>
-							</form>
+								<a type="button" class="btn btn-primary fa-lg gradient-custom-2 mb-3 rulesBtn" onclick="return validateRulesCheck()">Đăng ký tài khoản</a>
+							
 						</div>
 					</div>
 				</div>

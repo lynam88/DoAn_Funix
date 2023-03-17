@@ -40,8 +40,7 @@ if (notifyUpdatePass != null) {
 		setTimeout(function() {
 			$('#updatePassModal').modal().hide();
 			var st = "<%=statusUpdatePass%>";
-				if (st == "Ok") {
-					alert("OK")
+				if (st == "Ok") {				
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=dashboard';
 				} else {
 					// remove class modal-backdrop in
@@ -89,7 +88,7 @@ if (notifyUpdatePass != null) {
 							<h3 class="text-center text-primary">ĐỔI MẬT KHẨU</h3>
 						</div>
 						<form class="updatePassForm" action="${pageContext.request.contextPath}/UsersController?action=updatePassInfo"
-							method="post">
+							method="post" onsubmit="return validateUpdatePass()">
 							<div class="row">
 								<div class="card-body p-md-5">
 									<span class="require">(*) Bắt buộc</span>

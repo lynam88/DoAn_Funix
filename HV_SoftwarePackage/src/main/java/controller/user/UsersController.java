@@ -42,7 +42,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * Servlet implementation class UsersController
  */
-@WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
+//@WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 50, // 50MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -75,15 +75,6 @@ public class UsersController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		action = request.getParameter("action");
 		action = action == null ? "dashboard" : action;
 		try {
@@ -104,13 +95,45 @@ public class UsersController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			break;
+			break;	
 		case "recoverUser":
 			try {
 				recoverUser(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			break;	
+		case "signupForm":
+			showSignupForm(request, response);
+			break;	
+		case "updateUserInfo":
+			updateUserInfo(request, response);
+			break;	
+		case "updatePassInfo":
+			updatePassInfo(request, response);
+			break;	
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		action = request.getParameter("action");
+		action = action == null ? "dashboard" : action;
+		try {
+			List<Donations> listDonations = donationsDAO.search("", "0", "0");
+			request.setAttribute("DonationList", listDonations);
+		} catch (Exception e2) {			
+			e2.printStackTrace();
+		}
+		session = request.getSession();
+		sessionUser = (Users) session.getAttribute("user");
+		switch (action) {
+		case "showLoginPage":
+			showLoginPage(request, response);
 			break;
 		case "contact":
 			showContact(request, response);
@@ -130,13 +153,7 @@ public class UsersController extends HttpServlet {
 			break;
 		case "rules":
 			showRules(request, response);
-			break;	
-		case "signupForm":
-			showSignupForm(request, response);
-			break;
-		case "signup":
-			doSignup(request, response);
-			break;
+			break;		
 		case "dashboard":
 			if (sessionUser != null && sessionUser.getRole() == 1) {
 				showAdminPage(request, response);
@@ -153,20 +170,19 @@ public class UsersController extends HttpServlet {
 			break;
 		case "showUpdateInfoForm":
 			showUpdateInfoForm(request, response);
-			break;
-		case "updateUserInfo":
-			updateUserInfo(request, response);
-			break;
+			break;		
 		case "showUpdatePassInfo":
 			showPassInfo(request, response);
-			break;
-		case "updatePassInfo":
-			updatePassInfo(request, response);
-			break;
+			break;		
 		case "logout":
 			doLogout(request, response);
 			break;
 		}
+	}
+
+	private void showLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/login.jsp");
+		dispatcher.forward(request, response);		
 	}
 
 	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -687,7 +703,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the user page
-					request.getRequestDispatcher("UsersController?action=dashboard").forward(request, response);
+					response.sendRedirect("UsersController?action=dashboard");
 					return;
 				}
 

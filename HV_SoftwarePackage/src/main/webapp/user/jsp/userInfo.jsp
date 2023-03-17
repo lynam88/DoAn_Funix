@@ -87,11 +87,8 @@ if (notifyUpdate != null) {
 					<div class="row g-0">
 						<div class="signUpTitle">
 							<h3 class="text-center text-primary">THÔNG TIN NGƯỜI DÙNG</h3>
-						</div>
-						<form class="infoForm"
-							action="${pageContext.request.contextPath}/UsersController?action=showUpdateInfoForm"
-							method="post">
-							<div class="row">
+						</div>						
+							<div class="row infoForm">
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
 										<div class="form-outline my-3">
@@ -139,15 +136,11 @@ if (notifyUpdate != null) {
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row justify-content-center signupBtm">
 								<div class="col-lg-6 text-center">
-									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="submit" id="show-update-button">Cập nhật tài khoản</button>
+									<a class="btn btn-primary fa-lg gradient-custom-2 mb-3" type="button"
+										href="${pageContext.request.contextPath}/UsersController?action=showUpdateInfoForm" id="show-update-button">Cập nhật tài khoản</a>
 								</div>
-							</div>
-						</form>
+							</div>							
 					</div>
 				</div>
 			</div>

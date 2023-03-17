@@ -375,7 +375,7 @@
 			  }
 			});
 		
-		//Validate 
+		//Validate Update Pass 
 		function validateUpdatePass() {		
 		  const oldPass = document.getElementById("old-pass").value;
 		  const newPass = document.getElementById("new-pass").value;
