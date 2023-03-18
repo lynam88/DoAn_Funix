@@ -39,8 +39,7 @@ if (notifyUpdate != null) {
 		}, 500);
 		setTimeout(function() {
 			$('#updateModal').modal().hide();
-			var st = "<%=statusUpdate%>
-	";
+			var st = "<%=statusUpdate%>";
 				if (st == "OK") {
 					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
 				} else {

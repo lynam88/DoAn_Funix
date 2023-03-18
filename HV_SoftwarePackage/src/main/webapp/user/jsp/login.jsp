@@ -26,8 +26,7 @@
 					<div class="card rounded-3 text-black">
 						<div class="row g-0">
 							<div class="col-lg-6">
-								<div class="card-body p-md-5 mx-md-4">
-								
+								<div class="card-body p-md-5 mx-md-4">								
 									<form class="loginForm"
 										action="${pageContext.request.contextPath}/UsersController?action=login"
 										method="post" onsubmit="return validateLogin()">
