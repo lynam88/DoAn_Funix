@@ -645,9 +645,7 @@ public class UsersController extends HttpServlet {
 			throws ServletException, IOException {
 		// Set response content type and request character encoding
 		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("utf-8"); // For Vietnamese language
-
-		// Invalidate any existing session before creating a new one
+		request.setCharacterEncoding("utf-8"); // For Vietnamese language	
 
 		// Collect user input from the login form
 		String id = request.getParameter("loginId");
