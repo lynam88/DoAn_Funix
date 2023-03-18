@@ -68,7 +68,7 @@
 										khoản và nội quy của trang web</label> 
 									<p id="chk-error"></p>
 								</div>								
-								<a type="button" class="btn btn-primary fa-lg gradient-custom-2 mb-3 rulesBtn" onclick="return validateRulesCheck()">Đăng ký tài khoản</a>
+								<a type="button" href="${pageContext.request.contextPath}/UsersController?action=showSignupPage" class="btn btn-primary fa-lg gradient-custom-2 mb-3 text-light rulesBtn" onclick="return validateRulesCheck()">Đăng ký tài khoản</a>
 							
 						</div>
 					</div>

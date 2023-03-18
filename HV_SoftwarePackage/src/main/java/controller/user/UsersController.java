@@ -86,9 +86,6 @@ public class UsersController extends HttpServlet {
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {
-		case "login":
-			doLogin(request, response);
-			break;
 		case "resetPassword":
 			try {
 				resetPassword(request, response);
@@ -102,10 +99,13 @@ public class UsersController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			break;
+		case "signup":
+			doSignup(request, response);
 			break;	
-		case "signupForm":
-			showSignupForm(request, response);
-			break;	
+		case "login":
+			doLogin(request, response);
+			break;
 		case "updateUserInfo":
 			updateUserInfo(request, response);
 			break;	
@@ -131,10 +131,7 @@ public class UsersController extends HttpServlet {
 		}
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
-		switch (action) {
-		case "showLoginPage":
-			showLoginPage(request, response);
-			break;
+		switch (action) {		
 		case "contact":
 			showContact(request, response);
 			break;
@@ -153,7 +150,13 @@ public class UsersController extends HttpServlet {
 			break;
 		case "rules":
 			showRules(request, response);
-			break;		
+			break;	
+		case "showSignupPage":
+			showSignupPage(request, response);
+			break;	
+		case "showLoginPage":
+			showLoginPage(request, response);
+			break;
 		case "dashboard":
 			if (sessionUser != null && sessionUser.getRole() == 1) {
 				showAdminPage(request, response);
@@ -198,6 +201,7 @@ public class UsersController extends HttpServlet {
 				request.setAttribute("oldPassError", "Mật khẩu cũ chưa đúng");
 			} else {	
 				usersDAO.updatePass(sessionUser, newPassDB);
+				sessionUser.getPassword();
 				request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thành công.");
 				request.setAttribute("statusUpdatePass", "Ok");				
 			}
@@ -270,7 +274,7 @@ public class UsersController extends HttpServlet {
 		request.getRequestDispatcher("user/jsp/userInfo.jsp").forward(request, response);			
 	}
 
-	private void showSignupForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showSignupPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("user/jsp/signup.jsp").forward(request, response);		
 	}
 
@@ -452,18 +456,6 @@ public class UsersController extends HttpServlet {
 			request.setAttribute("statusRecover", "Ok");
 		}
 		request.getRequestDispatcher("user/jsp/recoverUser.jsp").forward(request, response);
-	}
-
-	// Extract file name from content-disposition header of file part
-	private String getFileName(Part part) {
-		String contentDisp = part.getHeader("content-disposition");
-		String[] items = contentDisp.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length() - 1);
-			}
-		}
-		return "";
 	}
 
 	private void doSignup(HttpServletRequest request, HttpServletResponse response)

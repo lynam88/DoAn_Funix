@@ -141,7 +141,7 @@
 		color: blue;
 	}
 	
-	.signupForm{
+	.showSignupPage{
 	    padding-left: 5%;
 	}
 	
@@ -172,7 +172,7 @@
 	}
 	
 	@media screen and (max-width: 768px) and (min-width: 360px)  {	    
-	    .signupForm {
+	    .showSignupPage {
 	    	padding-right: 5%;
 	    }
 	    

@@ -74,7 +74,7 @@ if (notifySignup != null) {
 						<div class="signUpTitle">
 							<h3 class="text-center text-primary" >ĐĂNG KÝ THÀNH VIÊN MỚI</h3>
 						</div>
-						<form class="signupForm" action="${pageContext.request.contextPath}/UsersController?action=signup"
+						<form class="showSignupPage" action="${pageContext.request.contextPath}/UsersController?action=signup"
 							method="post" enctype="multipart/form-data" onsubmit="return validateSignup()">
 							<div class="row">
 								<div class="col-md-6">
