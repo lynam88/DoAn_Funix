@@ -42,12 +42,12 @@ import org.apache.commons.io.IOUtils;
 /**
  * Servlet implementation class UsersController
  */
-@WebServlet(name = "UsersController", urlPatterns = { "/UsersController" })
+@WebServlet(name = "UsersController2", urlPatterns = { "/UsersController2" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 50, // 50MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
 
-public class UsersController extends HttpServlet {
+public class UsersController2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDAO;
 	private DonationsDAO donationsDAO;
@@ -64,7 +64,7 @@ public class UsersController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UsersController() {
+	public UsersController2() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -75,44 +75,7 @@ public class UsersController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		action = request.getParameter("action");
-		action = action == null ? "dashboard" : action;
-		try {
-			List<Donations> listDonations = donationsDAO.search("", "0", "0");
-			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {			
-			e2.printStackTrace();
-		}
-		session = request.getSession();
-		sessionUser = (Users) session.getAttribute("user");
-		switch (action) {
-		case "resetPassword":
-			try {
-				resetPassword(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			break;	
-		case "recoverUser":
-			try {
-				recoverUser(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			break;
-		case "signup":
-			doSignup(request, response);
-			break;	
-		case "login":
-			doLogin(request, response);
-			break;
-		case "updateUserInfo":
-			updateUserInfo(request, response);
-			break;	
-		case "updatePassInfo":
-			updatePassInfo(request, response);
-			break;	
-		}
+		doGet(request,response);
 	}
 
 	/**
@@ -162,7 +125,7 @@ public class UsersController extends HttpServlet {
 				showAdminPage(request, response);
 			} else {
 				try {
-					showUserPage(request, response);
+					showAdminPage(request, response);
 				} catch (Exception e1) {					
 					e1.printStackTrace();
 				}
@@ -696,7 +659,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the user page
-					response.sendRedirect("UsersController?action=dashboard");
+					request.getRequestDispatcher("UsersController?action=dashboard").forward(request, response);
 					return;
 				}
 

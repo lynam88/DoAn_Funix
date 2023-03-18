@@ -32,15 +32,7 @@
     <display-name>DownloadFileServlet</display-name>
     <servlet-name>DownloadFileServlet</servlet-name>
     <servlet-class>controller.DownloadFileServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>UsersController</servlet-name>
-    <servlet-class>controller.user.UsersController</servlet-class>
-  </servlet>
- <servlet-mapping>
-    <servlet-name>UsersController</servlet-name>
-    <url-pattern>/UsersController</url-pattern>
- </servlet-mapping>  
+  </servlet>  
   <servlet-mapping>
     <servlet-name>DownloadFileServlet</servlet-name>
     <url-pattern>/DownloadFileServlet</url-pattern>
