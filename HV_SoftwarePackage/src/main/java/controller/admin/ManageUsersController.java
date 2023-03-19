@@ -60,7 +60,23 @@ public class ManageUsersController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		action = request.getParameter("action");
+		action = action == null ? "UserSearch" : action;
+		session = request.getSession();
+		Users u = (Users) session.getAttribute("user");
+		if (u != null && u.getRole() == 1) {
+			try {
+				switch (action) {				
+				case "UserSearch":
+					listUser(request, response);
+					break;				
+				}
+			} catch (Exception ex) {
+				throw new ServletException(ex);
+			}
+		} else {
+			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+		}	
 	}
 
 	/**
@@ -76,8 +92,7 @@ public class ManageUsersController extends HttpServlet {
 		if (u != null && u.getRole() == 1) {
 			try {
 				switch (action) {				
-				case "UserList":
-				case "UserSearch":
+				case "UserList":				
 					listUser(request, response);
 					break;
 				case "new":
@@ -85,13 +100,13 @@ public class ManageUsersController extends HttpServlet {
 					break;
 				case "edit":
 					showEditForm(request, response);
+					break;				
+				case "export":
+					exportUser(request, response);
 					break;
 				case "delete":
 					deleteUser(request, response);
-					break;
-				case "export":
-					exportUser(request, response);
-					break;				
+					break;			
 				default:
 					listUser(request, response);
 					break;
@@ -101,8 +116,7 @@ public class ManageUsersController extends HttpServlet {
 			}
 		} else {
 			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-		}
-		
+		}		
 	}	
 	
 	private void listUser(HttpServletRequest request, HttpServletResponse response)

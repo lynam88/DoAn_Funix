@@ -54,7 +54,7 @@ public class DonationsController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "DonationList" : action;
+		action = action == null ? "DonationSearch" : action;
 		session = request.getSession();
 		Users u = (Users) session.getAttribute("user");
 		if (u != null && u.getRole() == 1) {
@@ -62,28 +62,13 @@ public class DonationsController extends HttpServlet {
 				switch (action) {				
 				case "DonationSearch":
 					listDonation(request, response);
-					break;
-				case "new":
-					showNewForm(request, response);
-					break;
-				case "edit":				
-					showEditForm(request, response);
-					break;
+					break;				
 				case "insert":
 					insertDonation(request, response);
-					break;
-				case "delete":
-					deleteDonation(request, response);
-					break;
+					break;				
 				case "update":
 					updateDonation(request, response);
-					break;
-				case "export":
-					exportDonation(request, response);
-					break;
-				default:
-					listDonation(request, response);
-					break;
+					break;				
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);
@@ -102,8 +87,7 @@ public class DonationsController extends HttpServlet {
 		if (u != null && u.getRole() == 1) {
 			try {
 				switch (action) {
-				case "DonationList":
-				case "DonationSearch":
+				case "DonationList":				
 					listDonation(request, response);
 					break;
 				case "new":
@@ -111,22 +95,13 @@ public class DonationsController extends HttpServlet {
 					break;
 				case "edit":				
 					showEditForm(request, response);
-					break;
-				case "insert":
-					insertDonation(request, response);
-					break;
-				case "delete":
-					deleteDonation(request, response);
-					break;
-				case "update":
-					updateDonation(request, response);
-					break;
+					break;				
 				case "export":
 					exportDonation(request, response);
 					break;
-				default:
-					listDonation(request, response);
-					break;
+				case "delete":
+					deleteDonation(request, response);
+					break;	
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);
