@@ -1,4 +1,4 @@
-/*package controller.admin;
+package controller.admin;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -22,9 +22,9 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 
 
-*//**
+/**
  * Servlet implementation class UsersController
- *//*
+ */
 @WebServlet(name = "UserDonation", urlPatterns = { "/UserDonation" })
 @MultipartConfig(
   fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
@@ -46,27 +46,27 @@ public class UserDonation extends HttpServlet {
 		usersDAO = new UsersDAO();
 	}
 
-	*//**
+	/**
 	 * @see HttpServlet#HttpServlet()
-	 *//*
+	 */
 	public UserDonation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	*//**
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
-	 *//*
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
-	*//**
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
-	 *//*
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
@@ -228,4 +228,3 @@ public class UserDonation extends HttpServlet {
 	
 
 }
-*/

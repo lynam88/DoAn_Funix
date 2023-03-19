@@ -223,3 +223,36 @@
     	}
     }
     
+    /**
+	 * Js functions for admin pages
+	 */
+	//Delete button
+	$("#user_del").click(function(){
+		var chks = document.querySelectorAll(".chk:checked");
+		var checked = [...chks].map(email => email.value).join(",");
+		
+		if(!checked) {
+			$("#checkMsg").modal("show");
+			setTimeout(function() {
+				$("#checkMsg").modal("hide");
+			}, 2000);
+		} else {
+			$("#myModal").modal("show");				
+		}
+	})	
+
+	//Delete button
+	$('#ok_user_del').click(function(){
+		var chks = document.querySelectorAll(".chk:checked");
+		var checked = [...chks].map(email => email.value).join(",");
+		document.getElementById("formDel").action = "ManageUsersController?action=delete&email="+checked;
+		$("#myModal").modal("hide");
+	})			
+	
+	$('#cancel_user_del').click(function(){		
+					$("#myModal").modal("hide");					
+				})
+	$('#close_user_del').click(function(){		
+		$("#myModal").modal("hide");					
+	})	
+    

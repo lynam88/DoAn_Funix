@@ -226,6 +226,8 @@ public class UsersController extends HttpServlet {
 
 			// Get form input data
 			String name = request.getParameter("name");
+			byte[] name_Bytes = name.getBytes(StandardCharsets.ISO_8859_1);
+			name = new String(name_Bytes, StandardCharsets.UTF_8);
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");		
 			String address = request.getParameter("address");

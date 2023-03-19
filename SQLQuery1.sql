@@ -193,6 +193,8 @@ ADD CONSTRAINT df_status
 DEFAULT 1 FOR status;
 GO
 
+UPDATE Users SET status = 1;
+
 DELETE FROM Users;
 GO
 

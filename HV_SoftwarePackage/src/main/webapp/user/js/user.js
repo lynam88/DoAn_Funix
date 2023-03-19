@@ -176,40 +176,7 @@
 		  }
 		  
 		  return true;
-		}
-		
-		/**
-		 * Js functions for admin pages
-		 */
-		//Delete button
-		$("#user_del").click(function(){
-			var chks = document.querySelectorAll(".chk:checked");
-			var checked = [...chks].map(email => email.value).join(",");
-			
-			if(!checked) {
-				$("#checkMsg").modal("show");
-				setTimeout(function() {
-					$("#checkMsg").modal("hide");
-				}, 2000);
-			} else {
-				$("#myModal").modal("show");				
-			}
-		})	
-
-		
-		$('#ok_user_del').click(function(){
-			var chks = document.querySelectorAll(".chk:checked");
-			var checked = [...chks].map(email => email.value).join(",");
-			document.getElementById("formDel").action = "UsersController?action=delete&email="+checked;
-			$("#myModal").modal("hide");
-		})			
-		
-		$('#cancel_user_del').click(function(){		
-						$("#myModal").modal("hide");					
-					})
-		$('#close_user_del').click(function(){		
-			$("#myModal").modal("hide");					
-		})	
+		}		
 		
 		/**
 		 * Js function(s) for forgetPass page
@@ -301,7 +268,7 @@
 		    nameError.innerHTML = "Họ tên phải dài hơn 2 chữ cái";
 		    return false;
 		    
-		  } else if (!/^[a-zA-Z ]+$/.test(name)) {
+		  } else if (!/^[a-zA-Z\sàáạãảâầấậẫẩăằắặẵẳèéẹẽẻêềếệễểđìíịĩỉòóọõỏôồốộỗổơờớợỡởùúụũủưừứựữửỳýỵỹỷ]+$/.test(name)) {
 		    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";	
 		    return false;
 		    

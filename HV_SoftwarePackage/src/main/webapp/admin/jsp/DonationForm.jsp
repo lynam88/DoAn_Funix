@@ -174,7 +174,7 @@ if (notifyDonation != null) {
 					<fmt:formatNumber type="number" pattern="0"
 						value="${donations.totalNeeded}" var="myNum" />
 					<input type="text" id="totalNeeded" name="totalNeeded"
-						onfocusin="removeFormat()" onfocusout="addFormat()"
+						onfocus="removeFormat()" onblur="addFormat()"
 						style="width: 45%; float: left; margin-top: 0;" class="form-control" value="${myNum}" /> 
 					<select class="form-select form-select-sm" id="category" style="width: 45%; float: right; margin-top: 0; font-size: 0.875rem;"
 						name="category" aria-label=".form-select-sm example">

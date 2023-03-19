@@ -120,15 +120,15 @@
           	<li class="nav-item d-flex align-items-center">
           		<div class="btn-group">
 				  <a type="button" class="text-white font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Xin chào, Admin!
+				    Xin chào, ${user.name}!
 				  </a>
 				  <div class="dropdown-menu">				  
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=userInfo">Thông tin cá nhân</a>
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a>				    
 				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a>
 				  </div>
 				</div>          	
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">              
-                <i class="fa fa-user me-sm-1" style="padding-left: 50%;"></i>                
-              </a>   
+              <c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatar"></c:if>  
             </li>          
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">

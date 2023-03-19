@@ -69,7 +69,10 @@ public class ManageUsersController extends HttpServlet {
 				switch (action) {				
 				case "UserSearch":
 					listUser(request, response);
-					break;				
+					break;
+				case "delete":
+					deleteUser(request, response);
+					break;		
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);
@@ -86,7 +89,7 @@ public class ManageUsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "login" : action;
+		action = action == null ? "UserList" : action;
 		session = request.getSession();
 		Users u = (Users) session.getAttribute("user");
 		if (u != null && u.getRole() == 1) {
@@ -103,13 +106,7 @@ public class ManageUsersController extends HttpServlet {
 					break;				
 				case "export":
 					exportUser(request, response);
-					break;
-				case "delete":
-					deleteUser(request, response);
 					break;			
-				default:
-					listUser(request, response);
-					break;
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);
@@ -236,9 +233,7 @@ public class ManageUsersController extends HttpServlet {
 				request.setAttribute("statusDelete", "Fail");
 			}
 		}		
-		request.getRequestDispatcher("admin/UserList.jsp").forward(request, response);
-	}
-
-	
+		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
+	}	
 
 }
