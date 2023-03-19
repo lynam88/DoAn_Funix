@@ -686,7 +686,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the admin page
-					request.getRequestDispatcher("UsersController?action=dashboard").forward(request, response);
+					response.sendRedirect("UsersController?action=dashboard");
 					return;
 				}
 

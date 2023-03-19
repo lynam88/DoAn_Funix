@@ -130,11 +130,11 @@ if (notifyDelete != null) {
 									<tr>
 										<th style="width: 2%;">Chọn</th>
 										<th style="width: 3%;">Loại</th>
-										<th style="width: 7%;">Họ và tên</th>
-										<th style="width: 14%;">Email</th>
+										<th style="width: 6%;">Họ và tên</th>
+										<th style="width: 9%;">Email</th>
 										<th style="width: 5%;">Phone</th>
-										<th style="width: 5%;">Địa Chỉ</th>
-										<th style="width: 2%;">Trạng Thái</th>
+										<th style="width: 9%;">Địa Chỉ</th>
+										<th style="width: 4%;">Trạng Thái</th>
 										<th style="width: 2%;">Action</th>
 									</tr>
 								</thead>
