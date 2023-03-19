@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,11 +11,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,7 +59,10 @@ public class DonationsController extends HttpServlet {
 				switch (action) {				
 				case "DonationSearch":
 					listDonation(request, response);
-					break;				
+					break;
+				case "delete":
+					deleteDonation(request, response);
+					break;	
 				case "insert":
 					insertDonation(request, response);
 					break;				
@@ -98,10 +98,7 @@ public class DonationsController extends HttpServlet {
 					break;				
 				case "export":
 					exportDonation(request, response);
-					break;
-				case "delete":
-					deleteDonation(request, response);
-					break;	
+					break;				
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);

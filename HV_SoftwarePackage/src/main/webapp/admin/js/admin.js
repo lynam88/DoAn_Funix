@@ -138,7 +138,7 @@
 		
 		try {
 			$.ajax({
-				type : 'GET',
+				type : 'POST',
 				data: 'id='+checked,
 				url : '/HV_SoftwarePackage/DonationsController?action=delete',
 				success : function(result) {
@@ -219,7 +219,7 @@
     function addFormat() {
     	var number = document.getElementById("totalNeeded").value;
     	if(!isNaN(number)) {
-		document.getElementById("totalNeeded").value = new Intl.NumberFormat().format(number);
+		document.getElementById("totalNeeded").value = new Intl.NumberFormat('en').format(number);
     	}
     }
     
