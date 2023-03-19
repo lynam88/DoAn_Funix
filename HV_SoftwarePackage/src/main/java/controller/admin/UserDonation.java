@@ -25,13 +25,13 @@ import java.io.OutputStream;
 /**
  * Servlet implementation class UsersController
  */
-@WebServlet(name = "ManageUsersController", urlPatterns = { "/ManageUsersController" })
+@WebServlet(name = "UserDonation", urlPatterns = { "/UserDonation" })
 @MultipartConfig(
   fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
   maxFileSize = 1024 * 1024 * 10,      // 10 MB
   maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
-public class ManageUsersController extends HttpServlet {
+public class UserDonation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDAO;
 	private String action;
@@ -49,7 +49,7 @@ public class ManageUsersController extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ManageUsersController() {
+	public UserDonation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
