@@ -53,7 +53,44 @@ public class DonationsController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		action = request.getParameter("action");
+		action = action == null ? "DonationList" : action;
+		session = request.getSession();
+		Users u = (Users) session.getAttribute("user");
+		if (u != null && u.getRole() == 1) {
+			try {
+				switch (action) {				
+				case "DonationSearch":
+					listDonation(request, response);
+					break;
+				case "new":
+					showNewForm(request, response);
+					break;
+				case "edit":				
+					showEditForm(request, response);
+					break;
+				case "insert":
+					insertDonation(request, response);
+					break;
+				case "delete":
+					deleteDonation(request, response);
+					break;
+				case "update":
+					updateDonation(request, response);
+					break;
+				case "export":
+					exportDonation(request, response);
+					break;
+				default:
+					listDonation(request, response);
+					break;
+				}
+			} catch (Exception ex) {
+				throw new ServletException(ex);
+			}
+		} else {
+			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
