@@ -41,7 +41,7 @@ if (notifySignup != null) {
 			$('#signupModal').modal().hide();
 			var st = "<%=statusSignup%>";
 				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=login';
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=showLoginPage';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");

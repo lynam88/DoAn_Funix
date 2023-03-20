@@ -111,7 +111,7 @@
 		    nameError.innerHTML = "Họ tên phải dài hơn 2 chữ cái";
 		    return false;
 		    
-		  } else if (!/^[a-zA-Z ]+$/.test(name)) {
+		  } else if (!/^[a-zA-Z\sàáạãảâầấậẫẩăằắặẵẳèéẹẽẻêềếệễểđìíịĩỉòóọõỏôồốộỗổơờớợỡởùúụũủưừứựữửỳýỵỹỷÀÁẠÃẢÂẦẤẬẪẨĂẰẮẶẴẲÈÉẸẼẺÊỀẾỆỄỂĐÌÍỊĨỈÒÓỌÕỎÔỒỐỘỖỔƠỜỚỢỠỞÙÚỤŨỦƯỪỨỰỮỬỲÝỴỸỶđê]+$/.test(name)) {
 		    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";	
 		    return false;
 		    
@@ -268,7 +268,7 @@
 		    nameError.innerHTML = "Họ tên phải dài hơn 2 chữ cái";
 		    return false;
 		    
-		  } else if (!/^[a-zA-Z\sàáạãảâầấậẫẩăằắặẵẳèéẹẽẻêềếệễểđìíịĩỉòóọõỏôồốộỗổơờớợỡởùúụũủưừứựữửỳýỵỹỷ]+$/.test(name)) {
+		  } else if (!/^[a-zA-Z\sàáạãảâầấậẫẩăằắặẵẳèéẹẽẻêềếệễểđìíịĩỉòóọõỏôồốộỗổơờớợỡởùúụũủưừứựữửỳýỵỹỷÀÁẠÃẢÂẦẤẬẪẨĂẰẮẶẴẲÈÉẸẼẺÊỀẾỆỄỂĐÌÍỊĨỈÒÓỌÕỎÔỒỐỘỖỔƠỜỚỢỠỞÙÚỤŨỦƯỪỨỰỮỬỲÝỴỸỶđê]+$/.test(name)) {
 		    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";	
 		    return false;
 		    

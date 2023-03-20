@@ -231,6 +231,8 @@ public class UsersController extends HttpServlet {
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");		
 			String address = request.getParameter("address");
+			byte[] address_Bytes = address.getBytes(StandardCharsets.ISO_8859_1);
+			address = new String(address_Bytes, StandardCharsets.UTF_8);
 			String originEmail = sessionUser.getEmail();
 			
 			Part filePart = request.getPart("avatar");
@@ -469,9 +471,13 @@ public class UsersController extends HttpServlet {
 
 			// Get form input data
 			String name = request.getParameter("name");
+			byte[] name_Bytes = name.getBytes(StandardCharsets.ISO_8859_1);
+			name = new String(name_Bytes, StandardCharsets.UTF_8);
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
 			String address = request.getParameter("address");
+			byte[] address_Bytes = address.getBytes(StandardCharsets.ISO_8859_1);
+			address = new String(address_Bytes, StandardCharsets.UTF_8);
 			String password = request.getParameter("signupPass");
 			String passDB = null;
 			if (password != null) {

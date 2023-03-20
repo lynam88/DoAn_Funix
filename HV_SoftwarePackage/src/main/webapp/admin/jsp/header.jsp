@@ -116,7 +116,7 @@
           <h6 class="font-weight-bolder text-white mb-0" id="str-pages2">Trang Chủ</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">          
-          <ul class="navbar-nav justify-content-end" style="padding-left: 80%;">
+          <ul class="navbar-nav justify-content-end" style="padding-left: 75%;">
           	<li class="nav-item d-flex align-items-center">
           		<div class="btn-group">
 				  <a type="button" class="text-white font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
