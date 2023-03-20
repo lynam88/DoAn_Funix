@@ -122,7 +122,7 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "dashboard" : action;
+		action = action == null ? "user" : action;
 		try {
 			List<Donations> listDonations = donationsDAO.search("", "0", "0");
 			request.setAttribute("DonationList", listDonations);
