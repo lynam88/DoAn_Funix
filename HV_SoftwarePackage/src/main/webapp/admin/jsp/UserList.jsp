@@ -8,10 +8,10 @@
 </c:import>
 
 <%
-String notifyDelete = (String) request.getAttribute("notifyDelete");
-String statusDelete = (String) request.getAttribute("statusDelete");
+	String notifyDelete = (String) request.getAttribute("notifyDelete");
+	String statusDelete = (String) request.getAttribute("statusDelete");
 
-if (notifyDelete != null) {
+	if (notifyDelete != null) {
 %>
 <div class="modal" id="userDelModal" role="dialog">
 	<div class="modal-dialog">
@@ -38,8 +38,7 @@ if (notifyDelete != null) {
 			$("#userDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
-			var st = "<%=statusDelete%>
-	";
+			var st = "<%=statusDelete%>";
 				$("#userDelModal").modal("hide");
 				if (st == "ok") {
 					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
@@ -52,7 +51,7 @@ if (notifyDelete != null) {
 </script>
 
 <%
-}
+	}
 %>
 
 <div class="container-fluid py-4">
@@ -156,56 +155,51 @@ if (notifyDelete != null) {
 											<td>
 												<div class="form-check form-switch">
 													<input class="form-check-input" type="checkbox"
-														role="switch" id="role_chk" name="chk""
+														role="switch" id="role_chk" name="role_chk"
 														value="<c:out value='${user.email}'/>"
 														<c:if test="${user.role == 1}">checked</c:if> />
-												</div> <!--Modal -->
-												<div class="modal" id="roleModal" role="dialog">
-													<div class="modal-dialog modal-dialog-centered"
-														tabindex="-1 role="document">
-														<!--Modal content -->
-														<div class="modal-content">
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal"
-																	id="close_role">&times;</button>
-															</div>
-															<div class="modal-body">
-																<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
-															</div>
-															<div class="modal-footer">
-																<button type="submit" class="btn btn-ok btn-danger"
-																	id="ok_role" data-dismiss="modal">Chấp
-																	nhận</button>
-																<button type="button"
-																	class="btn btn-default btn-success"
-																	id="cancel_role" data-dismiss="modal">Hủy</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="modal" id="showDelete" role="dialog">
-													<div class="modal-dialog">
-
-														<!-- Modal content-->
-														<div class="modal-content">
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal"
-																	aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<p class="text-center" id="showMsg"
-																	style="font-size: large; color: red;"></p>
-															</div>
-														</div>
-
-													</div>
 												</div>
 											</td>
-											<c:if test="${user.role == null}">
-												<td></td>
-											</c:if>
+											<!--Modal -->
+											<div class="modal" id="roleModal" role="dialog">
+												<div class="modal-dialog modal-dialog-centered"
+													tabindex="-1 role="document">
+													<!--Modal content -->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal"
+																id="close_role">&times;</button>
+														</div>
+														<div class="modal-body">
+															<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
+														</div>
+														<div class="modal-footer">
+															<button type="submit" class="btn btn-ok btn-danger"
+																id="ok_role" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
+															<button type="button" class="btn btn-default btn-success"
+																id="cancel_role" data-dismiss="modal">Hủy</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal" id="showDelete" role="dialog">
+												<div class="modal-dialog">
+
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<p class="text-center" id="showMsg"
+																style="font-size: large; color: red;"></p>
+														</div>
+													</div>
+												</div>
+											</div>
 											<td>
 												<div>${user.name}</div>
 											</td>
@@ -226,8 +220,8 @@ if (notifyDelete != null) {
 							</table>
 
 							<%
-							String searchText = (String) request.getAttribute("myInput");
-							String searchStatus = (String) request.getAttribute("searchStatus");
+								String searchText = (String) request.getAttribute("myInput");
+								String searchStatus = (String) request.getAttribute("searchStatus");
 							%>
 
 							<nav aria-label="..." class="page">

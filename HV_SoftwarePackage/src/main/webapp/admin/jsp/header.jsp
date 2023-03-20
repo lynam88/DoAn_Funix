@@ -119,7 +119,8 @@
           <ul class="navbar-nav justify-content-end" style="padding-left: 75%;">
           	<li class="nav-item d-flex align-items-center">
           		<div class="btn-group">
-				  <a type="button" class="text-white font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          		  <c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatar"></c:if>          			
+				  <a type="button" class="text-white font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 2%; margin-top: 4%;">
 				    Xin chào, ${user.name}!
 				  </a>
 				  <div class="dropdown-menu">				  
@@ -127,8 +128,7 @@
 				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a>				    
 				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a>
 				  </div>
-				</div>          	
-              <c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatar"></c:if>  
+				</div>             
             </li>          
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">

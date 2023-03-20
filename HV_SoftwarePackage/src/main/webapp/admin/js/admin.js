@@ -250,13 +250,23 @@
 	})			
 	
 	$('#cancel_user_del').click(function(){		
-					$("#myModal").modal("hide");					
-				})
+		$("#myModal").modal("hide");					
+	})
 	$('#close_user_del').click(function(){		
 		$("#myModal").modal("hide");					
 	})
 	
 	//Switch button
-    $('#role_chk').click(function() {
+    $('.form-check-input').click(function() {
 		$("#roleModal").modal("show");		
 	})
+	
+	 $('#cancel_role').click(function() {
+	    $("#roleModal").modal("hide");
+	    $('this').removeAttr('checked');
+	  });
+	
+	$('#close_role').click(function(){		
+		$("#roleModal").modal("hide");		
+	})	
+	
