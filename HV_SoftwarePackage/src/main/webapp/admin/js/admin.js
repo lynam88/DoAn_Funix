@@ -1,7 +1,3 @@
-/**
- * Js functions for admin pages
- */
-	
 	//Lọc bảng
 	function sortTable() {
 		var table, rows, switching, i, x, y, shouldSwitch;
@@ -26,6 +22,10 @@
 			}
 		}
 	}
+	
+	/**
+	 * Js functions for Donation pages
+	 */
 	
 	//Validate new donation
 	function validateDonation() {
@@ -223,9 +223,9 @@
     	}
     }
     
-    /**
-	 * Js functions for admin pages
-	 */
+/**
+ * Js functions for user pages
+ */
 	//Delete button
 	$("#user_del").click(function(){
 		var chks = document.querySelectorAll(".chk:checked");
@@ -254,5 +254,9 @@
 				})
 	$('#close_user_del').click(function(){		
 		$("#myModal").modal("hide");					
-	})	
-    
+	})
+	
+	//Switch button
+    $('#role_chk').click(function() {
+		$("#roleModal").modal("show");		
+	})

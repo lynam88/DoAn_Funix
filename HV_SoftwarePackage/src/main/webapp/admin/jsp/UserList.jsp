@@ -38,7 +38,8 @@ if (notifyDelete != null) {
 			$("#userDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
-			var st = "<%=statusDelete%>";
+			var st = "<%=statusDelete%>
+	";
 				$("#userDelModal").modal("hide");
 				if (st == "ok") {
 					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
@@ -155,9 +156,51 @@ if (notifyDelete != null) {
 											<td>
 												<div class="form-check form-switch">
 													<input class="form-check-input" type="checkbox"
-														role="switch" id="admin" name="admin"
-														value="<c:out value='${user.email}' />"
+														role="switch" id="role_chk" name="chk""
+														value="<c:out value='${user.email}'/>"
 														<c:if test="${user.role == 1}">checked</c:if> />
+												</div> <!--Modal -->
+												<div class="modal" id="roleModal" role="dialog">
+													<div class="modal-dialog modal-dialog-centered"
+														tabindex="-1 role="document">
+														<!--Modal content -->
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	id="close_role">&times;</button>
+															</div>
+															<div class="modal-body">
+																<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
+															</div>
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-ok btn-danger"
+																	id="ok_role" data-dismiss="modal">Chấp
+																	nhận</button>
+																<button type="button"
+																	class="btn btn-default btn-success"
+																	id="cancel_role" data-dismiss="modal">Hủy</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal" id="showDelete" role="dialog">
+													<div class="modal-dialog">
+
+														<!-- Modal content-->
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<p class="text-center" id="showMsg"
+																	style="font-size: large; color: red;"></p>
+															</div>
+														</div>
+
+													</div>
 												</div>
 											</td>
 											<c:if test="${user.role == null}">
