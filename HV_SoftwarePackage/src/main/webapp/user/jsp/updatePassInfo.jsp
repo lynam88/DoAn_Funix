@@ -41,7 +41,7 @@ if (notifyUpdatePass != null) {
 			$('#updatePassModal').modal().hide();
 			var st = "<%=statusUpdatePass%>";
 				if (st == "Ok") {				
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=dashboard';
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=user';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");

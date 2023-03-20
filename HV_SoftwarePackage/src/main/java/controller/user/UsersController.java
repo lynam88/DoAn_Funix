@@ -156,18 +156,20 @@ public class UsersController extends HttpServlet {
 			break;	
 		case "showLoginPage":
 			showLoginPage(request, response);
-			break;
-		case "dashboard":
+			break;		
+		case "admin":
 			if (sessionUser != null && sessionUser.getRole() == 1) {
 				showAdminPage(request, response);
-			} else {
-				try {
-					showUserPage(request, response);
-				} catch (Exception e1) {					
-					e1.printStackTrace();
-				}
-			}
+			} 
 			break;
+		case "user":
+			try {
+				showUserPage(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;	
 		case "userInfo":
 			showUserInfo(request, response);
 			break;
@@ -694,7 +696,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the admin page
-					response.sendRedirect("UsersController?action=dashboard");
+					response.sendRedirect("UsersController?action=admin");
 					return;
 				}
 
@@ -702,7 +704,7 @@ public class UsersController extends HttpServlet {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the user page
-					response.sendRedirect("UsersController?action=dashboard");
+					response.sendRedirect("UsersController?action=user");
 					return;
 				}
 

@@ -63,9 +63,10 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" style="z-index: 1040;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0 logo" href="#">
+      <a class="navbar-brand m-0 logo" href="${pageContext.request.contextPath}/UsersController?action=user">
         <img src="${pageContext.request.contextPath}/user/media/logo.jpg" class="navbar-brand-img" alt="main_logo" style="float: left;">
-        <span class="ms-1 font-weight-bold">Quỹ Từ Thiện Liên Hoa</span>
+        <span class="ms-1 font-weight-bold">Trang Chủ
+        								Quỹ Từ Thiện Liên Hoa</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -73,8 +74,8 @@
       <ul class="navbar-nav">
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
-	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=dashboard">
-	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ</h6>
+	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=admin">
+	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ Admin</h6>
 	        </a>
         </li>
         <li class="nav-item">
