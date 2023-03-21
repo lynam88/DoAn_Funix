@@ -72,7 +72,10 @@ public class ManageUsersController extends HttpServlet {
 					break;
 				case "delete":
 					deleteUser(request, response);
-					break;		
+					break;
+				case "updateRole":
+					updateRole(request, response);
+					break;
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);
@@ -80,6 +83,11 @@ public class ManageUsersController extends HttpServlet {
 		} else {
 			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
 		}	
+	}
+
+	private void updateRole(HttpServletRequest request, HttpServletResponse response) {
+		
+		
 	}
 
 	/**

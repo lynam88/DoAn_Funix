@@ -168,16 +168,16 @@
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal"
-																id="close_role">&times;</button>
+																id="close_role_update">&times;</button>
 														</div>
 														<div class="modal-body">
 															<p style="font-size: large;">Bạn muốn chuyển vai trò người dùng?</p>
 														</div>
 														<div class="modal-footer">
 															<button type="submit" class="btn btn-ok btn-danger"
-																id="ok_role" data-dismiss="modal" style="margin-bottom: 0;"><a href="#" id="acceptLink" style="color: white; text-decoration: none;">Chấp nhận</a></button>
+																id="ok_role_update" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</a></button>
 															<button type="button" class="btn btn-default btn-success"
-																id="cancel_role" data-dismiss="modal">Hủy</button>
+																id="cancel_role_update" data-dismiss="modal">Hủy</button>
 														</div>
 													</div>
 												</div>
