@@ -175,7 +175,7 @@
 														</div>
 														<div class="modal-footer">
 															<button type="submit" class="btn btn-ok btn-danger"
-																id="ok_role" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
+																id="ok_role" data-dismiss="modal" style="margin-bottom: 0;"><a href="/controller/action?email={email}" id="acceptLink" style="color: white; text-decoration: none;">Chấp nhận</a></button>
 															<button type="button" class="btn btn-default btn-success"
 																id="cancel_role" data-dismiss="modal">Hủy</button>
 														</div>
