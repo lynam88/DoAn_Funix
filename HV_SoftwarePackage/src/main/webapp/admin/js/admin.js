@@ -257,24 +257,27 @@
 	})
 	
 	//Switch button
-	$('.form-check-input').click(function() {
-	  var checkbox = $(this);
-	  var isChecked = checkbox.prop('checked');
-	  
-	  $("#roleModal").modal("show");
-	  
-	  //Handle cancel button
-	  $('#cancel_role').click(function() {
-	    checkbox.prop('checked', !isChecked);
-	    $("#roleModal").modal("hide");
-	  });
+    $('.form-check-input').click(function() {
+	    $("#roleModal").modal("show");
+	    var currentSwitch = $(this);
+	    var isChecked = currentSwitch.prop('checked');
+	    $('#ok_role').click(function() {
+	        currentSwitch.prop('checked', !isChecked);
+	        $("#roleModal").modal("hide");
+	    });
+	    $('#cancel_role').click(function() {
+	        currentSwitch.prop('checked', !isChecked);
+	        $("#roleModal").modal("hide");
+	    });
+	    $('#close_role').click(function(){
+	    	currentSwitch.prop('checked', !isChecked);
+			$("#roleModal").modal("hide");		
+		})
+		$('#roleModal').on('hide.bs.modal', function() {
+			currentSwitch.prop('checked', !isChecked);				
+		});
 	});
 
-	$('#close_role').click(function(){
-	  $(".form-check-input").prop('checked', false);
-	  $("#roleModal").modal("hide");
-	})
 	
-	$('#roleModal').on('hide.bs.modal', function() {
-	    $('.form-check-input').prop('checked', false);
-	});
+	
+	
