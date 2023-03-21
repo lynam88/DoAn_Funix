@@ -176,18 +176,18 @@ public class UsersDAO {
 		stmt.close();	
 	}
 
-	public void updateRole(List<Users> us) throws Exception {
+	public void updateRole(Users u) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		
-		String sql ="UPDATE Users SET role = ? WHERE email = ?";
+		String sql ="UPDATE Users SET user_role = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
-
-		for (Users u : us) {
-			if(u.getRole() == 1) stmt.setInt(1, 2);
-			else stmt.setInt(1, 1);
-			stmt.setString(2, u.getEmail());			 
-			stmt.executeUpdate();
-		}
+		
+		if (u.getRole() == 1)
+			stmt.setInt(1, 2);
+		else
+			stmt.setInt(1, 1);
+		stmt.setString(2, u.getEmail());			 
+			stmt.executeUpdate();		
 		
 		stmt.close();
 	}	

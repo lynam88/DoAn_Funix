@@ -74,7 +74,7 @@
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
 	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=admin">
-	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ Admin</h6>
+	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ Admin</h6>
 	        </a>
         </li>
         <li class="nav-item">

@@ -21,15 +21,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 
-
 /**
  * Servlet implementation class UsersController
  */
 @WebServlet(name = "ManageUsersController", urlPatterns = { "/ManageUsersController" })
-@MultipartConfig(
-  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-  maxFileSize = 1024 * 1024 * 10,      // 10 MB
-  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+		maxFileSize = 1024 * 1024 * 10, // 10 MB
+		maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 public class ManageUsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -66,7 +64,7 @@ public class ManageUsersController extends HttpServlet {
 		Users u = (Users) session.getAttribute("user");
 		if (u != null && u.getRole() == 1) {
 			try {
-				switch (action) {				
+				switch (action) {
 				case "UserSearch":
 					listUser(request, response);
 					break;
@@ -82,12 +80,7 @@ public class ManageUsersController extends HttpServlet {
 			}
 		} else {
 			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-		}	
-	}
-
-	private void updateRole(HttpServletRequest request, HttpServletResponse response) {
-		
-		
+		}
 	}
 
 	/**
@@ -102,8 +95,8 @@ public class ManageUsersController extends HttpServlet {
 		Users u = (Users) session.getAttribute("user");
 		if (u != null && u.getRole() == 1) {
 			try {
-				switch (action) {				
-				case "UserList":				
+				switch (action) {
+				case "UserList":
 					listUser(request, response);
 					break;
 				case "new":
@@ -111,19 +104,33 @@ public class ManageUsersController extends HttpServlet {
 					break;
 				case "edit":
 					showEditForm(request, response);
-					break;				
+					break;
 				case "export":
 					exportUser(request, response);
-					break;			
+					break;
 				}
 			} catch (Exception ex) {
 				throw new ServletException(ex);
 			}
 		} else {
 			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
-		}		
-	}	
-	
+		}
+	}
+
+	private void updateRole(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String email = request.getParameter("email");
+
+		try {
+			Users u = usersDAO.getUser(email);
+			usersDAO.updateRole(u);		
+		} catch (Exception e) {
+			e.printStackTrace();			
+		}
+
+		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
+	}
+
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		page = 1;
@@ -157,7 +164,7 @@ public class ManageUsersController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/UserForm.jsp");
@@ -181,7 +188,7 @@ public class ManageUsersController extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	}
-	
+
 	private void exportUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		ExportService exporter = new ExportService();
@@ -216,16 +223,17 @@ public class ManageUsersController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}	
-	
+	}
+
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, Exception {
 		String[] emails = request.getParameter("email").split(",");
 		List<Users> list = new ArrayList<Users>();
-		
+
 		for (String email : emails) {
 			Users u = usersDAO.getUser(email);
-			if(u != null && u.getRole() == 2) list.add(u);
+			if (u != null && u.getRole() == 2)
+				list.add(u);
 		}
 		
 		if(list.size() == 0) {
@@ -240,8 +248,8 @@ public class ManageUsersController extends HttpServlet {
 				request.setAttribute("notifyDelete", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
 				request.setAttribute("statusDelete", "Fail");
 			}
-		}		
+		}
 		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
-	}	
+	}
 
 }
