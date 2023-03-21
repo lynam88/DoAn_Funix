@@ -118,14 +118,14 @@ public class ManageUsersController extends HttpServlet {
 	}
 
 	private void updateRole(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
 		String email = request.getParameter("email");
 
 		try {
 			Users u = usersDAO.getUser(email);
 			usersDAO.updateRole(u);		
 		} catch (Exception e) {
-			e.printStackTrace();			
+			throw new Exception(e);
 		}
 
 		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);

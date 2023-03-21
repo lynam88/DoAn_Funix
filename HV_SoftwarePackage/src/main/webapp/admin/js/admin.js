@@ -298,7 +298,7 @@
 	            currentSwitch.prop('checked', isChecked);
 	            setTimeout(function() {                  
 	                $("#showUpdate").modal("show");
-	                $("#showMsg").text("Bạn đã cập nhật thất bại.");
+	                $("#showMsg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
 	            }, 1000);                    
 	            setTimeout(function() {
 	                location.reload();
