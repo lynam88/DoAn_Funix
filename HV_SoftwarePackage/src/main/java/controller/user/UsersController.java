@@ -306,7 +306,7 @@ public class UsersController extends HttpServlet {
 		if (session != null) {
 			session.invalidate();
 		}
-		request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+		request.getRequestDispatcher("UsersController?action=user").forward(request, response);
 	}
 
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response)
