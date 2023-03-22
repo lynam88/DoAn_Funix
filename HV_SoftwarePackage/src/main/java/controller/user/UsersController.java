@@ -156,7 +156,13 @@ public class UsersController extends HttpServlet {
 			break;	
 		case "showLoginPage":
 			showLoginPage(request, response);
-			break;		
+			break;
+		case "showResetPasswordPage":
+			showResetPasswordPage(request, response);
+			break;
+		case "showRecoverUserPage":
+			showRecoverUserPage(request, response);
+			break;
 		case "admin":
 			if (sessionUser != null && sessionUser.getRole() == 1) {
 				showAdminPage(request, response);
@@ -183,6 +189,16 @@ public class UsersController extends HttpServlet {
 			doLogout(request, response);
 			break;
 		}
+	}
+
+	private void showRecoverUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/recoverUser.jsp");
+		dispatcher.forward(request, response);		
+	}
+
+	private void showResetPasswordPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/resetPassword.jsp");
+		dispatcher.forward(request, response);		
 	}
 
 	private void showLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -543,10 +559,16 @@ public class UsersController extends HttpServlet {
 		// Get user from database
 		if (toEmail != null) {
 			Users u = usersDAO.getUser(toEmail);
-			if (u == null || u.getStatus() == 0) {
-				// User is deleted or not registered yet
+			if (u == null) {
+				// User is not registered yet
 				request.setAttribute("notifyValid",
-						"Tài khoản đã bị khoá hoặc chưa đăng ký. Xin liên hệ Admin để mở khoá tài khoản");
+						"Tài khoản chưa đăng ký. Xin vui lòng kiểm tra lại");
+				request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
+				return;
+			} else if (u.getStatus() == 0) {
+				// User is deleted
+				request.setAttribute("notifyValid",
+						"Tài khoản đã bị khoá. Xin liên hệ Admin để mở khoá tài khoản");
 				request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
 				return;
 			}

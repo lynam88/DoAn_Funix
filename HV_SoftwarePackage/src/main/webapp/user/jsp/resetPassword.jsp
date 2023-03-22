@@ -41,7 +41,7 @@ if (notifyPassSent != null) {
 			$('#sendPassModal').modal().hide();			
 			var st = "<%=statusPassSent%>";
 		if (st == "Ok") {
-			window.location.href = '/HV_SoftwarePackage/UsersController?action=resetPassword';
+			window.location.href = '/HV_SoftwarePackage/UsersController?action=showResetPasswordPage';
 		}
 	}, 5000);
 </script>
@@ -73,7 +73,7 @@ if (notifyPassSent != null) {
 									method="post">
 									<h4 class="text-primary">CẤP LẠI MẬT KHẨU</h4>
 									<br/>
-									<p>Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
+									<p id="recoverPassText">Nếu bạn quên mật khẩu, xin hãy điền vào email để chúng
 										tôi gửi lại mật khẩu mới cho bạn</p>
 									<div class="form-outline my-3">
 										<label for="email">Email: <span class="require">*</span></label>
@@ -87,7 +87,7 @@ if (notifyPassSent != null) {
 											<span class="require">(*) Bắt buộc</span>
 										</p>
 										<div>
-											<span id="recoverText">Tài khoản của bạn bị khoá? </span> <a href="${pageContext.request.contextPath}/UsersController?action=recoverUser"
+											<span id="recoverText">Tài khoản của bạn bị khoá? </span> <a href="${pageContext.request.contextPath}/UsersController?action=showRecoverUserPage"
 												id="recoverUser">Xin Liên Hệ!</a>
 										</div>
 									</div>

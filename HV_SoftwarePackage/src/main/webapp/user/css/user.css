@@ -195,6 +195,10 @@
 	
 	/* Reset Password Page */
 		
+	#recoverPassText{
+		color: black;
+	}	
+	
 	.resetPassForm{
 		margin-top: 10%;
 	}	

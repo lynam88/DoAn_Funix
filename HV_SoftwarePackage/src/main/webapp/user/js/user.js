@@ -377,7 +377,7 @@
 			  return false;
 		    
 		  } else if (newPass !== retypeNewPass) {
-			  retypeNewPassError.innerHTML = "Mật khẩu không trùng khớp.";
+			  retypeNewPassError.innerHTML = "Xác nhận mật khẩu mới không trùng khớp.";
 			  return false;
 			
 		  } else {
