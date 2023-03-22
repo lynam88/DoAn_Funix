@@ -96,9 +96,9 @@
 										%>
 										<div class="remember">
 											<input type="checkbox" id="remember" name="remember" checked>
-											<label for="remember">Remember me</label> <a
+											<label for="remember">Ghi nhớ</label> <a
 												href="${pageContext.request.contextPath}/UsersController?action=resetPassword"
-												id="resetPass" style="padding-left: 30%;">Bạn quên mật
+												id="resetPass" style="padding-left: 43%;">Bạn quên mật
 												khẩu?</a>
 										</div>
 
