@@ -175,16 +175,40 @@ public class UsersController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			break;	
+			break;
 		case "userInfo":
-			showUserInfo(request, response);
+			if (sessionUser != null && sessionUser.getRole() == 2) {
+				showUserInfo(request, response);				
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			break;
 		case "showUpdateInfoForm":
-			showUpdateInfoForm(request, response);
+			if (sessionUser != null && sessionUser.getRole() == 2) {
+				showUpdateInfoForm(request, response);				
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
 			break;		
 		case "showUpdatePassInfo":
-			showPassInfo(request, response);
-			break;		
+			if (sessionUser != null && sessionUser.getRole() == 2) {
+				showPassInfo(request, response);				
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
+			break;				
 		case "logout":
 			doLogout(request, response);
 			break;

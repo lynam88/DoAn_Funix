@@ -72,9 +72,9 @@ public class ExportService {
 
        try {
 	       	Connection connection = new DBContext().getConnection();
-	       	String sql = "SELECT name, phone, email, address, registration_date, user_role "
+	       	String sql = "SELECT name, phone, email, address, registration_date, user_role, status "
 					+ "FROM Users "
-					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ")
+					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ? OR address like ?) ")
 					+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
 	
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -83,6 +83,7 @@ public class ExportService {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
 			}
 	
 			if (!searchStatus.equals("0")) {
