@@ -54,7 +54,7 @@
 		  <ul class="navbar-nav ml-auto">		    
 		    <c:choose>
 			  <c:when test="${user.role == 1}">
-			  	<li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=admin" class="nav-link">Trang Chủ Admin</a></li>
+			  	<li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=admin" class="nav-link">Trang quản lý</a></li>
 			  </c:when>
 			  <c:otherwise>
 			  	<li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=user" class="nav-link">Trang Chủ</a></li>
