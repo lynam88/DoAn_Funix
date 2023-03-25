@@ -38,6 +38,7 @@ public class ManageUsersController extends HttpServlet {
 	private String searchStatus;
 	private int page;
 	private HttpSession session;
+	Users sessionUser;
 	Users userData;
 
 	public void init() {
@@ -61,8 +62,8 @@ public class ManageUsersController extends HttpServlet {
 		action = request.getParameter("action");
 		action = action == null ? "UserSearch" : action;
 		session = request.getSession();
-		Users u = (Users) session.getAttribute("user");
-		if (u != null && u.getRole() == 1) {
+		Users sessionUser = (Users) session.getAttribute("user");
+		if (sessionUser != null && (sessionUser.getRole() == 0 || sessionUser.getRole() == 1)) {
 			try {
 				switch (action) {
 				case "UserSearch":
@@ -73,6 +74,9 @@ public class ManageUsersController extends HttpServlet {
 					break;
 				case "updateRole":
 					updateRole(request, response);
+					break;
+				case "statusUpdate":
+					statusUpdate(request, response);
 					break;
 				}
 			} catch (Exception ex) {
@@ -92,8 +96,8 @@ public class ManageUsersController extends HttpServlet {
 		action = request.getParameter("action");
 		action = action == null ? "UserList" : action;
 		session = request.getSession();
-		Users u = (Users) session.getAttribute("user");
-		if (u != null && u.getRole() == 1) {
+		sessionUser = (Users) session.getAttribute("user");
+		if (sessionUser != null && (sessionUser.getRole() == 0 || sessionUser.getRole() == 1)) {
 			try {
 				switch (action) {
 				case "UserList":
@@ -117,14 +121,46 @@ public class ManageUsersController extends HttpServlet {
 		}
 	}
 
-	private void updateRole(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	private void statusUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String email = request.getParameter("email");
 
 		try {
 			Users u = usersDAO.getUser(email);
-			usersDAO.updateRole(u);		
+			usersDAO.statusUpdate(u);
 		} catch (Exception e) {
+			throw new Exception(e);
+		}
+
+		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
+	}
+
+	private void updateRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String email = request.getParameter("email");
+		int sessionRole = sessionUser.getRole();
+
+		try {
+			Users u = usersDAO.getUser(email);
+			if (sessionRole == 0 && u.getRole() == 0) {
+				request.setAttribute("notifyUserList", "Bạn không được cập nhật chính mình.");
+				request.setAttribute("statusUserList", "Fail");
+				request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
+				return;
+			} else if (sessionRole != 0) {	
+				if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {
+					request.setAttribute("notifyUserList", "Bạn không được phép cập nhật ADMIN.");
+					request.setAttribute("statusUserList", "Fail");
+				} else if (u.getRole() == 0 || u.getRole() == 1) {
+					request.setAttribute("notifyUserList", "Bạn không được phép cập nhật ADMIN.");
+					request.setAttribute("statusUserList", "Fail");
+				} 
+			} else {
+				usersDAO.updateRole(u);
+				request.setAttribute("notifyUserList", "Bạn đã cập nhật vai trò USER thành công.");
+				request.setAttribute("statusUserList", "Ok");
+			}
+		} catch (
+
+		Exception e) {
 			throw new Exception(e);
 		}
 
@@ -235,18 +271,18 @@ public class ManageUsersController extends HttpServlet {
 			if (u != null && u.getRole() == 2)
 				list.add(u);
 		}
-		
-		if(list.size() == 0) {
-			request.setAttribute("notifyDelete", "Bạn không được phép xoá ADMIN.");
-			request.setAttribute("statusDelete", "Fail");
-		} else {		
+
+		if (list.size() == 0) {
+			request.setAttribute("notifyUserList", "Bạn không được phép xoá ADMIN.");
+			request.setAttribute("statusUserList", "Fail");
+		} else {
 			try {
 				usersDAO.deleteUser(list);
-				request.setAttribute("notifyDelete", "Bạn đã xoá thành công.");
-				request.setAttribute("statusDelete", "ok");
+				request.setAttribute("notifyUserList", "Bạn đã xoá thành công.");
+				request.setAttribute("statusUserList", "ok");
 			} catch (Exception e) {
-				request.setAttribute("notifyDelete", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-				request.setAttribute("statusDelete", "Fail");
+				request.setAttribute("notifyUserList", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+				request.setAttribute("statusUserList", "Fail");
 			}
 		}
 		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);

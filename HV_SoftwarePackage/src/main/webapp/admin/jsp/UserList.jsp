@@ -8,10 +8,10 @@
 </c:import>
 
 <%
-	String notifyDelete = (String) request.getAttribute("notifyDelete");
-	String statusDelete = (String) request.getAttribute("statusDelete");
+	String notifyUserList = (String) request.getAttribute("notifyUserList");
+	String statusUserList = (String) request.getAttribute("statusUserList");
 
-	if (notifyDelete != null) {
+	if (notifyUserList != null) {
 %>
 <div class="modal" id="userDelModal" role="dialog">
 	<div class="modal-dialog">
@@ -26,7 +26,7 @@
 			</div>
 			<div class="modal-body">
 				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifyDelete%></p>
+					style="font-size: large; color: red;"><%=notifyUserList%></p>
 			</div>
 		</div>
 
@@ -38,7 +38,7 @@
 			$("#userDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
-			var st = "<%=statusDelete%>";
+			var st = "<%=statusUserList%>";
 				$("#userDelModal").modal("hide");
 				if (st == "ok") {
 					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
@@ -89,10 +89,6 @@
 				<div class="pageTitle">
 
 					<a class="btn nv btn-primary pageBtn" type="button"
-						href="${pageContext.request.contextPath}/ManageUsersController?action=new"
-						data-toggle="tooltip" data-placement="top"> <i
-						class="fa fa-plus-square"></i> Thêm User
-					</a> <a class="btn nv btn-primary pageBtn" type="button"
 						onclick="sortTable()" data-toggle="tooltip" data-placement="top">
 						<i class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
 					</a> <a class="btn nv btn-primary functionBtn"
@@ -115,11 +111,8 @@
 										style="font-size: large; color: red;"></p>
 								</div>
 							</div>
-
 						</div>
-
 					</div>
-
 				</div>
 
 				<div class="card-body px-0 pt-0 pb-2">
@@ -135,7 +128,7 @@
 										<th style="width: 9%;">Email</th>
 										<th style="width: 5%;">Phone</th>
 										<th style="width: 8%;">Địa Chỉ</th>
-										<th style="width: 4%;">Trạng Thái</th>
+										<th style="width: 4%;">Hoạt động</th>
 										<th style="width: 3%;">Action</th>
 									</tr>
 								</thead>
@@ -154,35 +147,35 @@
 											</c:choose>
 											<td>
 												<div class="form-check form-switch">
-													<input class="form-check-input" type="checkbox"
-														role="switch" id="role_chk" name="role_chk"
-														value="<c:out value='${user.email}'/>"
+													<input class="form-check-input role_chk" type="checkbox"
+														role="switch" value="<c:out value='${user.email}'/>"
+														<c:if test="${user.role == 0}">checked disabled</c:if> 
 														<c:if test="${user.role == 1}">checked</c:if> />
 												</div>
 											</td>
 											<!--Modal -->
-											<div class="modal" id="roleModal" role="dialog">
+											<div class="modal" id="role_confirm" role="dialog">
 												<div class="modal-dialog modal-dialog-centered"
 													tabindex="-1 role="document">
 													<!--Modal content -->
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal"
-																id="close_role_update">&times;</button>
+																id="close_role_confirm">&times;</button>
 														</div>
 														<div class="modal-body">
 															<p style="font-size: large;">Bạn muốn chuyển vai trò người dùng?</p>
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-ok btn-danger"
-																id="ok_role_update" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
+																id="ok_role_confirm" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
 															<button type="button" class="btn btn-default btn-success"
-																id="cancel_role_update" data-dismiss="modal">Hủy</button>
+																id="cancel_role_confirm" data-dismiss="modal">Hủy</button>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="modal" id="showUpdate" role="dialog">
+											<div class="modal" id="role_notify" role="dialog">
 												<div class="modal-dialog">
 
 													<!-- Modal content-->
@@ -194,7 +187,7 @@
 															</button>
 														</div>
 														<div class="modal-body">
-															<p class="text-center" id="showMsg"
+															<p class="text-center" id="role_msg"
 																style="font-size: large; color: red;"></p>
 														</div>
 													</div>
@@ -208,7 +201,54 @@
 											</td>
 											<td><c:out value="${user.phone}" /></td>
 											<td><c:out value="${user.address}" /></td>
-											<td>Active</td>
+											<td>
+												<div class="form-check form-switch">
+													<input class="form-check-input status_chk" type="checkbox"
+														role="switch" value="<c:out value='${user.email}'/>"
+														<c:if test="${user.role == 0}">checked disabled</c:if>
+														<c:if test="${user.status == 1}">checked</c:if> />
+												</div>
+											</td>
+											<!--Modal -->
+											<div class="modal" id="status_confirm" role="dialog">
+												<div class="modal-dialog modal-dialog-centered"
+													tabindex="-1 role="document">
+													<!--Modal content -->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal"
+																id="close_status_confirm">&times;</button>
+														</div>
+														<div class="modal-body">
+															<p style="font-size: large;">Bạn muốn khoá/mở khoá tài khoản này?</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-ok btn-danger"
+																id="ok_status_confirm" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
+															<button type="button" class="btn btn-default btn-success"
+																id="cancel_status_confirm" data-dismiss="modal">Hủy</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal" id="status_notify" role="dialog">
+												<div class="modal-dialog">
+
+													<!-- Modal content-->
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<p class="text-center" id="status_msg"
+																style="font-size: large; color: red;"></p>
+														</div>
+													</div>
+												</div>
+											</div>
 											<td><a class="edit"
 												href="ManageUsersController?action=edit&email=${user.email}&page=${currentPage}"
 												title="Sửa" data-toggle="tooltip"> <i

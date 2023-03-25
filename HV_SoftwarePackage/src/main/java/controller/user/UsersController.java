@@ -164,7 +164,7 @@ public class UsersController extends HttpServlet {
 			showRecoverUserPage(request, response);
 			break;
 		case "admin":
-			if (sessionUser != null && sessionUser.getRole() == 1) {
+			if (sessionUser != null && (sessionUser.getRole() == 0 || sessionUser.getRole() == 1)) {
 				showAdminPage(request, response);
 			} 
 			break;
@@ -738,7 +738,7 @@ public class UsersController extends HttpServlet {
 					return;
 				}
 
-				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 1) {
+				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && (userData.getRole() == 0 || userData.getRole() == 1)) {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the admin page

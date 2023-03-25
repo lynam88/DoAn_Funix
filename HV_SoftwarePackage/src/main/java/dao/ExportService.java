@@ -72,10 +72,10 @@ public class ExportService {
 
        try {
 	       	Connection connection = new DBContext().getConnection();
-	       	String sql = "SELECT name, phone, email, address, registration_date, user_role, status "
+	       	String sql = "SELECT * "
 					+ "FROM Users "
-					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ? OR address like ?) ")
-					+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
+					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
+					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE" : "AND ") + "user_role = ?");
 	
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -123,9 +123,9 @@ public class ExportService {
         Row headerRow = sheet.createRow(0);
  
         // exclude the first column which is the ID field
-        for (int i = 2; i <= numberOfColumns; i++) {
+        for (int i = 1; i <= numberOfColumns; i++) {
             String columnName = metaData.getColumnName(i);
-            Cell headerCell = headerRow.createCell(i - 2);
+            Cell headerCell = headerRow.createCell(i - 1);
             headerCell.setCellValue(columnName);
         }
     }
@@ -140,21 +140,25 @@ public class ExportService {
         while (result.next()) {
             Row row = sheet.createRow(rowCount++);
  
-            for (int i = 2; i <= numberOfColumns; i++) {
+            for (int i = 1; i <= numberOfColumns; i++) {
                 Object valueObject = result.getObject(i);
  
-                Cell cell = row.createCell(i - 2);
+                Cell cell = row.createCell(i - 1);
  
-                if (valueObject instanceof Boolean)
+                if (valueObject == null) {
+                    cell.setCellValue("");
+                } else if (valueObject instanceof Boolean) {
                     cell.setCellValue((Boolean) valueObject);
-                else if (valueObject instanceof Double)
+                } else if (valueObject instanceof Double) {
                     cell.setCellValue((double) valueObject);
-                else if (valueObject instanceof Float)
+                } else if (valueObject instanceof Float) {
                     cell.setCellValue((float) valueObject);
-                else if (valueObject instanceof Date) {
+                } else if (valueObject instanceof Date) {
                     cell.setCellValue((Date) valueObject);
                     formatDateCell(workbook, cell);
-                } else cell.setCellValue(valueObject.toString());
+                } else {
+                    cell.setCellValue(valueObject.toString());
+                }
  
             }
  

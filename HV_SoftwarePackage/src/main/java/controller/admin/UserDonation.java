@@ -210,16 +210,16 @@ public class UserDonation extends HttpServlet {
 		}
 		
 		if(list.size() == 0) {
-			request.setAttribute("notifyDelete", "Bạn không được phép xoá ADMIN.");
-			request.setAttribute("statusDelete", "Fail");
+			request.setAttribute("notifyUserList", "Bạn không được phép xoá ADMIN.");
+			request.setAttribute("statusUserList", "Fail");
 		} else {		
 			try {
 				usersDAO.deleteUser(list);
-				request.setAttribute("notifyDelete", "Bạn đã xoá thành công.");
-				request.setAttribute("statusDelete", "ok");
+				request.setAttribute("notifyUserList", "Bạn đã xoá thành công.");
+				request.setAttribute("statusUserList", "ok");
 			} catch (Exception e) {
-				request.setAttribute("notifyDelete", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-				request.setAttribute("statusDelete", "Fail");
+				request.setAttribute("notifyUserList", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
+				request.setAttribute("statusUserList", "Fail");
 			}
 		}		
 		request.getRequestDispatcher("admin/UserList.jsp").forward(request, response);

@@ -8,10 +8,10 @@
 </c:import>
 
 <%
-String notifyDelete = (String) request.getAttribute("notifyDelete");
-String statusDelete = (String) request.getAttribute("statusDelete");
+String notifyUserList = (String) request.getAttribute("notifyUserList");
+String statusUserList = (String) request.getAttribute("statusUserList");
 
-if (notifyDelete != null) {
+if (notifyUserList != null) {
 %>
 <div class="modal" id="userDelModal" role="dialog">
 	<div class="modal-dialog">
@@ -26,7 +26,7 @@ if (notifyDelete != null) {
 			</div>
 			<div class="modal-body">
 				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifyDelete%></p>
+					style="font-size: large; color: red;"><%=notifyUserList%></p>
 			</div>
 		</div>
 
@@ -38,7 +38,7 @@ if (notifyDelete != null) {
 			$("#userDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
-			var st = "<%=statusDelete%>";
+			var st = "<%=statusUserList%>";
 			$("#userDelModal").modal("hide");
 				if (st == "ok") {			
 					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';

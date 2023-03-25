@@ -53,7 +53,7 @@
 	     <div class="collapse navbar-collapse" id="ftco-nav">
 		  <ul class="navbar-nav ml-auto">		    
 		    <c:choose>
-			  <c:when test="${user.role == 1}">
+			  <c:when test="${user.role == 0 || user.role == 1}">
 			  	<li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=admin" class="nav-link">Trang quản lý</a></li>
 			  </c:when>
 			  <c:otherwise>

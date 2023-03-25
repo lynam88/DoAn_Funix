@@ -256,37 +256,37 @@
 		$("#myModal").modal("hide");					
 	})
 	
-	//Switch button
-	$('.form-check-input').click(function() {
+	//Switch role button
+	$('.role_chk').click(function() {
 	    var currentSwitch = $(this);
 	    var isChecked = currentSwitch.prop('checked');
 	    var checkedEmail = $(this).val();
 	    
-	    $("#roleModal").modal("show");
+	    $("#role_confirm").modal("show");
 
-	    $('#ok_role_update').click(function(){
+	    $('#ok_role_confirm').click(function(){
 	        try {
 	            $.ajax({
 	                type : 'POST',
 	                data: {email: checkedEmail}, 
 	                url : '/HV_SoftwarePackage/ManageUsersController?action=updateRole',
 	                success : function() {		                	
-	                    $("#roleModal").modal("hide");
+	                    $("#role_confirm").modal("hide");
 	                    currentSwitch.prop('checked', isChecked);
 	                    setTimeout(function() {                  
-	                        $("#showUpdate").modal("show");
-	                        $("#showMsg").text("Bạn đã cập nhật thành công");
+	                        $("#role_notify").modal("show");
+	                        $("#role_msg").text("Bạn đã cập nhật thành công");
 	                    }, 1000);                    
 	                    setTimeout(function() {
 	                        location.reload();
 	                    }, 3000);
 	                },
 	                error: function(){	                
-	                    $("#roleModal").modal("hide");
+	                    $("#role_confirm").modal("hide");
 	                    currentSwitch.prop('checked', isChecked);
 	                    setTimeout(function() {                  
-	                        $("#showUpdate").modal("show");
-	                        $("#showMsg").text("Bạn đã cập nhật thất bại.");
+	                        $("#role_notify").modal("show");
+	                        $("#role_msg").text("Bạn đã cập nhật thất bại.");
 	                    }, 1000);                    
 	                    setTimeout(function() {
 	                        location.reload();
@@ -294,11 +294,11 @@
 	                },
 	            });
 	        } catch (e) {	   
-	            $("#roleModal").modal("hide");
+	            $("#role_confirm").modal("hide");
 	            currentSwitch.prop('checked', isChecked);
 	            setTimeout(function() {                  
-	                $("#showUpdate").modal("show");
-	                $("#showMsg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+	                $("#role_notify").modal("show");
+	                $("#role_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
 	            }, 1000);                    
 	            setTimeout(function() {
 	                location.reload();
@@ -306,16 +306,75 @@
 	        }	       
 	    });
 	    
-	    $('#cancel_role_update, #close_role_update').click(function() {
+	    $('#cancel_role_confirm, #close_role_confirm').click(function() {
 	        currentSwitch.prop('checked', !isChecked);
-	        $("#roleModal").modal("hide");
+	        $("#role_confirm").modal("hide");
 	    });
 	    
-	    $('#roleModal').on('hide.bs.modal', function() {
+	    $('#role_confirm').on('hide.bs.modal', function() {
 	        currentSwitch.prop('checked', !isChecked);                
 	    });
 	    
 	});
 
-	
+	//Lock - unlock users
+		$('.status_chk').click(function() {
+		    var currentSwitch = $(this);
+		    var isChecked = currentSwitch.prop('checked');
+		    var checkedEmail = $(this).val();
+		    
+		    $("#status_confirm").modal("show");
+
+		    $('#ok_status_confirm').click(function(){
+		        try {
+		            $.ajax({
+		                type : 'POST',
+		                data: {email: checkedEmail}, 
+		                url : '/HV_SoftwarePackage/ManageUsersController?action=statusUpdate',
+		                success : function() {		                	
+		                    $("#status_confirm").modal("hide");
+		                    currentSwitch.prop('checked', isChecked);
+		                    setTimeout(function() {                  
+		                        $("#status_notify").modal("show");
+		                        $("#status_msg").text("Bạn đã cập nhật thành công");
+		                    }, 1000);                    
+		                    setTimeout(function() {
+		                        location.reload();
+		                    }, 3000);
+		                },
+		                error: function(){	                
+		                    $("#status_confirm").modal("hide");
+		                    currentSwitch.prop('checked', isChecked);
+		                    setTimeout(function() {                  
+		                        $("#status_notify").modal("show");
+		                        $("#status_msg").text("Bạn đã cập nhật thất bại.");
+		                    }, 1000);                    
+		                    setTimeout(function() {
+		                        location.reload();
+		                    }, 3000);
+		                },
+		            });
+		        } catch (e) {	   
+		            $("#status_confirm").modal("hide");
+		            currentSwitch.prop('checked', isChecked);
+		            setTimeout(function() {                  
+		                $("#status_notify").modal("show");
+		                $("#status_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		            }, 1000);                    
+		            setTimeout(function() {
+		                location.reload();
+		            }, 3000);
+		        }	       
+		    });
+		    
+		    $('#cancel_status_confirm, #close_status_confirm').click(function() {
+		        currentSwitch.prop('checked', !isChecked);
+		        $("#status_confirm").modal("hide");
+		    });
+		    
+		    $('#status_confirm').on('hide.bs.modal', function() {
+		        currentSwitch.prop('checked', !isChecked);                
+		    });
+		    
+		});
 	

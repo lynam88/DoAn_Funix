@@ -19,10 +19,9 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role "
-					+ "FROM Users "
-					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ? OR address like ?) ")
-					+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
+			String sql = "SELECT name, phone, email, address, registration_date, user_role " + "FROM Users "
+					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
+					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE" : "AND ") + "user_role = ?");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -68,13 +67,10 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total "
-					+ "FROM Users " 
-					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ? OR address like ?) ");
-			if (!searchStatus.equals("0")) {
-				sql += " AND user_role = ?";
-			}
-			sql += " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total "
+					+ "FROM Users " + (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
+					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE" : "AND ") + "user_role = ? ")
+					+ "ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -84,7 +80,7 @@ public class UsersDAO {
 				stmt.setString(index++, character);
 				stmt.setString(index++, "%" + character + "%");
 			}
-			
+
 			if (!searchStatus.equals("0")) {
 				stmt.setString(index++, searchStatus);
 			}
@@ -101,6 +97,7 @@ public class UsersDAO {
 				u.setAddress(rs.getString("address"));
 				u.setRegistrationDate(rs.getDate("registration_date"));
 				u.setRole(rs.getInt("user_role"));
+				u.setStatus(rs.getInt("status"));
 
 				list.add(u);
 			}
@@ -114,11 +111,11 @@ public class UsersDAO {
 	public Users getUser(String id) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = null;
-		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?)";		
+		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?)";
 
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, id);
-		stmt.setString(2, id);		
+		stmt.setString(2, id);
 
 		ResultSet rs = stmt.executeQuery();
 
@@ -136,35 +133,37 @@ public class UsersDAO {
 		}
 		return u;
 	}
-	
+
 	public void insertUser(Users u) throws Exception {
-	    Connection connection = new DBContext().getConnection();
-	    String sql = "MERGE INTO Users AS target " +
-	                 "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, " + (u.getPhone().isEmpty() ? "" : "phone, ") + "email, avatar_path, address, password, registration_date) " +
-	                 "ON target.email = source.email " +
-	                 (u.getPhone().isEmpty() ? "" : "AND target.phone = source.phone ") +
-	                 "WHEN NOT MATCHED BY TARGET THEN " +
-	                 "INSERT (name, " + (u.getPhone().isEmpty() ? "" : "phone, ") + "email, avatar_path, address, password, registration_date) " +
-	                 "VALUES (source.name, " + (u.getPhone().isEmpty() ? "" : "source.phone, ") + "source.email, source.avatar_path, source.address, source.password, GETDATE());";
+		Connection connection = new DBContext().getConnection();
+		String sql = "MERGE INTO Users AS target " + "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, "
+				+ (u.getPhone().isEmpty() ? "" : "phone, ")
+				+ "email, avatar_path, address, password, registration_date) " + "ON target.email = source.email "
+				+ (u.getPhone().isEmpty() ? "" : "AND target.phone = source.phone ")
+				+ "WHEN NOT MATCHED BY TARGET THEN " + "INSERT (name, " + (u.getPhone().isEmpty() ? "" : "phone, ")
+				+ "email, avatar_path, address, password, registration_date) " + "VALUES (source.name, "
+				+ (u.getPhone().isEmpty() ? "" : "source.phone, ")
+				+ "source.email, source.avatar_path, source.address, source.password, GETDATE());";
 
-	    PreparedStatement stmt = connection.prepareStatement(sql);
+		PreparedStatement stmt = connection.prepareStatement(sql);
 
-	    stmt.setString(1, u.getName());
-	    int index = 2;
-	    if (!u.getPhone().isEmpty()) {
-	        stmt.setString(index++, u.getPhone());
-	    }
-	    stmt.setString(index++, u.getEmail());
-	    stmt.setString(index++, u.getAvatarPath());
-	    stmt.setString(index++, u.getAddress());
-	    stmt.setString(index++, u.getPassword());
-	    int run = stmt.executeUpdate();
-	    stmt.close();
-	    if (run == 0) throw new Exception();
+		stmt.setString(1, u.getName());
+		int index = 2;
+		if (!u.getPhone().isEmpty()) {
+			stmt.setString(index++, u.getPhone());
+		}
+		stmt.setString(index++, u.getEmail());
+		stmt.setString(index++, u.getAvatarPath());
+		stmt.setString(index++, u.getAddress());
+		stmt.setString(index++, u.getPassword());
+		int run = stmt.executeUpdate();
+		stmt.close();
+		if (run == 0)
+			throw new Exception();
 	}
-	
+
 	public void updateUser(Users u, String originEmail) throws Exception {
-		Connection connection = new DBContext().getConnection();		
+		Connection connection = new DBContext().getConnection();
 		String sql = "UPDATE Users SET name = ?, phone = ?, email = ?, avatar_path = ?, address = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -175,42 +174,42 @@ public class UsersDAO {
 		stmt.setString(5, u.getAddress());
 		stmt.setString(6, originEmail);
 		stmt.executeUpdate();
-		stmt.close();	
+		stmt.close();
 	}
 
 	public void updateRole(Users u) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		
-		String sql ="UPDATE Users SET user_role = ? WHERE email = ?";
+
+		String sql = "UPDATE Users SET user_role = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		
+
 		if (u.getRole() == 1)
 			stmt.setInt(1, 2);
 		else
 			stmt.setInt(1, 1);
-		stmt.setString(2, u.getEmail());			 
-			stmt.executeUpdate();		
-		
+		stmt.setString(2, u.getEmail());
+		stmt.executeUpdate();
+
 		stmt.close();
-	}	
+	}
 
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		
-		String sql ="UPDATE Users SET status = 0 WHERE email = ?";
+
+		String sql = "UPDATE Users SET status = 0 WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		for (Users u : us) {			
-			stmt.setString(1, u.getEmail()); 
+		for (Users u : us) {
+			stmt.setString(1, u.getEmail());
 			stmt.executeUpdate();
 		}
-		
+
 		stmt.close();
-	}	
-	
+	}
+
 	public void updatePass(Users u, String password) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		
+
 		String sql = "UPDATE Users SET password = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -218,12 +217,12 @@ public class UsersDAO {
 		stmt.setString(2, u.getEmail());
 		stmt.executeUpdate();
 		stmt.close();
-		
+
 	}
-	
+
 	public void updateFeedback(Users u, String feedback) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		
+
 		String sql = "UPDATE Users SET feedback = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -231,7 +230,24 @@ public class UsersDAO {
 		stmt.setString(2, u.getEmail());
 		stmt.executeUpdate();
 		stmt.close();
-		
+
+	}
+
+	public void statusUpdate(Users u) throws Exception {
+		Connection connection = new DBContext().getConnection();
+
+		String sql = "UPDATE Users SET status = ? WHERE email = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+
+		if (u.getStatus() == 0)
+			stmt.setInt(1, 1);
+		else
+			stmt.setInt(1, 0);
+		stmt.setString(2, u.getEmail());
+		stmt.executeUpdate();
+
+		stmt.close();
+
 	}
 
 }

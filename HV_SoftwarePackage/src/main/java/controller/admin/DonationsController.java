@@ -54,7 +54,7 @@ public class DonationsController extends HttpServlet {
 		action = action == null ? "DonationSearch" : action;
 		session = request.getSession();
 		Users u = (Users) session.getAttribute("user");
-		if (u != null && u.getRole() == 1) {
+		if (u != null && (u.getRole() == 0 || u.getRole() == 1)) {
 			try {
 				switch (action) {				
 				case "DonationSearch":
@@ -84,7 +84,7 @@ public class DonationsController extends HttpServlet {
 		action = action == null ? "DonationList" : action;
 		session = request.getSession();
 		Users u = (Users) session.getAttribute("user");
-		if (u != null && u.getRole() == 1) {
+		if (u != null && (u.getRole() == 0 || u.getRole() == 1)) {
 			try {
 				switch (action) {
 				case "DonationList":				
