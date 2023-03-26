@@ -35,11 +35,12 @@ public class ManageUsersController extends HttpServlet {
 	private String action;
 	private String search;
 	private String searchString;
-	private String searchStatus;
+	private String searchRole;
 	private int page;
 	private HttpSession session;
 	Users sessionUser;
 	Users userData;
+	private int sessionRole;
 
 	public void init() {
 		usersDAO = new UsersDAO();
@@ -63,7 +64,8 @@ public class ManageUsersController extends HttpServlet {
 		action = action == null ? "UserSearch" : action;
 		session = request.getSession();
 		Users sessionUser = (Users) session.getAttribute("user");
-		if (sessionUser != null && (sessionUser.getRole() == 0 || sessionUser.getRole() == 1)) {
+		sessionRole = sessionUser.getRole();
+		if (sessionUser != null && (sessionRole == 0 || sessionRole == 1)) {
 			try {
 				switch (action) {
 				case "UserSearch":
@@ -97,7 +99,7 @@ public class ManageUsersController extends HttpServlet {
 		action = action == null ? "UserList" : action;
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
-		if (sessionUser != null && (sessionUser.getRole() == 0 || sessionUser.getRole() == 1)) {
+		if (sessionUser != null && (sessionRole == 0 || sessionRole == 1)) {
 			try {
 				switch (action) {
 				case "UserList":
@@ -135,27 +137,19 @@ public class ManageUsersController extends HttpServlet {
 	}
 
 	private void updateRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String email = request.getParameter("email");
-		int sessionRole = sessionUser.getRole();
+		String email = request.getParameter("email");		
 
 		try {
 			Users u = usersDAO.getUser(email);
-			if (sessionRole == 0 && u.getRole() == 0) {
+			if (sessionRole == u.getRole()) {
 				request.setAttribute("notifyUserList", "Bạn không được cập nhật chính mình.");
-				request.setAttribute("statusUserList", "Fail");
-				request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
-				return;
-			} else if (sessionRole != 0) {	
-				if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {
-					request.setAttribute("notifyUserList", "Bạn không được phép cập nhật ADMIN.");
-					request.setAttribute("statusUserList", "Fail");
-				} else if (u.getRole() == 0 || u.getRole() == 1) {
-					request.setAttribute("notifyUserList", "Bạn không được phép cập nhật ADMIN.");
-					request.setAttribute("statusUserList", "Fail");
-				} 
+				request.setAttribute("statusUserList", "Fail");				
+			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {				
+				request.setAttribute("notifyUserList", "Bạn không được phép cập nhật ADMIN.");
+				request.setAttribute("statusUserList", "Fail");				
 			} else {
 				usersDAO.updateRole(u);
-				request.setAttribute("notifyUserList", "Bạn đã cập nhật vai trò USER thành công.");
+				request.setAttribute("notifyUserList", "Bạn đã cập nhật vai trò thành công.");
 				request.setAttribute("statusUserList", "Ok");
 			}
 		} catch (
@@ -176,19 +170,20 @@ public class ManageUsersController extends HttpServlet {
 			search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
-		searchStatus = request.getParameter("searchStatus");
-		if (searchStatus == null || searchStatus == "") {
-			searchStatus = "0";
+		searchRole = request.getParameter("searchRole");
+		if (searchRole == null || searchRole == "") {
+			searchRole = "0";
 		}
+	
 		request.setAttribute("searchText", searchString);
-		request.setAttribute("searchStatus", searchStatus);
+		request.setAttribute("searchRole", searchRole);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			usersDAO.searchName(searchString, searchStatus);
+			usersDAO.search(searchString, searchRole);
 			int noOfRecord = usersDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Users> listPerPage = usersDAO.getRecord(searchString, searchStatus, page, recordPerPage);
+			List<Users> listPerPage = usersDAO.getRecord(searchString, searchRole, page, recordPerPage);
 			request.setAttribute("UserList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
@@ -231,7 +226,7 @@ public class ManageUsersController extends HttpServlet {
 		// reads input file from an absolute path
 		File downloadFile = null;
 		try {
-			downloadFile = new File(exporter.userExport(searchString, searchStatus));
+			downloadFile = new File(exporter.userExport(searchString, searchRole));
 			FileInputStream inStream = new FileInputStream(downloadFile);
 
 			// modifies response

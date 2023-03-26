@@ -123,7 +123,7 @@ public class UserDonation extends HttpServlet {
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			usersDAO.searchName(searchString, searchStatus);
+			usersDAO.search(searchString, searchStatus);
 			int noOfRecord = usersDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
 			List<Users> listPerPage = usersDAO.getRecord(searchString, searchStatus, page, recordPerPage);

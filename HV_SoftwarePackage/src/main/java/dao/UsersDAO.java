@@ -15,13 +15,13 @@ public class UsersDAO {
 
 	private int noOfRecords;
 
-	public List<Users> searchName(String character, String searchStatus) throws Exception {
+	public List<Users> search(String character, String searchRole) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role " + "FROM Users "
 					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE" : "AND ") + "user_role = ?");
+					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ?");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -32,8 +32,8 @@ public class UsersDAO {
 				stmt.setString(index++, "%" + character + "%");
 			}
 
-			if (!searchStatus.equals("0")) {
-				stmt.setString(index++, searchStatus);
+			if (!searchRole.equals("0")) {
+				stmt.setString(index++, searchRole);
 			}
 
 			ResultSet rs = stmt.executeQuery();
@@ -62,14 +62,14 @@ public class UsersDAO {
 
 	}
 
-	public List<Users> getRecord(String character, String searchStatus, int pageNo, int recordPerPage)
+	public List<Users> getRecord(String character, String searchRole, int pageNo, int recordPerPage)
 			throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total "
 					+ "FROM Users " + (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE" : "AND ") + "user_role = ? ")
+					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
 					+ "ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -81,8 +81,8 @@ public class UsersDAO {
 				stmt.setString(index++, "%" + character + "%");
 			}
 
-			if (!searchStatus.equals("0")) {
-				stmt.setString(index++, searchStatus);
+			if (!searchRole.equals("0")) {
+				stmt.setString(index++, searchRole);
 			}
 			stmt.setInt(index++, pageNo);
 			stmt.setInt(index++, recordPerPage);

@@ -15,7 +15,7 @@ public class UsersDonationDAO {
 
 	private int noOfRecords;
 
-	public List<Users> searchName(String character, String searchStatus) throws Exception {
+	public List<Users> search(String character, String searchStatus) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
