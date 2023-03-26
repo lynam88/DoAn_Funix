@@ -1,4 +1,4 @@
-git reset --hard
+﻿git reset --hard
 git pull
 
 git init
@@ -7,19 +7,19 @@ git commit -m 'Initial Commit'
 git push -u origin main
 
 lynam88
-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
+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
 
 Information
 
-1.     M� s? h?c vi�n: FX17215
+1.     Mã số học viên: FX17215
 
-2.     L?p:  K220509DN
+2.     Lớp:  K220509DN
 
-3.     T�i kho?n h?c t?p:
+3.     Tài khoản học tập:
 
-�         Username: namtlFX17215@funix.edu.vn
+·         Username: namtlFX17215@funix.edu.vn
 
-�         Password: QrWjwddZ8xWz
+·         Password: QrWjwddZ8xWz
 
 jsfiddle, Komodo, 000webhost:
 lynam88
@@ -37,10 +37,10 @@ Madison School of Professional Development
 1
 
 
-� H? v� t�n: Truong Tu?ng Vy
+· HỌ và tên: Trương Tường Vy
 
-� Facebook: https://www.facebook.com/HannahTuongVy
+· Facebook: https://www.facebook.com/HannahTuongVy
 
-� Email: vytt@funix.edu.vn
+· Email: vytt@funix.edu.vn
 
-� Hotline: 0706168094
+· Hotline: 0706168094
