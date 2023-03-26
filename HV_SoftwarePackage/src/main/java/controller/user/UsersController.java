@@ -177,7 +177,7 @@ public class UsersController extends HttpServlet {
 			}
 			break;
 		case "userInfo":
-			if (sessionUser != null && sessionUser.getRole() == 2) {
+			if (sessionUser != null) {
 				showUserInfo(request, response);				
 			} else
 				try {
@@ -188,7 +188,7 @@ public class UsersController extends HttpServlet {
 				}
 			break;
 		case "showUpdateInfoForm":
-			if (sessionUser != null && sessionUser.getRole() == 2) {
+			if (sessionUser != null) {
 				showUpdateInfoForm(request, response);				
 			} else
 				try {
@@ -199,7 +199,7 @@ public class UsersController extends HttpServlet {
 				}		
 			break;		
 		case "showUpdatePassInfo":
-			if (sessionUser != null && sessionUser.getRole() == 2) {
+			if (sessionUser != null) {
 				showPassInfo(request, response);				
 			} else
 				try {
@@ -738,7 +738,7 @@ public class UsersController extends HttpServlet {
 					return;
 				}
 
-				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && (userData.getRole() == 0 || userData.getRole() == 1)) {
+				if (userData.getStatus() == 2 && userData.getPassword().equals(passDB) && (userData.getRole() == 0 || userData.getRole() == 1)) {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the admin page
@@ -746,7 +746,7 @@ public class UsersController extends HttpServlet {
 					return;
 				}
 
-				if (userData.getStatus() == 1 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {
+				if (userData.getStatus() == 2 && userData.getPassword().equals(passDB) && userData.getRole() == 2) {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the user page
@@ -754,7 +754,7 @@ public class UsersController extends HttpServlet {
 					return;
 				}
 
-				if (userData.getStatus() == 0) {
+				if (userData.getStatus() == 1) {
 					request.setAttribute("notifyLogin", "Tài khoản đã bị khoá, vui lòng liên hệ admin.");
 
 					// Forward the request and response to the login page

@@ -67,7 +67,7 @@ public class ExportService {
         return file;
     }
     
-    public String userExport(String character, String searchStatus) throws Exception {                  
+    public String userExport(String character, String searchRole, String searchStatus) throws Exception {                  
         String file = "./User_Export" + getFileName();
 
        try {
@@ -75,7 +75,8 @@ public class ExportService {
 	       	String sql = "SELECT * "
 					+ "FROM Users "
 					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE" : "AND ") + "user_role = ?");
+					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
+					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ");
 	
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -86,8 +87,12 @@ public class ExportService {
 				stmt.setString(index++, "%" + character + "%");
 			}
 	
-			if (!searchStatus.equals("0")) {
-				stmt.setString(index++, searchStatus);
+			if (!searchRole.equals("0")) {
+				stmt.setString(index++, searchRole);
+			}
+			
+			if (!searchRole.equals("0")) {
+				stmt.setString(index++, searchRole);
 			}
 	
 			ResultSet rs = stmt.executeQuery();

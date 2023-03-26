@@ -78,6 +78,13 @@
 						<option value="2"
 							<c:if test="${searchRole == 2}">selected</c:if>>User</option>
 					</select>
+					<select id="searchStatus" name="searchStatus">
+						<option value="0" selected>Trạng Thái</option>
+						<option value="1"
+						<c:if test="${searchStatus == 1}">selected</c:if>>Bị khoá</option>
+						<option value="2"
+						<c:if test="${searchStatus == 2}">selected</c:if>>Hoạt động</option>
+					</select>
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
 					</button>
@@ -207,7 +214,7 @@
 													<input class="form-check-input status_chk" type="checkbox"
 														role="switch" value="<c:out value='${user.email}'/>"
 														<c:if test="${user.role == 0}">checked disabled</c:if>
-														<c:if test="${user.status == 1}">checked</c:if>
+														<c:if test="${user.status == 2}">checked</c:if>
 														<c:if test="${sessionScope.user.role == 1 && user.role == 1}">disabled</c:if> />
 												</div>
 											</td>
@@ -260,18 +267,13 @@
 									</c:forEach>
 								</tbody>
 							</table>
-
-							<%
-								String searchText = (String) request.getAttribute("myInput");
-								String searchRole = (String) request.getAttribute("searchRole");
-							%>
-
+			
 							<nav aria-label="..." class="page">
 								<ul class="pagination">
 
 									<li class="page-item"><a type="button"
 										class="btn page-link"
-										href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&page=1"
+										href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=1"
 										tabindex="-1">First</a></li>
 
 									<c:forEach var="i" begin="1" end="${noOfPage}">
@@ -284,14 +286,14 @@
 											<c:otherwise>
 												<li class="page-item"><a type="button"
 													class="btn page-link"
-													href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&page=${i}">${i}</a></li>
+													href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 
 									<li class="page-item"><a type="button"
 										class="btn page-link"
-										href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&page=${noOfPage}">Last</a>
+										href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 									</li>
 
 								</ul>

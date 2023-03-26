@@ -15,14 +15,14 @@ public class UsersDAO {
 
 	private int noOfRecords;
 
-	public List<Users> search(String character, String searchRole) throws Exception {
+	public List<Users> search(String character, String searchRole, String searchStatus) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role " + "FROM Users "
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, status " + "FROM Users "
 					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ?");
-
+					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
+					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ");
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
 
@@ -34,6 +34,10 @@ public class UsersDAO {
 
 			if (!searchRole.equals("0")) {
 				stmt.setString(index++, searchRole);
+			}
+			
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
 			}
 
 			ResultSet rs = stmt.executeQuery();
@@ -47,6 +51,7 @@ public class UsersDAO {
 				u.setAddress(rs.getString("address"));
 				u.setRegistrationDate(rs.getDate("registration_date"));
 				u.setRole(rs.getInt("user_role"));
+				u.setStatus(rs.getInt("status"));
 
 				list.add(u);
 				this.noOfRecords++;
@@ -62,7 +67,7 @@ public class UsersDAO {
 
 	}
 
-	public List<Users> getRecord(String character, String searchRole, int pageNo, int recordPerPage)
+	public List<Users> getRecord(String character, String searchRole, String searchStatus, int pageNo, int recordPerPage)
 			throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
@@ -70,6 +75,7 @@ public class UsersDAO {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total "
 					+ "FROM Users " + (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
 					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
+					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ")
 					+ "ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -84,6 +90,11 @@ public class UsersDAO {
 			if (!searchRole.equals("0")) {
 				stmt.setString(index++, searchRole);
 			}
+			
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
+			}
+			
 			stmt.setInt(index++, pageNo);
 			stmt.setInt(index++, recordPerPage);
 			stmt.setInt(index++, recordPerPage);

@@ -36,6 +36,7 @@ public class ManageUsersController extends HttpServlet {
 	private String search;
 	private String searchString;
 	private String searchRole;
+	private String searchStatus;
 	private int page;
 	private HttpSession session;
 	Users sessionUser;
@@ -174,16 +175,20 @@ public class ManageUsersController extends HttpServlet {
 		if (searchRole == null || searchRole == "") {
 			searchRole = "0";
 		}
-	
+		searchStatus = request.getParameter("searchStatus");
+		if (searchStatus == null || searchStatus == "") {
+			searchStatus = "0";
+		}
 		request.setAttribute("searchText", searchString);
 		request.setAttribute("searchRole", searchRole);
+		request.setAttribute("searchStatus", searchStatus);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			usersDAO.search(searchString, searchRole);
+			usersDAO.search(searchString, searchRole, searchStatus);
 			int noOfRecord = usersDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Users> listPerPage = usersDAO.getRecord(searchString, searchRole, page, recordPerPage);
+			List<Users> listPerPage = usersDAO.getRecord(searchString, searchRole, searchStatus, page, recordPerPage);
 			request.setAttribute("UserList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
@@ -226,7 +231,7 @@ public class ManageUsersController extends HttpServlet {
 		// reads input file from an absolute path
 		File downloadFile = null;
 		try {
-			downloadFile = new File(exporter.userExport(searchString, searchRole));
+			downloadFile = new File(exporter.userExport(searchString, searchRole, searchStatus));
 			FileInputStream inStream = new FileInputStream(downloadFile);
 
 			// modifies response
