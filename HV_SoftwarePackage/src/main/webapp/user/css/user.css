@@ -158,7 +158,7 @@
 		margin-top: 0.5rem !important;
 	}
 	
-	.signupBtn{
+	.signupBtn, .donationBtn{
 		margin-top: -1rem !important;
 		width: 30%;	
 	}
@@ -176,7 +176,7 @@
 	    	padding-right: 5%;
 	    }
 	    
-	    .signupBtm{
+	    .signupBtm, .donationBtm{
 	   		margin-top: -15%;
 	    }	   
 	}
@@ -412,5 +412,15 @@
 	
 	/* Make Donation Page */	
 	.makeDonationForm{
-	    padding-left: 5%;
+	    padding-left: 10%;
 	}
+	
+	#donationTitle{
+		margin-top: 2%;
+   		color: black;
+	}
+	
+	.rightDonation{	
+		position: relative !important;
+	    top: 7% !important;
+    }

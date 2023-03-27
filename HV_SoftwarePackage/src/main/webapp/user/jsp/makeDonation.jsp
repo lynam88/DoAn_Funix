@@ -49,6 +49,14 @@
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
 										<span class="require">(*) Bắt buộc</span>
+										<div class="form-outline my-3">										
+											<div class="input-group">
+												<span class="input-group-text"><i class='bx bx-captions'></i></span><p id="donationTitle">Tên đợt quyên góp:</p>
+												<span class="text-primary">${donationTitle}</span>
+											</div>
+											<p id="donationTitle_error">${donationTitle_error}</p>
+										</div>
+										
 										<div class="form-outline my-3">
 											<label for="name">Họ và tên: <span class="require">*</span></label>
 											<div class="input-group">
@@ -71,10 +79,7 @@
 											</div>
 											<p id="phone_error">${phone_error}</p>
 
-										</div>
-
-
-										<div class="form-outline my-3">
+										</div>										<div class="form-outline my-3">
 											<label for="email">Email: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
@@ -84,7 +89,13 @@
 													value="<c:out value='${inputUser.email}'/>">
 											</div>
 											<p id="email_error">${email_error}</p>
-										</div>
+										</div>			
+										
+									</div>
+
+								</div>
+								<div class="col-md-6">
+									<div class="card-body p-md-5 rightDonation">
 										<div class="form-outline my-3">
 											<label for="amount">Số tiền bạn muốn quyên góp: <span
 												class="require">*</span></label>
@@ -95,73 +106,50 @@
 													placeholder="Xin nhập số tiền"
 													value="<c:out value='${inputUser.amount}'/>">
 											</div>
-											<p id="email_error">${email_error}</p>
+											<p id="amount_error">${amount_error}</p>
 										</div>
+										
+										<div class="form-outline my-3">
+											<label for="bank">Tên ngân hàng: <span
+												class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class='bx bxs-bank'></i></span> <input type="text"
+													id="bank" name="bank" class="form-control"
+													placeholder="Xin nhập tên ngân hàng"
+													value="<c:out value='${inputUser.bank}'/>">
+											</div>
+											<p id="bank_error">${bank_error}</p>
+										</div>
+										
+										<div class="form-outline my-3">
+											<label for="transaction">Xin nhập mã giao dịch: <span
+												class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class='bx bx-transfer'></i></span> <input type="text"
+													id="transaction" name="transaction" class="form-control"
+													placeholder="Xin nhập mã giao dịch"
+													value="<c:out value='${inputUser.transaction}'/>">
+											</div>
+											<p id="transaction_error">${transaction_error}</p>
+										</div>
+										
 										<div class="form-outline my-3">
 											<label for="message">Gửi phản hồi: </label>
 											<textarea name="" id="" cols="30" rows="7"
 												class="form-control" placeholder="Nội dung tin nhắn"></textarea>
 										</div>
-
-									</div>
-
-								</div>
-								<div class="col-md-6">
-									<div class="card-body p-md-5 rightForm">
-										<div class="form-outline my-3">
-											<label for="address">Địa chỉ:</label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-map"></i></span>
-												<input type="text" id="address" name="address"
-													class="form-control" placeholder="Xin nhập địa chỉ"
-													value="${inputUser.address}" />
-											</div>
-											<p id="address_error"></p>
-										</div>
-										<div class="form-outline my-3">
-											<label for="password">Mật khẩu: <span class="require">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i class="bx bx-lock"></i></span>
-												<input type="password" id="signupPass" name="signupPass"
-													class="form-control" placeholder="Xin nhập mật khẩu"
-													value="${signupPass}" /><span
-													class="input-group-text bx click-eye-1 bx-hide signupPassIcon"></span>
-											</div>
-											<p id="signupPass_error"></p>
-										</div>
-
-										<div class="form-outline my-3">
-											<label for="password">Xin nhập lại mật khẩu: <span
-												class="require">*</span></label>
-											<div class="input-group">
-												<span class="input-group-text"><i
-													class="bx bx-lock-alt"></i></span> <input type="password"
-													id="retype_signupPass" name="retype_signupPass"
-													class="form-control" placeholder="Xin nhập lại mật khẩu"
-													value="${signupPass}" /> <span
-													class="input-group-text bx click-eye-2 bx-hide signupPassIcon"></span>
-
-											</div>
-											<p id="retype_signupPass_error"></p>
-										</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="row justify-content-center signupBtm">
+							<div class="row justify-content-center donationBtm">
 								<div class="col-lg-6 text-center">
 									<button
-										class="btn btn-primary fa-lg gradient-custom-2 mb-3 signupBtn"
-										type="submit" id="submit-button">Đăng ký</button>
+										class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
+										type="submit" id="submit-button">Quyên góp</button>
 								</div>
-							</div>
-							<div class="col text-center">
-								<div class="signupBottom">
-									<span class="text-center">Bạn đã có tài khoản? </span> <a
-										href="${pageContext.request.contextPath}/UsersController?action=showLoginPage">Xin
-										Đăng Nhập!</a>
-								</div>
-							</div>
+							</div>							
 						</form>
 					</div>
 				</div>

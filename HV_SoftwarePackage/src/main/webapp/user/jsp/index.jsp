@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:import url="header.jsp">
 	<c:param name="title" value="Trang Chủ Quỹ Từ Thiện Liên Hoa"></c:param>
@@ -140,7 +140,10 @@
 					<c:forEach var="donation" items="${DonationList}">
 						<div class="item">
 							<div class="cause-entry">
-								<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}" class="img thumbnail" style="background-image: url(${donation.src});"></a>
+								<a
+									href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}"
+									class="img thumbnail"
+									style="background-image: url(${donation.src});"></a>
 								<div class="text p-3 p-md-4">
 									<h4>
 										<a
@@ -162,13 +165,16 @@
 											VNĐ
 										</span>
 										<c:if test="${donation.status == 1}">
-										<a href="${pageContext.request.contextPath}/UsersController?action=donations" class="btn btn-success float-right"
-											role="button" aria-pressed="true">Đã hoàn thành</a>
+											<a
+												href="${pageContext.request.contextPath}/UsersController?action=donations"
+												class="btn btn-success float-right" role="button"
+												aria-pressed="true">Đã hoàn thành</a>
 										</c:if>
 										<c:if test="${donation.status == 2}">
-										<button type="button" class="btn btn-primary float-right">
-											Quyên góp</button>
-										</c:if>	
+											<a type="button" class="btn btn-primary float-right"
+												href="${pageContext.request.contextPath}/UserDonationController?action=showMakeDonationPage&donationTitle=${donation.title}">Quyên
+												góp</a>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -257,13 +263,19 @@
 
 <section class="ftco-gallery">
 	<c:forEach var="donation" items="${DonationList}" varStatus="row">
-		<c:if test="${row.index % 4 == 0}"><div class="d-md-flex"></c:if>
-		<a href="${donation.src}" class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(${donation.src});">
-				<div class="icon d-flex justify-content-center align-items-center">
-					<span class="icon-search"></span>
-				</div>
-		</a>	
-		<c:if test="${(row.index + 1) % 4 == 0}"></div></c:if>		
+		<c:if test="${row.index % 4 == 0}">
+			<div class="d-md-flex">
+		</c:if>
+		<a href="${donation.src}"
+			class="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate"
+			style="background-image: url(${donation.src});">
+			<div class="icon d-flex justify-content-center align-items-center">
+				<span class="icon-search"></span>
+			</div>
+		</a>
+		<c:if test="${(row.index + 1) % 4 == 0}">
+			</div>
+		</c:if>
 	</c:forEach>
 </section>
 
