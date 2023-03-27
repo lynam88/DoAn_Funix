@@ -76,6 +76,7 @@ public class ExportService {
 					+ "FROM Users "
 					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
 					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
+					+ (searchRole.equals("1") ? "OR user_role = 0 " : "")
 					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ");
 	
 			PreparedStatement stmt = connection.prepareStatement(sql);

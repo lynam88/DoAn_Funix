@@ -143,7 +143,7 @@
 									<c:forEach var="user" items="${UserList}">
 										<tr>
 											<c:choose>
-												<c:when test="${user.role == 1}">
+												<c:when test="${user.role == 0 || user.role == 1}">
 													<td><input type="checkbox" class="chk" name="chk"
 														disabled value="<c:out value='${user.email}'/>"></td>
 												</c:when>
@@ -158,7 +158,7 @@
 														role="switch" value="<c:out value='${user.email}'/>"
 														<c:if test="${user.role == 0}">checked disabled</c:if> 
 														<c:if test="${user.role == 1}">checked</c:if> 
-														<c:if test="${sessionScope.user.role == 1 && user.role == 1}">disabled</c:if> />
+														<c:if test="${sessionScope.user.role == 1 && user.role == 1}"></c:if> />
 												</div>
 											</td>
 											<!--Modal -->
@@ -183,6 +183,7 @@
 													</div>
 												</div>
 											</div>
+											
 											<div class="modal" id="role_notify" role="dialog">
 												<div class="modal-dialog">
 
@@ -253,7 +254,7 @@
 														</div>
 														<div class="modal-body">
 															<p class="text-center" id="status_msg"
-																style="font-size: large; color: red;"></p>
+																style="font-size: large; color: red;"><%=notifyUserList%></p>
 														</div>
 													</div>
 												</div>

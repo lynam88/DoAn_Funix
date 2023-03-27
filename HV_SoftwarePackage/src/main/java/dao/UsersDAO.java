@@ -22,7 +22,9 @@ public class UsersDAO {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, status " + "FROM Users "
 					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
 					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
+					+ (searchRole.equals("1") ? "OR user_role = 0 " : "")
 					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ");
+					
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
 
@@ -34,7 +36,8 @@ public class UsersDAO {
 
 			if (!searchRole.equals("0")) {
 				stmt.setString(index++, searchRole);
-			}
+			}			
+			
 			
 			if (!searchStatus.equals("0")) {
 				stmt.setString(index++, searchStatus);
@@ -75,8 +78,9 @@ public class UsersDAO {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total "
 					+ "FROM Users " + (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
 					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
+					+ (searchRole.equals("1") ? "OR user_role = 0 " : "")
 					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ")
-					+ "ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+					+ "ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";			
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -89,7 +93,7 @@ public class UsersDAO {
 
 			if (!searchRole.equals("0")) {
 				stmt.setString(index++, searchRole);
-			}
+			}			
 			
 			if (!searchStatus.equals("0")) {
 				stmt.setString(index++, searchStatus);
@@ -244,16 +248,16 @@ public class UsersDAO {
 
 	}
 
-	public void statusUpdate(Users u) throws Exception {
+	public void updateStatus(Users u) throws Exception {
 		Connection connection = new DBContext().getConnection();
 
 		String sql = "UPDATE Users SET status = ? WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
-		if (u.getStatus() == 0)
-			stmt.setInt(1, 1);
+		if (u.getStatus() == 1)
+			stmt.setInt(1, 2);
 		else
-			stmt.setInt(1, 0);
+			stmt.setInt(1, 1);
 		stmt.setString(2, u.getEmail());
 		stmt.executeUpdate();
 

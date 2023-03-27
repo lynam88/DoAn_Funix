@@ -20,6 +20,7 @@ import model.Users;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 /**
  * Servlet implementation class UsersController
@@ -78,8 +79,8 @@ public class ManageUsersController extends HttpServlet {
 				case "updateRole":
 					updateRole(request, response);
 					break;
-				case "statusUpdate":
-					statusUpdate(request, response);
+				case "updateStatus":
+					updateStatus(request, response);
 					break;
 				}
 			} catch (Exception ex) {
@@ -124,12 +125,12 @@ public class ManageUsersController extends HttpServlet {
 		}
 	}
 
-	private void statusUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String email = request.getParameter("email");
 
 		try {
 			Users u = usersDAO.getUser(email);
-			usersDAO.statusUpdate(u);
+			usersDAO.updateStatus(u);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
@@ -142,7 +143,7 @@ public class ManageUsersController extends HttpServlet {
 
 		try {
 			Users u = usersDAO.getUser(email);
-			if (sessionRole == u.getRole()) {
+			if (sessionUser.getEmail().equals(u.getEmail())) {
 				request.setAttribute("notifyUserList", "Bạn không được cập nhật chính mình.");
 				request.setAttribute("statusUserList", "Fail");				
 			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {				
@@ -154,7 +155,6 @@ public class ManageUsersController extends HttpServlet {
 				request.setAttribute("statusUserList", "Ok");
 			}
 		} catch (
-
 		Exception e) {
 			throw new Exception(e);
 		}

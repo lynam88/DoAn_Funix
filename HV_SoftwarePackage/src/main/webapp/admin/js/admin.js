@@ -270,7 +270,7 @@
 	                type : 'POST',
 	                data: {email: checkedEmail}, 
 	                url : '/HV_SoftwarePackage/ManageUsersController?action=updateRole',
-	                success : function() {		                	
+	                success : function() {		        
 	                    $("#role_confirm").modal("hide");
 	                    currentSwitch.prop('checked', isChecked);
 	                    setTimeout(function() {                  
@@ -330,9 +330,9 @@
 		            $.ajax({
 		                type : 'POST',
 		                data: {email: checkedEmail}, 
-		                url : '/HV_SoftwarePackage/ManageUsersController?action=statusUpdate',
+		                url : '/HV_SoftwarePackage/ManageUsersController?action=updateStatus',
 		                success : function() {		                	
-		                    $("#status_confirm").modal("hide");
+		                    $("#status_confirm").modal("hide");		      
 		                    currentSwitch.prop('checked', isChecked);
 		                    setTimeout(function() {                  
 		                        $("#status_notify").modal("show");
