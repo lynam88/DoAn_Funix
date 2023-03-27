@@ -409,3 +409,8 @@
 		color: red;
 		position: inherit;
 	}
+	
+	/* Make Donation Page */	
+	.makeDonationForm{
+	    padding-left: 5%;
+	}
