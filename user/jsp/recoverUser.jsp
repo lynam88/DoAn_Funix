@@ -40,7 +40,7 @@ if (notifyRecover != null) {
 		$('#recoverModal').modal().hide();
 		var st = "<%=statusRecover%>";
 		if (st == "Ok") {
-			window.location.href = '/HV_SoftwarePackage/UsersController?action=recoverUser';
+			window.location.href = '/HV_SoftwarePackage/UsersController?action=showRecoverUserPage';
 		}
 	}, 7000);
 </script>

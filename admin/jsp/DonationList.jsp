@@ -123,17 +123,13 @@
 					        </tr>
 					    </c:forEach>
 					</tbody>
-				</table>
-				
-				<% String searchText = (String) request.getAttribute("myInput");
-				   String searchStatus = (String) request.getAttribute("searchStatus");					
-				%>
-				
+				</table>				
+			
 				<nav aria-label="..." class="page">
 				  <ul class="pagination">
 				  
 				    <li class="page-item">
-				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&category=${category}&searchStatus=${searchStatus}&page=1" tabindex="-1">First</a>
+				      <a type="button" class="btn page-link" href="${pageContext.request.contextPath}/DonationsController?action=DonationList&myInput=${searchText}&searchStatus=${searchStatus}&category=${category}&page=1" tabindex="-1">First</a>
 				    </li> 				 
 				   
 				   <c:forEach var="i" begin="1" end="${noOfPage}">		

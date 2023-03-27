@@ -219,7 +219,7 @@
   
   <script>
 	var classCr = location.search.split('action=')[1];
-	if(classCr == "index" || classCr == "DonationList" || classCr == "UserList"){
+	if(classCr == "admin" || classCr == "DonationList" || classCr == "UserList"){
 	document.getElementsByClassName(classCr)[0].className += " active";}
 	var str_page1 = document.getElementById("str-pages1");
 	var str_page2 = document.getElementById("str-pages2");

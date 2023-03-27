@@ -43,7 +43,7 @@
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">   	
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/UsersController?action=dashboard">
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/UsersController?action=user">
         <img id="logo" src="${pageContext.request.contextPath}/user/media/logo.jpg" alt="logo">
       Quỹ Từ Thiện Liên Hoa</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,15 @@
       </button>
 
 	     <div class="collapse navbar-collapse" id="ftco-nav">
-		  <ul class="navbar-nav ml-auto">
-		    <li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=dashboard" class="nav-link">Trang Chủ</a></li>
+		  <ul class="navbar-nav ml-auto">		    
+		    <c:choose>
+			  <c:when test="${user.role == 0 || user.role == 1}">
+			  	<li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=admin" class="nav-link">Trang quản lý</a></li>
+			  </c:when>
+			  <c:otherwise>
+			  	<li class="nav-item active"><a href="${pageContext.request.contextPath}/UsersController?action=user" class="nav-link">Trang Chủ</a></li>
+			  </c:otherwise>
+			 </c:choose>
 			<li class="dropdown nav-dropdown">
 	          <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
 		        Hoàn Cảnh Quyên Góp
@@ -78,6 +85,7 @@
 					    	<ul class="dropdown-menu">		   			
 							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=userInfo">Thông tin cá nhân</a></li>
 							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a></li>
+							     <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showDonationHistory">Lịch sử quyên góp</a></li>
 							    <li><div class="dropdown-divider"></div></li>
 							    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a></li>				
 							</ul>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="header.jsp">
-	<c:param name="title" value="${donation.title} | Quỹ Từ Thiện Liên Hoa"></c:param>
+	<c:param name="title" value="Chi tiết đợt quyên góp | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
 <div class="hero-wrap"

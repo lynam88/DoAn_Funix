@@ -197,3 +197,13 @@
 	    opacity: 0;
 	  }
 	}
+
+	/* User List page */
+	#searchRole{
+		border: 1px solid #ccc;
+		border-radius: 19px;
+		height: 40px;
+		width: 25%;
+		margin: 5px;
+		padding-left: 40px;
+	}

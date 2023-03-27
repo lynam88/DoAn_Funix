@@ -1,7 +1,3 @@
-/**
- * Js functions for admin pages
- */
-	
 	//Lọc bảng
 	function sortTable() {
 		var table, rows, switching, i, x, y, shouldSwitch;
@@ -26,6 +22,10 @@
 			}
 		}
 	}
+	
+	/**
+	 * Js functions for Donation pages
+	 */
 	
 	//Validate new donation
 	function validateDonation() {
@@ -138,7 +138,7 @@
 		
 		try {
 			$.ajax({
-				type : 'GET',
+				type : 'POST',
 				data: 'id='+checked,
 				url : '/HV_SoftwarePackage/DonationsController?action=delete',
 				success : function(result) {
@@ -219,7 +219,162 @@
     function addFormat() {
     	var number = document.getElementById("totalNeeded").value;
     	if(!isNaN(number)) {
-		document.getElementById("totalNeeded").value = new Intl.NumberFormat().format(number);
+		document.getElementById("totalNeeded").value = new Intl.NumberFormat('en').format(number);
     	}
     }
     
+/**
+ * Js functions for user pages
+ */
+	//Delete button
+	$("#user_del").click(function(){
+		var chks = document.querySelectorAll(".chk:checked");
+		var checked = [...chks].map(email => email.value).join(",");
+		
+		if(!checked) {
+			$("#checkMsg").modal("show");
+			setTimeout(function() {
+				$("#checkMsg").modal("hide");
+			}, 2000);
+		} else {
+			$("#myModal").modal("show");				
+		}
+	})	
+
+	//Delete button
+	$('#ok_user_del').click(function(){
+		var chks = document.querySelectorAll(".chk:checked");
+		var checked = [...chks].map(email => email.value).join(",");
+		document.getElementById("formDel").action = "ManageUsersController?action=delete&email="+checked;
+		$("#myModal").modal("hide");
+	})			
+	
+	$('#cancel_user_del').click(function(){		
+		$("#myModal").modal("hide");					
+	})
+	$('#close_user_del').click(function(){		
+		$("#myModal").modal("hide");					
+	})
+	
+	//Switch role button
+	$('.role_chk').click(function() {
+	    var currentSwitch = $(this);
+	    var isChecked = currentSwitch.prop('checked');
+	    var checkedEmail = $(this).val();
+	    
+	    $("#role_confirm").modal("show");
+
+	    $('#ok_role_confirm').click(function(){
+	        try {
+	            $.ajax({
+	                type : 'POST',
+	                data: {email: checkedEmail}, 
+	                url : '/HV_SoftwarePackage/ManageUsersController?action=updateRole',
+	                success : function(responseText) {	                	
+	                    $("#role_confirm").modal("hide");
+	                    currentSwitch.prop('checked', isChecked);
+	                    setTimeout(function() {                  
+	                        $("#role_notify").modal("show");
+	                        $("#role_msg").text(responseText);	                        
+	                    }, 1000);                    
+	                    setTimeout(function() {	                    	
+	                        location.reload();
+	                    }, 3000);
+	                },
+	                error: function(responseText){	                
+	                    $("#role_confirm").modal("hide");
+	                    currentSwitch.prop('checked', isChecked);
+	                    setTimeout(function() {                  
+	                        $("#role_notify").modal("show");
+	                        $("#role_msg").text(responseText);	                        
+	                    }, 1000);                    
+	                    setTimeout(function() {	                    	
+	                        location.reload();
+	                    }, 3000);
+	                },
+	            });
+	        } catch (e) {	   
+	            $("#role_confirm").modal("hide");
+	            currentSwitch.prop('checked', isChecked);
+	            setTimeout(function() {                  
+	                $("#role_notify").modal("show");
+	                $("#role_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+	            }, 1000);                    
+	            setTimeout(function() {
+	                location.reload();
+	            }, 3000);
+	        }	       
+	    });
+	    
+	    $('#cancel_role_confirm, #close_role_confirm').click(function() {
+	        currentSwitch.prop('checked', !isChecked);
+	        $("#role_confirm").modal("hide");
+	    });
+	    
+	    $('#role_confirm').on('hide.bs.modal', function() {
+	        currentSwitch.prop('checked', !isChecked);                
+	    });
+	    
+	});
+
+	//Lock - unlock users
+		$('.status_chk').click(function() {
+		    var currentSwitch = $(this);
+		    var isChecked = currentSwitch.prop('checked');
+		    var checkedEmail = $(this).val();
+		    
+		    $("#status_confirm").modal("show");
+
+		    $('#ok_status_confirm').click(function(){
+		        try {
+		            $.ajax({
+		                type : 'POST',
+		                data: {email: checkedEmail}, 
+		                url : '/HV_SoftwarePackage/ManageUsersController?action=updateStatus',
+		                success : function() {		                	
+		                    $("#status_confirm").modal("hide");		      
+		                    currentSwitch.prop('checked', isChecked);
+		                    setTimeout(function() {                  
+		                        $("#status_notify").modal("show");
+		                        $("#status_msg").text("Bạn đã cập nhật thành công");
+		                    }, 1000);                    
+		                    setTimeout(function() {
+		                        location.reload();
+		                    }, 3000);
+		                },
+		                error: function(){	                
+		                    $("#status_confirm").modal("hide");
+		                    currentSwitch.prop('checked', isChecked);
+		                    setTimeout(function() {                  
+		                        $("#status_notify").modal("show");
+		                        $("#status_msg").text("Bạn đã cập nhật thất bại.");
+		                    }, 1000);                    
+		                    setTimeout(function() {
+		                        location.reload();
+		                    }, 3000);
+		                },
+		            });
+		        } catch (e) {	   
+		            $("#status_confirm").modal("hide");
+		            currentSwitch.prop('checked', isChecked);
+		            setTimeout(function() {                  
+		                $("#status_notify").modal("show");
+		                $("#status_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		            }, 1000);                    
+		            setTimeout(function() {
+		                location.reload();
+		            }, 3000);
+		        }	       
+		    });
+		    
+		    $('#cancel_status_confirm, #close_status_confirm').click(function() {
+		        currentSwitch.prop('checked', !isChecked);
+		        $("#status_confirm").modal("hide");
+		    });
+		    
+		    $('#status_confirm').on('hide.bs.modal', function() {
+		        currentSwitch.prop('checked', !isChecked);                
+		    });
+		    
+		});
+	

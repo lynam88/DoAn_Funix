@@ -41,7 +41,7 @@ if (notifySignup != null) {
 			$('#signupModal').modal().hide();
 			var st = "<%=statusSignup%>";
 				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=login';
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=showLoginPage';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
@@ -173,7 +173,7 @@ if (notifySignup != null) {
 							<div class="col text-center">
 								<div class="signupBottom">
 									<span class="text-center">Bạn đã có tài khoản? </span> <a
-										href="${pageContext.request.contextPath}/UsersController?action=login">Xin Đăng Nhập!</a>
+										href="${pageContext.request.contextPath}/UsersController?action=showLoginPage">Xin Đăng Nhập!</a>
 								</div>
 							</div>
 						</form>

@@ -63,9 +63,9 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" style="z-index: 1040;">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0 logo" href="#">
-        <img src="${pageContext.request.contextPath}/user/media/logo.jpg" class="navbar-brand-img" alt="main_logo" style="float: left;">
-        <span class="ms-1 font-weight-bold">Quỹ Từ Thiện Liên Hoa</span>
+      <a class="navbar-brand m-0 logo" href="${pageContext.request.contextPath}/UsersController?action=user">
+        <img src="${pageContext.request.contextPath}/user/media/logo.jpg" class="navbar-brand-img" alt="main_logo" style="float: left; max-height: 2.4rem;">
+        <span class="ms-1 font-weight-bold" style="padding-left: 20%;">TRANG CHỦ </span><br/><span class="ms-1 font-weight-bold">QUỸ TỪ THIỆN LIÊN HOA</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -73,8 +73,8 @@
       <ul class="navbar-nav">
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
-	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=dashboard">
-	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6" style="font-size: 110% !important;"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ</h6>
+	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=admin">
+	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ Admin</h6>
 	        </a>
         </li>
         <li class="nav-item">
@@ -116,19 +116,19 @@
           <h6 class="font-weight-bolder text-white mb-0" id="str-pages2">Trang Chủ</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">          
-          <ul class="navbar-nav justify-content-end" style="padding-left: 80%;">
+          <ul class="navbar-nav justify-content-end" style="padding-left: 75%;">
           	<li class="nav-item d-flex align-items-center">
           		<div class="btn-group">
-				  <a type="button" class="text-white font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Xin chào, Admin!
+          		  <c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatar"></c:if>          			
+				  <a type="button" class="text-white font-weight-bold dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 2%; margin-top: 4%;">
+				    Xin chào, ${user.name}!
 				  </a>
 				  <div class="dropdown-menu">				  
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=userInfo">Thông tin cá nhân</a>
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a>				    
 				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a>
 				  </div>
-				</div>          	
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">              
-                <i class="fa fa-user me-sm-1" style="padding-left: 50%;"></i>                
-              </a>   
+				</div>             
             </li>          
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">

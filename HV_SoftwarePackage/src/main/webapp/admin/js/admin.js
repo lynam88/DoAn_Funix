@@ -270,25 +270,25 @@
 	                type : 'POST',
 	                data: {email: checkedEmail}, 
 	                url : '/HV_SoftwarePackage/ManageUsersController?action=updateRole',
-	                success : function() {		        
+	                success : function(responseText) {	                	
 	                    $("#role_confirm").modal("hide");
 	                    currentSwitch.prop('checked', isChecked);
 	                    setTimeout(function() {                  
 	                        $("#role_notify").modal("show");
-	                        $("#role_msg").text("Bạn đã cập nhật thành công");
+	                        $("#role_msg").text(responseText);	                        
 	                    }, 1000);                    
-	                    setTimeout(function() {
+	                    setTimeout(function() {	                    	
 	                        location.reload();
 	                    }, 3000);
 	                },
-	                error: function(){	                
+	                error: function(responseText){	                
 	                    $("#role_confirm").modal("hide");
 	                    currentSwitch.prop('checked', isChecked);
 	                    setTimeout(function() {                  
 	                        $("#role_notify").modal("show");
-	                        $("#role_msg").text("Bạn đã cập nhật thất bại.");
+	                        $("#role_msg").text(responseText);	                        
 	                    }, 1000);                    
-	                    setTimeout(function() {
+	                    setTimeout(function() {	                    	
 	                        location.reload();
 	                    }, 3000);
 	                },
