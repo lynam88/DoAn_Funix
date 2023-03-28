@@ -70,7 +70,7 @@
 								</c:if>
 								<c:if test="${donation.status == 2}">
 									<a type="button" class="btn btn-primary float-right"
-										href="${pageContext.request.contextPath}/UserDonationController?action=showMakeDonationPage&donationTitle=${donation.title}">Quyên
+										href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">Quyên
 										góp</a>
 								</c:if>
 							</div>
