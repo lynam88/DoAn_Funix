@@ -1,6 +1,6 @@
-	/**
-	 * Js functions for login page
-	 */ 
+		/**
+		 * Js functions for login page
+		 */ 
 		//Validate login
 		function validateLogin() {
 			const loginId = document.getElementById("loginId").value;
@@ -386,3 +386,97 @@
 		  
 		  return true;
 		}
+		
+		/**
+		 * Js functions for make Donation page
+		 */
+		
+		function validateDonation() {
+			  const name = document.getElementById("name").value;
+			  const phone = document.getElementById("phone").value;
+			  const email = document.getElementById("email").value;
+			  const amount = document.getElementById("amount").value;
+			  const bank = document.getElementById("bank").value;
+			  const transaction = document.getElementById("transaction").value;
+
+			  const nameError = document.getElementById("name_error");
+			  const phoneError = document.getElementById("phone_error");
+			  const emailError = document.getElementById("email_error");
+			  const amountError = document.getElementById("amount_error");
+			  const bankError = document.getElementById("bank_error");
+			  const transactionError = document.getElementById("transaction_error");
+
+			  if (!name) {
+			    nameError.innerHTML = "Xin điền vào họ tên";
+			    return false;
+			    
+			  } else if (name.length < 2) {
+			    nameError.innerHTML = "Họ tên phải dài hơn 2 chữ cái";
+			    return false;
+			    
+			  } else if (!/^[a-zA-Z\sàáạãảâầấậẫẩăằắặẵẳèéẹẽẻêềếệễểđìíịĩỉòóọõỏôồốộỗổơờớợỡởùúụũủưừứựữửỳýỵỹỷÀÁẠÃẢÂẦẤẬẪẨĂẰẮẶẴẲÈÉẸẼẺÊỀẾỆỄỂĐÌÍỊĨỈÒÓỌÕỎÔỒỐỘỖỔƠỜỚỢỠỞÙÚỤŨỦƯỪỨỰỮỬỲÝỴỸỶđê]+$/.test(name)) {
+			    nameError.innerHTML = "Họ tên chỉ chứa chữ cái và khoảng trắng";	
+			    return false;
+			    
+			  } else {
+			    nameError.innerHTML =  "";
+			  }
+			 
+			  if (!phone) {
+				phoneError.innerHTML = "Xin điền vào số điện thoại";
+			    return false;
+				    
+			  } else if (!/^\d{10,11}$/.test(phone)) {
+				phoneError.innerHTML = "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại theo định dạng 0xxx xxx xxx hoặc +84xxx xxx xxx.";		
+				return false;
+				
+			  } else {
+				phoneError.innerHTML = "";
+			  }
+
+			  if (!email) {
+			    emailError.innerHTML = "Xin điền vào email.";		 
+			    return false;
+			    
+			  } else if (!/\S+@\S+\.\S+/.test(email)) {
+			    emailError.innerHTML = "Email phải có định dạng user@example.com.";
+			    return false;
+			    
+			  } else {
+			    emailError.innerHTML = "";
+			  }
+
+			  if (!amount) {
+				amountError.innerHTML = "Xin điền vào số tiền muốn quyên góp.";		 
+			    return false;
+				    
+			  } else {
+				amountError.innerHTML = "";
+			  } 
+			  
+			  if (isNaN(amount)) {
+				amountError.innerHTML =  "Xin điền vào số";		
+				return false;
+				
+			  } else {
+				amountError.innerHTML =  "";
+			  }
+			  
+			  if (!bank) {
+				  bankError.innerHTML = "Xin điền vào tên ngân hàng.";
+				  return false;
+			    
+			  } else {
+				  bankError.innerHTML = "";
+			  }
+			  
+			  if (!transaction) {
+				  transactionError.innerHTML = "Xin điền vào mã giao dịch.";
+				  return false;
+			    
+			  } else {
+				  transactionError.innerHTML = "";
+			  }
+			  
+			  return true;
+			}		

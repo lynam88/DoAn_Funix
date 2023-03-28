@@ -415,12 +415,30 @@
 	    padding-left: 10%;
 	}
 	
-	.donationTitle{
-		margin-top: 2%;
-   		color: blue;
+	.donationTitle{		
+   		margin-left: 6%;
 	}
 	
-	.rightDonation{	
-		position: relative !important;
-	    top: 6% !important;
-    }
+	#donationTitle{
+		margin-top: 2%;
+   		color: blue;   	
+	}
+	
+	@media (min-width: 768px) {
+		.rightDonation{	
+			position: relative !important;
+		    top: 6% !important;
+	    }
+	}
+	
+	@media (max-width: 768px) {
+		.rightDonation{	
+			margin-top: -12%;
+		    margin-bottom: 15%;
+		}
+	}
+	
+	#amount_error, #bank_error, #transaction_error {
+		color: red;
+		position: inherit;	
+	}

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import commons.MD5Library;
 import commons.Utils;
 import dao.DonationsDAO;
 import dao.ExportService;
@@ -52,27 +53,24 @@ public class UserDonationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "DonationSearch" : action;
+		action = action == null ? "showMakeDonationPage" : action;
+		try {
+			List<Donations> listDonations = donationsDAO.search("", "0", "0");
+			request.setAttribute("DonationList", listDonations);
+		} catch (Exception e2) {			
+			e2.printStackTrace();
+		}
 		session = request.getSession();
-		Users u = (Users) session.getAttribute("user");
-		if (u != null && (u.getRole() == 0 || u.getRole() == 1)) {
+		sessionUser = (Users) session.getAttribute("user");
+		switch (action) {		
+		case "makeDonation":
 			try {
-				switch (action) {				
-				case "delete":
-					deleteDonation(request, response);
-					break;	
-				case "insert":
-					insertDonation(request, response);
-					break;				
-				case "update":
-					updateDonation(request, response);
-					break;				
-				}
-			} catch (Exception ex) {
-				throw new ServletException(ex);
+				makeDonation(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} else {
-			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+			break;
 		}
 	}
 
@@ -108,113 +106,41 @@ public class UserDonationController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void insertDonation(HttpServletRequest request, HttpServletResponse response)
+	private void makeDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		response.setContentType("text/htm;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		try {
-			int id = Integer.parseInt(request.getParameter("maxId"));
-			String status = request.getParameter("status");
-			String title = request.getParameter("title");
-			byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
-			title = new String(title_Bytes, StandardCharsets.UTF_8);
-			String startDate = request.getParameter("startDate");
-			String endDate = request.getParameter("endDate");
-			Date start = null, end = null;
-			String totalNeeded = request.getParameter("totalNeeded").replaceAll(",", "");
-			String content = request.getParameter("content");
-			byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
-			content = new String(content_Bytes, StandardCharsets.UTF_8);
 
-			if (!startDate.isEmpty() || !endDate.isEmpty()) {
-				start = (Date) Utils.convertStringToDate(startDate);
-				end = (Date) Utils.convertStringToDate(endDate);
+			// Get form input data
+			String name = request.getParameter("name");
+			byte[] name_Bytes = name.getBytes(StandardCharsets.ISO_8859_1);
+			name = new String(name_Bytes, StandardCharsets.UTF_8);
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");
+			String donationAmount = request.getParameter("donationAmount");
+			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
+		
+			// Create new user object
+			Users u = new Users(name, phone, email, donationAmount);
+			request.setAttribute("inputUser", u);
+			if (phone != null && usersDAO.getUser(phone) != null) {
+				request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
+
+			} else if (usersDAO.getUser(email) != null) {
+				request.setAttribute("email_error", "Email này đã được đăng ký");
+
+			} else {
+				// Insert user data to database
+				usersDAO.insertUser(u);
+				request.setAttribute("notifyDonation", "Đăng ký thành công.");
+				request.setAttribute("statusDonation", "OK");		
 			}
-			Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
-			String category = request.getParameter("category");
-			
-			Part filePart = request.getPart("thumbnail");
-			long fileSize = filePart.getSize();
-			String thumbnailPath = null;
-			if(fileSize > 0) {
-			String pathServer = request.getServletContext().getRealPath("");
-			String folderThumbnail = "admin/media/thumbnail/";
-			File uploadDir = new File(pathServer + folderThumbnail); 
-			if (!uploadDir.exists()) uploadDir.mkdir();
-			thumbnailPath = folderThumbnail + id + ".jpg";		
-			filePart.write(pathServer+"/"+ thumbnailPath);
-			}						
-			
-			Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, thumbnailPath);
-			donationsDAO.insertDonation(d);
-			request.setAttribute("notifyDonation", "Thêm thành công.");
-			request.setAttribute("statusDonation", "OK");			
 
 		} catch (Exception ex) {
-			request.setAttribute("notifyDonation", "Thêm thất bại.");
+			request.setAttribute("notifyDonation", "Đăng ký thất bại.");
 			request.setAttribute("statusDonation", "FAIL");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/jsp/DonationForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/makeDonation.jsp");
 		dispatcher.forward(request, response);
-	}
-
-	private void updateDonation(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String status = request.getParameter("status");
-		String title = request.getParameter("title");
-		byte[] title_Bytes = title.getBytes(StandardCharsets.ISO_8859_1);
-		title = new String(title_Bytes, StandardCharsets.UTF_8);
-		String startDate = request.getParameter("startDate");
-		Date start = (Date) Utils.convertStringToDate(startDate);
-		String endDate = request.getParameter("endDate");
-		Date end = (Date) Utils.convertStringToDate(endDate);
-		String totalNeeded = request.getParameter("totalNeeded").replaceAll(",", "");
-		Float totalNeededFloat = Utils.convertStringToFloat(totalNeeded);
-		String category = request.getParameter("category");
-		String content = request.getParameter("content");
-		byte[] content_Bytes = content.getBytes(StandardCharsets.ISO_8859_1);
-		content = new String(content_Bytes, StandardCharsets.UTF_8);		
-	
-		Part filePart = request.getPart("thumbnail");
-		long fileSize = filePart.getSize();
-		String thumbnailPath = null;
-		if(fileSize > 0) {
-		String pathServer = request.getServletContext().getRealPath("");
-		String folderThumbnail = "admin/media/thumbnail/";
-		File uploadDir = new File(pathServer + folderThumbnail); 
-		if (!uploadDir.exists()) uploadDir.mkdir();
-		thumbnailPath = folderThumbnail + id + ".jpg";		
-		filePart.write(pathServer+"/"+ thumbnailPath);
-		}						
-		
-		Donations d = new Donations(id, status, title, content, start, end, totalNeededFloat, category, thumbnailPath);
-		try {
-			donationsDAO.updateDonation(d);
-			request.setAttribute("notifyDonation", "Cập nhật thành công.");
-			request.setAttribute("statusDonation", "OK");
-
-		} catch (Exception e) {
-			request.setAttribute("notifyDonation", "Cập nhật thất bại.");
-			request.setAttribute("statusDonation", "FAIL");
-		}
-		page = Integer.parseInt(request.getParameter("page"));
-		response.sendRedirect("DonationsController?action=DonationList&page=" + page);
-	}
-
-	private void deleteDonation(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, Exception {
-		String[] ids = request.getParameter("id").split(",");
-		List<Donations> list = new ArrayList<Donations>();
-
-		try {
-			for (String id : ids) {
-				Donations d = new Donations(Integer.parseInt(id));
-				list.add(d);
-			}
-			donationsDAO.deleteDonation(list);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
-	}
 }

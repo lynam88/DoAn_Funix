@@ -38,7 +38,10 @@
 			<c:forEach var="donation" items="${DonationList}">
 				<div class="col-md-4 ftco-animate">
 					<div class="cause-entry">
-						<a href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}" class="img donationThumbnail" style="background-image: url(${donation.src});"></a>
+						<a
+							href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}"
+							class="img donationThumbnail"
+							style="background-image: url(${donation.src});"></a>
 						<div class="text p-3 p-md-4">
 							<h4>
 								<a
@@ -59,8 +62,17 @@
 									quyên góp được 0 trên tổng số tiền <c:out value="${myNum}"></c:out>
 									VNĐ
 								</span>
-								<button type="button" class="btn btn-primary float-right">
-									Quyên góp</button>
+								<c:if test="${donation.status == 1}">
+									<a
+										href="${pageContext.request.contextPath}/UsersController?action=donations"
+										class="btn btn-success float-right" role="button"
+										aria-pressed="true">Đã hoàn thành</a>
+								</c:if>
+								<c:if test="${donation.status == 2}">
+									<a type="button" class="btn btn-primary float-right"
+										href="${pageContext.request.contextPath}/UserDonationController?action=showMakeDonationPage&donationTitle=${donation.title}">Quyên
+										góp</a>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -71,19 +83,22 @@
 			<div class="col text-center">
 				<div class="block-27">
 					<ul>
-						<li><a href="${pageContext.request.contextPath}/UsersController?action=donations&page=1" tabindex="-1">&lt;</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/UsersController?action=donations&page=1"
+							tabindex="-1">&lt;</a></li>
 						<c:forEach var="i" begin="1" end="${noOfPage}">
 							<c:choose>
-							<c:when test="${currentPage eq i}">								
-								<li class="active">
-							      <a> ${i}</a> </li>
-							</c:when>
-							<c:otherwise>								
-								<li ><a type="button"href="${pageContext.request.contextPath}/UsersController?action=donations&page=${i}">${i}</a></li>
-							</c:otherwise>
+								<c:when test="${currentPage eq i}">
+									<li class="active"><a> ${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a type="button"
+										href="${pageContext.request.contextPath}/UsersController?action=donations&page=${i}">${i}</a></li>
+								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li><a href="${pageContext.request.contextPath}/UsersController?action=donations&page=${noOfPage}">&gt;</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/UsersController?action=donations&page=${noOfPage}">&gt;</a></li>
 					</ul>
 				</div>
 			</div>

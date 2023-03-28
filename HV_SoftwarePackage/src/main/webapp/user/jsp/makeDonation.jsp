@@ -42,14 +42,13 @@
 							<h3 class="text-center text-primary">THỰC HIỆN QUYÊN GÓP</h3>
 						</div>
 						<form class="makeDonationForm"
-							action="${pageContext.request.contextPath}/UsersController?action=signup"
-							method="post" enctype="multipart/form-data"
-							onsubmit="return validateSignup()">
-							<div class="row">
-								<div>
+							action="${pageContext.request.contextPath}/UserDonationController?action=makeDonation"
+							method="post" onsubmit="return validateDonation()">
+							<div class="row donationTitle">
 								<span class="input-group-text"><i class='bx bx-captions'></i></span>
-								<p class="text-center donationTitle">Tên đợt quyên góp: ${donationTitle}</p>
-								</div>
+								<p id="donationTitle">Tên đợt quyên góp: ${donationTitle}</p>
+							</div>
+							<div class="row">								
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
 										<span class="require">(*) Bắt buộc</span>
@@ -101,7 +100,8 @@
 													class='bx bx-donate-heart'></i></span> <input type="text"
 													id="amount" name="amount" class="form-control"
 													placeholder="Xin nhập số tiền"
-													value="<c:out value='${inputUser.amount}'/>">
+													value="<c:out value='${inputUser.amount}'/>"><span class="input-group-text"><i
+													>VNĐ</i></span>
 											</div>
 											<p id="amount_error">${amount_error}</p>
 										</div>
