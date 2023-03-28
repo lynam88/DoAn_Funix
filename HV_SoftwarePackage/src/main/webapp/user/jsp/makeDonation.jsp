@@ -46,17 +46,13 @@
 							method="post" enctype="multipart/form-data"
 							onsubmit="return validateSignup()">
 							<div class="row">
+								<div>
+								<span class="input-group-text"><i class='bx bx-captions'></i></span>
+								<p class="text-center donationTitle">Tên đợt quyên góp: ${donationTitle}</p>
+								</div>
 								<div class="col-md-6">
 									<div class="card-body p-md-5">
 										<span class="require">(*) Bắt buộc</span>
-										<div class="form-outline my-3">										
-											<div class="input-group">
-												<span class="input-group-text"><i class='bx bx-captions'></i></span><p id="donationTitle">Tên đợt quyên góp:</p>
-												<span class="text-primary">${donationTitle}</span>
-											</div>
-											<p id="donationTitle_error">${donationTitle_error}</p>
-										</div>
-										
 										<div class="form-outline my-3">
 											<label for="name">Họ và tên: <span class="require">*</span></label>
 											<div class="input-group">
@@ -79,7 +75,8 @@
 											</div>
 											<p id="phone_error">${phone_error}</p>
 
-										</div>										<div class="form-outline my-3">
+										</div>
+										<div class="form-outline my-3">
 											<label for="email">Email: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
@@ -89,8 +86,8 @@
 													value="<c:out value='${inputUser.email}'/>">
 											</div>
 											<p id="email_error">${email_error}</p>
-										</div>			
-										
+										</div>
+
 									</div>
 
 								</div>
@@ -108,19 +105,19 @@
 											</div>
 											<p id="amount_error">${amount_error}</p>
 										</div>
-										
+
 										<div class="form-outline my-3">
 											<label for="bank">Tên ngân hàng: <span
 												class="require">*</span></label>
 											<div class="input-group">
-												<span class="input-group-text"><i class='bx bxs-bank'></i></span> <input type="text"
-													id="bank" name="bank" class="form-control"
-													placeholder="Xin nhập tên ngân hàng"
+												<span class="input-group-text"><i class='bx bxs-bank'></i></span>
+												<input type="text" id="bank" name="bank"
+													class="form-control" placeholder="Xin nhập tên ngân hàng"
 													value="<c:out value='${inputUser.bank}'/>">
 											</div>
 											<p id="bank_error">${bank_error}</p>
 										</div>
-										
+
 										<div class="form-outline my-3">
 											<label for="transaction">Xin nhập mã giao dịch: <span
 												class="require">*</span></label>
@@ -133,12 +130,7 @@
 											</div>
 											<p id="transaction_error">${transaction_error}</p>
 										</div>
-										
-										<div class="form-outline my-3">
-											<label for="message">Gửi phản hồi: </label>
-											<textarea name="" id="" cols="30" rows="7"
-												class="form-control" placeholder="Nội dung tin nhắn"></textarea>
-										</div>
+
 									</div>
 								</div>
 							</div>
@@ -149,7 +141,7 @@
 										class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
 										type="submit" id="submit-button">Quyên góp</button>
 								</div>
-							</div>							
+							</div>
 						</form>
 					</div>
 				</div>

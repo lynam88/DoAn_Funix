@@ -415,12 +415,12 @@
 	    padding-left: 10%;
 	}
 	
-	#donationTitle{
+	.donationTitle{
 		margin-top: 2%;
-   		color: black;
+   		color: blue;
 	}
 	
 	.rightDonation{	
 		position: relative !important;
-	    top: 7% !important;
+	    top: 6% !important;
     }
