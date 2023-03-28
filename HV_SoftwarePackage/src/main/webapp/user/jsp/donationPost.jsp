@@ -34,7 +34,7 @@
 
 
 <section class="ftco-section ftco-degree-bg">
-	<div class="container" id="donationPost">
+	<div class="container-fluid" id="donationPost">
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-left">
@@ -42,7 +42,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="row donationPost">
+		<div class="row donationPost container-fluid">
 			<div class="col-xl-6 ftco-animate">
 				<h2 class="mb-3 text-primary">${donation.title}</h2>
 				${donation.content}
@@ -62,8 +62,8 @@
 										<p class="text-success font-weight-bold">Chưa Hoàn Thành</p>
 									</c:if>
 								</div>
-								<span class="donation-time mb-3 d-block recentDonation"> Quyên góp mới
-									nhất cách đây 0 ngày </span>
+								<span class="donation-time mb-3 d-block recentDonation">
+									Quyên góp mới nhất cách đây 0 ngày </span>
 								<div class="progress custom-progress-success">
 									<div class="progress-bar bg-primary" role="progressbar"
 										style="width: 50%" aria-valuenow="50" aria-valuemin="0"
@@ -83,25 +83,25 @@
 											aria-pressed="true">Hoàn cảnh mới nhất</a>
 									</c:if>
 									<c:if test="${donation.status == 2}">
-										<a href="#" class="btn btn-primary float-right" role="button"
-											aria-pressed="true">Quyên góp</a>
+										<a class="btn btn-primary float-right" role="button"
+											aria-pressed="true" onclick="showForm()">Quyên góp</a>
 									</c:if>
 								</div>
 							</div>
-							<form class="row makeDonationForm"
+							<form class="row makeDonationForm" id="makeDonationForm"
 								action="${pageContext.request.contextPath}/UserDonationController?action=makeDonation"
 								method="post" onsubmit="return validateDonation()">
 
 								<div class="row">
 									<div class="col-md-6">
-										<div class="card-body p-md-5">
+										<div class="card-body p-md-5 leftDonation">
 											<span class="require">(*) Bắt buộc</span>
 											<div class="form-outline my-3">
 												<label for="name">Họ và tên: <span class="require">*</span></label>
 												<div class="input-group">
 													<span class="input-group-text"><i class="bx bx-user"></i></span>
 													<input type="text" id="name" name="name"
-														class="form-control" 
+														class="form-control"
 														value="<c:out value='${inputUser.name}'/>">
 												</div>
 												<p id="name_error"></p>
@@ -179,12 +179,10 @@
 									</div>
 								</div>
 
-								<div class="row justify-content-center donationBtm">
-									<div class="col-lg-6 text-center">
-										<button
-											class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
-											type="submit" id="submit-button">Quyên góp</button>
-									</div>
+								<div class="text-center">
+									<button
+										class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
+										type="submit" id="submit-button">Quyên góp</button>
 								</div>
 							</form>
 						</div>

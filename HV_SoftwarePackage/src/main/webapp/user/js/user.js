@@ -388,9 +388,20 @@
 		}
 		
 		/**
-		 * Js functions for make Donation page
+		 * Js functions for Donation post page
 		 */
 		
+		//Show form
+		function showForm() {
+			  var x = document.getElementById("makeDonationForm");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			}
+		
+		//Validate form
 		function validateDonation() {
 			  const name = document.getElementById("name").value;
 			  const phone = document.getElementById("phone").value;

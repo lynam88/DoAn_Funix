@@ -158,10 +158,10 @@
 		margin-top: 0.5rem !important;
 	}
 	
-	.signupBtn, .donationBtn{
+	.signupBtn{
 		margin-top: -1rem !important;
 		width: 30%;	
-	}
+	}	
 	
 	.signupBottom{
 		display: flow-root; padding-bottom: 5%;
@@ -289,7 +289,7 @@
 			color: black;
 		}		
 		
-		@media (min-width: 1200px) { 
+	@media (min-width: 1200px) { 
 		#contactMail{
 				margin-right: 0%;
 	    		margin-left: -5%;
@@ -329,6 +329,7 @@
 	}
 	.donationInfo{
 		padding: 0%;
+		width: 110%;
 	}
 	
 	#donationPost{
@@ -337,8 +338,19 @@
 	
 	.recentDonation{
 		margin-top: 2%;
-	    margin-left: 10%;
+	    margin-left: 8%;
 	    color: blue !important;
+	}
+	
+	#makeDonationForm{
+		display: none;
+	}
+	
+	@media (min-width: 1200px) { 	
+		.donationBtn{
+			margin-left: 245%;
+			position: absolute;
+		} 
 	}
 	
 	/* Recover Page */
@@ -349,7 +361,7 @@
 	}
 	
 	/* Header Page */	
-	.user{
+	.user {
 		margin-left: 15%;
 	}
 	.avatar {
@@ -420,9 +432,11 @@
 		position: inherit;
 	}
 	
-	/* Make Donation Page */	
+	/* Make Donation Form */	
 	.makeDonationForm{
-	    padding-left: 10%;
+	    padding-left: 7%;
+	    margin-right: 5%;
+	    position: absolute;
 	}
 	
 	.donationTitle{		
@@ -435,9 +449,12 @@
 	}
 	
 	@media (min-width: 768px) {
+		.leftDonation{				
+		    padding: 2rem !important;
+	    }
 		.rightDonation{	
 			position: relative !important;
-		    top: 6% !important;
+		    padding: 2rem !important;
 	    }
 	}
 	
