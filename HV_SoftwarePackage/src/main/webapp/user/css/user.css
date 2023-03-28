@@ -331,6 +331,10 @@
 		padding: 0%;
 	}
 	
+	#donationPost{
+		max-width: 100%;
+	}
+	
 	/* Recover Page */
 	@media (min-width: 992px) { 	
 		.recoverBtn{
@@ -438,7 +442,7 @@
 		}
 	}
 	
-	#amount_error, #bank_error, #transaction_error {
+	#donationAmount_error, #bank_error, #transactionId_error {
 		color: red;
 		position: inherit;	
 	}

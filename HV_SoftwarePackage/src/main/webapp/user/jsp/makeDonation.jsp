@@ -7,6 +7,52 @@
 	<c:param name="title" value="Tạo Quyên Góp | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
+<%
+String notifyDonation = (String) request.getAttribute("notifyDonation");
+String statusDonation = (String) request.getAttribute("statusDonation");
+
+if (notifyDonation != null) {
+%>
+<div class="modal" id="donateModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="text-center" id="donateMsg"
+					style="font-size: large; color: red;"><%=notifyDonation%></p>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+		setTimeout(function() {
+			$("#donateModal").modal("show");
+		}, 500);
+		setTimeout(function() {
+			$('#donateModal').modal().hide();
+			var st = "<%=statusDonation%>";
+				if (st == "OK") {
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=user';
+				} else {
+					// remove class modal-backdrop in
+					$(".modal-backdrop").removeClass("modal-backdrop in");
+					window.history.back();
+				}
+			}, 3000);
+</script>
+<%
+}
+%>
+
 <div class="hero-wrap"
 	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');"
 	data-stellar-background-ratio="0.5">
@@ -47,6 +93,7 @@
 							<div class="row donationTitle">
 								<span class="input-group-text"><i class='bx bx-captions'></i></span>
 								<p id="donationTitle">Tên đợt quyên góp: ${donationTitle}</p>
+								<input type="hidden" name="donationTitle" value="${donationTitle}">
 							</div>
 							<div class="row">								
 								<div class="col-md-6">
@@ -93,17 +140,17 @@
 								<div class="col-md-6">
 									<div class="card-body p-md-5 rightDonation">
 										<div class="form-outline my-3">
-											<label for="amount">Số tiền bạn muốn quyên góp: <span
+											<label for="donationAmount">Số tiền bạn muốn quyên góp: <span
 												class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
 													class='bx bx-donate-heart'></i></span> <input type="text"
-													id="amount" name="amount" class="form-control"
+													id="donationAmount" name="donationAmount" class="form-control"
 													placeholder="Xin nhập số tiền"
-													value="<c:out value='${inputUser.amount}'/>"><span class="input-group-text"><i
+													value="<c:out value='${inputUser.donationAmount}'/>"><span class="input-group-text"><i
 													>VNĐ</i></span>
 											</div>
-											<p id="amount_error">${amount_error}</p>
+											<p id="donationAmount_error">${donationAmount_error}</p>
 										</div>
 
 										<div class="form-outline my-3">
@@ -119,16 +166,16 @@
 										</div>
 
 										<div class="form-outline my-3">
-											<label for="transaction">Xin nhập mã giao dịch: <span
+											<label for="transactionId">Xin nhập mã giao dịch: <span
 												class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
 													class='bx bx-transfer'></i></span> <input type="text"
-													id="transaction" name="transaction" class="form-control"
+													id="transactionId" name="transactionId" class="form-control"
 													placeholder="Xin nhập mã giao dịch"
-													value="<c:out value='${inputUser.transaction}'/>">
+													value="<c:out value='${inputUser.transactionId}'/>">
 											</div>
-											<p id="transaction_error">${transaction_error}</p>
+											<p id="transactionId_error">${transactionId_error}</p>
 										</div>
 
 									</div>

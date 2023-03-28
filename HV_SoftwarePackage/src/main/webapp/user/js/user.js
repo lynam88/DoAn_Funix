@@ -395,16 +395,16 @@
 			  const name = document.getElementById("name").value;
 			  const phone = document.getElementById("phone").value;
 			  const email = document.getElementById("email").value;
-			  const amount = document.getElementById("amount").value;
+			  const donationAmount = document.getElementById("donationAmount").value;
 			  const bank = document.getElementById("bank").value;
-			  const transaction = document.getElementById("transaction").value;
+			  const transactionId = document.getElementById("transactionId").value;
 
 			  const nameError = document.getElementById("name_error");
 			  const phoneError = document.getElementById("phone_error");
 			  const emailError = document.getElementById("email_error");
-			  const amountError = document.getElementById("amount_error");
+			  const donationAmountError = document.getElementById("donationAmount_error");
 			  const bankError = document.getElementById("bank_error");
-			  const transactionError = document.getElementById("transaction_error");
+			  const transactionIdError = document.getElementById("transactionId_error");
 
 			  if (!name) {
 			    nameError.innerHTML = "Xin điền vào họ tên";
@@ -446,20 +446,20 @@
 			    emailError.innerHTML = "";
 			  }
 
-			  if (!amount) {
-				amountError.innerHTML = "Xin điền vào số tiền muốn quyên góp.";		 
+			  if (!donationAmount) {
+				donationAmountError.innerHTML = "Xin điền vào số tiền muốn quyên góp.";		 
 			    return false;
 				    
 			  } else {
-				amountError.innerHTML = "";
+				donationAmountError.innerHTML = "";
 			  } 
 			  
-			  if (isNaN(amount)) {
-				amountError.innerHTML =  "Xin điền vào số";		
+			  if (isNaN(donationAmount)) {
+				donationAmountError.innerHTML =  "Xin điền vào số";		
 				return false;
 				
 			  } else {
-				amountError.innerHTML =  "";
+				 donationAmountError.innerHTML =  "";
 			  }
 			  
 			  if (!bank) {
@@ -470,12 +470,12 @@
 				  bankError.innerHTML = "";
 			  }
 			  
-			  if (!transaction) {
-				  transactionError.innerHTML = "Xin điền vào mã giao dịch.";
+			  if (!transactionId) {
+				  transactionIdError.innerHTML = "Xin điền vào mã giao dịch.";
 				  return false;
 			    
 			  } else {
-				  transactionError.innerHTML = "";
+				  transactionIdError.innerHTML = "";
 			  }
 			  
 			  return true;

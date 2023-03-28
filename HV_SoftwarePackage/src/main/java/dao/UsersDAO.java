@@ -151,14 +151,13 @@ public class UsersDAO {
 
 	public void insertUser(Users u) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		String sql = "MERGE INTO Users AS target " + "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, "
-				+ (u.getPhone().isEmpty() ? "" : "phone, ")
-				+ "email, avatar_path, address, password, registration_date) " + "ON target.email = source.email "
-				+ (u.getPhone().isEmpty() ? "" : "AND target.phone = source.phone ")
-				+ "WHEN NOT MATCHED BY TARGET THEN " + "INSERT (name, " + (u.getPhone().isEmpty() ? "" : "phone, ")
-				+ "email, avatar_path, address, password, registration_date) " + "VALUES (source.name, "
-				+ (u.getPhone().isEmpty() ? "" : "source.phone, ")
-				+ "source.email, source.avatar_path, source.address, source.password, GETDATE());";
+		String sql = "MERGE INTO Users AS target " +
+	                 "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, phone, email, avatar_path, address, password, registration_date) " +
+	                 "ON target.email = source.email " +
+	                 "AND target.phone = source.phone " +
+	                 "WHEN NOT MATCHED BY TARGET THEN " +
+	                 "INSERT (name, phone, email, avatar_path, address, password, registration_date) " +
+	                 "VALUES (source.name, source.phone, source.email, source.avatar_path, source.address, source.password, GETDATE());";
 
 		PreparedStatement stmt = connection.prepareStatement(sql);
 

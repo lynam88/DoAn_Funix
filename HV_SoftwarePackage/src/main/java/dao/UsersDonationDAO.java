@@ -20,9 +20,9 @@ public class UsersDonationDAO {
 		List<Users> list = new ArrayList<>();
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role "
-					+ "FROM Users "
-					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ")
-					+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
+						+ "FROM Users "
+						+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ")
+						+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -68,8 +68,8 @@ public class UsersDonationDAO {
 		List<Users> list = new ArrayList<>();
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total "
-					+ "FROM Users " 
-					+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ");
+						+ "FROM Users " 
+						+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ");
 			if (!searchStatus.equals("0")) {
 				sql += " AND user_role = ?";
 			}
@@ -135,27 +135,19 @@ public class UsersDonationDAO {
 		return u;
 	}
 	
-	public void insertUser(Users u) throws Exception {
+	public void insertUserDonation(Users u) throws Exception {
 	    Connection connection = new DBContext().getConnection();
-	    String sql = "MERGE INTO Users AS target " +
-	                 "USING (VALUES (?, ?, ?, ?, ?, ?, GETDATE())) AS source (name, " + (u.getPhone().isEmpty() ? "" : "phone, ") + "email, avatar_path, address, password, registration_date) " +
-	                 "ON target.email = source.email " +
-	                 (u.getPhone().isEmpty() ? "" : "AND target.phone = source.phone ") +
-	                 "WHEN NOT MATCHED BY TARGET THEN " +
-	                 "INSERT (name, " + (u.getPhone().isEmpty() ? "" : "phone, ") + "email, avatar_path, address, password, registration_date) " +
-	                 "VALUES (source.name, " + (u.getPhone().isEmpty() ? "" : "source.phone, ") + "source.email, source.avatar_path, source.address, source.password, GETDATE());";
+	    String sql = "INSERT INTO UserDonation (name, phone, email, bank, transaction_id, donation_amount, donation_date)" +
+	                 "VALUES (?, ?, ?, ?, ?, ?, GETDATE());";
 
 	    PreparedStatement stmt = connection.prepareStatement(sql);
 
 	    stmt.setString(1, u.getName());
-	    int index = 2;
-	    if (!u.getPhone().isEmpty()) {
-	        stmt.setString(index++, u.getPhone());
-	    }
-	    stmt.setString(index++, u.getEmail());
-	    stmt.setString(index++, u.getAvatarPath());
-	    stmt.setString(index++, u.getAddress());
-	    stmt.setString(index++, u.getPassword());
+	    stmt.setString(2, u.getPhone());	
+	    stmt.setString(3, u.getEmail());
+	    stmt.setString(4, u.getBank());
+	    stmt.setString(5, u.getTransactionId());
+	    stmt.setFloat(6, u.getDonationAmount());
 	    int run = stmt.executeUpdate();
 	    stmt.close();
 	    if (run == 0) throw new Exception();

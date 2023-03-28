@@ -33,7 +33,7 @@
 
 
 <section class="ftco-section ftco-degree-bg">
-	<div class="container">
+	<div class="container" id="donationPost">
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-left">
@@ -85,6 +85,105 @@
 									</c:if>
 								</div>
 							</div>
+							<form class="makeDonationForm"
+							action="${pageContext.request.contextPath}/UserDonationController?action=makeDonation"
+							method="post" onsubmit="return validateDonation()">
+							
+							<div class="row">								
+								<div class="col-md-6">
+									<div class="card-body p-md-5">
+										<span class="require">(*) Bắt buộc</span>
+										<div class="form-outline my-3">
+											<label for="name">Họ và tên: <span class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-user"></i></span>
+												<input type="text" id="name" name="name"
+													class="form-control" placeholder="Xin nhập họ và tên"
+													value="<c:out value='${inputUser.name}'/>">
+											</div>
+											<p id="name_error"></p>
+										</div>
+
+										<div class="form-outline my-3">
+											<label for="phone">Số điện thoại: <span
+												class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class="bx bx-phone"></i></span>
+												<input type="text" id="phone" name="phone"
+													class="form-control" placeholder="Xin nhập số điện thoại"
+													value="<c:out value='${inputUser.phone}'/>">
+											</div>
+											<p id="phone_error">${phone_error}</p>
+
+										</div>
+										<div class="form-outline my-3">
+											<label for="email">Email: <span class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class="bx bx-envelope"></i></span> <input type="email" id="email"
+													name="email" class="form-control"
+													placeholder="Xin nhập email"
+													value="<c:out value='${inputUser.email}'/>">
+											</div>
+											<p id="email_error">${email_error}</p>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="col-md-6">
+									<div class="card-body p-md-5 rightDonation">
+										<div class="form-outline my-3">
+											<label for="donationAmount">Số tiền bạn muốn quyên góp: <span
+												class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class='bx bx-donate-heart'></i></span> <input type="text"
+													id="donationAmount" name="donationAmount" class="form-control"
+													placeholder="Xin nhập số tiền"
+													value="<c:out value='${inputUser.donationAmount}'/>"><span class="input-group-text"><i
+													>VNĐ</i></span>
+											</div>
+											<p id="donationAmount_error">${donationAmount_error}</p>
+										</div>
+
+										<div class="form-outline my-3">
+											<label for="bank">Tên ngân hàng: <span
+												class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i class='bx bxs-bank'></i></span>
+												<input type="text" id="bank" name="bank"
+													class="form-control" placeholder="Xin nhập tên ngân hàng"
+													value="<c:out value='${inputUser.bank}'/>">
+											</div>
+											<p id="bank_error">${bank_error}</p>
+										</div>
+
+										<div class="form-outline my-3">
+											<label for="transactionId">Xin nhập mã giao dịch: <span
+												class="require">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text"><i
+													class='bx bx-transfer'></i></span> <input type="text"
+													id="transactionId" name="transactionId" class="form-control"
+													placeholder="Xin nhập mã giao dịch"
+													value="<c:out value='${inputUser.transactionId}'/>">
+											</div>
+											<p id="transactionId_error">${transactionId_error}</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="row justify-content-center donationBtm">
+								<div class="col-lg-6 text-center">
+									<button
+										class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
+										type="submit" id="submit-button">Quyên góp</button>
+								</div>
+							</div>
+						</form>
 						</div>
 					</div>
 				</div>

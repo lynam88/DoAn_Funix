@@ -24,6 +24,8 @@ import commons.MD5Library;
 import commons.Utils;
 import dao.DonationsDAO;
 import dao.ExportService;
+import dao.UsersDAO;
+import dao.UsersDonationDAO;
 import model.Users;
 import model.Donations;
 
@@ -32,11 +34,13 @@ import model.Donations;
  */
 @WebServlet(name = "UserDonationController", urlPatterns = { "/UserDonationController" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-maxFileSize = 1024 * 1024 * 50, // 50MB
-maxRequestSize = 1024 * 1024 * 50) // 50MB
+		maxFileSize = 1024 * 1024 * 50, // 50MB
+		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class UserDonationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO donationsDAO;
+	private UsersDAO usersDAO;
+	private UsersDonationDAO UsersDonationDAO;
 	private String action;
 	private String search;
 	private String status;
@@ -47,6 +51,7 @@ public class UserDonationController extends HttpServlet {
 	Users sessionUser;
 
 	public void init() {
+		usersDAO = new UsersDAO();
 		donationsDAO = new DonationsDAO();
 	}
 
@@ -57,12 +62,12 @@ public class UserDonationController extends HttpServlet {
 		try {
 			List<Donations> listDonations = donationsDAO.search("", "0", "0");
 			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {			
+		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
-		switch (action) {		
+		switch (action) {
 		case "makeDonation":
 			try {
 				makeDonation(request, response);
@@ -81,12 +86,12 @@ public class UserDonationController extends HttpServlet {
 		try {
 			List<Donations> listDonations = donationsDAO.search("", "0", "0");
 			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {			
+		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
-		switch (action) {		
+		switch (action) {
 		case "showMakeDonationPage":
 			try {
 				showMakeDonationPage(request, response);
@@ -100,7 +105,7 @@ public class UserDonationController extends HttpServlet {
 
 	private void showMakeDonationPage(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		String donationTitle =  request.getParameter("donationTitle");
+		String donationTitle = request.getParameter("donationTitle");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/makeDonation.jsp");
 		request.setAttribute("donationTitle", donationTitle);
 		dispatcher.forward(request, response);
@@ -120,9 +125,12 @@ public class UserDonationController extends HttpServlet {
 			String email = request.getParameter("email");
 			String donationAmount = request.getParameter("donationAmount");
 			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
-		
+			String bank = request.getParameter("bank");
+			String transactionId = request.getParameter("transactionId");
+			String donationTitle = request.getParameter("donationTitle");
+
 			// Create new user object
-			Users u = new Users(name, phone, email, donationAmount);
+			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);
 			request.setAttribute("inputUser", u);
 			if (phone != null && usersDAO.getUser(phone) != null) {
 				request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
@@ -131,16 +139,17 @@ public class UserDonationController extends HttpServlet {
 				request.setAttribute("email_error", "Email này đã được đăng ký");
 
 			} else {
-				// Insert user data to database
-				usersDAO.insertUser(u);
-				request.setAttribute("notifyDonation", "Đăng ký thành công.");
-				request.setAttribute("statusDonation", "OK");		
+				// Insert user donation data to database
+				UsersDonationDAO.insertUserDonation(u);
+				request.setAttribute("notifyDonation", "Quyên góp thành công.");
+				request.setAttribute("statusDonation", "OK");
 			}
 
 		} catch (Exception ex) {
-			request.setAttribute("notifyDonation", "Đăng ký thất bại.");
+			request.setAttribute("notifyDonation", "Quyên góp thất bại.");
 			request.setAttribute("statusDonation", "FAIL");
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/makeDonation.jsp");
 		dispatcher.forward(request, response);
+	}
 }
