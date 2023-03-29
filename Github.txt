@@ -7,7 +7,7 @@ git commit -m 'Initial Commit'
 git push -u origin main
 
 lynam88
-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
+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
 
 Information
 
