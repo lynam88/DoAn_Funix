@@ -8,6 +8,52 @@
 		value="Chi tiết đợt quyên góp | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
+<%
+String notifyDonation = (String) request.getAttribute("notifyDonation");
+String statusDonation = (String) request.getAttribute("statusDonation");
+
+if (notifyDonation != null) {
+%>
+<div class="modal" id="donateModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="text-center" id="donateMsg"
+					style="font-size: large; color: red;"><%=notifyDonation%></p>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+		setTimeout(function() {
+			$("#donateModal").modal("show");
+		}, 500);
+		setTimeout(function() {
+			$('#donateModal').modal().hide();
+			var st = "<%=statusDonation%>";
+				if (st == "OK") {
+					window.location.href = '/HV_SoftwarePackage/UsersController?action=user';
+				} else {
+					// remove class modal-backdrop in
+					$(".modal-backdrop").removeClass("modal-backdrop in");
+					window.history.back();
+				}
+			}, 3000);
+</script>
+<%
+}
+%>
+
 <div class="hero-wrap"
 	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');"
 	data-stellar-background-ratio="0.5">
@@ -137,8 +183,7 @@
 									<div class="col-md-6">
 										<div class="card-body p-md-5 rightDonation">
 											<div class="form-outline my-3">
-												<label for="donationAmount">Số tiền bạn muốn quyên
-													góp: <span class="require">*</span>
+												<label for="donationAmount">Xin nhập số tiền: <span class="require">*</span>
 												</label>
 												<div class="input-group">
 													<span class="input-group-text"><i
@@ -180,7 +225,7 @@
 									</div>
 								</div>
 
-								<div class="text-center">
+								<div class="text-center donationBtm">
 									<button
 										class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
 										type="submit" id="submit-button">Quyên góp</button>

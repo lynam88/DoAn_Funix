@@ -127,7 +127,6 @@ public class UserDonationController extends HttpServlet {
 			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
 			String bank = request.getParameter("bank");
 			String transactionId = request.getParameter("transactionId");
-			String donationTitle = request.getParameter("donationTitle");
 
 			// Create new user object
 			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);
@@ -149,7 +148,7 @@ public class UserDonationController extends HttpServlet {
 			request.setAttribute("notifyDonation", "Quyên góp thất bại.");
 			request.setAttribute("statusDonation", "FAIL");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/makeDonation.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationPost.jsp");
 		dispatcher.forward(request, response);
 	}
 }

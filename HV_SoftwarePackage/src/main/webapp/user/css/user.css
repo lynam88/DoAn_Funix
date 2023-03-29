@@ -335,22 +335,15 @@
 		max-width: 90%;
 	}
 	
-	.recentDonation{
-		margin-top: 2%;
-	    margin-left: 8%;
+	.recentDonation {
+	    margin-top: 3%;
+	    margin-left: 3%;
 	    color: blue !important;
 	}
 	
 	#makeDonationForm{
 		display: none;
-	}
-	
-	@media (min-width: 1200px) { 	
-		.donationBtn{
-			margin-left: 245%;
-			position: absolute;
-		} 
-	}
+	}	
 	
 	/* Recover Page */
 	@media (min-width: 992px) { 	
@@ -445,6 +438,11 @@
 	#donationTitle{
 		margin-top: 2%;
    		color: blue;   	
+	}
+	
+	.donationBtm{
+		position: absolute;
+		margin-left: 40%;
 	}
 	
 	@media (min-width: 768px) {
