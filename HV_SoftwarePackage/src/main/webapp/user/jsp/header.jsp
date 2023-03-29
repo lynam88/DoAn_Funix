@@ -62,19 +62,19 @@
 			  </c:otherwise>
 			 </c:choose>
 			<li class="dropdown nav-dropdown">
-	          <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UsersController?action=donations">
+	          <a class="dropdown-toggle nav-item nav-link" href="${pageContext.request.contextPath}/UserDonationController?action=donations">
 		        Hoàn Cảnh Quyên Góp
  		      </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=1">Vì Trẻ Em</a></li>
-	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=2">Người Già, Người Khuyết Tật</a></li>
-	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=3">Bệnh Hiểm Nghèo</a></li>
-	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=4">Đầu Tư Cơ Sở Vật Chất</a></li>
-	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donations&category=5">Bảo Vệ Môi Trường</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserDonationController?action=donations&category=1">Vì Trẻ Em</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserDonationController?action=donations&category=2">Người Già, Người Khuyết Tật</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserDonationController?action=donations&category=3">Bệnh Hiểm Nghèo</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserDonationController?action=donations&category=4">Đầu Tư Cơ Sở Vật Chất</a></li>
+	            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserDonationController?action=donations&category=5">Bảo Vệ Môi Trường</a></li>
 	          </ul>
 	        </li>
 		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=contact" class="nav-link">Liên Hệ</a></li>
-		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UsersController?action=donationGuide" class="nav-link">Hướng Dẫn Đóng Góp</a></li>		  
+		    <li class="nav-item"><a href="${pageContext.request.contextPath}/UserDonationController?action=donationGuide" class="nav-link">Hướng Dẫn Đóng Góp</a></li>		  
 		    <c:choose>
 			  <c:when test="${user != null}">
 			    <!-- User is logged in -->

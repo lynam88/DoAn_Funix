@@ -392,7 +392,7 @@
 		 */
 		
 		//Show form
-		$('#donationBtn').click(function() {
+		$('#FirstDonationBtn').click(function() {
 			  var x = document.getElementById("makeDonationForm");
 			  var style = window.getComputedStyle(x);
 			  if (style.display === "none") {
@@ -492,4 +492,59 @@
 			  }
 			  
 			  return true;
-			}		
+			}	
+		
+		//Make donation
+		
+		function makeDonation() {
+			// Call validate inputs
+			var check = validateDonation();
+			// If Ok
+			if(check) {
+			// Call ajax			
+			 try {
+		            $.ajax({
+		                type : 'POST',
+		                data: {
+		                    name: name,
+		                    phone: phone,
+		                    email: email,
+		                    donationAmount: donationAmount,
+		                    bank: bank,
+		                    transactionId: transactionId
+		                },
+		                url : '/HV_SoftwarePackage/UserDonationController?action=makeDonation',
+		                success : function(responseText) {	                	
+		                    setTimeout(function() {                  
+		                        $("#make_donation_notify").modal("show");
+		    					$(".modal-backdrop").removeClass("modal-backdrop in");
+		                        $("#make_donation_msg").text(responseText);	                        
+		                    }, 1000);                    
+		                    setTimeout(function() {	
+		                    	$("#make_donation_notify").modal("hide");
+		                        location.reload();
+		                    }, 3000);
+		                },
+		                error: function(responseText){	                
+		                    setTimeout(function() {                  
+		                        $("#make_donation_notify").modal("show");
+		    					$(".modal-backdrop").removeClass("modal-backdrop in");
+		                        $("#make_donation_msg").text(responseText);	                        
+		                    }, 1000);                    
+		                    setTimeout(function() {	                    	
+		                        location.reload();
+		                    }, 3000);
+		                },
+		            });
+		        } catch (e) {	   
+		            setTimeout(function() {                  
+		                $("#make_donation_notify").modal("show");
+						$(".modal-backdrop").removeClass("modal-backdrop in");
+		                $("#make_donation_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		            }, 1000);                    
+		            setTimeout(function() {
+		                location.reload();
+		            }, 3000);
+		        }	       
+		    }
+		}

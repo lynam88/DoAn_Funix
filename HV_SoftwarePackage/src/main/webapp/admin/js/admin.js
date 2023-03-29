@@ -141,7 +141,7 @@
 				type : 'POST',
 				data: 'id='+checked,
 				url : '/HV_SoftwarePackage/DonationsController?action=delete',
-				success : function(result) {
+				success : function() {
 					$("#myModal").modal("hide");
 					setTimeout(function() {					
 						$("#showDelete").modal("show");

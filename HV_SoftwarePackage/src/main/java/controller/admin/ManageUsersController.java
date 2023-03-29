@@ -77,13 +77,16 @@ public class ManageUsersController extends HttpServlet {
 					deleteUser(request, response);
 					break;
 				case "updateRole":
-					String notify = updateRole(request, response);
+					String notifyRole = updateRole(request, response);
 				    response.setContentType("text/plain; charset=UTF-8");
 				    response.setCharacterEncoding("UTF-8");
-				    response.getWriter().write(notify);
+				    response.getWriter().write(notifyRole);
 					break;
 				case "updateStatus":
-					updateStatus(request, response);
+					String notifyStatus = updateStatus(request, response);
+				    response.setContentType("text/plain; charset=UTF-8");
+				    response.setCharacterEncoding("UTF-8");
+				    response.getWriter().write(notifyStatus);
 					break;
 				}
 			} catch (Exception ex) {
@@ -128,17 +131,24 @@ public class ManageUsersController extends HttpServlet {
 		}
 	}
 
-	private void updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private String updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String email = request.getParameter("email");
 
 		try {
 			Users u = usersDAO.getUser(email);
-			usersDAO.updateStatus(u);
+			if (sessionUser.getEmail().equals(u.getEmail())) {
+				return "Bạn không được cập nhật chính mình.";
+					
+			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {				
+				return "Bạn không được cập nhật ADMIN.";
+								
+			} else {
+				usersDAO.updateStatus(u);
+				return  "Bạn đã cập nhật vai trò thành công.";				
+			}
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
-
-		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
 	}
 
 	private String updateRole(HttpServletRequest request, HttpServletResponse response) throws Exception {

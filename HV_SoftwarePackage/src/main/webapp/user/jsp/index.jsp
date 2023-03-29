@@ -141,13 +141,13 @@
 						<div class="item">
 							<div class="cause-entry">
 								<a
-									href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}"
+									href="${pageContext.request.contextPath}/UserDonationController?action=donationPost&id=${donation.id}"
 									class="img thumbnail"
 									style="background-image: url(${donation.src});"></a>
 								<div class="text p-3 p-md-4">
 									<h4>
 										<a
-											href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">
+											href="${pageContext.request.contextPath}/UserDonationController?action=donationPost&id=${donation.id}">
 											${donation.title} </a>
 									</h4>
 									<span class="donation-time mb-3 d-block"> Quyên góp mới
@@ -166,13 +166,13 @@
 										</span>
 										<c:if test="${donation.status == 1}">
 											<a
-												href="${pageContext.request.contextPath}/UsersController?action=donations"
+												href="${pageContext.request.contextPath}/UserDonationController?action=donations"
 												class="btn btn-success float-right" role="button"
 												aria-pressed="true">Đã hoàn thành</a>
 										</c:if>
 										<c:if test="${donation.status == 2}">
 											<a type="button" class="btn btn-primary float-right"
-												href="${pageContext.request.contextPath}/UsersController?action=donationPost&id=${donation.id}">Quyên
+												href="${pageContext.request.contextPath}/UserDonationController?action=donationPost&id=${donation.id}">Quyên
 												góp</a>
 										</c:if>
 									</div>

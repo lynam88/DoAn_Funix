@@ -70,7 +70,11 @@ public class UserDonationController extends HttpServlet {
 		switch (action) {
 		case "makeDonation":
 			try {
-				makeDonation(request, response);
+				String notifyMakeDonation = makeDonation(request, response);
+				response.setContentType("text/plain; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(notifyMakeDonation);
+				break;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -100,7 +104,59 @@ public class UserDonationController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "donationGuide":
+			showDonationGuide(request, response);
+			break;
+		case "donations":
+			try {
+				showDonations(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case "donationPost":
+			showDonationPost(request, response);
+			break;
 		}
+	}
+
+	private void showDonationGuide(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/donationGuide.jsp").forward(request, response);
+	}
+
+	private void showDonations(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int page = 1;
+		int recordPerPage = 6;
+		String category = request.getParameter("category");
+		if (category == null || category == "") {
+			category = "0";
+		}
+		if (request.getParameter("page") != null)
+			page = Integer.parseInt(request.getParameter("page"));
+		donationsDAO.search("", "0", category);
+		int noOfRecord = donationsDAO.getNoOfRecords();
+		int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
+		List<Donations> listPerPage = donationsDAO.getRecord("", "0", category, page, recordPerPage);
+		request.setAttribute("DonationList", listPerPage);
+		request.setAttribute("noOfPage", noOfPage);
+		request.setAttribute("currentPage", page);
+		request.getRequestDispatcher("user/jsp/donations.jsp").forward(request, response);
+	}
+
+	private void showDonationPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		Donations existingDonation = null;
+		try {
+			existingDonation = donationsDAO.getDonation(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("donation", existingDonation);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationPost.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void showMakeDonationPage(HttpServletRequest request, HttpServletResponse response)
@@ -111,7 +167,7 @@ public class UserDonationController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void makeDonation(HttpServletRequest request, HttpServletResponse response)
+	private String makeDonation(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
@@ -132,23 +188,19 @@ public class UserDonationController extends HttpServlet {
 			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);
 			request.setAttribute("inputUser", u);
 			if (phone != null && usersDAO.getUser(phone) != null) {
-				request.setAttribute("phone_error", "Số điện thoại này đã được đăng ký");
+				return "0";
 
 			} else if (usersDAO.getUser(email) != null) {
-				request.setAttribute("email_error", "Email này đã được đăng ký");
+				return "1";
 
 			} else {
 				// Insert user donation data to database
 				UsersDonationDAO.insertUserDonation(u);
-				request.setAttribute("notifyDonation", "Quyên góp thành công.");
-				request.setAttribute("statusDonation", "OK");
+				return "2";
 			}
 
-		} catch (Exception ex) {
-			request.setAttribute("notifyDonation", "Quyên góp thất bại.");
-			request.setAttribute("statusDonation", "FAIL");
+		} catch (Exception e) {
+			return e.getMessage();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationPost.jsp");
-		dispatcher.forward(request, response);
 	}
 }

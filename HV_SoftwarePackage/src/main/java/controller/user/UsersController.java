@@ -134,20 +134,7 @@ public class UsersController extends HttpServlet {
 		switch (action) {		
 		case "contact":
 			showContact(request, response);
-			break;
-		case "donationGuide":
-			showDonationGuide(request, response);
-			break;
-		case "donations":
-			try {
-				showDonations(request, response);
-			} catch (Exception e) {				
-				e.printStackTrace();
-			}
-			break;
-		case "donationPost":
-			showDonationPost(request, response);
-			break;
+			break;		
 		case "rules":
 			showRules(request, response);
 			break;	
@@ -328,12 +315,7 @@ public class UsersController extends HttpServlet {
 	private void showRules(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("user/jsp/rules.jsp").forward(request, response);
-	}
-
-	private void showDonationGuide(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher("user/jsp/donationGuide.jsp").forward(request, response);
-	}
+	}	
 
 	private void showContact(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -359,40 +341,6 @@ public class UsersController extends HttpServlet {
 	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
-	}
-
-	private void showDonations(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int page = 1;
-		int recordPerPage = 6;
-		String category = request.getParameter("category");
-		if (category == null || category == "") {
-			category = "0";
-		}
-		if (request.getParameter("page") != null)
-			page = Integer.parseInt(request.getParameter("page"));
-		donationsDAO.search("", "0", category);
-		int noOfRecord = donationsDAO.getNoOfRecords();
-		int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-		List<Donations> listPerPage = donationsDAO.getRecord("", "0", category, page, recordPerPage);
-		request.setAttribute("DonationList", listPerPage);
-		request.setAttribute("noOfPage", noOfPage);
-		request.setAttribute("currentPage", page);
-		request.getRequestDispatcher("user/jsp/donations.jsp").forward(request, response);
-	}
-
-	private void showDonationPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		Donations existingDonation = null;
-		try {
-			existingDonation = donationsDAO.getDonation(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		request.setAttribute("donation", existingDonation);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationPost.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {

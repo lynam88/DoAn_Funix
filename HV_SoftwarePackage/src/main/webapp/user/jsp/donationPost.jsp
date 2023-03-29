@@ -8,52 +8,6 @@
 		value="Chi tiết đợt quyên góp | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
-<%
-String notifyDonation = (String) request.getAttribute("notifyDonation");
-String statusDonation = (String) request.getAttribute("statusDonation");
-
-if (notifyDonation != null) {
-%>
-<div class="modal" id="donateModal" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="text-center" id="donateMsg"
-					style="font-size: large; color: red;"><%=notifyDonation%></p>
-			</div>
-		</div>
-
-	</div>
-</div>
-
-<script>
-		setTimeout(function() {
-			$("#donateModal").modal("show");
-		}, 500);
-		setTimeout(function() {
-			$('#donateModal').modal().hide();
-			var st = "<%=statusDonation%>";
-				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=user';
-				} else {
-					// remove class modal-backdrop in
-					$(".modal-backdrop").removeClass("modal-backdrop in");
-					window.history.back();
-				}
-			}, 3000);
-</script>
-<%
-}
-%>
-
 <div class="hero-wrap"
 	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');"
 	data-stellar-background-ratio="0.5">
@@ -68,8 +22,7 @@ if (notifyDonation != null) {
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
 					<span class="mr-2"><a
 						href="${pageContext.request.contextPath}/UsersController?action=user">Trang
-							Chủ</a></span> <span>Chi
-					tiết đợt quyên góp</span>
+							Chủ</a></span> <span>Chi tiết đợt quyên góp</span>
 				</p>
 				<h1 class="mb-3 bread"
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chi
@@ -125,20 +78,17 @@ if (notifyDonation != null) {
 									</span>
 									<c:if test="${donation.status == 1}">
 										<a
-											href="${pageContext.request.contextPath}/UsersController?action=donations"
+											href="${pageContext.request.contextPath}/UserDonationController?action=donations"
 											class="btn btn-info float-right" role="button"
 											aria-pressed="true">Hoàn cảnh mới nhất</a>
 									</c:if>
 									<c:if test="${donation.status == 2}">
-										<button class="btn btn-primary float-right" id="donationBtn"
-											aria-pressed="true">Quyên góp</button>
+										<button class="btn btn-primary float-right"
+											id="FirstDonationBtn" aria-pressed="true">Quyên góp</button>
 									</c:if>
 								</div>
 							</div>
-							<form class="row makeDonationForm" id="makeDonationForm"
-								action="${pageContext.request.contextPath}/UserDonationController?action=makeDonation"
-								method="post" onsubmit="return validateDonation()">
-
+							<form class="row makeDonationForm" id="makeDonationForm">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="card-body p-md-5 leftDonation">
@@ -183,7 +133,8 @@ if (notifyDonation != null) {
 									<div class="col-md-6">
 										<div class="card-body p-md-5 rightDonation">
 											<div class="form-outline my-3">
-												<label for="donationAmount">Xin nhập số tiền: <span class="require">*</span>
+												<label for="donationAmount">Xin nhập số tiền: <span
+													class="require">*</span>
 												</label>
 												<div class="input-group">
 													<span class="input-group-text"><i
@@ -226,9 +177,29 @@ if (notifyDonation != null) {
 								</div>
 
 								<div class="text-center donationBtm">
-									<button
-										class="btn btn-primary fa-lg gradient-custom-2 mb-3 donationBtn"
-										type="submit" id="submit-button">Quyên góp</button>
+									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
+										type="button" id="secondDonationBtn" onclick="makeDonation()">Quyên góp</button>
+								</div>
+
+								<!--Modal -->
+								<div class="modal" id="make_donation_notify" role="dialog">
+									<div class="modal-dialog">
+
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p class="text-center" id="make_donation_msg"
+													style="font-size: large; color: red;"></p>
+											</div>
+										</div>
+
+									</div>
 								</div>
 							</form>
 						</div>

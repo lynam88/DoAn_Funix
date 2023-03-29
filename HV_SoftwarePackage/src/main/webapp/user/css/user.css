@@ -467,3 +467,7 @@
 		color: red;
 		position: inherit;	
 	}
+	
+	.modal-backdrop.in {
+		opacity: 0.9;
+	}
