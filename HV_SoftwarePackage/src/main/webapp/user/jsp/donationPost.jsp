@@ -22,7 +22,8 @@
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
 					<span class="mr-2"><a
 						href="${pageContext.request.contextPath}/UsersController?action=user">Trang
-							Chủ</a></span> <span>Hoàn cảnh quyên góp</span>
+							Chủ</a></span> <span>Chi
+					tiết đợt quyên góp</span>
 				</p>
 				<h1 class="mb-3 bread"
 					data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chi
@@ -83,8 +84,8 @@
 											aria-pressed="true">Hoàn cảnh mới nhất</a>
 									</c:if>
 									<c:if test="${donation.status == 2}">
-										<a class="btn btn-primary float-right" role="button"
-											aria-pressed="true" onclick="showForm()">Quyên góp</a>
+										<button class="btn btn-primary float-right" id="donationBtn"
+											aria-pressed="true">Quyên góp</button>
 									</c:if>
 								</div>
 							</div>

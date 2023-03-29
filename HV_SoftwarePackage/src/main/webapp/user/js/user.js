@@ -392,14 +392,16 @@
 		 */
 		
 		//Show form
-		function showForm() {
+		$('#donationBtn').click(function() {
 			  var x = document.getElementById("makeDonationForm");
-			  if (x.style.display === "none") {
+			  var style = window.getComputedStyle(x);
+			  if (style.display === "none") {
 			    x.style.display = "block";
 			  } else {
 			    x.style.display = "none";
 			  }
-			}
+			});
+
 		
 		//Validate form
 		function validateDonation() {

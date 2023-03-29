@@ -329,7 +329,6 @@
 	}
 	.donationInfo{
 		padding: 0%;
-		width: 110%;
 	}
 	
 	#donationPost{
@@ -455,6 +454,7 @@
 		.rightDonation{	
 			position: relative !important;
 		    padding: 2rem !important;
+		    top: 6%;
 	    }
 	}
 	
