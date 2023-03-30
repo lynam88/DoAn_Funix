@@ -1,12 +1,7 @@
 package controller.admin;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,12 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
-import commons.MD5Library;
 import commons.Utils;
 import dao.DonationsDAO;
-import dao.ExportService;
 import dao.UsersDAO;
 import dao.UsersDonationDAO;
 import model.Users;
@@ -215,18 +206,18 @@ public class UsersDonationController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		try {
 
-			// Get form input data
+			// Get form input data			
 			String name = request.getParameter("name");		
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
-			String donationAmount = request.getParameter("donationAmount").replaceAll(",", "");;
-			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
 			String bank = request.getParameter("bank");
 			String transactionId = request.getParameter("transactionId");
+			int donationId = Integer.parseInt(request.getParameter("donationId"));
+			String donationAmount = request.getParameter("donationAmount").replaceAll(",", "");;
+			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);			
 
 			// Create new user object
-			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);			
-			request.setAttribute("inputUser", u);
+			Users u = new Users(name, phone, email, bank, transactionId, donationId, donationAmountFloat);			
 			if (sessionUser == null && phone != null && usersDAO.getUser(phone) != null) {
 				return "0";
 

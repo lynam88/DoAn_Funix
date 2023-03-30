@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="header.jsp">
-	<c:param name="title" value="Danh Sách Người Dùng"></c:param>
+	<c:param name="title" value="Danh Sách Người Dùng Quyên Góp"></c:param>
 </c:import>
 
 <%
@@ -13,7 +13,7 @@
 
 	if (notifyUsersDonationList != null) {
 %>
-<div class="modal" id="userDelModal" role="dialog">
+<div class="modal" id="userDonationDelModal" role="dialog">
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
@@ -25,7 +25,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p class="text-center" id="insertMsg"
+				<p class="text-center"
 					style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
 			</div>
 		</div>
@@ -35,13 +35,13 @@
 
 <script>
 		setTimeout(function() {
-			$("#userDelModal").modal("show");							
+			$("#userDonationDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
 			var st = "<%=notifyStatusUsersDonationList%>";
-				$("#userDelModal").modal("hide");
+				$("#userDonationDelModal").modal("hide");
 				if (st == "ok") {
-					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
+					window.location.href = '/HV_SoftwarePackage/UsersDonationController?action=UsersDonationList';
 				} else {
 					// remove class modal-backdrop in
 					$(".modal-backdrop").removeClass("modal-backdrop in");
@@ -62,28 +62,21 @@
 				<div id="clock"></div>
 
 				<p class="pageTitle">
-					<b>DANH SÁCH NGƯỜI DÙNG:</b>
+					<b>DANH SÁCH NGƯỜI DÙNG QUYÊN GÓP:</b>
 				</p>
 
 				<form class="searchbar" name="searchform"
-					action="${pageContext.request.contextPath}/ManageUsersController?action=UserSearch"
+					action="${pageContext.request.contextPath}/UsersDonationController?action=UserDonationSearch"
 					method="post">
 
 					<input type="text" id="myInput" name="myInput" var="myInput"
-						placeholder="Nhập từ khoá..." value="${searchText}"> <select
-						id="searchRole" name="searchRole">
-						<option value="0" selected>Tất cả</option>
-						<option value="1"
-							<c:if test="${searchRole == 1}">selected</c:if>>Admin</option>
-						<option value="2"
-							<c:if test="${searchRole == 2}">selected</c:if>>User</option>
-					</select>
+						placeholder="Nhập từ khoá..." value="${searchText}"> 
 					<select id="searchStatus" name="searchStatus">
 						<option value="0" selected>Trạng Thái</option>
 						<option value="1"
-						<c:if test="${searchStatus == 1}">selected</c:if>>Bị khoá</option>
+						<c:if test="${searchStatus == 1}">selected</c:if>>Chờ xác nhận</option>
 						<option value="2"
-						<c:if test="${searchStatus == 2}">selected</c:if>>Hoạt động</option>
+						<c:if test="${searchStatus == 2}">selected</c:if>>Hoàn thành</option>
 					</select>
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -99,7 +92,7 @@
 						onclick="sortTable()" data-toggle="tooltip" data-placement="top">
 						<i class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
 					</a> <a class="btn nv btn-primary functionBtn"
-						href="${pageContext.request.contextPath}/ManageUsersController?action=export"><i
+						href="${pageContext.request.contextPath}/UsersDonationController?action=export"><i
 						class="fas fa-file-export"></i> Xuất File</a>
 
 					<div class="modal" id="exportModal" role="dialog">
@@ -129,13 +122,16 @@
 							<table class="table table-bordered" id="myTable">
 								<thead>
 									<tr>
-										<th style="width: 2%;">Chọn</th>
-										<th style="width: 3%;">Admin</th>
-										<th style="width: 6%;">Họ và tên</th>
+										<th style="width: 2%;">Chọn</th>								
+										<th style="width: 5%;">Họ và tên</th>
 										<th style="width: 9%;">Email</th>
 										<th style="width: 5%;">Phone</th>
-										<th style="width: 8%;">Địa Chỉ</th>
-										<th style="width: 4%;">Hoạt động</th>
+										<th style="width: 8%;">Ngân hàng</th>
+										<th style="width: 4%;">Mã giao dịch</th>		
+										<th style="width: 4%;">Đợt quyên góp</th>
+										<th style="width: 4%;">Số tiền</th>
+										<th style="width: 4%;">Trạng thái</th>
+										<th style="width: 4%;">Ngày</th>
 										<th style="width: 3%;">Action</th>
 									</tr>
 								</thead>
@@ -260,7 +256,7 @@
 												</div>
 											</div>
 											<td><a class="edit"
-												href="ManageUsersController?action=edit&email=${user.email}&page=${currentPage}"
+												href="UsersDonationController?action=edit&email=${user.email}&page=${currentPage}"
 												title="Sửa" data-toggle="tooltip"> <i
 													class="fa fa-pencil" aria-hidden="true"></i>
 											</a></td>
@@ -274,7 +270,7 @@
 
 									<li class="page-item"><a type="button"
 										class="btn page-link"
-										href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=1"
+										href="${pageContext.request.contextPath}/UsersDonationController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=1"
 										tabindex="-1">First</a></li>
 
 									<c:forEach var="i" begin="1" end="${noOfPage}">
@@ -287,14 +283,14 @@
 											<c:otherwise>
 												<li class="page-item"><a type="button"
 													class="btn page-link"
-													href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+													href="${pageContext.request.contextPath}/UsersDonationController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 
 									<li class="page-item"><a type="button"
 										class="btn page-link"
-										href="${pageContext.request.contextPath}/ManageUsersController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+										href="${pageContext.request.contextPath}/UsersDonationController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 									</li>
 
 								</ul>

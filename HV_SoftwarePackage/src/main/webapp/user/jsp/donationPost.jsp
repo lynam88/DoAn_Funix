@@ -112,6 +112,8 @@
 								</div>
 							</div>
 							<form class="row makeDonationForm" id="makeDonationForm">
+								<input type="hidden" value='${donation.id}' name="donationId">
+								<input type="hidden" value='${donation.title}' name="donationTitle">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="card-body p-md-5 leftDonation">

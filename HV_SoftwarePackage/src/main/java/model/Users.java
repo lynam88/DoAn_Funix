@@ -3,9 +3,9 @@ package model;
 import java.util.Date;
 
 public class Users {
-	private String name, phone, email, avatarPath, address, password, bank, transactionId;
+	private String name, phone, email, avatarPath, address, password, bank, transactionId, donationStatus;
 	private Date registrationDate, donationDate;
-	private int role, status, donationStatus;
+	private int role, status, donationId;
 	private Float donationAmount;
 
 	public Users() {
@@ -38,15 +38,16 @@ public class Users {
 		this.avatarPath = avatarPath;
 		this.address = address;
 		this.password = password;
-	}
-	
-	public Users(String name, String phone, String email, String bank, String transactionId, Float donationAmount) {
+	}	
+
+	public Users(String name, String phone, String email, String bank, String transactionId, int donationId, Float donationAmount) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
 		this.bank = bank;
 		this.transactionId = transactionId;
+		this.donationId = donationId;
 		this.donationAmount = donationAmount;
 	}
 
@@ -154,11 +155,20 @@ public class Users {
 		this.donationDate = donationDate;
 	}
 
-	public int getDonationStatus() {
+	public String getDonationStatus() {
 		return donationStatus;
 	}
 
-	public void setDonationStatus(int donationStatus) {
+	public void setDonationStatus(String donationStatus) {
 		this.donationStatus = donationStatus;
+	}
+
+	public int getDonationId() {
+		return donationId;
+	}
+
+	public void setDonationId(int donationId) {
+		this.donationId = donationId;
 	}	
+	
 }

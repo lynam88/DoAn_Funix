@@ -19,8 +19,10 @@ public class UsersDonationDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date"
-						+ "FROM UsersDonation "
+			String sql = "SELECT name, phone, email, bank, transaction_id, donation_amount, user_donation_status, donation_id, donation_date"
+						+ "FROM UsersDonation AS UD "
+						+ "LEFT JOIN Donations AS D"
+						+ "ON UD.donation_id = D.donation_id"
 						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ?")
 						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
 
@@ -49,10 +51,9 @@ public class UsersDonationDAO {
 				u.setBank(rs.getString("bank"));
 				u.setTransactionId(rs.getString("transaction_id"));
 				u.setDonationAmount(rs.getFloat("donation_amount"));
-				
-				
+				u.setDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationId(rs.getInt("donation_id"));
 				u.setDonationDate(rs.getDate("donation_date"));
-
 				list.add(u);
 				this.noOfRecords++;
 			}
@@ -72,13 +73,13 @@ public class UsersDonationDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role, COUNT(*) OVER() AS total "
-						+ "FROM Users " 
-						+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ");
-			if (!searchStatus.equals("0")) {
-				sql += " AND user_role = ?";
-			}
-			sql += " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+			String sql = "SELECT name, phone, email, bank, transaction_id, donation_amount, user_donation_status, donation_id, donation_date"
+						+ "FROM UsersDonation AS UD "
+						+ "LEFT JOIN Donations AS D"
+						+ "ON UD.donation_id = D.donation_id"
+						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ?")
+						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ")
+						+ "ORDER BY donation_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -86,11 +87,14 @@ public class UsersDonationDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
+				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
 			}
-			
+
 			if (!searchStatus.equals("0")) {
 				stmt.setString(index++, searchStatus);
 			}
+			
 			stmt.setInt(index++, pageNo);
 			stmt.setInt(index++, recordPerPage);
 			stmt.setInt(index++, recordPerPage);
@@ -101,9 +105,12 @@ public class UsersDonationDAO {
 				u.setName(rs.getString("name"));
 				u.setPhone(rs.getString("phone"));
 				u.setEmail(rs.getString("email"));
-				u.setAddress(rs.getString("address"));
-				u.setRegistrationDate(rs.getDate("registration_date"));
-				u.setRole(rs.getInt("user_role"));
+				u.setBank(rs.getString("bank"));
+				u.setTransactionId(rs.getString("transaction_id"));
+				u.setDonationAmount(rs.getFloat("donation_amount"));
+				u.setDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationId(rs.getInt("donation_id"));
+				u.setDonationDate(rs.getDate("donation_date"));
 
 				list.add(u);
 			}
