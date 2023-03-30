@@ -471,3 +471,7 @@
 	.modal-backdrop.in {
 		opacity: 0.9;
 	}
+	
+	#make_donation_notify{
+		z-index: 1000;
+	}

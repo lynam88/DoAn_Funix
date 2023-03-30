@@ -31,6 +31,29 @@
 		</div>
 	</div>
 </div>
+<!--Modal -->
+<div class="modal fade" id="makeDonationNotify" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="text-center" id="makeDonationMsg"
+					style="font-size: large; color: red;"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
 
 
 <section class="ftco-section ftco-degree-bg">
@@ -98,8 +121,8 @@
 												<div class="input-group">
 													<span class="input-group-text"><i class="bx bx-user"></i></span>
 													<input type="text" id="name" name="name"
-														class="form-control"
-														value="<c:out value='${inputUser.name}'/>">
+														class="form-control"														
+														<c:if test="${user != null}">value="<c:out value='${user.name}'/>"</c:if>>
 												</div>
 												<p id="name_error"></p>
 											</div>
@@ -111,7 +134,7 @@
 													<span class="input-group-text"><i
 														class="bx bx-phone"></i></span> <input type="text" id="phone"
 														name="phone" class="form-control"
-														value="<c:out value='${inputUser.phone}'/>">
+														<c:if test="${user != null}">value="<c:out value='${user.phone}'/>"</c:if>>
 												</div>
 												<p id="phone_error">${phone_error}</p>
 
@@ -122,7 +145,7 @@
 													<span class="input-group-text"><i
 														class="bx bx-envelope"></i></span> <input type="email" id="email"
 														name="email" class="form-control"
-														value="<c:out value='${inputUser.email}'/>">
+														<c:if test="${user != null}">value="<c:out value='${user.email}'/>"</c:if>>
 												</div>
 												<p id="email_error">${email_error}</p>
 											</div>
@@ -154,7 +177,7 @@
 													<span class="input-group-text"><i
 														class='bx bxs-bank'></i></span> <input type="text" id="bank"
 														name="bank" class="form-control"
-														value="<c:out value='${inputUser.bank}'/>">
+														<c:if test="${user != null}">value="<c:out value='${user.bank}'/>"</c:if>>
 												</div>
 												<p id="bank_error">${bank_error}</p>
 											</div>
@@ -178,28 +201,8 @@
 
 								<div class="text-center donationBtm">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="button" id="secondDonationBtn" onclick="makeDonation()">Quyên góp</button>
-								</div>
-
-								<!--Modal -->
-								<div class="modal" id="make_donation_notify" role="dialog">
-									<div class="modal-dialog">
-
-										<!-- Modal content-->
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<p class="text-center" id="make_donation_msg"
-													style="font-size: large; color: red;"></p>
-											</div>
-										</div>
-
-									</div>
+										type="button" id="secondDonationBtn" onclick="makeDonation()">Quyên
+										góp</button>
 								</div>
 							</form>
 						</div>

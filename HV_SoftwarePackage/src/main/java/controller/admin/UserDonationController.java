@@ -53,6 +53,7 @@ public class UserDonationController extends HttpServlet {
 	public void init() {
 		usersDAO = new UsersDAO();
 		donationsDAO = new DonationsDAO();
+		UsersDonationDAO = new UsersDonationDAO();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -187,7 +188,7 @@ public class UserDonationController extends HttpServlet {
 			// Create new user object
 			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);
 			request.setAttribute("inputUser", u);
-			if (phone != null && usersDAO.getUser(phone) != null) {
+			if (sessionUser == null && phone != null && usersDAO.getUser(phone) != null) {
 				return "0";
 
 			} else if (usersDAO.getUser(email) != null) {

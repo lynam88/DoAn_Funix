@@ -137,7 +137,7 @@ public class UsersDonationDAO {
 	
 	public void insertUserDonation(Users u) throws Exception {
 	    Connection connection = new DBContext().getConnection();
-	    String sql = "INSERT INTO UserDonation (name, phone, email, bank, transaction_id, donation_amount, donation_date)" +
+	    String sql = "INSERT INTO User_Donation (name, phone, email, bank, transaction_id, donation_amount, donation_date)" +
 	                 "VALUES (?, ?, ?, ?, ?, ?, GETDATE());";
 
 	    PreparedStatement stmt = connection.prepareStatement(sql);

@@ -492,44 +492,63 @@
 			  }
 			  
 			  return true;
-			}	
+			}
+		
+		function getMySession() {
+			  // Get session value from server request using fetch()
+			  return fetch('/api/getSession')
+			    .then(response => response.text())
+			    .then(data => {
+			      return data;
+			    })
+			    .catch(error => {
+			      console.error('Error:', error);
+			    });
+			}
+
 		
 		//Make donation
 		
 		function makeDonation() {
-			// Call validate inputs
+			// Check if session is null
+			var session = getMySession(); // Replace getSession() with your method to get the session
+			if (session == null) {
+		    // Call validate inputs
 			var check = validateDonation();
-			// If Ok
+			}
 			if(check) {
-			// Call ajax			
+			// Call ajax
+				 const phoneError = document.getElementById("phone_error");
+				 const emailError = document.getElementById("email_error");
 			 try {
 		            $.ajax({
 		                type : 'POST',
 		                data: {
-		                    name: name,
-		                    phone: phone,
-		                    email: email,
-		                    donationAmount: donationAmount,
-		                    bank: bank,
-		                    transactionId: transactionId
+		                	name : $('#name').val(),
+		                	phone : $('#phone').val(),
+		                	email : $('#email').val(),
+		                	donationAmount : $('#donationAmount').val(),
+		                	bank : $('#bank').val(),
+		                	transactionId : $('#transactionId').val(),		                  
 		                },
 		                url : '/HV_SoftwarePackage/UserDonationController?action=makeDonation',
 		                success : function(responseText) {	                	
-		                    setTimeout(function() {                  
-		                        $("#make_donation_notify").modal("show");
-		    					$(".modal-backdrop").removeClass("modal-backdrop in");
-		                        $("#make_donation_msg").text(responseText);	                        
-		                    }, 1000);                    
-		                    setTimeout(function() {	
-		                    	$("#make_donation_notify").modal("hide");
-		                        location.reload();
-		                    }, 3000);
+		                   if (responseText == "0") phoneError.innerHTML = "Số điện thoại này đã được đăng ký";
+		                   if (responseText == "1") emailError.innerHTML = "Email này đã được đăng ký";
+		                   if (responseText == "2") {
+		                	   setTimeout(function() {                  
+			                        $("#makeDonationNotify").modal("show");
+			                        $("#makeDonationMsg").text("Cảm ơn bạn đã quyên góp");	                        
+			                    }, 1000);                    
+			                    setTimeout(function() {	                    	
+			                        location.reload();
+			                    }, 3000);
+		                   }
 		                },
 		                error: function(responseText){	                
 		                    setTimeout(function() {                  
-		                        $("#make_donation_notify").modal("show");
-		    					$(".modal-backdrop").removeClass("modal-backdrop in");
-		                        $("#make_donation_msg").text(responseText);	                        
+		                    	  $("#makeDonationNotify").modal("show");
+			                        $("#makeDonationMsg").text("Quyên góp chưa thành công");	                        
 		                    }, 1000);                    
 		                    setTimeout(function() {	                    	
 		                        location.reload();
@@ -539,7 +558,6 @@
 		        } catch (e) {	   
 		            setTimeout(function() {                  
 		                $("#make_donation_notify").modal("show");
-						$(".modal-backdrop").removeClass("modal-backdrop in");
 		                $("#make_donation_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
 		            }, 1000);                    
 		            setTimeout(function() {
