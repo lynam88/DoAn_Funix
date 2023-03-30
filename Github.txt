@@ -6,9 +6,6 @@ git add .
 git commit -m 'Initial Commit'
 git push -u origin main
 
-lynam88
-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
-
 Information
 
 1.     Mã số học viên: FX17215
