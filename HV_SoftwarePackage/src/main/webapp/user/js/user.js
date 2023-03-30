@@ -409,6 +409,8 @@
 			  const phone = document.getElementById("phone").value;
 			  const email = document.getElementById("email").value;
 			  const donationAmount = document.getElementById("donationAmount").value;
+			  const a = donationAmount.replaceAll(",","");
+			  const b = Number(a);
 			  const bank = document.getElementById("bank").value;
 			  const transactionId = document.getElementById("transactionId").value;
 
@@ -467,7 +469,7 @@
 				donationAmountError.innerHTML = "";
 			  } 
 			  
-			  if (isNaN(donationAmount)) {
+			  if (isNaN(b)) {
 				donationAmountError.innerHTML =  "Xin điền vào số";		
 				return false;
 				
@@ -494,28 +496,11 @@
 			  return true;
 			}
 		
-		function getMySession() {
-			  // Get session value from server request using fetch()
-			  return fetch('/api/getSession')
-			    .then(response => response.text())
-			    .then(data => {
-			      return data;
-			    })
-			    .catch(error => {
-			      console.error('Error:', error);
-			    });
-			}
-
-		
 		//Make donation
 		
 		function makeDonation() {
-			// Check if session is null
-			var session = getMySession(); // Replace getSession() with your method to get the session
-			if (session == null) {
-		    // Call validate inputs
+			// Call validate inputs
 			var check = validateDonation();
-			}
 			if(check) {
 			// Call ajax
 				 const phoneError = document.getElementById("phone_error");
@@ -531,7 +516,7 @@
 		                	bank : $('#bank').val(),
 		                	transactionId : $('#transactionId').val(),		                  
 		                },
-		                url : '/HV_SoftwarePackage/UserDonationController?action=makeDonation',
+		                url : '/HV_SoftwarePackage/UsersDonationController?action=makeDonation',
 		                success : function(responseText) {	                	
 		                   if (responseText == "0") phoneError.innerHTML = "Số điện thoại này đã được đăng ký";
 		                   if (responseText == "1") emailError.innerHTML = "Email này đã được đăng ký";
@@ -566,3 +551,16 @@
 		        }	       
 		    }
 		}
+		
+		 //Format money
+	    function removeFormat() {
+	    	var a = document.getElementById("donationAmount").value.replaceAll(",","");
+			document.getElementById("donationAmount").value = a;
+	    }
+	    
+	    function addFormat() {
+	    	var number = document.getElementById("donationAmount").value;
+	    	if(!isNaN(number)) {
+			document.getElementById("donationAmount").value = new Intl.NumberFormat('en').format(number);
+	    	}
+	    }

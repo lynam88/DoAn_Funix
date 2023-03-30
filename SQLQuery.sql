@@ -82,6 +82,9 @@ ADD CONSTRAINT df_user_donation_status
 DEFAULT 'pending' FOR user_donation_status;
 GO
 
+DBCC CHECKIDENT ('[User_Donation]', RESEED, 0);
+GO
+
 DELETE FROM User_Donation;
 GO
 

@@ -343,6 +343,7 @@
 	
 	#makeDonationForm{
 		display: none;
+		position: inherit;
 	}	
 	
 	/* Recover Page */

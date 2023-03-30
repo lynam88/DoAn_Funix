@@ -101,7 +101,7 @@
 									</span>
 									<c:if test="${donation.status == 1}">
 										<a
-											href="${pageContext.request.contextPath}/UserDonationController?action=donations"
+											href="${pageContext.request.contextPath}/UsersDonationController?action=donations"
 											class="btn btn-info float-right" role="button"
 											aria-pressed="true">Hoàn cảnh mới nhất</a>
 									</c:if>
@@ -163,7 +163,7 @@
 													<span class="input-group-text"><i
 														class='bx bx-donate-heart'></i></span> <input type="text"
 														id="donationAmount" name="donationAmount"
-														class="form-control"
+														class="form-control" onfocus="removeFormat()" onblur="addFormat()"
 														value="<c:out value='${inputUser.donationAmount}'/>"><span
 														class="input-group-text"><i>VNĐ</i></span>
 												</div>

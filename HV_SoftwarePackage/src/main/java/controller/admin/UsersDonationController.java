@@ -32,11 +32,11 @@ import model.Donations;
 /**
  * Servlet implementation class DonationsController
  */
-@WebServlet(name = "UserDonationController", urlPatterns = { "/UserDonationController" })
+@WebServlet(name = "UsersDonationController", urlPatterns = { "/UsersDonationController" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 50, // 50MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
-public class UserDonationController extends HttpServlet {
+public class UsersDonationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DonationsDAO donationsDAO;
 	private UsersDAO usersDAO;
@@ -97,6 +97,9 @@ public class UserDonationController extends HttpServlet {
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {
+		case "UsersDonationList":				
+			UsersDonationList(request, response);
+			break;
 		case "showMakeDonationPage":
 			try {
 				showMakeDonationPage(request, response);
@@ -118,6 +121,44 @@ public class UserDonationController extends HttpServlet {
 		case "donationPost":
 			showDonationPost(request, response);
 			break;
+		}
+	}
+
+	private void UsersDonationList(HttpServletRequest request, HttpServletResponse response) {
+		page = 1;
+		int recordPerPage = 5;
+		search = request.getParameter("myInput");
+		if (search == null)
+			search = "";
+		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
+		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
+		status = request.getParameter("searchStatus");
+		category = request.getParameter("category");
+		if (status == null || status == "") {
+			status = "0";
+		}
+		if (category == null || category == "") {
+			category = "0";
+		}
+		request.setAttribute("searchText", searchString);
+		request.setAttribute("searchStatus", status);
+		request.setAttribute("category", category);
+		if (request.getParameter("page") != null)
+			page = Integer.parseInt(request.getParameter("page"));
+		try {
+			UsersDonationDAO.search(searchString, status);
+			int noOfRecord = donationsDAO.getNoOfRecords();
+			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
+			List<Donations> listPerPage = donationsDAO.getRecord(searchString, status, category, page, recordPerPage);
+			request.setAttribute("UsersDonationList", listPerPage);
+			request.setAttribute("noOfPage", noOfPage);
+			request.setAttribute("currentPage", page);
+
+			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/DonationList.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
@@ -175,28 +216,26 @@ public class UserDonationController extends HttpServlet {
 		try {
 
 			// Get form input data
-			String name = request.getParameter("name");
-			byte[] name_Bytes = name.getBytes(StandardCharsets.ISO_8859_1);
-			name = new String(name_Bytes, StandardCharsets.UTF_8);
+			String name = request.getParameter("name");		
 			String phone = request.getParameter("phone");
 			String email = request.getParameter("email");
-			String donationAmount = request.getParameter("donationAmount");
+			String donationAmount = request.getParameter("donationAmount").replaceAll(",", "");;
 			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
 			String bank = request.getParameter("bank");
 			String transactionId = request.getParameter("transactionId");
 
 			// Create new user object
-			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);
+			Users u = new Users(name, phone, email, bank, transactionId, donationAmountFloat);			
 			request.setAttribute("inputUser", u);
 			if (sessionUser == null && phone != null && usersDAO.getUser(phone) != null) {
 				return "0";
 
-			} else if (usersDAO.getUser(email) != null) {
+			} else if (sessionUser == null && usersDAO.getUser(email) != null) {
 				return "1";
 
 			} else {
 				// Insert user donation data to database
-				UsersDonationDAO.insertUserDonation(u);
+				UsersDonationDAO.insertUsersDonation(u);
 				return "2";
 			}
 

@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Users {
 	private String name, phone, email, avatarPath, address, password, bank, transactionId;
-	private Date registrationDate;
-	private int role, status;
+	private Date registrationDate, donationDate;
+	private int role, status, donationStatus;
 	private Float donationAmount;
 
 	public Users() {
@@ -144,6 +144,21 @@ public class Users {
 
 	public void setDonationAmount(Float donationAmount) {
 		this.donationAmount = donationAmount;
+	}
+
+	public Date getDonationDate() {
+		return donationDate;
+	}
+
+	public void setDonationDate(Date donationDate) {
+		this.donationDate = donationDate;
+	}
+
+	public int getDonationStatus() {
+		return donationStatus;
+	}
+
+	public void setDonationStatus(int donationStatus) {
+		this.donationStatus = donationStatus;
 	}	
-	
 }

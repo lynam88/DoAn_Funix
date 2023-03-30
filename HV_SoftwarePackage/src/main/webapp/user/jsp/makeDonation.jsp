@@ -88,7 +88,7 @@ if (notifyDonation != null) {
 							<h3 class="text-center text-primary">THỰC HIỆN QUYÊN GÓP</h3>
 						</div>
 						<form class="makeDonationForm"
-							action="${pageContext.request.contextPath}/UserDonationController?action=makeDonation"
+							action="${pageContext.request.contextPath}/UsersDonationController?action=makeDonation"
 							method="post" onsubmit="return validateDonation()">
 							<div class="row donationTitle">
 								<span class="input-group-text"><i class='bx bx-captions'></i></span>

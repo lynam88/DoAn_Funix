@@ -19,10 +19,10 @@ public class UsersDonationDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role "
-						+ "FROM Users "
-						+ "WHERE status = 1 " + (character.isEmpty() ? "" : "AND (name like ? OR phone = ?) ")
-						+ (searchStatus.equals("0") ? "" : "AND user_role = ?");
+			String sql = "SELECT name, phone, email, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date"
+						+ "FROM UsersDonation "
+						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ?")
+						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -30,6 +30,8 @@ public class UsersDonationDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
+				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
 			}
 
 			if (!searchStatus.equals("0")) {
@@ -44,9 +46,12 @@ public class UsersDonationDAO {
 				u.setName(rs.getString("name"));
 				u.setPhone(rs.getString("phone"));
 				u.setEmail(rs.getString("email"));
-				u.setAddress(rs.getString("address"));
-				u.setRegistrationDate(rs.getDate("registration_date"));
-				u.setRole(rs.getInt("user_role"));
+				u.setBank(rs.getString("bank"));
+				u.setTransactionId(rs.getString("transaction_id"));
+				u.setDonationAmount(rs.getFloat("donation_amount"));
+				
+				
+				u.setDonationDate(rs.getDate("donation_date"));
 
 				list.add(u);
 				this.noOfRecords++;
@@ -109,7 +114,7 @@ public class UsersDonationDAO {
 		return list;
 	}
 
-	public Users getUser(String id) throws Exception {
+	public Users getDonation(String id) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Users u = null;
 		String sql = "SELECT * FROM Users WHERE (email = ? OR phone = ?)";		
@@ -135,7 +140,7 @@ public class UsersDonationDAO {
 		return u;
 	}
 	
-	public void insertUserDonation(Users u) throws Exception {
+	public void insertUsersDonation(Users u) throws Exception {
 	    Connection connection = new DBContext().getConnection();
 	    String sql = "INSERT INTO User_Donation (name, phone, email, bank, transaction_id, donation_amount, donation_date)" +
 	                 "VALUES (?, ?, ?, ?, ?, ?, GETDATE());";
