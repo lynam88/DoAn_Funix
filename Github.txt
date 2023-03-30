@@ -4,8 +4,6 @@ git pull
 git reset --hard
 git pull
 
-git reset --hard
-git pull
 
 git init
 git add .
