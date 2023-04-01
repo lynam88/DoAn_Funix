@@ -157,10 +157,7 @@ public class UsersDonationController extends HttpServlet {
 		status = request.getParameter("status");
 		if (status == null || status == "") {
 			status = "0";
-		}
-		if (status == null || status == "") {
-			status = "0";
-		}
+		}		
 		request.setAttribute("searchText", searchString);
 		request.setAttribute("searchStatus", status);
 		request.setAttribute("status", status);

@@ -382,14 +382,20 @@
 		/**
 		 * Js functions for user donation page
 		 */
+		var previousStatus;
 		var userDonationId;
 		var userDonationStatus;
+		var previousButton;
 		
 		function activateButton(button) {
 		    // Remove "active" class from all buttons in the toggle
 		    var buttons = button.parentNode.querySelectorAll('button');
 		    buttons.forEach(function(btn) {
-		        btn.classList.remove('active');
+		    	if($(btn ).hasClass( "active" )){
+		    		previousStatus = $(btn).text();
+		    		btn.classList.remove('active');
+		    		previousButton = btn;
+		    	}		    	
 		    });
 		
 		    // Add "active" class to the clicked button
@@ -442,5 +448,10 @@
 		});
 		
 		$('#cancel_status_confirm, #close_status_confirm').click(function() {
-		    $("#status_confirm").modal("hide");
+		    $("#status_confirm").modal("hide"); 
+		    var buttons = previousButton.parentNode.querySelectorAll('button');
+		    buttons.forEach(function(btn) {
+		    	btn.classList.remove('active');
+		    });	
+		    previousButton.classList.add('active');   
 		});		
