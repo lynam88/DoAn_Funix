@@ -1,9 +1,6 @@
 ﻿git reset --hard
 git pull
 
-﻿git reset --hard
-git pull
-
 git init
 git add .
 git commit -m 'Initial Commit'
