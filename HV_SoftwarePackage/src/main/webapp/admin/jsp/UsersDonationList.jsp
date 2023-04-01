@@ -8,10 +8,10 @@
 </c:import>
 
 <%
-	String notifyUsersDonationList = (String) request.getAttribute("notifyUsersDonationList");
-	String notifyStatusUsersDonationList = (String) request.getAttribute("notifyStatusUsersDonationList");
+String notifyUsersDonationList = (String) request.getAttribute("notifyUsersDonationList");
+String notifyStatusUsersDonationList = (String) request.getAttribute("notifyStatusUsersDonationList");
 
-	if (notifyUsersDonationList != null) {
+if (notifyUsersDonationList != null) {
 %>
 <div class="modal" id="userDonationDelModal" role="dialog">
 	<div class="modal-dialog">
@@ -25,8 +25,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p class="text-center"
-					style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
+				<p class="text-center" style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
 			</div>
 		</div>
 
@@ -51,7 +50,7 @@
 </script>
 
 <%
-	}
+}
 %>
 
 <div class="container-fluid py-4">
@@ -66,17 +65,19 @@
 				</p>
 
 				<form class="searchbar" name="searchform"
-					action="${pageContext.request.contextPath}/UsersDonationController?action=UserDonationSearch"
+					action="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationSearch"
 					method="post">
 
 					<input type="text" id="myInput" name="myInput" var="myInput"
-						placeholder="Nhập từ khoá..." value="${searchText}"> 
-					<select id="searchStatus" name="searchStatus">
+						placeholder="Nhập từ khoá..." value="${searchText}"> <select
+						id="searchStatus" name="searchStatus">
 						<option value="0" selected>Trạng Thái</option>
 						<option value="1"
-						<c:if test="${searchStatus == 1}">selected</c:if>>Chờ xác nhận</option>
+							<c:if test="${searchStatus == 1}">selected</c:if>>Chờ
+							xác nhận</option>
 						<option value="2"
-						<c:if test="${searchStatus == 2}">selected</c:if>>Hoàn thành</option>
+							<c:if test="${searchStatus == 2}">selected</c:if>>Hoàn
+							thành</option>
 					</select>
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -122,82 +123,23 @@
 							<table class="table table-bordered" id="myTable">
 								<thead>
 									<tr>
-										<th style="width: 2%;">Chọn</th>								
+										<th style="width: 2%;">Chọn</th>
 										<th style="width: 5%;">Họ và tên</th>
-										<th style="width: 9%;">Email</th>
+										<th style="width: 5%;">Email</th>
 										<th style="width: 5%;">Phone</th>
-										<th style="width: 8%;">Ngân hàng</th>
-										<th style="width: 4%;">Mã giao dịch</th>		
-										<th style="width: 4%;">Đợt quyên góp</th>
+										<th style="width: 5%;">Ngân hàng</th>
+										<th style="width: 5%;">Mã giao dịch</th>
 										<th style="width: 4%;">Số tiền</th>
-										<th style="width: 4%;">Trạng thái</th>
-										<th style="width: 4%;">Ngày</th>
-										<th style="width: 3%;">Action</th>
+										<th style="width: 5%;">Trạng thái</th>
+										<th style="width: 6%;">Đợt quyên góp</th>
+										<th style="width: 5%;">Ngày</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="user" items="${UserList}">
+									<c:forEach var="user" items="${UsersDonationList}">
 										<tr>
-											<c:choose>
-												<c:when test="${user.role == 0 || user.role == 1}">
-													<td><input type="checkbox" class="chk" name="chk"
-														disabled value="<c:out value='${user.email}'/>"></td>
-												</c:when>
-												<c:otherwise>
-													<td><input type="checkbox" class="chk" name="chk"
-														value="<c:out value='${user.email}'/>"></td>
-												</c:otherwise>
-											</c:choose>
-											<td>
-												<div class="form-check form-switch">
-													<input class="form-check-input role_chk" type="checkbox"
-														role="switch" value="<c:out value='${user.email}'/>"
-														<c:if test="${user.role == 0}">checked disabled</c:if> 
-														<c:if test="${user.role == 1}">checked</c:if> 
-														<c:if test="${sessionScope.user.role == 1 && user.role == 1}">disabled</c:if> />
-												</div>
-											</td>
-											<!--Modal -->
-											<div class="modal" id="role_confirm" role="dialog">
-												<div class="modal-dialog modal-dialog-centered"
-													tabindex="-1 role="document">
-													<!--Modal content -->
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal"
-																id="close_role_confirm">&times;</button>
-														</div>
-														<div class="modal-body">
-															<p style="font-size: large;">Bạn muốn chuyển vai trò người dùng?</p>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-ok btn-danger"
-																id="ok_role_confirm" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
-															<button type="button" class="btn btn-default btn-success"
-																id="cancel_role_confirm" data-dismiss="modal">Hủy</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<div class="modal" id="role_notify" role="dialog">
-												<div class="modal-dialog">
-
-													<!-- Modal content-->
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<p class="text-center" id="role_msg"
-																style="font-size: large; color: red;"></p>
-														</div>
-													</div>
-												</div>
-											</div>
+											<td><input type="checkbox" class="chk" name="chk"
+												value="<c:out value='${user.transactionId}'/>"></td>
 											<td>
 												<div>${user.name}</div>
 											</td>
@@ -205,14 +147,22 @@
 												<div>${user.email}</div>
 											</td>
 											<td><c:out value="${user.phone}" /></td>
-											<td><c:out value="${user.address}" /></td>
+											<td><c:out value="${user.bank}" /></td>
+											<td><c:out value="${user.transactionId}" /></td>
+											<td><fmt:formatNumber type="number" pattern="0"
+													value="${user.donationAmount}" /></td>
 											<td>
-												<div class="form-check form-switch">
-													<input class="form-check-input status_chk" type="checkbox"
-														role="switch" value="<c:out value='${user.email}'/>"
-														<c:if test="${user.role == 0}">checked disabled</c:if>
-														<c:if test="${user.status == 2}">checked</c:if>
-														<c:if test="${sessionScope.user.role == 1 && user.role == 1}">disabled</c:if> />
+												<div class="tri-state-toggle">
+													<input type="hidden" class="userDonationId" value="${user.userDonationId}">
+												
+													<button type="button" class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 1}">active</c:if> "
+														onclick="activateButton(this)">R</button>
+
+													<button type="button" class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 2}">active</c:if> "
+														onclick="activateButton(this)">P</button>
+
+													<button type="button" class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 3}">active</c:if> "
+														onclick="activateButton(this)">A</button>
 												</div>
 											</td>
 											<!--Modal -->
@@ -226,11 +176,13 @@
 																id="close_status_confirm">&times;</button>
 														</div>
 														<div class="modal-body">
-															<p style="font-size: large;">Bạn muốn khoá/mở khoá tài khoản này?</p>
+															<p style="font-size: large;">Bạn muốn chuyển trạng
+																thái quyên góp này?</p>
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-ok btn-danger"
-																id="ok_status_confirm" data-dismiss="modal" style="margin-bottom: 0;">Chấp nhận</button>
+																id="ok_status_confirm" data-dismiss="modal"
+																style="margin-bottom: 0;">Chấp nhận</button>
 															<button type="button" class="btn btn-default btn-success"
 																id="cancel_status_confirm" data-dismiss="modal">Hủy</button>
 														</div>
@@ -255,22 +207,26 @@
 													</div>
 												</div>
 											</div>
-											<td><a class="edit"
-												href="UsersDonationController?action=edit&email=${user.email}&page=${currentPage}"
-												title="Sửa" data-toggle="tooltip"> <i
-													class="fa fa-pencil" aria-hidden="true"></i>
-											</a></td>
+											<td>
+												<div>
+													<div class="content hideContent">${user.donationTitle}</div>
+													<div class="show-more">
+														<a type="button" style="color: blue;">Hiển thị thêm</a>
+													</div>
+												</div>
+											</td>
+											<td><c:out value="${user.donationDate}" /></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-			
+
 							<nav aria-label="..." class="page">
 								<ul class="pagination">
 
 									<li class="page-item"><a type="button"
 										class="btn page-link"
-										href="${pageContext.request.contextPath}/UsersDonationController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=1"
+										href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=1"
 										tabindex="-1">First</a></li>
 
 									<c:forEach var="i" begin="1" end="${noOfPage}">
@@ -283,14 +239,14 @@
 											<c:otherwise>
 												<li class="page-item"><a type="button"
 													class="btn page-link"
-													href="${pageContext.request.contextPath}/UsersDonationController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
+													href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${i}">${i}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 
 									<li class="page-item"><a type="button"
 										class="btn page-link"
-										href="${pageContext.request.contextPath}/UsersDonationController?action=UserList&myInput=${searchText}&searchRole=${searchRole}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
+										href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList&myInput=${searchText}&searchStatus=${searchStatus}&page=${noOfPage}">Last</a>
 									</li>
 
 								</ul>
@@ -304,7 +260,10 @@
 									<a type="button" class="btn btn-danger deleteBtn" id="user_del"
 										title="Xóa" data-toggle="tooltip"><i class="fa fa-trash-o"
 										aria-hidden="true"></i> Xoá các mục đã chọn</a>
+									<p id="statusNote">Ghi chú: R-Rejected, P-Pending,
+										A-Accepted</p>
 								</div>
+
 							</div>
 
 							<!--Modal -->

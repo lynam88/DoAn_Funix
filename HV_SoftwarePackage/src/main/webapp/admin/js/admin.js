@@ -108,10 +108,10 @@
 	    
 	    if(linkText == "HIỂN THỊ THÊM"){
 	        linkText = "Rút Gọn";
-	        $content.switchClass("hideContent", "showContent", 400);
+	        $content.toggleClass("hideContent showContent", 400);
 	    } else {
 	        linkText = "Hiển thị thêm";
-	        $content.switchClass("showContent", "hideContent", 400);
+	        $content.toggleClass("hideContent showContent", 400);
 	    };
 
 	    $this.text(linkText);
@@ -331,25 +331,25 @@
 		                type : 'POST',
 		                data: {email: checkedEmail}, 
 		                url : '/HV_SoftwarePackage/ManageUsersController?action=updateStatus',
-		                success : function() {		                	
-		                    $("#status_confirm").modal("hide");		      
-		                    currentSwitch.prop('checked', isChecked);
-		                    setTimeout(function() {                  
-		                        $("#status_notify").modal("show");
-		                        $("#status_msg").text("Bạn đã cập nhật thành công");
-		                    }, 1000);                    
-		                    setTimeout(function() {
-		                        location.reload();
-		                    }, 3000);
-		                },
-		                error: function(){	                
+		                success : function(responseText) {	                	
 		                    $("#status_confirm").modal("hide");
 		                    currentSwitch.prop('checked', isChecked);
 		                    setTimeout(function() {                  
 		                        $("#status_notify").modal("show");
-		                        $("#status_msg").text("Bạn đã cập nhật thất bại.");
+		                        $("#status_msg").text(responseText);	                        
 		                    }, 1000);                    
-		                    setTimeout(function() {
+		                    setTimeout(function() {	                    	
+		                        location.reload();
+		                    }, 3000);
+		                },
+		                error: function(responseText){	                
+		                    $("#status_confirm").modal("hide");
+		                    currentSwitch.prop('checked', isChecked);
+		                    setTimeout(function() {                  
+		                        $("#status_notify").modal("show");
+		                        $("#status_msg").text(responseText);	                        
+		                    }, 1000);                    
+		                    setTimeout(function() {	                    	
 		                        location.reload();
 		                    }, 3000);
 		                },
@@ -364,7 +364,7 @@
 		            setTimeout(function() {
 		                location.reload();
 		            }, 3000);
-		        }	       
+		        }      
 		    });
 		    
 		    $('#cancel_status_confirm, #close_status_confirm').click(function() {
@@ -373,8 +373,74 @@
 		    });
 		    
 		    $('#status_confirm').on('hide.bs.modal', function() {
-		        currentSwitch.prop('checked', !isChecked);                
+		        currentSwitch.prop('checked', !isChecked);
+		        $("#status_confirm").modal("hide");
 		    });
 		    
 		});
-	
+
+		/**
+		 * Js functions for user donation page
+		 */
+		var userDonationId;
+		var userDonationStatus;
+		
+		function activateButton(button) {
+		    // Remove "active" class from all buttons in the toggle
+		    var buttons = button.parentNode.querySelectorAll('button');
+		    buttons.forEach(function(btn) {
+		        btn.classList.remove('active');
+		    });
+		
+		    // Add "active" class to the clicked button
+		    button.classList.add('active');    
+		    userDonationId = button.parentNode.querySelectorAll('input')[0].value;
+		    userDonationStatus = $(button).text();
+		    $("#status_confirm").modal("show");
+		}
+		
+		$('#ok_status_confirm').click(function(){                  
+		    try {
+		        $.ajax({
+		            type : 'POST',
+		            data: {
+		                userDonationId : userDonationId,
+		                userDonationStatus : userDonationStatus,                                      
+		            },
+		            url : '/HV_SoftwarePackage/UsersDonationController?action=updateStatus',
+		            success : function(responseText) {                        
+		                $("#status_confirm").modal("hide");
+		                setTimeout(function() {                  
+		                    $("#status_notify").modal("show");
+		                    $("#status_msg").text(responseText);                        
+		                }, 1000);                    
+		                setTimeout(function() {                        
+		                    location.reload();
+		                }, 3000);
+		            },
+		            error: function(responseText){                     
+		                $("#status_confirm").modal("hide");
+		                setTimeout(function() {                  
+		                    $("#status_notify").modal("show");
+		                    $("#status_msg").text(responseText);                        
+		                }, 1000);                    
+		                setTimeout(function() {                        
+		                    location.reload();
+		                }, 3000);
+		            },
+		        });
+		    } catch (e) {       
+		        $("#status_confirm").modal("hide");
+		        setTimeout(function() {                  
+		            $("#status_notify").modal("show");
+		            $("#status_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		        }, 1000);                    
+		        setTimeout(function() {
+		            location.reload();
+		        }, 3000);
+		    }       
+		});
+		
+		$('#cancel_status_confirm, #close_status_confirm').click(function() {
+		    $("#status_confirm").modal("hide");
+		});		

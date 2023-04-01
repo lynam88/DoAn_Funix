@@ -17,8 +17,9 @@ import commons.Utils;
 import dao.DonationsDAO;
 import dao.UsersDAO;
 import dao.UsersDonationDAO;
-import model.Users;
 import model.Donations;
+import model.Users;
+import model.UsersDonation;
 
 /**
  * Servlet implementation class DonationsController
@@ -35,11 +36,10 @@ public class UsersDonationController extends HttpServlet {
 	private String action;
 	private String search;
 	private String status;
-	private String category;
 	private String searchString;
 	private int page;
 	HttpSession session;
-	Users sessionUser;
+	Object sessionUser;
 
 	public void init() {
 		usersDAO = new UsersDAO();
@@ -72,7 +72,23 @@ public class UsersDonationController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "UsersDonationSearch":
+			UsersDonationList(request, response);
+			break;
+		case "updateStatus":
+			String notifyStatus = null;
+			try {
+				notifyStatus = updateStatus(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    response.setContentType("text/plain; charset=UTF-8");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(notifyStatus);
+			break;
 		}
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -86,9 +102,9 @@ public class UsersDonationController extends HttpServlet {
 			e2.printStackTrace();
 		}
 		session = request.getSession();
-		sessionUser = (Users) session.getAttribute("user");
+		sessionUser = session.getAttribute("user");
 		switch (action) {
-		case "UsersDonationList":				
+		case "UsersDonationList":
 			UsersDonationList(request, response);
 			break;
 		case "showMakeDonationPage":
@@ -115,6 +131,20 @@ public class UsersDonationController extends HttpServlet {
 		}
 	}
 
+	private String updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userDonationStatus = request.getParameter("userDonationStatus");
+		int userDonationId = Integer.parseInt(request.getParameter("userDonationId"));		
+		
+		try {
+			UsersDonation ud = new UsersDonation(userDonationStatus, userDonationId);
+			UsersDonationDAO.updateStatus(ud);
+			return "Bạn đã cập nhật trạng thái quyên góp thành công";
+		} catch (Exception e) {
+			return "Bạn đã cập nhật trạng thái quyên góp thất bại";
+		}
+
+	}
+
 	private void UsersDonationList(HttpServletRequest request, HttpServletResponse response) {
 		page = 1;
 		int recordPerPage = 5;
@@ -124,28 +154,28 @@ public class UsersDonationController extends HttpServlet {
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
 		status = request.getParameter("searchStatus");
-		category = request.getParameter("category");
+		status = request.getParameter("status");
 		if (status == null || status == "") {
 			status = "0";
 		}
-		if (category == null || category == "") {
-			category = "0";
+		if (status == null || status == "") {
+			status = "0";
 		}
 		request.setAttribute("searchText", searchString);
 		request.setAttribute("searchStatus", status);
-		request.setAttribute("category", category);
+		request.setAttribute("status", status);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
 			UsersDonationDAO.search(searchString, status);
-			int noOfRecord = donationsDAO.getNoOfRecords();
+			int noOfRecord = UsersDonationDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<Donations> listPerPage = donationsDAO.getRecord(searchString, status, category, page, recordPerPage);
+			List<UsersDonation> listPerPage = UsersDonationDAO.getRecord(searchString, status, page, recordPerPage);
 			request.setAttribute("UsersDonationList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
 
-			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/DonationList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("admin/jsp/UsersDonationList.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -161,16 +191,16 @@ public class UsersDonationController extends HttpServlet {
 	private void showDonations(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int page = 1;
 		int recordPerPage = 6;
-		String category = request.getParameter("category");
-		if (category == null || category == "") {
-			category = "0";
+		String status = request.getParameter("status");
+		if (status == null || status == "") {
+			status = "0";
 		}
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
-		donationsDAO.search("", "0", category);
+		donationsDAO.search("", "0", status);
 		int noOfRecord = donationsDAO.getNoOfRecords();
 		int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-		List<Donations> listPerPage = donationsDAO.getRecord("", "0", category, page, recordPerPage);
+		List<Donations> listPerPage = donationsDAO.getRecord("", "0", status, page, recordPerPage);
 		request.setAttribute("DonationList", listPerPage);
 		request.setAttribute("noOfPage", noOfPage);
 		request.setAttribute("currentPage", page);
@@ -206,18 +236,20 @@ public class UsersDonationController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		try {
 
-			// Get form input data			
-			String name = request.getParameter("name");		
-			String phone = request.getParameter("phone");
+			// Get form input data
+			String name = request.getParameter("name");
 			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
 			String bank = request.getParameter("bank");
 			String transactionId = request.getParameter("transactionId");
 			int donationId = Integer.parseInt(request.getParameter("donationId"));
-			String donationAmount = request.getParameter("donationAmount").replaceAll(",", "");;
-			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);			
+			String donationAmount = request.getParameter("donationAmount").replaceAll(",", "");
+			;
+			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
 
 			// Create new user object
-			Users u = new Users(name, phone, email, bank, transactionId, donationId, donationAmountFloat);			
+			UsersDonation u = new UsersDonation(name, email, phone, bank, transactionId, donationAmountFloat,
+					donationId);
 			if (sessionUser == null && phone != null && usersDAO.getUser(phone) != null) {
 				return "0";
 

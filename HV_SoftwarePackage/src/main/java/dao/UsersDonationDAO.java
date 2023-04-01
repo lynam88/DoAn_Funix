@@ -10,20 +10,21 @@ import java.util.List;
 
 import context.DBContext;
 import model.Users;
+import model.UsersDonation;
 
 public class UsersDonationDAO {
 
 	private int noOfRecords;
 
-	public List<Users> search(String character, String searchStatus) throws Exception {
+	public List<UsersDonation> search(String character, String searchStatus) throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<Users> list = new ArrayList<>();
+		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, bank, transaction_id, donation_amount, user_donation_status, donation_id, donation_date"
-						+ "FROM UsersDonation AS UD "
-						+ "LEFT JOIN Donations AS D"
-						+ "ON UD.donation_id = D.donation_id"
-						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ?")
+			String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date "
+						+ "FROM Users_Donation AS UD "
+						+ "LEFT JOIN Donations AS D "
+						+ "ON UD.donation_id = D.donation_id "
+						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? ")
 						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -44,17 +45,21 @@ public class UsersDonationDAO {
 			this.noOfRecords = 0;
 
 			while (rs.next()) {
-				Users u = new Users();
+				UsersDonation u = new UsersDonation();
+				
+				u.setUserDonationId(rs.getInt("user_donation_id"));
 				u.setName(rs.getString("name"));
-				u.setPhone(rs.getString("phone"));
 				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getString("phone"));				
 				u.setBank(rs.getString("bank"));
 				u.setTransactionId(rs.getString("transaction_id"));
 				u.setDonationAmount(rs.getFloat("donation_amount"));
-				u.setDonationStatus(rs.getString("user_donation_status"));
-				u.setDonationId(rs.getInt("donation_id"));
-				u.setDonationDate(rs.getDate("donation_date"));
+				u.setUserDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationTitle(rs.getString("donation_title"));;
+				u.setDonationDate(rs.getDate("donation_date"));			
+
 				list.add(u);
+				
 				this.noOfRecords++;
 			}
 		} catch (SQLException ex) {
@@ -68,18 +73,18 @@ public class UsersDonationDAO {
 
 	}
 
-	public List<Users> getRecord(String character, String searchStatus, int pageNo, int recordPerPage)
+	public List<UsersDonation> getRecord(String character, String searchStatus, int pageNo, int recordPerPage)
 			throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<Users> list = new ArrayList<>();
+		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, bank, transaction_id, donation_amount, user_donation_status, donation_id, donation_date"
-						+ "FROM UsersDonation AS UD "
-						+ "LEFT JOIN Donations AS D"
-						+ "ON UD.donation_id = D.donation_id"
-						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ?")
-						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ")
-						+ "ORDER BY donation_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+			String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date "
+					+ "FROM Users_Donation AS UD "
+					+ "LEFT JOIN Donations AS D "
+					+ "ON UD.donation_id = D.donation_id "
+					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? ")
+					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ")
+					+ "ORDER BY donation_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -87,7 +92,7 @@ public class UsersDonationDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
-				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 			}
 
@@ -101,16 +106,18 @@ public class UsersDonationDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Users u = new Users();
+				UsersDonation u = new UsersDonation();
+				
+				u.setUserDonationId(rs.getInt("user_donation_id"));
 				u.setName(rs.getString("name"));
-				u.setPhone(rs.getString("phone"));
 				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getString("phone"));				
 				u.setBank(rs.getString("bank"));
 				u.setTransactionId(rs.getString("transaction_id"));
 				u.setDonationAmount(rs.getFloat("donation_amount"));
-				u.setDonationStatus(rs.getString("user_donation_status"));
-				u.setDonationId(rs.getInt("donation_id"));
-				u.setDonationDate(rs.getDate("donation_date"));
+				u.setUserDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationTitle(rs.getString("donation_title"));;
+				u.setDonationDate(rs.getDate("donation_date"));			
 
 				list.add(u);
 			}
@@ -147,19 +154,20 @@ public class UsersDonationDAO {
 		return u;
 	}
 	
-	public void insertUsersDonation(Users u) throws Exception {
+	public void insertUsersDonation(UsersDonation u) throws Exception {
 	    Connection connection = new DBContext().getConnection();
-	    String sql = "INSERT INTO User_Donation (name, phone, email, bank, transaction_id, donation_amount, donation_date)" +
-	                 "VALUES (?, ?, ?, ?, ?, ?, GETDATE());";
+	    String sql = "INSERT INTO User_Donation (name, email, phone, bank, transaction_id, donation_amount, donation_id, donation_date)" +
+	                 "VALUES (?, ?, ?, ?, ?, ?, ?,  GETDATE());";
 
 	    PreparedStatement stmt = connection.prepareStatement(sql);
 
 	    stmt.setString(1, u.getName());
-	    stmt.setString(2, u.getPhone());	
-	    stmt.setString(3, u.getEmail());
+	    stmt.setString(2, u.getEmail());
+	    stmt.setString(3, u.getPhone());		    
 	    stmt.setString(4, u.getBank());
 	    stmt.setString(5, u.getTransactionId());
 	    stmt.setFloat(6, u.getDonationAmount());
+	    stmt.setInt(7, u.getDonationId());
 	    int run = stmt.executeUpdate();
 	    stmt.close();
 	    if (run == 0) throw new Exception();
@@ -195,30 +203,21 @@ public class UsersDonationDAO {
 		stmt.close();
 	}	
 	
-	public void updatePass(Users u, String password) throws Exception {
-		Connection connection = new DBContext().getConnection();
-		
-		String sql = "UPDATE Users SET password = ? WHERE email = ?";
-		PreparedStatement stmt = connection.prepareStatement(sql);
+	public void updateStatus(UsersDonation ud) throws Exception {
+    	Connection connection = new DBContext().getConnection(); 
+        String sql = "UPDATE Users_Donation SET user_donation_status = ? WHERE user_donation_id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
 
-		stmt.setString(1, password);
-		stmt.setString(2, u.getEmail());
-		stmt.executeUpdate();
-		stmt.close();
-		
-	}
-	
-	public void updateFeedback(Users u, String feedback) throws Exception {
-		Connection connection = new DBContext().getConnection();
-		
-		String sql = "UPDATE Users SET feedback = ? WHERE email = ?";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-
-		stmt.setString(1, feedback);
-		stmt.setString(2, u.getEmail());
-		stmt.executeUpdate();
-		stmt.close();
-		
+        if (ud.getUserDonationStatus().equals("R")) {
+            stmt.setInt(1, 1);
+        } else if (ud.getUserDonationStatus().equals("P")) {
+            stmt.setInt(1, 2);
+        } else if (ud.getUserDonationStatus().equals("A")) {
+            stmt.setInt(1, 3);
+        
+        stmt.setInt(2, ud.getDonationId());
+        stmt.executeUpdate();
+	    }
 	}
 
 }

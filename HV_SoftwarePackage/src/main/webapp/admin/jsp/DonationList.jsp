@@ -70,7 +70,7 @@
 			
             <div class="card-body px-0 pt-0 pb-2">
               <div class="p-0">
-                <table class="table table-bordered" id="myTable" style="zoom: 86%;">
+                <table class="table table-bordered" id="myTable" >
 					<thead>
 					    <tr>
 					        <th style="width: 2%;">Chọn</th>
