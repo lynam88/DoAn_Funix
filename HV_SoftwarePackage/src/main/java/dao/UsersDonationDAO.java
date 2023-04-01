@@ -209,15 +209,15 @@ public class UsersDonationDAO {
         PreparedStatement stmt = connection.prepareStatement(sql);
 
         if (ud.getUserDonationStatus().equals("R")) {
-            stmt.setInt(1, 1);
+            stmt.setString(1, "1");
         } else if (ud.getUserDonationStatus().equals("P")) {
-            stmt.setInt(1, 2);
+        	stmt.setString(1, "2");
         } else if (ud.getUserDonationStatus().equals("A")) {
-            stmt.setInt(1, 3);
+        	stmt.setString(1, "3");
+        }
         
         stmt.setInt(2, ud.getDonationId());
-        stmt.executeUpdate();
-	    }
+        stmt.executeUpdate();	    
 	}
 
 }
