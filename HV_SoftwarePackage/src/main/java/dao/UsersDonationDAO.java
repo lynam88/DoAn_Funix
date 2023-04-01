@@ -216,8 +216,8 @@ public class UsersDonationDAO {
         	stmt.setString(1, "3");
         }
         
-        stmt.setInt(2, ud.getDonationId());
-        stmt.executeUpdate();	    
+        stmt.setInt(2, ud.getUserDonationId());    
+        stmt.close();
 	}
 
 }
