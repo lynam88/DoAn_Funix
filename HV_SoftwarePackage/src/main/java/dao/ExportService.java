@@ -120,6 +120,57 @@ public class ExportService {
        }
        return file;
    }
+    
+    public String userDonationExport(String character, String searchStatus) throws Exception {                  
+        String file = "./User_Donation_Export" + getFileName();
+
+       try {
+	       	Connection connection = new DBContext().getConnection();
+	       	String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date "
+					+ "FROM Users_Donation AS UD "
+					+ "LEFT JOIN Donations AS D "
+					+ "ON UD.donation_id = D.donation_id "
+					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? ")
+					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
+
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			int index = 1;
+	
+			if (!character.isEmpty()) {
+				stmt.setString(index++, "%" + character + "%");
+				stmt.setString(index++, character);
+				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
+			}
+	
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
+			}
+	
+			ResultSet rs = stmt.executeQuery();
+
+           XSSFWorkbook workbook = new XSSFWorkbook();
+           XSSFSheet sheet = workbook.createSheet("Data_Export");
+
+           writeHeaderLine(rs, sheet);
+
+           writeDataLines(rs, workbook, sheet);
+
+           FileOutputStream outputStream = new FileOutputStream(file);
+           workbook.write(outputStream);
+           workbook.close();
+
+           stmt.close();
+
+       } catch (SQLException e) {
+           System.out.println("Datababse error:");
+           e.printStackTrace();
+       } catch (IOException e) {
+           System.out.println("File IO error:");
+           e.printStackTrace();
+       }
+       return file;
+   }
  
     private void writeHeaderLine(ResultSet result, XSSFSheet sheet) throws SQLException {
         // write header line containing column names

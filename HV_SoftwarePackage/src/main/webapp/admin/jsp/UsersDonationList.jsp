@@ -56,7 +56,7 @@ if (notifyUsersDonationList != null) {
 <div class="container-fluid py-4">
 	<div class="row">
 		<div class="col-12">
-			<div class="card mb-4">
+			<div class="card mb-4 UDLContent">
 
 				<div id="clock"></div>
 
@@ -73,11 +73,14 @@ if (notifyUsersDonationList != null) {
 						id="searchStatus" name="searchStatus">
 						<option value="0" selected>Trạng Thái</option>
 						<option value="1"
-							<c:if test="${searchStatus == 1}">selected</c:if>>Chờ
-							xác nhận</option>
+							<c:if test="${searchStatus == 1}">selected</c:if>>Từ
+							chối</option>
 						<option value="2"
-							<c:if test="${searchStatus == 2}">selected</c:if>>Hoàn
-							thành</option>
+							<c:if test="${searchStatus == 2}">selected</c:if>>Đang
+							chờ</option>
+						<option value="3"
+							<c:if test="${searchStatus == 3}">selected</c:if>>Đã
+							xác thực</option>
 					</select>
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -123,23 +126,20 @@ if (notifyUsersDonationList != null) {
 							<table class="table table-bordered" id="myTable">
 								<thead>
 									<tr>
-										<th style="width: 2%;">Chọn</th>
 										<th style="width: 5%;">Họ và tên</th>
-										<th style="width: 5%;">Email</th>
+										<th style="width: 7%;">Email</th>
 										<th style="width: 5%;">Phone</th>
 										<th style="width: 5%;">Ngân hàng</th>
-										<th style="width: 5%;">Mã giao dịch</th>
+										<th style="width: 6%;">Mã giao dịch</th>
 										<th style="width: 4%;">Số tiền</th>
 										<th style="width: 5%;">Trạng thái</th>
-										<th style="width: 6%;">Đợt quyên góp</th>
-										<th style="width: 5%;">Ngày</th>
+										<th style="width: 7%;">Đợt quyên góp</th>
+										<th style="width: 4%;">Ngày</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="user" items="${UsersDonationList}">
 										<tr>
-											<td><input type="checkbox" class="chk" name="chk"
-												value="<c:out value='${user.transactionId}'/>"></td>
 											<td>
 												<div>${user.name}</div>
 											</td>
@@ -153,15 +153,19 @@ if (notifyUsersDonationList != null) {
 													value="${user.donationAmount}" /></td>
 											<td>
 												<div class="tri-state-toggle">
-													<input type="hidden" class="userDonationId" value="${user.userDonationId}">
-												
-													<button type="button" class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 1}">active</c:if> "
+													<input type="hidden" class="userDonationId"
+														value="${user.userDonationId}">
+
+													<button type="button"
+														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 1}">active</c:if> "
 														onclick="activateButton(this)">R</button>
 
-													<button type="button" class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 2}">active</c:if> "
+													<button type="button"
+														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 2}">active</c:if> "
 														onclick="activateButton(this)">P</button>
 
-													<button type="button" class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 3}">active</c:if> "
+													<button type="button"
+														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 3}">active</c:if> "
 														onclick="activateButton(this)">A</button>
 												</div>
 											</td>
@@ -251,85 +255,11 @@ if (notifyUsersDonationList != null) {
 
 								</ul>
 							</nav>
-							<div class="pageTitle">
-								<input type="button" class="btn btn-success" onclick='selects()'
-									value="Chọn Tất Cả" /> <input type="button"
-									class="btn btn-success" onclick='deSelect()'
-									value="Bỏ Chọn Tất Cả" "/>
-								<div>
-									<a type="button" class="btn btn-danger deleteBtn" id="user_del"
-										title="Xóa" data-toggle="tooltip"><i class="fa fa-trash-o"
-										aria-hidden="true"></i> Xoá các mục đã chọn</a>
-									<p id="statusNote">Ghi chú: R-Rejected, P-Pending,
-										A-Accepted</p>
-								</div>
-
-							</div>
-
-							<!--Modal -->
-							<div class="modal" id="myModal" role="dialog">
-								<div class="modal-dialog modal-dialog-centered"
-									tabindex="-1 role="document">
-									<!--Modal content -->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												id="close_user_del">&times;</button>
-										</div>
-										<div class="modal-body">
-											<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
-										</div>
-										<div class="modal-footer">
-											<button type="submit" class="btn btn-ok btn-danger"
-												id="ok_user_del" data-dismiss="modal">Chấp nhận</button>
-											<button type="button" class="btn btn-default btn-success"
-												id="cancel_user_del" data-dismiss="modal">Hủy</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="modal" id="showDelete" role="dialog">
-								<div class="modal-dialog">
-
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<p class="text-center" id="showMsg"
-												style="font-size: large; color: red;"></p>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
-							<div class="modal" id="checkMsg" role="dialog">
-								<div class="modal-dialog">
-
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<p class="text-center" id="checkMsg"
-												style="font-size: large; color: red;">Vui lòng chọn mục
-												để xoá.</p>
-										</div>
-									</div>
-
-								</div>
-							</div>
 						</form>
 					</div>
+				</div>
+				<div>
+					<p id="statusNote">Ghi chú: R: Rejected/Từ chối, P: Pending/Đang chờ, A: Accepted/Đã xác thực</p>
 				</div>
 			</div>
 		</div>

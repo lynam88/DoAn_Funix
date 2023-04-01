@@ -1,6 +1,9 @@
 package controller.admin;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import commons.Utils;
 import dao.DonationsDAO;
+import dao.ExportService;
 import dao.UsersDAO;
 import dao.UsersDonationDAO;
 import model.Donations;
@@ -37,6 +41,7 @@ public class UsersDonationController extends HttpServlet {
 	private String search;
 	private String status;
 	private String searchString;
+	private String searchStatus;
 	private int page;
 	HttpSession session;
 	Object sessionUser;
@@ -128,8 +133,13 @@ public class UsersDonationController extends HttpServlet {
 		case "donationPost":
 			showDonationPost(request, response);
 			break;
+		case "export":
+			exportUserDonation(request, response);
+			break;			
 		}
 	}
+
+	
 
 	private String updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userDonationStatus = request.getParameter("userDonationStatus");
@@ -153,21 +163,19 @@ public class UsersDonationController extends HttpServlet {
 			search = "";
 		byte[] search_Bytes = search.getBytes(StandardCharsets.ISO_8859_1);
 		searchString = new String(search_Bytes, StandardCharsets.UTF_8);
-		status = request.getParameter("searchStatus");
-		status = request.getParameter("status");
-		if (status == null || status == "") {
-			status = "0";
+		searchStatus = request.getParameter("searchStatus");
+		if (searchStatus == null || searchStatus == "") {
+			searchStatus = "0";
 		}		
 		request.setAttribute("searchText", searchString);
-		request.setAttribute("searchStatus", status);
-		request.setAttribute("status", status);
+		request.setAttribute("searchStatus", searchStatus);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
 		try {
-			UsersDonationDAO.search(searchString, status);
+			UsersDonationDAO.search(searchString, searchStatus);
 			int noOfRecord = UsersDonationDAO.getNoOfRecords();
 			int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-			List<UsersDonation> listPerPage = UsersDonationDAO.getRecord(searchString, status, page, recordPerPage);
+			List<UsersDonation> listPerPage = UsersDonationDAO.getRecord(searchString, searchStatus, page, recordPerPage);
 			request.setAttribute("UsersDonationList", listPerPage);
 			request.setAttribute("noOfPage", noOfPage);
 			request.setAttribute("currentPage", page);
@@ -176,6 +184,41 @@ public class UsersDonationController extends HttpServlet {
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	private void exportUserDonation(HttpServletRequest request, HttpServletResponse response) {
+		ExportService exporter = new ExportService();
+		// reads input file from an absolute path
+		File downloadFile = null;
+		try {
+			downloadFile = new File(exporter.userDonationExport(searchString, searchStatus));
+			FileInputStream inStream = new FileInputStream(downloadFile);
+
+			// modifies response
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+			response.setContentLength((int) downloadFile.length());
+
+			// forces download
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+			response.setHeader(headerKey, headerValue);
+
+			// obtains response's output stream
+			OutputStream outStream = response.getOutputStream();
+
+			byte[] buffer = new byte[4096];
+			int bytesRead = -1;
+
+			while ((bytesRead = inStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
+
+			inStream.close();
+			outStream.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

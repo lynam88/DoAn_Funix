@@ -27,7 +27,7 @@
 		white-space: nowrap;
 	}
 	.showContent {
-		line-height: 1em;
+		line-height: 1.5em;
 		height: auto;
 	}
 	.show-more {
@@ -262,8 +262,11 @@
 	}
 	
 	#statusNote{
-		margin-left: 68%;
+		margin-left: 50%;
 	    position: absolute;
-	    margin-top: -4%;
 	    color: blue;
+	}
+	
+	.UDLContent {
+		padding-bottom: 5%;
 	}

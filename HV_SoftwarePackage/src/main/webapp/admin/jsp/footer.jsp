@@ -256,44 +256,49 @@
 	
 	<script>
 	//Thời gian	
-	if ( location.search.split('action=')[1].endsWith("t")) {
-		var today = new Date();
-		var weekday = new Array(7);
-		weekday[0] = "Chủ Nhật";
-		weekday[1] = "Thứ Hai";
-		weekday[2] = "Thứ Ba";
-		weekday[3] = "Thứ Tư";
-		weekday[4] = "Thứ Năm";
-		weekday[5] = "Thứ Sáu";
-		weekday[6] = "Thứ Bảy";
-		var day = weekday[today.getDay()];
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1;
-		var yyyy = today.getFullYear();
-		var h = today.getHours();
-		var m = today.getMinutes();
-		var s = today.getSeconds();
-		m = checkTime(m);
-		s = checkTime(s);
-		nowTime = h + ":" + m + ":" + s;
-		if (dd < 10) {
-			dd = '0' + dd
-		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
-		today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-		tmp = '<i class="fa fa-clock-o" aria-hidden="true"></i> <span class="date">'
-				+ today + ' | ' + nowTime + '</span>';
-		document.getElementById("clock").innerHTML = tmp;
-
-		function checkTime(i) {
-			if (i < 10) {
-				i = "0" + i;
-			}
-			return i;
-		}
+	if (location.search.split('action=')[1].endsWith("t")) {
+	  function updateTime() {
+	    var today = new Date();
+	    var weekday = new Array(7);
+	    weekday[0] = "Chủ Nhật";
+	    weekday[1] = "Thứ Hai";
+	    weekday[2] = "Thứ Ba";
+	    weekday[3] = "Thứ Tư";
+	    weekday[4] = "Thứ Năm";
+	    weekday[5] = "Thứ Sáu";
+	    weekday[6] = "Thứ Bảy";
+	    var day = weekday[today.getDay()];
+	    var dd = today.getDate();
+	    var mm = today.getMonth() + 1;
+	    var yyyy = today.getFullYear();
+	    var h = today.getHours();
+	    var m = today.getMinutes();
+	    var s = today.getSeconds();
+	    m = checkTime(m);
+	    s = checkTime(s);
+	    nowTime = h + ":" + m + ":" + s;
+	    if (dd < 10) {
+	      dd = '0' + dd
+	    }
+	    if (mm < 10) {
+	      mm = '0' + mm
+	    }
+	    today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+	    tmp = '<i class="fa fa-clock-o" aria-hidden="true"></i> <span class="date">' + today + ' | ' + nowTime + '</span>';
+	    document.getElementById("clock").innerHTML = tmp;
+	  }
+	
+	  // call updateTime every second
+	  setInterval(updateTime, 1000);
+	
+	  function checkTime(i) {
+	    if (i < 10) {
+	      i = "0" + i;
+	    }
+	    return i;
+	  }
 	}
+
 	</script> 
 	
 	<script>
