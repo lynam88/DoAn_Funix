@@ -79,8 +79,8 @@ if (notifyUsersDonationList != null) {
 							<c:if test="${searchStatus == 2}">selected</c:if>>Đang
 							chờ</option>
 						<option value="3"
-							<c:if test="${searchStatus == 3}">selected</c:if>>Đã
-							xác thực</option>
+							<c:if test="${searchStatus == 3}">selected</c:if>>Đã xác
+							thực</option>
 					</select>
 					<button class="btn nv btn-primary" id="searchButton">
 						<i class="fa fa-search"></i> Tìm kiếm
@@ -117,14 +117,19 @@ if (notifyUsersDonationList != null) {
 							</div>
 						</div>
 					</div>
+					<div classs="text-right">
+						<p id="statusNote">Ghi chú: R: Rejected/Từ chối, P:
+							Pending/Đang chờ, A: Accepted/Đã xác thực</p>
+					</div>
 				</div>
 
 				<div class="card-body px-0 pt-0 pb-2">
 					<div class="p-0">
 						<form action="" method="post" id="formDel">
 							<input type="hidden" name="email" id="email" value="${email}">
+
 							<table class="table table-bordered" id="myTable">
-								<thead>
+								<thead class="text-center">
 									<tr>
 										<th style="width: 5%;">Họ và tên</th>
 										<th style="width: 7%;">Email</th>
@@ -151,7 +156,7 @@ if (notifyUsersDonationList != null) {
 											<td><c:out value="${user.transactionId}" /></td>
 											<td><fmt:formatNumber type="number" pattern="0"
 													value="${user.donationAmount}" /></td>
-											<td>
+											<td id="statusSwitch">
 												<div class="tri-state-toggle">
 													<input type="hidden" class="userDonationId"
 														value="${user.userDonationId}">
@@ -257,9 +262,6 @@ if (notifyUsersDonationList != null) {
 							</nav>
 						</form>
 					</div>
-				</div>
-				<div>
-					<p id="statusNote">Ghi chú: R: Rejected/Từ chối, P: Pending/Đang chờ, A: Accepted/Đã xác thực</p>
 				</div>
 			</div>
 		</div>

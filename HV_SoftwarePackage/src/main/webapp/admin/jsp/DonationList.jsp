@@ -70,8 +70,8 @@
 			
             <div class="card-body px-0 pt-0 pb-2">
               <div class="p-0">
-                <table class="table table-bordered" id="myTable" >
-					<thead>
+                <table class="table table-bordered" id="myTable">
+					<thead class="text-center">
 					    <tr>
 					        <th style="width: 2%;">Chọn</th>
 					        <th style="width: 4%;">Hoàn Thành</th>

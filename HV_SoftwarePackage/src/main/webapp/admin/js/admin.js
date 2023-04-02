@@ -414,8 +414,8 @@
 		                userDonationStatus : userDonationStatus,                                      
 		            },
 		            url : '/HV_SoftwarePackage/UsersDonationController?action=updateStatus',
-		            success : function(responseText) {                        
-		                $("#status_confirm").modal("hide");
+		            success : function(responseText) {		            	
+		                $("#status_confirm").modal("hide");		                
 		                setTimeout(function() {                  
 		                    $("#status_notify").modal("show");
 		                    $("#status_msg").text(responseText);                        

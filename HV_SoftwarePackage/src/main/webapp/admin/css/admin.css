@@ -263,10 +263,13 @@
 	
 	#statusNote{
 		margin-left: 50%;
-	    position: absolute;
 	    color: blue;
 	}
 	
 	.UDLContent {
 		padding-bottom: 5%;
+	}
+	
+	#statusSwitch{
+		text-align: center;
 	}

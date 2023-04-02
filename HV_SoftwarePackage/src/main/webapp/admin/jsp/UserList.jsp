@@ -127,7 +127,7 @@
 						<form action="" method="post" id="formDel">
 							<input type="hidden" name="email" id="email" value="${email}">
 							<table class="table table-bordered" id="myTable">
-								<thead>
+								<thead class="text-center">
 									<tr>
 										<th style="width: 2%;">Chọn</th>
 										<th style="width: 3%;">Admin</th>
