@@ -146,10 +146,10 @@ if (notifyUsersDonationList != null) {
 									<c:forEach var="user" items="${UsersDonationList}">
 										<tr>
 											<td>
-												<div>${user.name}</div>
+												<div><c:out value="${user.name}" /></div>
 											</td>
 											<td>
-												<div>${user.email}</div>
+												<div><c:out value="${user.email}" /></div>
 											</td>
 											<td><c:out value="${user.phone}" /></td>
 											<td><c:out value="${user.bank}" /></td>

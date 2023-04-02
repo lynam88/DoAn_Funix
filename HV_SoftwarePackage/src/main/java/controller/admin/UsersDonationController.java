@@ -72,13 +72,7 @@ public class UsersDonationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "showMakeDonationPage" : action;
-		try {
-			List<Donations> listDonations = donationsDAO.search("", "0", "0");
-			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {
-			e2.printStackTrace();
-		}
+		action = action == null ? "showMakeDonationPage" : action;		
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {

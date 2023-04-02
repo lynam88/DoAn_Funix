@@ -35,6 +35,7 @@ import dao.UsersDAO;
 import model.Donations;
 import model.Statistics;
 import model.Users;
+import model.UsersDonation;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -82,12 +83,6 @@ public class UsersController extends HttpServlet {
 			throws ServletException, IOException {
 		action = request.getParameter("action");
 		action = action == null ? "dashboard" : action;
-		try {
-			List<Donations> listDonations = donationsDAO.search("", "0", "0");
-			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {			
-			e2.printStackTrace();
-		}
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {
@@ -351,6 +346,8 @@ public class UsersController extends HttpServlet {
 			throws Exception {
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
+		List<UsersDonation> listPerPage = statisticsDAO.getMostDonationUsersRecord();
+		request.setAttribute("MostDonationUsers", listPerPage);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
 
