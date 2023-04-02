@@ -40,8 +40,8 @@
 				<div class="block-18 color-1 align-items-stretch">
 					<div class="text">
 						<span>Số tiền đã quyên góp</span> <span><strong
-							class="number" data-number="523000000000">0</strong> <span>cho
-								hơn <c:out value="${noOfRecord}"></c:out> hoàn cảnh
+							class="number" data-number=<c:out value="${statistics.totalDonationAmount}"></c:out>>0</strong> <span>cho
+								hơn <c:out value="${statistics.totalDonations}"></c:out> hoàn cảnh
 						</span>
 					</div>
 				</div>

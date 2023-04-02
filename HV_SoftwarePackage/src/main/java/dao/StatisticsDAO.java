@@ -38,6 +38,7 @@ public class StatisticsDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				s = new Statistics();
 				s.setTotalDonations(rs.getInt("total_donations"));
 				s.setTotalUsers(rs.getInt("total_users"));
 				s.setTodayDonationAmount(rs.getFloat("total_donations_today"));

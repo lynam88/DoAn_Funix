@@ -6,7 +6,16 @@
 	
 	body {
 	  min-width: 576px; /* set the minimum width to 576 pixels */
-	}		
+	}
+	
+	/* Dashboard */
+	.statisticsText p{
+		font-size: 13px !important;
+	}
+	
+	.statisticsText h5{
+		font-size: 15px !important;
+	}				
 	
 	/* Donation List page */
 	.firstRow{

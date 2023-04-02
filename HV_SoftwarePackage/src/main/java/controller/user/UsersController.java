@@ -63,6 +63,7 @@ public class UsersController extends HttpServlet {
 	public void init() {
 		usersDAO = new UsersDAO();
 		donationsDAO = new DonationsDAO();
+		statisticsDAO = new StatisticsDAO();
 	}
 
 	/**
@@ -150,7 +151,12 @@ public class UsersController extends HttpServlet {
 			break;
 		case "admin":
 			if (sessionUser != null && (sessionUser.getRole() == 0 || sessionUser.getRole() == 1)) {
-				showAdminPage(request, response);
+				try {
+					showAdminPage(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} 
 			break;
 		case "user":
@@ -336,11 +342,15 @@ public class UsersController extends HttpServlet {
 		request.setAttribute("noOfRecord", noOfRecord);
 		List<Donations> listDonations = donationsDAO.search("", "0", "0");
 		session.setAttribute("DonationList", listDonations);
+		s = statisticsDAO.getStatistic();
+		request.setAttribute("statistics", s);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 
 	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		s = statisticsDAO.getStatistic();
+		request.setAttribute("statistics", s);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
 
@@ -661,9 +671,8 @@ public class UsersController extends HttpServlet {
 		}
 		// Create a new session for the user
 		session = request.getSession(true);
-
-		// If the user has selected "remember me", create cookies for their login
-		// information
+		
+		// If the user has selected "remember me", create cookies for their login information
 		if (request.getParameter("remember") != null) {
 			Cookie cookiesName = new Cookie("loginId", id);
 			cookiesName.setMaxAge(300);

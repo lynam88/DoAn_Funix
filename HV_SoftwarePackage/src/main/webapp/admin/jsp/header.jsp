@@ -74,7 +74,7 @@
       <ul class="navbar-nav">
       
         <li class="nav-item mt-3" style="margin-left: -7%;">
-	        <a class="nav-link index" href="${pageContext.request.contextPath}/UsersController?action=admin">
+	        <a class="nav-link admin" href="${pageContext.request.contextPath}/UsersController?action=admin">
 	          <h6 class="text-uppercase text-xs font-weight-bolder opacity-6"><i class="fa fa-home" style="font-size:20px;color:#00FFFF"></i>Trang chủ Admin</h6>
 	        </a>
         </li>
@@ -95,7 +95,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList">
+          <a class="nav-link UsersDonationList" href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
