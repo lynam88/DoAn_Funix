@@ -30,8 +30,10 @@ import javax.servlet.http.Part;
 import commons.MD5Library;
 import commons.RandomPasswordGenerator;
 import dao.DonationsDAO;
+import dao.StatisticsDAO;
 import dao.UsersDAO;
 import model.Donations;
+import model.Statistics;
 import model.Users;
 
 import java.io.File;
@@ -51,10 +53,12 @@ public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDAO;
 	private DonationsDAO donationsDAO;
+	private StatisticsDAO statisticsDAO;
 	private String action;
 	private HttpSession session;
 	Users userData;
 	Users sessionUser;
+	Statistics s;
 
 	public void init() {
 		usersDAO = new UsersDAO();
@@ -122,13 +126,7 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "user" : action;
-		try {
-			List<Donations> listDonations = donationsDAO.search("", "0", "0");
-			request.setAttribute("DonationList", listDonations);
-		} catch (Exception e2) {			
-			e2.printStackTrace();
-		}
+		action = action == null ? "user" : action;		
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {		
@@ -201,6 +199,7 @@ public class UsersController extends HttpServlet {
 			break;
 		}
 	}
+
 
 	private void showRecoverUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/recoverUser.jsp");
@@ -335,6 +334,8 @@ public class UsersController extends HttpServlet {
 			throws ServletException, Exception {
 		int noOfRecord = donationsDAO.getNoOfRecords();
 		request.setAttribute("noOfRecord", noOfRecord);
+		List<Donations> listDonations = donationsDAO.search("", "0", "0");
+		session.setAttribute("DonationList", listDonations);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 
