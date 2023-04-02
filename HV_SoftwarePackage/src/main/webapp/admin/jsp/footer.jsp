@@ -219,7 +219,7 @@
   
   <script>
 	var classCr = location.search.split('action=')[1];
-	if(classCr == "admin" || classCr == "DonationList" || classCr == "UserList"){
+	if(classCr == "admin" || classCr == "DonationList" || classCr == "UserList" || classCr == "UserList"){
 	document.getElementsByClassName(classCr)[0].className += " active";}
 	var str_page1 = document.getElementById("str-pages1");
 	var str_page2 = document.getElementById("str-pages2");
@@ -236,6 +236,9 @@
 	if(classCr.startsWith("UserList") || classCr.startsWith("userSearch")) {
 		str+="Người Dùng";
 	}
+	if(classCr.startsWith("UsersDonationList") || classCr.startsWith("UsersDonationSearch") ) {
+		str+="Người dùng quyên góp";
+	}	
 	str_page1.innerHTML = str;
 	if(classCr !== "index"){
 		str_page2.innerHTML = str;

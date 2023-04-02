@@ -160,6 +160,7 @@ if (notifyUsersDonationList != null) {
 												<div class="tri-state-toggle">
 													<input type="hidden" class="userDonationId"
 														value="${user.userDonationId}">
+													<input type="hidden" name="email" id="email" value="${user.email}">
 
 													<button type="button"
 														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 1}">active</c:if> "

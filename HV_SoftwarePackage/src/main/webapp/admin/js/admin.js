@@ -386,12 +386,13 @@
 		var userDonationId;
 		var userDonationStatus;
 		var previousButton;
+		var toEmail;
 		
 		function activateButton(button) {
 		    // Remove "active" class from all buttons in the toggle
 		    var buttons = button.parentNode.querySelectorAll('button');
 		    buttons.forEach(function(btn) {
-		    	if($(btn ).hasClass( "active" )){
+		    	if($(btn).hasClass("active")){
 		    		previousStatus = $(btn).text();
 		    		btn.classList.remove('active');
 		    		previousButton = btn;
@@ -401,6 +402,7 @@
 		    // Add "active" class to the clicked button
 		    button.classList.add('active');    
 		    userDonationId = button.parentNode.querySelectorAll('input')[0].value;
+		    toEmail = button.parentNode.querySelectorAll('input')[1].value;
 		    userDonationStatus = $(button).text();
 		    $("#status_confirm").modal("show");
 		}
@@ -423,6 +425,22 @@
 		                setTimeout(function() {                        
 		                    location.reload();
 		                }, 3000);
+		                // Send email
+		                $.ajax({
+		                    type: 'POST',
+		                    url: '/HV_SoftwarePackage/UsersDonationController?action=userDonationMail',
+		                    data: {
+		                    	userDonationId : userDonationId,
+				                userDonationStatus : userDonationStatus, 
+		                    	toEmail: toEmail,		    
+		                    },
+		                    success: function(response) {
+		                        console.log(response);
+		                    },
+		                    error: function(xhr, status, error) {
+		                        console.log(xhr.responseText);
+		                    }
+		                });
 		            },
 		            error: function(responseText){                     
 		                $("#status_confirm").modal("hide");
