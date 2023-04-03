@@ -192,8 +192,7 @@
 		<div class="row justify-content-center mb-5 pb-3">
 			<div class="col-md-7 heading-section ftco-animate text-center">
 				<h2 class="mb-4">Quyên góp mới nhất</h2>
-				<p>Far far away, behind the word mountains, far from the
-					countries Vokalia and Consonantia, there live the blind texts.</p>
+				<p>Chào đón người quyên góp mới nhất! Anh ấy/ cô ấy đã đóng góp tích cực vào sự phát triển và khôi phục của cộng đồng.</p>
 			</div>
 		</div>
 		<div class="row">
