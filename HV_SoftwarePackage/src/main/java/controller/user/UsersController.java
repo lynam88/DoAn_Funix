@@ -53,7 +53,6 @@ import org.apache.commons.io.IOUtils;
 public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsersDAO usersDAO;
-	private DonationsDAO donationsDAO;
 	private StatisticsDAO statisticsDAO;
 	private String action;
 	private HttpSession session;
@@ -63,7 +62,7 @@ public class UsersController extends HttpServlet {
 
 	public void init() {
 		usersDAO = new UsersDAO();
-		donationsDAO = new DonationsDAO();
+		new DonationsDAO();
 		statisticsDAO = new StatisticsDAO();
 	}
 
@@ -332,14 +331,12 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, Exception {
-		int noOfRecord = donationsDAO.getNoOfRecords();
-		request.setAttribute("noOfRecord", noOfRecord);
-		List<Donations> listDonations = donationsDAO.search("", "0", "0");
-		session.setAttribute("DonationList", listDonations);
+			throws ServletException, Exception {	
+		List<Statistics> donationList = statisticsDAO.getDonationList();
+		session.setAttribute("DonationList", donationList);
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
-		List<UsersDonation> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
+		List<Statistics> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
 		request.setAttribute("MostRecentDonationUsers", MostRecentDonationUsers);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
@@ -348,11 +345,11 @@ public class UsersController extends HttpServlet {
 			throws Exception {
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
-		List<Donations> firstTable = statisticsDAO.getMostRecentDonations();
+		List<Statistics> firstTable = statisticsDAO.getMostRecentDonations();
 		request.setAttribute("MostRecentDonations", firstTable);
-		List<UsersDonation> secondTable = statisticsDAO.getMostDonationUsers();
+		List<Statistics> secondTable = statisticsDAO.getMostDonationUsers();
 		request.setAttribute("MostDonationUsers", secondTable);
-		List<Donations> thirdTable = statisticsDAO.getCategory();
+		List<Statistics> thirdTable = statisticsDAO.getCategory();
 		request.setAttribute("Category", thirdTable);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}

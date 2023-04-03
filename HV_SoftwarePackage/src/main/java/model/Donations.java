@@ -4,15 +4,9 @@ import java.util.Date;
 
 public class Donations {
 	private int id;
-	private String status;
-	private String title;
-	private String content;	
-	private Date startDate;
-	private Date endDate;
+	private String status, title, content, category, src;	
+	private Date startDate, endDate, insertDate;
 	private Float totalNeeded;
-	private String category;
-	private String src;
-	private Date insertDate;
 	
 	public Donations() {
 		super();
@@ -128,12 +122,5 @@ public class Donations {
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
 	}
-
-	public String getPosts() {
-		return posts;
-	}
-
-	public void setPosts(String posts) {
-		this.posts = posts;
-	}	
+	
 }

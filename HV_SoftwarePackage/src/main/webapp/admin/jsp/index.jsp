@@ -234,7 +234,7 @@
 									</td>
 									<td>
 										<div class="text-center">
-											<p class="text-xs font-weight-bold mb-0">Số tiền(VNĐ):</p>
+											<p class="text-xs font-weight-bold mb-0">Số tiền (VNĐ):</p>
 											<h6 class="text-sm mb-0">
 												<fmt:formatNumber type="number" pattern="0,000"
 													value="${user.donationAmount}" />

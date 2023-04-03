@@ -143,27 +143,28 @@
 						<div class="item">
 							<div class="cause-entry">
 								<a
-									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.id}"
+									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}"
 									class="img thumbnail"
 									style="background-image: url(${donation.src});"></a>
 								<div class="text p-3 p-md-4">
 									<h4>
 										<a
-											href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.id}">
+											href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">
 											${donation.title} </a>
 									</h4>
 									<span class="donation-time mb-3 d-block"> Quyên góp mới
-										nhất cách đây 0 ngày </span>
+										nhất cách đây <c:out value="${donation.dayDiff}"></c:out> ngày </span>
 									<div class="progress custom-progress-success">
 										<div class="progress-bar bg-primary" role="progressbar"
 											style="width: 50%" aria-valuenow="50" aria-valuemin="0"
 											aria-valuemax="100"></div>
 									</div>
-									<fmt:formatNumber type="number" pattern="#,##0"
-										value="${donation.totalNeeded}" var="myNum" />
+									
 									<div>
 										<span class="fund-raised d-block float-left leftText">
-											Đã quyên góp được 0 trên tổng số tiền <c:out value="${myNum}"></c:out>
+											Đã quyên góp được <fmt:formatNumber type="number" pattern="#,##0"
+										value="${donation.donationAmount}"/> VNĐ trên tổng số tiền <fmt:formatNumber type="number" pattern="#,##0"
+										value="${donation.totalNeeded}" />
 											VNĐ
 										</span>
 										<c:if test="${donation.status == 1}">
@@ -174,7 +175,7 @@
 										</c:if>
 										<c:if test="${donation.status == 2}">
 											<a type="button" class="btn btn-primary float-right"
-												href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.id}">Quyên
+												href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">Quyên
 												góp</a>
 										</c:if>
 									</div>

@@ -32,8 +32,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 
-import commons.MD5Library;
-import commons.RandomPasswordGenerator;
 import commons.Utils;
 import dao.DonationsDAO;
 import dao.ExportService;
