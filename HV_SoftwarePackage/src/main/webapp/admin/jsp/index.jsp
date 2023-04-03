@@ -88,8 +88,8 @@
 					<div class="row">
 						<div class="col-8">
 							<div class="numbers statisticsText">
-								<p class="text-sm mb-0 text-uppercase font-weight-bold ">Tổng
-									đợt quyên góp</p>
+								<p class="text-sm mb-0 text-uppercase font-weight-bold ">Đợt
+									quyên góp</p>
 								<h5 class="font-weight-bolder">
 									${statistics.totalDonations}</h5>
 							</div>
@@ -109,7 +109,9 @@
 		<div class="col-lg-7 mb-lg-0 mb-4">
 			<div class="card z-index-2 h-100">
 				<div class="card-header pb-0 pt-3 bg-transparent">
-					<h6 class="text-capitalize">Tổng Quan Quyên Góp</h6>
+					<span>Tổng Quan Quyên Góp</span> <a
+						href="${pageContext.request.contextPath}/DonationsController?action=DonationList">(xem
+						thêm...)</a>
 					<table class="table align-items-center mb-0">
 						<thead>
 							<tr>
@@ -119,14 +121,6 @@
 								<th
 									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thời
 									gian</th>
-								<th
-									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng
-									thái</th>
-								<th
-									class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hạng
-									mục</th>
-								<th
-									class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -146,16 +140,7 @@
 										<p class="text-xs text-secondary mb-0">
 											<c:out value="${donation.endDate}" />
 										</p>
-									</td>
-									<td class="align-middle text-center text-sm"><span
-										class="badge badge-sm bg-gradient-success"><c:out
-												value="${donation.status}" /></span></td>
-									<td class="align-middle text-center"><span
-										class="text-secondary text-xs font-weight-bold"><c:if test="${donation.category == 1}">Vì trẻ em</c:if>					            
-					            	<c:if test="${donation.category == 2}">Người Già, Người Khuyết Tật</c:if>
-					            	<c:if test="${donation.category == 3}">Bệnh Hiểm Nghèo</c:if>
-					            	<c:if test="${donation.category == 4}">Đầu Tư Cơ Sở Vật Chất</c:if>
-					            	<c:if test="${donation.category == 5}">Bảo Vệ Môi Trường</c:if></span></td>
+									</td>								
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -225,140 +210,62 @@
 			<div class="card ">
 				<div class="card-header pb-0 p-3">
 					<div class="d-flex justify-content-between">
-						<h6 class="mb-2">Lịch Sử Quyên Góp</h6>
+						<h6 class="mb-2">
+							Lịch Sử Quyên Góp <a
+								href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList">(xem
+								thêm...)</a>
+						</h6>
 					</div>
 				</div>
 				<div class="table-responsive">
 					<table class="table align-items-center ">
 						<tbody>
-							<tr>
-								<td class="w-30">
-									<div class="d-flex px-2 py-1 align-items-center">
-										<div>
-											<img src="template/admin/assets/img/icons/flags/US.png"
-												alt="Country flag">
+							<c:forEach var="user" items="${MostDonationUsers}">
+								<tr>
+									<td class="w-30">
+										<div class="d-flex px-2 py-1 align-items-center">
+											<div class="ms-4">
+												<p class="text-xs font-weight-bold mb-0">Email:</p>
+												<h6 class="text-sm mb-0">
+													<c:out value="${user.email}" />
+												</h6>
+											</div>
 										</div>
-										<div class="ms-4">
-											<p class="text-xs font-weight-bold mb-0">Country:</p>
-											<h6 class="text-sm mb-0">United States</h6>
+									</td>
+									<td>
+										<div class="text-center">
+											<p class="text-xs font-weight-bold mb-0">Số tiền(VNĐ):</p>
+											<h6 class="text-sm mb-0">
+												<fmt:formatNumber type="number" pattern="0,000"
+													value="${user.donationAmount}" />
+											</h6>
 										</div>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Sales:</p>
-										<h6 class="text-sm mb-0">2500</h6>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Value:</p>
-										<h6 class="text-sm mb-0">$230,900</h6>
-									</div>
-								</td>
-								<td class="align-middle text-sm">
-									<div class="col text-center">
-										<p class="text-xs font-weight-bold mb-0">Bounce:</p>
-										<h6 class="text-sm mb-0">29.9%</h6>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="w-30">
-									<div class="d-flex px-2 py-1 align-items-center">
-										<div>
-											<img src="template/admin/assets/img/icons/flags/DE.png"
-												alt="Country flag">
+									</td>
+									<td>
+										<div class="text-center">
+											<p class="text-xs font-weight-bold mb-0">Trạng thái:</p>
+											<c:if test="${user.userDonationStatus == 1}">
+												<h6 class="badge badge-sm bg-gradient-warning">Từ chối</h6>
+											</c:if>
+											<c:if test="${user.userDonationStatus == 2}">
+												<h6 class="badge badge-sm bg-gradient-secondary">Đang
+													chờ</h6>
+											</c:if>
+											<c:if test="${user.userDonationStatus == 3}">
+												<h6 class="badge badge-sm bg-gradient-success">Xác thực</h6>
+											</c:if>
 										</div>
-										<div class="ms-4">
-											<p class="text-xs font-weight-bold mb-0">Country:</p>
-											<h6 class="text-sm mb-0">Germany</h6>
+									</td>
+									<td class="align-middle text-sm">
+										<div class="col text-center">
+											<p class="text-xs font-weight-bold mb-0">Ngày quyên góp:</p>
+											<h6 class="text-sm mb-0">
+												<c:out value="${user.donationDate}" />
+											</h6>
 										</div>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Sales:</p>
-										<h6 class="text-sm mb-0">3.900</h6>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Value:</p>
-										<h6 class="text-sm mb-0">$440,000</h6>
-									</div>
-								</td>
-								<td class="align-middle text-sm">
-									<div class="col text-center">
-										<p class="text-xs font-weight-bold mb-0">Bounce:</p>
-										<h6 class="text-sm mb-0">40.22%</h6>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="w-30">
-									<div class="d-flex px-2 py-1 align-items-center">
-										<div>
-											<img src="template/admin/assets/img/icons/flags/GB.png"
-												alt="Country flag">
-										</div>
-										<div class="ms-4">
-											<p class="text-xs font-weight-bold mb-0">Country:</p>
-											<h6 class="text-sm mb-0">Great Britain</h6>
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Sales:</p>
-										<h6 class="text-sm mb-0">1.400</h6>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Value:</p>
-										<h6 class="text-sm mb-0">$190,700</h6>
-									</div>
-								</td>
-								<td class="align-middle text-sm">
-									<div class="col text-center">
-										<p class="text-xs font-weight-bold mb-0">Bounce:</p>
-										<h6 class="text-sm mb-0">23.44%</h6>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="w-30">
-									<div class="d-flex px-2 py-1 align-items-center">
-										<div>
-											<img src="template/admin/assets/img/icons/flags/BR.png"
-												alt="Country flag">
-										</div>
-										<div class="ms-4">
-											<p class="text-xs font-weight-bold mb-0">Country:</p>
-											<h6 class="text-sm mb-0">Brasil</h6>
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Sales:</p>
-										<h6 class="text-sm mb-0">562</h6>
-									</div>
-								</td>
-								<td>
-									<div class="text-center">
-										<p class="text-xs font-weight-bold mb-0">Value:</p>
-										<h6 class="text-sm mb-0">$143,960</h6>
-									</div>
-								</td>
-								<td class="align-middle text-sm">
-									<div class="col text-center">
-										<p class="text-xs font-weight-bold mb-0">Bounce:</p>
-										<h6 class="text-sm mb-0">32.14%</h6>
-									</div>
-								</td>
-							</tr>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -367,89 +274,42 @@
 		<div class="col-lg-5">
 			<div class="card">
 				<div class="card-header pb-0 p-3">
-					<h6 class="mb-0">Hạng Mục Quyên Góp</h6>
+					<h6 class="mb-0">
+						Hạng Mục Quyên Góp <a
+							href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList">(xem
+							thêm...)</a>
+					</h6>
 				</div>
 				<div class="card-body p-3">
 					<ul class="list-group">
-						<li
-							class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-							<div class="d-flex align-items-center">
-								<div
-									class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-									<i class="ni ni-mobile-button text-white opacity-10"></i>
+						<c:forEach var="donation" items="${Category}">
+							<li
+								class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+								<div class="d-flex align-items-center">
+									<div
+										class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+										<i class="ni ni-mobile-button text-white opacity-10"></i>
+									</div>
+									<div class="d-flex flex-column">
+										<h6 class="mb-1 text-dark text-sm">
+											<c:if test="${donation.category == 1}">Vì trẻ em</c:if>
+											<c:if test="${donation.category == 2}">Người Già, Người Khuyết Tật</c:if>
+											<c:if test="${donation.category == 3}">Bệnh Hiểm Nghèo</c:if>
+											<c:if test="${donation.category == 4}">Đầu Tư Cơ Sở Vật Chất</c:if>
+											<c:if test="${donation.category == 5}">Bảo Vệ Môi Trường</c:if>
+										</h6>
+										<span class="text-xs"><c:out value="${donation.posts}" /> bài
+											viết</span>
+									</div>
 								</div>
-								<div class="d-flex flex-column">
-									<h6 class="mb-1 text-dark text-sm">Devices</h6>
-									<span class="text-xs">250 in stock, <span
-										class="font-weight-bold">346+ sold</span></span>
+								<div class="d-flex">
+									<button
+										class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+										<a href="${pageContext.request.contextPath}/UsersDonationController?action=donations&category=${donation.category}"><i class="ni ni-bold-right" aria-hidden="true"></i></a>										
+									</button>
 								</div>
-							</div>
-							<div class="d-flex">
-								<button
-									class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-									<i class="ni ni-bold-right" aria-hidden="true"></i>
-								</button>
-							</div>
-						</li>
-						<li
-							class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-							<div class="d-flex align-items-center">
-								<div
-									class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-									<i class="ni ni-tag text-white opacity-10"></i>
-								</div>
-								<div class="d-flex flex-column">
-									<h6 class="mb-1 text-dark text-sm">Tickets</h6>
-									<span class="text-xs">123 closed, <span
-										class="font-weight-bold">15 open</span></span>
-								</div>
-							</div>
-							<div class="d-flex">
-								<button
-									class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-									<i class="ni ni-bold-right" aria-hidden="true"></i>
-								</button>
-							</div>
-						</li>
-						<li
-							class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-							<div class="d-flex align-items-center">
-								<div
-									class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-									<i class="ni ni-box-2 text-white opacity-10"></i>
-								</div>
-								<div class="d-flex flex-column">
-									<h6 class="mb-1 text-dark text-sm">Error logs</h6>
-									<span class="text-xs">1 is active, <span
-										class="font-weight-bold">40 closed</span></span>
-								</div>
-							</div>
-							<div class="d-flex">
-								<button
-									class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-									<i class="ni ni-bold-right" aria-hidden="true"></i>
-								</button>
-							</div>
-						</li>
-						<li
-							class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-							<div class="d-flex align-items-center">
-								<div
-									class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-									<i class="ni ni-satisfied text-white opacity-10"></i>
-								</div>
-								<div class="d-flex flex-column">
-									<h6 class="mb-1 text-dark text-sm">Happy users</h6>
-									<span class="text-xs font-weight-bold">+ 430</span>
-								</div>
-							</div>
-							<div class="d-flex">
-								<button
-									class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
-									<i class="ni ni-bold-right" aria-hidden="true"></i>
-								</button>
-							</div>
-						</li>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

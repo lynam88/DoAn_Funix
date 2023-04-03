@@ -336,16 +336,17 @@ public class UsersDonationController extends HttpServlet {
 	private void showDonations(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int page = 1;
 		int recordPerPage = 6;
-		String status = request.getParameter("status");
-		if (status == null || status == "") {
-			status = "0";
+		String category = request.getParameter("category");
+		if (category == null || category == "") {
+			category = "0";
 		}
+		request.setAttribute("category", category);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
-		donationsDAO.search("", "0", status);
+		donationsDAO.search("", "0", category);
 		int noOfRecord = donationsDAO.getNoOfRecords();
 		int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-		List<Donations> listPerPage = donationsDAO.getRecord("", "0", status, page, recordPerPage);
+		List<Donations> listPerPage = donationsDAO.getRecord("", "0", category, page, recordPerPage);
 		request.setAttribute("DonationList", listPerPage);
 		request.setAttribute("noOfPage", noOfPage);
 		request.setAttribute("currentPage", page);

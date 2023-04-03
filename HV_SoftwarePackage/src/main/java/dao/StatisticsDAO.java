@@ -85,9 +85,10 @@ public class StatisticsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT TOP 5 name, email, donation_amount, user_donation_status, donation_date "
-					+ "FROM Users_Donation "									
-					+ "ORDER BY donation_date DESC";
+			String sql = "SELECT TOP 5 email, donation_amount, user_donation_status, donation_date "
+					+ "FROM Users_Donation "
+					+ "WHERE user_donation_status = 3"
+					+ "ORDER BY donation_amount DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);		
 			
@@ -95,8 +96,7 @@ public class StatisticsDAO {
 
 			while (rs.next()) {
 				UsersDonation u = new UsersDonation();				
-			
-				u.setName(rs.getString("name"));
+
 				u.setEmail(rs.getString("email"));				
 				u.setDonationAmount(rs.getFloat("donation_amount"));
 				u.setUserDonationStatus(rs.getString("user_donation_status"));
@@ -105,6 +105,28 @@ public class StatisticsDAO {
 				list.add(u);
 			}
 
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Donations> getCategory() throws Exception {
+		Connection connection = new DBContext().getConnection();
+		List<Donations> list = new ArrayList<>();
+		try {
+			String sql = "SELECT category, COUNT(donation_title) AS posts FROM donations GROUP BY category";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {		
+				Donations d = new Donations();
+				d.setCategory(rs.getString("category"));
+				d.setPosts(rs.getString("posts"));
+				
+				list.add(d);
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

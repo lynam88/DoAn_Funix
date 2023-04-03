@@ -7,6 +7,7 @@ public class Donations {
 	private String status;
 	private String title;
 	private String content;
+	private String posts;
 	private Date startDate;
 	private Date endDate;
 	private Float totalNeeded;
@@ -127,5 +128,13 @@ public class Donations {
 
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
+	}
+
+	public String getPosts() {
+		return posts;
+	}
+
+	public void setPosts(String posts) {
+		this.posts = posts;
 	}	
 }

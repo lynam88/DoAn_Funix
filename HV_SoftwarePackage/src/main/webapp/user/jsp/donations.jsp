@@ -84,7 +84,7 @@
 				<div class="block-27">
 					<ul>
 						<li><a
-							href="${pageContext.request.contextPath}/UsersDonationController?action=donations&page=1"
+							href="${pageContext.request.contextPath}/UsersDonationController?action=donations&category=${category}&page=1"
 							tabindex="-1">&lt;</a></li>
 						<c:forEach var="i" begin="1" end="${noOfPage}">
 							<c:choose>
@@ -93,12 +93,12 @@
 								</c:when>
 								<c:otherwise>
 									<li><a type="button"
-										href="${pageContext.request.contextPath}/UsersDonationController?action=donations&page=${i}">${i}</a></li>
+										href="${pageContext.request.contextPath}/UsersDonationController?action=donations&category=${category}&page=${i}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<li><a
-							href="${pageContext.request.contextPath}/UsersDonationController?action=donations&page=${noOfPage}">&gt;</a></li>
+							href="${pageContext.request.contextPath}/UsersDonationController?action=donations&category=${category}&page=${noOfPage}">&gt;</a></li>
 					</ul>
 				</div>
 			</div>

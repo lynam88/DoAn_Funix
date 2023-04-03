@@ -350,6 +350,8 @@ public class UsersController extends HttpServlet {
 		request.setAttribute("MostRecentDonations", firstTable);
 		List<UsersDonation> secondTable = statisticsDAO.getMostDonationUsers();
 		request.setAttribute("MostDonationUsers", secondTable);
+		List<Donations> thirdTable = statisticsDAO.getCategory();
+		request.setAttribute("Category", thirdTable);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
 
