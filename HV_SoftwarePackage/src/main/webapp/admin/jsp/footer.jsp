@@ -138,6 +138,9 @@
 	var str_page1 = document.getElementById("str-pages1");
 	var str_page2 = document.getElementById("str-pages2");
 	var str = "";
+	if(classCr.startsWith("admin")) {
+		str+="Trang chủ";
+	}	
 	if(classCr.startsWith("DonationList") || classCr.startsWith("DonationSearch") ) {
 		str+="Đợt Quyên góp";
 	}

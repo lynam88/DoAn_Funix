@@ -346,8 +346,10 @@ public class UsersController extends HttpServlet {
 			throws Exception {
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
-		List<UsersDonation> listPerPage = statisticsDAO.getMostDonationUsersRecord();
-		request.setAttribute("MostDonationUsers", listPerPage);
+		List<Donations> firstTable = statisticsDAO.getMostRecentDonations();
+		request.setAttribute("MostRecentDonations", firstTable);
+		List<UsersDonation> secondTable = statisticsDAO.getMostDonationUsers();
+		request.setAttribute("MostDonationUsers", secondTable);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
 

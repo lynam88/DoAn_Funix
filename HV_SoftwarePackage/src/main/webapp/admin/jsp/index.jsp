@@ -88,7 +88,8 @@
 					<div class="row">
 						<div class="col-8">
 							<div class="numbers statisticsText">
-								<p class="text-sm mb-0 text-uppercase font-weight-bold ">Tổng đợt quyên góp</p>
+								<p class="text-sm mb-0 text-uppercase font-weight-bold ">Tổng
+									đợt quyên góp</p>
 								<h5 class="font-weight-bolder">
 									${statistics.totalDonations}</h5>
 							</div>
@@ -113,40 +114,48 @@
 						<thead>
 							<tr>
 								<th
-									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ
-									tên</th>
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Đợt
+									quyên góp</th>
 								<th
-									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ngân hàng</th>
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thời
+									gian</th>
 								<th
-									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Số
-									tiền</th>
-								<th
-									class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng
+									class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng
 									thái</th>
 								<th
-									class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày</th>
+									class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hạng
+									mục</th>
+								<th
+									class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="user" items="${SummaryUsersDonation}">
+							<c:forEach var="donation" items="${MostRecentDonations}">
 								<tr>
 									<td>
-										<div class="d-flex px-2 py-1">										
-											<div class="d-flex flex-column justify-content-center">
-												<h6 class="mb-0 text-sm"><c:out value="${user.name}" /></h6>
-												<p class="text-xs text-secondary mb-0"><c:out value="${user.email}" /></p>
-											</div>
+										<div class="d-flex flex-column justify-content-center">
+											<h6 class="mb-0 text-sm">
+												<c:out value="${donation.title}" />
+											</h6>
 										</div>
 									</td>
 									<td>
-										<p class="text-xs font-weight-bold mb-0">Manager</p>
-										<p class="text-xs text-secondary mb-0">Organization</p>
+										<p class="text-xs font-weight-bold mb-0">
+											<c:out value="${donation.startDate}" />
+										</p>
+										<p class="text-xs text-secondary mb-0">
+											<c:out value="${donation.endDate}" />
+										</p>
 									</td>
 									<td class="align-middle text-center text-sm"><span
-										class="badge badge-sm bg-gradient-success">Online</span></td>
+										class="badge badge-sm bg-gradient-success"><c:out
+												value="${donation.status}" /></span></td>
 									<td class="align-middle text-center"><span
-										class="text-secondary text-xs font-weight-bold">23/04/18</span>
-									</td>
+										class="text-secondary text-xs font-weight-bold"><c:if test="${donation.category == 1}">Vì trẻ em</c:if>					            
+					            	<c:if test="${donation.category == 2}">Người Già, Người Khuyết Tật</c:if>
+					            	<c:if test="${donation.category == 3}">Bệnh Hiểm Nghèo</c:if>
+					            	<c:if test="${donation.category == 4}">Đầu Tư Cơ Sở Vật Chất</c:if>
+					            	<c:if test="${donation.category == 5}">Bảo Vệ Môi Trường</c:if></span></td>
 								</tr>
 							</c:forEach>
 						</tbody>
