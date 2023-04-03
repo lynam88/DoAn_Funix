@@ -339,6 +339,8 @@ public class UsersController extends HttpServlet {
 		session.setAttribute("DonationList", listDonations);
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
+		List<UsersDonation> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
+		request.setAttribute("MostRecentDonationUsers", MostRecentDonationUsers);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 

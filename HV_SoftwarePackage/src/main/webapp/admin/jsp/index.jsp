@@ -112,7 +112,7 @@
 					<span>Tổng Quan Quyên Góp</span> <a
 						href="${pageContext.request.contextPath}/DonationsController?action=DonationList">(xem
 						thêm...)</a>
-					<table class="table align-items-center mb-0">
+					<table class="table align-items-center mb-0" id="firstTable">
 						<thead>
 							<tr>
 								<th
@@ -134,11 +134,11 @@
 										</div>
 									</td>
 									<td>
-										<p class="text-xs font-weight-bold mb-0">
-											<c:out value="${donation.startDate}" />
+										<p class="text-xs font-weight-bold mb-0">	
+											<fmt:formatDate value="${donation.startDate}" pattern="dd/MM/yyyy" />
 										</p>
 										<p class="text-xs text-secondary mb-0">
-											<c:out value="${donation.endDate}" />
+											<fmt:formatDate value="${donation.endDate}" pattern="dd/MM/yyyy" />
 										</p>
 									</td>								
 								</tr>
@@ -218,14 +218,14 @@
 					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table align-items-center ">
+					<table class="table align-items-center" id="secondTable">
 						<tbody>
 							<c:forEach var="user" items="${MostDonationUsers}">
 								<tr>
 									<td class="w-30">
 										<div class="d-flex px-2 py-1 align-items-center">
 											<div class="ms-4">
-												<p class="text-xs font-weight-bold mb-0">Email:</p>
+												<p class="text-xs font-weight-bold mb-0"><c:out value="${user.name}" /></p>
 												<h6 class="text-sm mb-0">
 													<c:out value="${user.email}" />
 												</h6>
@@ -260,7 +260,7 @@
 										<div class="col text-center">
 											<p class="text-xs font-weight-bold mb-0">Ngày quyên góp:</p>
 											<h6 class="text-sm mb-0">
-												<c:out value="${user.donationDate}" />
+												<fmt:formatDate value="${user.donationDate}" pattern="dd/MM/yyyy" />
 											</h6>
 										</div>
 									</td>

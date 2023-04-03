@@ -85,10 +85,10 @@ public class StatisticsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT TOP 5 email, donation_amount, user_donation_status, donation_date "
-					+ "FROM Users_Donation "
-					+ "WHERE user_donation_status = 3"
-					+ "ORDER BY donation_amount DESC";
+			String sql = "SELECT TOP 5 name, email, donation_amount, user_donation_status, donation_date "
+						+ "FROM Users_Donation "
+						+ "WHERE user_donation_status = 3"
+						+ "ORDER BY donation_amount DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);		
 			
@@ -97,6 +97,7 @@ public class StatisticsDAO {
 			while (rs.next()) {
 				UsersDonation u = new UsersDonation();				
 
+				u.setName(rs.getString("name"));	
 				u.setEmail(rs.getString("email"));				
 				u.setDonationAmount(rs.getFloat("donation_amount"));
 				u.setUserDonationStatus(rs.getString("user_donation_status"));
@@ -127,6 +128,44 @@ public class StatisticsDAO {
 				
 				list.add(d);
 			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<UsersDonation> getMostRecentDonationUsers()
+			throws Exception {
+		Connection connection = new DBContext().getConnection();
+		List<UsersDonation> list = new ArrayList<>();
+		try {
+			String sql = "SELECT TOP 3 UD.name, UD.email, donation_amount, donation_date, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, category, avatar_path "
+						+ "FROM Users_Donation AS UD "
+						+ "LEFT JOIN Donations AS D "
+						+ "ON UD.donation_id = D.donation_id "
+						+ "LEFT JOIN Users AS U "
+						+ "ON UD.email = U.email "
+						+ "WHERE user_donation_status = 3 "
+						+ "ORDER BY donation_date DESC";
+
+
+			PreparedStatement stmt = connection.prepareStatement(sql);		
+			
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				UsersDonation ud = new UsersDonation();				
+
+				ud.setName(rs.getString("name"));
+				ud.setEmail(rs.getString("email"));				
+				ud.setDonationAmount(rs.getFloat("donation_amount"));
+				ud.setDayDiff(rs.getInt("days_since_donation"));	
+				ud.setCategory(rs.getString("category"));
+				ud.setAvatarPath(rs.getString("avatar_path"));
+				
+				list.add(ud);
+			}
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

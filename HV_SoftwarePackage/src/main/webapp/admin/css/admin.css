@@ -9,6 +9,14 @@
 	}
 	
 	/* Dashboard */
+	#firstTable td {
+	  width: 80%;
+	}
+	
+	#secondTable td {
+	  width: 25% !important;
+	}
+	
 	.statisticsText p{
 		font-size: 13px !important;
 	}

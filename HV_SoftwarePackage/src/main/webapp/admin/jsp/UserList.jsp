@@ -134,9 +134,8 @@
 										<th style="width: 6%;">Họ và tên</th>
 										<th style="width: 9%;">Email</th>
 										<th style="width: 5%;">Phone</th>
-										<th style="width: 8%;">Địa Chỉ</th>
-										<th style="width: 4%;">Hoạt động</th>
-										<th style="width: 3%;">Action</th>
+										<th style="width: 9%;">Địa Chỉ</th>
+										<th style="width: 3%;">Hoạt động</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -258,12 +257,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
-											<td><a class="edit"
-												href="ManageUsersController?action=edit&email=${user.email}&page=${currentPage}"
-												title="Sửa" data-toggle="tooltip"> <i
-													class="fa fa-pencil" aria-hidden="true"></i>
-											</a></td>
+											</div>											
 										</tr>
 									</c:forEach>
 								</tbody>

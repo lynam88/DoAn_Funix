@@ -40,8 +40,10 @@
 				<div class="block-18 color-1 align-items-stretch">
 					<div class="text">
 						<span>Số tiền đã quyên góp</span> <span><strong
-							class="number" data-number=<c:out value="${statistics.totalDonationAmount}"></c:out>>0</strong> <span>cho
-								hơn <c:out value="${statistics.totalDonations}"></c:out> hoàn cảnh
+							class="number"
+							data-number=<c:out value="${statistics.totalDonationAmount}"></c:out>>0</strong>
+							<span>cho hơn <c:out value="${statistics.totalDonations}"></c:out>
+								hoàn cảnh
 						</span>
 					</div>
 				</div>
@@ -192,70 +194,45 @@
 		<div class="row justify-content-center mb-5 pb-3">
 			<div class="col-md-7 heading-section ftco-animate text-center">
 				<h2 class="mb-4">Quyên góp mới nhất</h2>
-				<p>Chào đón người quyên góp mới nhất! Anh ấy/ cô ấy đã đóng góp tích cực vào sự phát triển và khôi phục của cộng đồng.</p>
+				<p>Chào đón người quyên góp mới nhất! Anh ấy/ cô ấy đã đóng góp
+					tích cực vào sự phát triển và khôi phục của cộng đồng.</p>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
-				<div class="staff">
-					<div class="d-flex mb-4">
-						<div class="img"
-							style="background-image: url(${pageContext.request.contextPath}/template/user/images/person_1.jpg);"></div>
-						<div class="info ml-4">
-							<h3>
-								<a href="teacher-single.html">Ivan Jacobson</a>
-							</h3>
-							<span class="position">Donated Just now</span>
-							<div class="text">
-								<p>
-									Donated <span>$300</span> for <a href="#">Children Needs
-										Food</a>
-								</p>
+			<c:forEach var="userDonation" items="${MostRecentDonationUsers}">
+				<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
+					<div class="staff">
+						<div class="d-flex mb-4">
+							<div class="img"
+								style="background-image: url(${userDonation.avatarPath});"></div>
+							<div class="info ml-4">
+								<h3>
+									<c:out value="${userDonation.name}"></c:out>
+								</h3>
+								<span class="position">Quyên góp cách đây <c:out
+										value="${userDonation.dayDiff}"></c:out> ngày
+								</span>
+								<div class="text">
+									<p>
+										Quyên góp <span><fmt:formatNumber type="number"
+												pattern="0,000" value="${userDonation.donationAmount}" />
+											VNĐ</span> cho 
+											<a
+											href="${pageContext.request.contextPath}/UsersDonationController?action=donations&category=${userDonation.category}">
+											<c:if test="${userDonation.category == 1}">Vì trẻ em </c:if>
+											<c:if test="${userDonation.category == 2}">Người Già, Người Khuyết Tật</c:if>
+											<c:if test="${userDonation.category == 3}">Bệnh Hiểm Nghèo</c:if>
+											<c:if test="${userDonation.category == 4}">Đầu Tư Cơ Sở Vật Chất</c:if>
+											<c:if test="${userDonation.category == 5}">Bảo Vệ Môi Trường</c:if>
+										</a>
+									</p>
+								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
-				<div class="staff">
-					<div class="d-flex mb-4">
-						<div class="img"
-							style="background-image: url(${pageContext.request.contextPath}/template/user/images/person_2.jpg);"></div>
-						<div class="info ml-4">
-							<h3>
-								<a href="teacher-single.html">Ivan Jacobson</a>
-							</h3>
-							<span class="position">Donated Just now</span>
-							<div class="text">
-								<p>
-									Donated <span>$150</span> for <a href="#">Children Needs
-										Food</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 d-flex mb-sm-4 ftco-animate">
-				<div class="staff">
-					<div class="d-flex mb-4">
-						<div class="img"
-							style="background-image: url(${pageContext.request.contextPath}/template/user/images/person_3.jpg);"></div>
-						<div class="info ml-4">
-							<h3>
-								<a href="teacher-single.html">Ivan Jacobson</a>
-							</h3>
-							<span class="position">Donated Just now</span>
-							<div class="text">
-								<p>
-									Donated <span>$250</span> for <a href="#">Children Needs
-										Food</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </section>

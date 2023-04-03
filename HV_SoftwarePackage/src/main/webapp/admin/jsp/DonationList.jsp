@@ -76,9 +76,9 @@
 					        <th style="width: 2%;">Chọn</th>
 					        <th style="width: 4%;">Hoàn Thành</th>
 					        <th style="width: 6%;">Đợt Quyên Góp</th>
-					        <th style="width: 21%;">Nội Dung</th>
+					        <th style="width: 18%;">Nội Dung</th>
 					        <th style="width: 4%;">Thời Gian</th>
-					        <th style="width: 4%;">Phân Loại</th>
+					        <th style="width: 7%;">Phân Loại</th>
 					        <th style="width: 3%;">Action</th>
 					    </tr>
 					</thead>

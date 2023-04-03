@@ -3,9 +3,9 @@ package model;
 import java.util.Date;
 
 public class UsersDonation {
-	private String name, phone, email, bank, transactionId, userDonationStatus, donationTitle;
+	private String name, phone, email, avatarPath, bank, transactionId, userDonationStatus, donationTitle, category;
 	private Date donationDate;
-	private int donationId, userDonationId;
+	private int donationId, userDonationId, dayDiff;
 	private Float donationAmount;
 
 	public UsersDonation() {
@@ -119,5 +119,30 @@ public class UsersDonation {
 
 	public void setUserDonationId(int userDonationId) {
 		this.userDonationId = userDonationId;
+	}
+
+	public int getDayDiff() {
+	    return dayDiff;
+	}
+
+	public void setDayDiff(int dayDiff) {
+	    this.dayDiff = dayDiff;
+	}
+
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getAvatarPath() {
+		return avatarPath;
+	}
+
+	public void setAvatarPath(String avatarPath) {
+		this.avatarPath = avatarPath;
 	}		
 }
