@@ -26,6 +26,10 @@
 	}				
 	
 	/* Donation List page */
+	#edit{
+		text-align: center;
+	}
+	
 	.firstRow{
 		position: relative;
    		margin-top: 2%;
@@ -280,7 +284,8 @@
 	
 	#statusNote{
 		margin-left: 50%;
-	    color: blue;
+	    color: darkgreen;
+	    font-size: 95%;
 	}
 	
 	.UDLContent {
@@ -289,4 +294,8 @@
 	
 	#statusSwitch{
 		text-align: center;
+	}
+	
+	.leftButtons{
+		float: left;
 	}

@@ -7788,7 +7788,7 @@ h1, h2, h3, h4, h5,
     margin-bottom: 20px; }
   .cause-entry span.donation-time {
     font-style: italic;
-    color: #cfcfcf; }
+    color: rgb(0, 128, 0); }
   .cause-entry span.fund-raised {
     color: #000; }
 

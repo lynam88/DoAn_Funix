@@ -6,8 +6,7 @@ public class Donations {
 	private int id;
 	private String status;
 	private String title;
-	private String content;
-	private String posts;
+	private String content;	
 	private Date startDate;
 	private Date endDate;
 	private Float totalNeeded;

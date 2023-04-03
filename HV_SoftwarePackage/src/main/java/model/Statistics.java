@@ -1,6 +1,7 @@
 package model;
 
 public class Statistics {	
+	private String posts;
 	private int totalUsers, totalDonations;
 	private Float totalDonationAmount, todayDonationAmount;
 

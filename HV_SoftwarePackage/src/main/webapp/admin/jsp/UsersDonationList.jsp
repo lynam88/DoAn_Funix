@@ -91,31 +91,13 @@ if (notifyUsersDonationList != null) {
 					<b>CHỨC NĂNG CHÍNH:</b>
 				</p>
 				<div class="pageTitle">
-
-					<a class="btn nv btn-primary pageBtn" type="button"
-						onclick="sortTable()" data-toggle="tooltip" data-placement="top">
-						<i class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
-					</a> <a class="btn nv btn-primary functionBtn"
-						href="${pageContext.request.contextPath}/UsersDonationController?action=export"><i
-						class="fas fa-file-export"></i> Xuất File</a>
-
-					<div class="modal" id="exportModal" role="dialog">
-						<div class="modal-dialog">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<p class="text-center" id="exportMsg"
-										style="font-size: large; color: red;"></p>
-								</div>
-							</div>
-						</div>
+					<div class="leftButtons">
+						<a class="btn nv btn-primary pageBtn" type="button"
+							onclick="sortTable()" data-toggle="tooltip" data-placement="top">
+							<i class="fa fa-filter" aria-hidden="true"></i> Sắp Xếp
+						</a> <a class="btn nv btn-primary"
+							href="${pageContext.request.contextPath}/UsersDonationController?action=export"><i
+							class="fas fa-file-export"></i> Xuất File</a>
 					</div>
 					<div classs="text-right">
 						<p id="statusNote">Ghi chú: R: Rejected/Từ chối, P:
@@ -146,10 +128,14 @@ if (notifyUsersDonationList != null) {
 									<c:forEach var="user" items="${UsersDonationList}">
 										<tr>
 											<td>
-												<div><c:out value="${user.name}" /></div>
+												<div>
+													<c:out value="${user.name}" />
+												</div>
 											</td>
 											<td>
-												<div><c:out value="${user.email}" /></div>
+												<div>
+													<c:out value="${user.email}" />
+												</div>
 											</td>
 											<td><c:out value="${user.phone}" /></td>
 											<td><c:out value="${user.bank}" /></td>
@@ -159,8 +145,9 @@ if (notifyUsersDonationList != null) {
 											<td id="statusSwitch">
 												<div class="tri-state-toggle">
 													<input type="hidden" class="userDonationId"
-														value="${user.userDonationId}">
-													<input type="hidden" name="email" id="email" value="${user.email}">
+														value="${user.userDonationId}"> <input
+														type="hidden" name="email" id="email"
+														value="${user.email}">
 
 													<button type="button"
 														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 1}">active</c:if> "

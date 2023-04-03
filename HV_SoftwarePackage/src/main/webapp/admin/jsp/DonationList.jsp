@@ -116,7 +116,7 @@
 					            	<c:if test="${donation.category == 4}">Đầu Tư Cơ Sở Vật Chất</c:if>
 					            	<c:if test="${donation.category == 5}">Bảo Vệ Môi Trường</c:if>
 					            </td>
-					            <td><a class="edit"
+					            <td id="edit"><a class="edit"
 					                href="DonationsController?action=edit&id=${donation.id}&page=${currentPage}"
 					                title="Sửa" data-toggle="tooltip"><i class="fa fa-pencil"
 					                    aria-hidden="true"></i></a></td>
