@@ -5,7 +5,7 @@ import java.util.Date;
 public class Donations {
 	private int id;
 	private String status, title, content, category, src;	
-	private Date startDate, endDate, insertDate;
+	private Date startDate, endDate;
 	private Float totalNeeded;
 	
 	public Donations() {
@@ -113,14 +113,6 @@ public class Donations {
 
 	public void setSrc(String src) {
 		this.src = src;
-	}
-
-	public Date getInsertDate() {
-		return insertDate;
-	}
-
-	public void setInsertDate(Date insertDate) {
-		this.insertDate = insertDate;
 	}
 	
 }

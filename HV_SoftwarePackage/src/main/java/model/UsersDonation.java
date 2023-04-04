@@ -3,9 +3,9 @@ package model;
 import java.util.Date;
 
 public class UsersDonation {
-	private String name, phone, email, avatarPath, bank, transactionId, userDonationStatus, donationTitle, category;
+	private String name, email, phone, bank, transactionId, userDonationStatus;
 	private Date donationDate;
-	private int donationId, userDonationId, dayDiff;
+	private int donationId;
 	private Float donationAmount;
 
 	public UsersDonation() {
@@ -26,13 +26,7 @@ public class UsersDonation {
 		this.donationId = donationId;
 		this.donationAmount = donationAmount;
 	}	
-
-	public UsersDonation(String userDonationStatus, int userDonationId) {
-		super();
-		this.userDonationStatus = userDonationStatus;
-		this.userDonationId = userDonationId;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -104,45 +98,5 @@ public class UsersDonation {
 	public void setDonationId(int donationId) {
 		this.donationId = donationId;
 	}
-
-	public String getDonationTitle() {
-		return donationTitle;
-	}
-
-	public void setDonationTitle(String donationTitle) {
-		this.donationTitle = donationTitle;
-	}
-
-	public int getUserDonationId() {
-		return userDonationId;
-	}
-
-	public void setUserDonationId(int userDonationId) {
-		this.userDonationId = userDonationId;
-	}
-
-	public int getDayDiff() {
-	    return dayDiff;
-	}
-
-	public void setDayDiff(int dayDiff) {
-	    this.dayDiff = dayDiff;
-	}
-
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getAvatarPath() {
-		return avatarPath;
-	}
-
-	public void setAvatarPath(String avatarPath) {
-		this.avatarPath = avatarPath;
-	}		
+		
 }

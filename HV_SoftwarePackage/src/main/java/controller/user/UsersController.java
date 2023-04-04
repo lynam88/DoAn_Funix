@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -33,7 +34,6 @@ import dao.DonationsDAO;
 import dao.StatisticsDAO;
 import dao.UsersDAO;
 import model.Donations;
-import model.Statistics;
 import model.Users;
 import model.UsersDonation;
 
@@ -58,7 +58,7 @@ public class UsersController extends HttpServlet {
 	private HttpSession session;
 	Users userData;
 	Users sessionUser;
-	Statistics s;
+	Map<String, String> statistics;
 
 	public void init() {
 		usersDAO = new UsersDAO();
@@ -334,8 +334,8 @@ public class UsersController extends HttpServlet {
 			throws ServletException, Exception {
 		List<Statistics> donationStats = statisticsDAO.getDonationStats();	
 		session.setAttribute("DonationStats", donationStats);
-		s = statisticsDAO.getStatistic();
-		request.setAttribute("statistics", s);
+		statistics = statisticsDAO.getStatistic();
+		request.setAttribute("statistics", statistics);
 		List<Statistics> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
 		request.setAttribute("MostRecentDonationUsers", MostRecentDonationUsers);
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
@@ -343,10 +343,10 @@ public class UsersController extends HttpServlet {
 
 	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		s = statisticsDAO.getStatistic();
-		request.setAttribute("statistics", s);
-		List<Donations> firstTable = statisticsDAO.getMostRecentDonations();
-		request.setAttribute("MostRecentDonations", firstTable);
+		statistics = statisticsDAO.getStatistic();
+		request.setAttribute("statistics", statistics);
+		Map<String, String> mostRecentDonations = statisticsDAO.getMostRecentDonations();
+		request.setAttribute("MostRecentDonations", mostRecentDonations);
 		List<UsersDonation> secondTable = statisticsDAO.getMostDonationUsers();
 		request.setAttribute("MostDonationUsers", secondTable);
 		List<Donations> thirdTable = statisticsDAO.getCategory();

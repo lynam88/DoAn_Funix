@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import context.DBContext;
 import model.Donations;
-import model.Statistics;
 import model.UsersDonation;
 
 /**
@@ -19,16 +20,10 @@ import model.UsersDonation;
  */
 public class StatisticsDAO {
 	private int noOfRecords;
-	/**
-	 * @param character    text in the input for searching name
-	 * @param searchStatus status of the donation for searching
-	 * @param category
-	 * @return list of donations
-	 * @throws Exception
-	 */
-	public Statistics getStatistic() throws Exception {
+
+	public Map<String, String> getStatistic() throws Exception {
 		Connection connection = new DBContext().getConnection();
-		Statistics s = null;
+		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String sql = "SELECT (SELECT COUNT(*) FROM Donations) AS total_donations, "
 					+ "(SELECT COUNT(*) FROM Users) AS total_users, "
@@ -39,69 +34,61 @@ public class StatisticsDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				s = new Statistics();
-				s.setTotalDonations(rs.getInt("total_donations"));
-				s.setTotalUsers(rs.getInt("total_users"));
-				s.setTodayDonationAmount(rs.getFloat("total_donations_today"));
-				s.setTotalDonationAmount(rs.getFloat("total_user_donations"));
+				map.put("total_donation", String.valueOf(rs.getInt("total_donations")));
+				map.put("total_users", String.valueOf(rs.getInt("total_users")));
+				map.put("total_donations_today", String.valueOf(rs.getFloat("total_donations_today")));
+				map.put("total_user_donations", String.valueOf(rs.getFloat("total_user_donations")));
 			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		return s;
+		return map;
 	}
 
-	public List<Donations> getMostRecentDonations() throws Exception {
+	public Map<String, String> getMostRecentDonations() throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<Donations> list = new ArrayList<>();
+		Map<String, String> map = new HashMap<String, String>();
 		try {
-			String sql = "SELECT TOP 5 donation_status, donation_title, start_date, end_date, category, thumbnail"
-					+ " FROM Donations"						
-					+ " ORDER BY end_date DESC";
+			String sql = "SELECT TOP 5 donation_status, donation_title, start_date, end_date, category, thumbnail "
+					+ "FROM Donations " + "ORDER BY end_date DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			
+
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				Donations d = new Donations();
-				d.setStatus(rs.getString("donation_status"));
-				d.setTitle(rs.getString("donation_title"));
-				d.setStartDate(rs.getDate("start_date"));
-				d.setEndDate(rs.getDate("end_date"));
-				d.setCategory(rs.getString("category"));
-				d.setSrc(rs.getString("thumbnail"));
+			while (rs.next()) {	
+				map.put("donation_status", rs.getString("donation_status"));
+				map.put("donation_title", rs.getString("donation_title"));
+				map.put("start_date", String.valueOf(rs.getDate("start_date")));
+				map.put("end_date", String.valueOf(rs.getDate("end_date")));
+				map.put("category", "category");
+				map.put("thumbnail", "thumbnail");
 				
-				list.add(d);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-		return list;
+		return map;
 	}
-	
-	public List<UsersDonation> getMostDonationUsers()
-			throws Exception {
+
+	public Map<String, String> getMostDonationUsers() throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<UsersDonation> list = new ArrayList<>();
+		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String sql = "SELECT TOP 5 email, donation_amount, user_donation_status, donation_date "
-					+ "FROM Users_Donation "
-					+ "WHERE user_donation_status = 3"
-					+ "ORDER BY donation_amount DESC";
+					+ "FROM Users_Donation " + "WHERE user_donation_status = 3" + "ORDER BY donation_amount DESC";
 
-			PreparedStatement stmt = connection.prepareStatement(sql);		
-			
+			PreparedStatement stmt = connection.prepareStatement(sql);
+
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				UsersDonation u = new UsersDonation();				
-
+				map.put("name", rs.getString("name"));
 				u.setName(rs.getString("name"));
-				u.setEmail(rs.getString("email"));				
+				u.setEmail(rs.getString("email"));
 				u.setDonationAmount(rs.getFloat("donation_amount"));
 				u.setUserDonationStatus(rs.getString("user_donation_status"));
-				u.setDonationDate(rs.getDate("donation_date"));			
+				u.setDonationDate(rs.getDate("donation_date"));
 
 				list.add(u);
 			}
@@ -111,21 +98,21 @@ public class StatisticsDAO {
 		}
 		return list;
 	}
-	
+
 	public List<Donations> getCategory() throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
 			String sql = "SELECT category, COUNT(donation_title) AS posts FROM donations GROUP BY category";
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			
+
 			ResultSet rs = stmt.executeQuery();
 
-			while (rs.next()) {		
+			while (rs.next()) {
 				Donations d = new Donations();
 				d.setCategory(rs.getString("category"));
 				d.setPosts(rs.getString("posts"));
-				
+
 				list.add(d);
 			}
 		} catch (SQLException ex) {
@@ -176,7 +163,7 @@ public class StatisticsDAO {
 					+ "ORDER BY end_date DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			
+
 			ResultSet rs = stmt.executeQuery();
 			this.noOfRecords = 0;
 			while (rs.next()) {
@@ -200,7 +187,7 @@ public class StatisticsDAO {
 		}
 		return list;
 	}
-	
+
 	public int getNoOfRecords() {
 		return noOfRecords;
 

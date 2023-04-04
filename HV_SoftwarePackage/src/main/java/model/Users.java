@@ -1,17 +1,13 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Users {
 	private String name, phone, email, avatarPath, address, password;
 	private Date registrationDate;
 	private int role, status;	
-	List <UsersDonation>  usersDonationList;
 
 	public Users() {
-		usersDonationList =  new ArrayList<>();
 	}	
 
 	public Users(int role) {
