@@ -11,10 +11,7 @@ import java.util.Locale;
  *
  */
 public class Utils {
-	public static boolean checkLogin() {
-		return false;
-		
-	}
+	
 	
 	public static Date convertStringToDate(String strDate) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -24,6 +21,11 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static String formatDate(Date strDate) {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		return format.format(strDate);
 	}
 	
 	public static Float convertStringToFloat(String value) {

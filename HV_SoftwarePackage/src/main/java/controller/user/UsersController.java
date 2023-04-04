@@ -91,7 +91,7 @@ public class UsersController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			break;	
+			break;
 		case "recoverUser":
 			try {
 				recoverUser(request, response);
@@ -101,16 +101,16 @@ public class UsersController extends HttpServlet {
 			break;
 		case "signup":
 			doSignup(request, response);
-			break;	
+			break;
 		case "login":
 			doLogin(request, response);
 			break;
 		case "updateUserInfo":
 			updateUserInfo(request, response);
-			break;	
+			break;
 		case "updatePassInfo":
 			updatePassInfo(request, response);
-			break;	
+			break;
 		}
 	}
 
@@ -121,19 +121,34 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "user" : action;		
+		action = action == null ? "user" : action;
 		session = request.getSession();
 		sessionUser = (Users) session.getAttribute("user");
-		switch (action) {		
+		try {
+			statistics = statisticsDAO.getStatistic();
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		List<Map<String, String>> donationStats = null;
+		try {
+			donationStats = statisticsDAO.getDonationStats();
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		request.setAttribute("DonationStats", donationStats);
+		request.setAttribute("statistics", statistics);
+		switch (action) {
 		case "contact":
 			showContact(request, response);
-			break;		
+			break;
 		case "rules":
 			showRules(request, response);
-			break;	
+			break;
 		case "showSignupPage":
 			showSignupPage(request, response);
-			break;	
+			break;
 		case "showLoginPage":
 			showLoginPage(request, response);
 			break;
@@ -151,7 +166,7 @@ public class UsersController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} 
+			}
 			break;
 		case "user":
 			try {
@@ -163,7 +178,7 @@ public class UsersController extends HttpServlet {
 			break;
 		case "userInfo":
 			if (sessionUser != null) {
-				showUserInfo(request, response);				
+				showUserInfo(request, response);
 			} else
 				try {
 					showUserPage(request, response);
@@ -174,65 +189,68 @@ public class UsersController extends HttpServlet {
 			break;
 		case "showUpdateInfoForm":
 			if (sessionUser != null) {
-				showUpdateInfoForm(request, response);				
+				showUpdateInfoForm(request, response);
 			} else
 				try {
 					showUserPage(request, response);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}		
-			break;		
+				}
+			break;
 		case "showUpdatePassInfo":
 			if (sessionUser != null) {
-				showPassInfo(request, response);				
+				showPassInfo(request, response);
 			} else
 				try {
 					showUserPage(request, response);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}		
-			break;				
+				}
+			break;
 		case "logout":
 			doLogout(request, response);
 			break;
 		}
 	}
 
-
-	private void showRecoverUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showRecoverUserPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/recoverUser.jsp");
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 
-	private void showResetPasswordPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showResetPasswordPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/resetPassword.jsp");
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 
-	private void showLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showLoginPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/login.jsp");
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 
-	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String oldPass = request.getParameter("old-pass");
 		String oldPassDB = MD5Library.md5(oldPass);
 		String newPass = request.getParameter("new-pass");
 		String newPassDB = MD5Library.md5(newPass);
 		request.setAttribute("newPass", newPass);
-		String originPass = sessionUser.getPassword();	
-		
+		String originPass = sessionUser.getPassword();
+
 		try {
-			if(!oldPassDB.equals(originPass)) {
+			if (!oldPassDB.equals(originPass)) {
 				request.setAttribute("oldPassError", "Mật khẩu cũ chưa đúng");
-			} else {	
+			} else {
 				usersDAO.updatePass(sessionUser, newPassDB);
 				sessionUser.setPassword(newPassDB);
 				session.setAttribute("user", sessionUser);
 				request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thành công.");
-				request.setAttribute("statusUpdatePass", "Ok");				
+				request.setAttribute("statusUpdatePass", "Ok");
 			}
 		} catch (Exception e) {
 			request.setAttribute("notifyUpdatePass", "Cập nhật mật khẩu thất bại.");
@@ -242,12 +260,14 @@ public class UsersController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void showPassInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showPassInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/updatePassInfo.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void updateUserInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		try {
@@ -257,27 +277,28 @@ public class UsersController extends HttpServlet {
 			byte[] name_Bytes = name.getBytes(StandardCharsets.ISO_8859_1);
 			name = new String(name_Bytes, StandardCharsets.UTF_8);
 			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");		
+			String email = request.getParameter("email");
 			String address = request.getParameter("address");
 			byte[] address_Bytes = address.getBytes(StandardCharsets.ISO_8859_1);
 			address = new String(address_Bytes, StandardCharsets.UTF_8);
 			String originEmail = sessionUser.getEmail();
-			
+
 			Part filePart = request.getPart("avatar");
 			long fileSize = filePart.getSize();
 			String avatarPath = null;
-			if(fileSize > 0) {
-			String pathServer = request.getServletContext().getRealPath("");
-			String folderAvatar = "user/media/avatar/";
-			File uploadDir = new File(pathServer+folderAvatar); 
-			if (!uploadDir.exists()) uploadDir.mkdir();
-			avatarPath = folderAvatar + phone + ".jpg";			
-			filePart.write(pathServer+"/"+avatarPath);
-			System.out.println(pathServer+avatarPath);
+			if (fileSize > 0) {
+				String pathServer = request.getServletContext().getRealPath("");
+				String folderAvatar = "user/media/avatar/";
+				File uploadDir = new File(pathServer + folderAvatar);
+				if (!uploadDir.exists())
+					uploadDir.mkdir();
+				avatarPath = folderAvatar + phone + ".jpg";
+				filePart.write(pathServer + "/" + avatarPath);
+				System.out.println(pathServer + avatarPath);
 			}
 
 			// Create new user object
-			Users u = new Users(name, phone, email, avatarPath, address);			
+			Users u = new Users(name, phone, email, avatarPath, address);
 			if (usersDAO.getUser(email) != null && !email.equals(originEmail)) {
 				request.setAttribute("email_error", "Email này đã được đăng ký");
 
@@ -286,7 +307,7 @@ public class UsersController extends HttpServlet {
 				usersDAO.updateUser(u, originEmail);
 				session.setAttribute("user", u);
 				request.setAttribute("notifyUpdate", "Cập nhật thành công.");
-				request.setAttribute("statusUpdate", "OK");		
+				request.setAttribute("statusUpdate", "OK");
 			}
 
 		} catch (Exception ex) {
@@ -295,26 +316,29 @@ public class UsersController extends HttpServlet {
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/updateUserInfo.jsp");
 		dispatcher.forward(request, response);
-		
+
 	}
-	
-	private void showUpdateInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void showUpdateInfoForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("user/jsp/updateUserInfo.jsp").forward(request, response);
-		
+
 	}
 
-	private void showUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("user/jsp/userInfo.jsp").forward(request, response);			
+	private void showUserInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/userInfo.jsp").forward(request, response);
 	}
 
-	private void showSignupPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("user/jsp/signup.jsp").forward(request, response);		
+	private void showSignupPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("user/jsp/signup.jsp").forward(request, response);
 	}
 
 	private void showRules(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("user/jsp/rules.jsp").forward(request, response);
-	}	
+	}
 
 	private void showContact(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -331,25 +355,19 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, Exception {
-		List<Statistics> donationStats = statisticsDAO.getDonationStats();	
-		session.setAttribute("DonationStats", donationStats);
-		statistics = statisticsDAO.getStatistic();
-		request.setAttribute("statistics", statistics);
-		List<Statistics> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
+			throws ServletException, Exception {		
+		List<Map<String, String>> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
 		request.setAttribute("MostRecentDonationUsers", MostRecentDonationUsers);
+
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 
-	private void showAdminPage(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		statistics = statisticsDAO.getStatistic();
-		request.setAttribute("statistics", statistics);
-		Map<String, String> mostRecentDonations = statisticsDAO.getMostRecentDonations();
+	private void showAdminPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Map<String, String>> mostRecentDonations = statisticsDAO.getMostRecentDonations();
 		request.setAttribute("MostRecentDonations", mostRecentDonations);
-		List<UsersDonation> secondTable = statisticsDAO.getMostDonationUsers();
+		List<Map<String, String>> secondTable = statisticsDAO.getMostDonationUsers();
 		request.setAttribute("MostDonationUsers", secondTable);
-		List<Donations> thirdTable = statisticsDAO.getCategory();
+		List<Map<String, String>> thirdTable = statisticsDAO.getCategory();
 		request.setAttribute("Category", thirdTable);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}
@@ -484,18 +502,19 @@ public class UsersController extends HttpServlet {
 			if (password != null) {
 				passDB = MD5Library.md5(password);
 			}
-			
+
 			Part filePart = request.getPart("avatar");
 			long fileSize = filePart.getSize();
 			String avatarPath = null;
-			if(fileSize > 0) {
-			String pathServer = request.getServletContext().getRealPath("");
-			String folderAvatar = "user/media/avatar/";
-			File uploadDir = new File(pathServer+folderAvatar); 
-			if (!uploadDir.exists()) uploadDir.mkdir();
-			avatarPath = folderAvatar + phone + ".jpg";			
-			filePart.write(pathServer+"/"+avatarPath);
-			System.out.println(pathServer+avatarPath);
+			if (fileSize > 0) {
+				String pathServer = request.getServletContext().getRealPath("");
+				String folderAvatar = "user/media/avatar/";
+				File uploadDir = new File(pathServer + folderAvatar);
+				if (!uploadDir.exists())
+					uploadDir.mkdir();
+				avatarPath = folderAvatar + phone + ".jpg";
+				filePart.write(pathServer + "/" + avatarPath);
+				System.out.println(pathServer + avatarPath);
 			}
 
 			// Create new user object
@@ -512,7 +531,7 @@ public class UsersController extends HttpServlet {
 				// Insert user data to database
 				usersDAO.insertUser(u);
 				request.setAttribute("notifySignup", "Đăng ký thành công.");
-				request.setAttribute("statusSignup", "OK");		
+				request.setAttribute("statusSignup", "OK");
 			}
 
 		} catch (Exception ex) {
@@ -544,14 +563,12 @@ public class UsersController extends HttpServlet {
 			Users u = usersDAO.getUser(toEmail);
 			if (u == null) {
 				// User is not registered yet
-				request.setAttribute("notifyValid",
-						"Tài khoản chưa đăng ký. Xin vui lòng kiểm tra lại");
+				request.setAttribute("notifyValid", "Tài khoản chưa đăng ký. Xin vui lòng kiểm tra lại");
 				request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
 				return;
 			} else if (u.getStatus() == 0) {
 				// User is deleted
-				request.setAttribute("notifyValid",
-						"Tài khoản đã bị khoá. Xin liên hệ Admin để mở khoá tài khoản");
+				request.setAttribute("notifyValid", "Tài khoản đã bị khoá. Xin liên hệ Admin để mở khoá tài khoản");
 				request.getRequestDispatcher("user/jsp/resetPassword.jsp").forward(request, response);
 				return;
 			}
@@ -660,7 +677,7 @@ public class UsersController extends HttpServlet {
 			throws ServletException, IOException {
 		// Set response content type and request character encoding
 		response.setContentType("text/html;charset=UTF-8");
-		request.setCharacterEncoding("utf-8"); // For Vietnamese language	
+		request.setCharacterEncoding("utf-8"); // For Vietnamese language
 
 		// Collect user input from the login form
 		String id = request.getParameter("loginId");
@@ -671,8 +688,9 @@ public class UsersController extends HttpServlet {
 		}
 		// Create a new session for the user
 		session = request.getSession(true);
-		
-		// If the user has selected "remember me", create cookies for their login information
+
+		// If the user has selected "remember me", create cookies for their login
+		// information
 		if (request.getParameter("remember") != null) {
 			Cookie cookiesName = new Cookie("loginId", id);
 			cookiesName.setMaxAge(300);
@@ -696,7 +714,8 @@ public class UsersController extends HttpServlet {
 					return;
 				}
 
-				if (userData.getStatus() == 2 && userData.getPassword().equals(passDB) && (userData.getRole() == 0 || userData.getRole() == 1)) {
+				if (userData.getStatus() == 2 && userData.getPassword().equals(passDB)
+						&& (userData.getRole() == 0 || userData.getRole() == 1)) {
 					session.setAttribute("user", userData);
 
 					// Forward the request and response to the admin page

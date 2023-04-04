@@ -135,10 +135,10 @@
 									</td>
 									<td>
 										<p class="text-xs font-weight-bold mb-0">	
-											<fmt:formatDate value="${donation.startDate}" pattern="dd/MM/yyyy" />
+											<c:out value="${donation.startDate}"/>
 										</p>
 										<p class="text-xs text-secondary mb-0">
-											<fmt:formatDate value="${donation.endDate}" pattern="dd/MM/yyyy" />
+											<c:out value="${donation.endDate}"/> 
 										</p>
 									</td>								
 								</tr>
@@ -260,7 +260,7 @@
 										<div class="col text-center">
 											<p class="text-xs font-weight-bold mb-0">Ngày quyên góp:</p>
 											<h6 class="text-sm mb-0">
-												<fmt:formatDate value="${user.donationDate}" pattern="dd/MM/yyyy" />
+												<c:out value="${user.donationDate}"/>
 											</h6>
 										</div>
 									</td>

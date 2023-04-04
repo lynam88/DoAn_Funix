@@ -27,7 +27,7 @@
                 <div class="text">
                   <h3 class="heading"><a href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">${donation.title} </a></h3>
                   <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span><fmt:formatDate pattern="dd/MM/yyyy" value="${donation.insertDate}" /></a></div>
+                    <div><a href="#"><span class="icon-calendar"></span><c:out value="${donation.insertDate}"></c:out></a></div>
                     <!-- <div><a href="#"><span class="icon-person"></span>Admin</a></div>
                     <div><a href="#"><span class="icon-chat"></span> 19</a></div> -->
                   </div>
