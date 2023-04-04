@@ -120,6 +120,8 @@ public class UsersController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int page = 1;
+		int recordPerPage = 6;
 		action = request.getParameter("action");
 		action = action == null ? "user" : action;
 		session = request.getSession();
@@ -132,7 +134,7 @@ public class UsersController extends HttpServlet {
 		}
 		List<Map<String, String>> donationStats = null;
 		try {
-			donationStats = statisticsDAO.getDonationStats();
+			donationStats = statisticsDAO.getDonationStats("0", 0, 0);
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();

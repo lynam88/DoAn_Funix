@@ -156,16 +156,29 @@ public class StatisticsDAO {
 		return list;
 	}
 
-	public List<Map<String, String>> getDonationStats() throws Exception {
+	public List<Map<String, String>> getDonationStats(String category, int pageNo,
+			int recordPerPage) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Map<String, String>> list = new ArrayList<>();
 		try {
 			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
 					+ "FROM Donations D " + "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
-					+ "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) "
-					+ "ORDER BY end_date DESC";
+					+ "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE())"
+					+ (category.equals("0") ? "" : "WHERE category = ? ")
+					+ "ORDER BY end_date DESC "
+					+ ((pageNo != 0 && recordPerPage != 0) ? "OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY" : ""); 
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
+			int index = 1;
+			if (!category.equals("0")) {
+				stmt.setString(index++, category);
+			}
+			
+			if (pageNo != 0 && recordPerPage != 0) {
+				stmt.setInt(index++, pageNo);
+				stmt.setInt(index++, recordPerPage);
+				stmt.setInt(index++, recordPerPage);
+			}			
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -179,6 +192,7 @@ public class StatisticsDAO {
 				map.put("insertDate", insertDate);
 				map.put("totalNeeded", String.valueOf(rs.getFloat("total_needed")));
 				map.put("src", rs.getString("thumbnail"));
+				map.put("category", rs.getString("category"));
 				map.put("dayDiff", String.valueOf(rs.getInt("days_since_donation")));
 				map.put("donationAmount", String.valueOf(rs.getFloat("donation_amount")));
 
