@@ -18,7 +18,7 @@ import model.UsersDonation;
  *
  */
 public class StatisticsDAO {
-
+	private int noOfRecords;
 	/**
 	 * @param character    text in the input for searching name
 	 * @param searchStatus status of the donation for searching
@@ -52,54 +52,58 @@ public class StatisticsDAO {
 		return s;
 	}
 
-	public List<Statistics> getMostRecentDonations() throws Exception {
+	public List<Donations> getMostRecentDonations() throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<Statistics> list = new ArrayList<>();
+		List<Donations> list = new ArrayList<>();
 		try {
 			String sql = "SELECT TOP 5 donation_status, donation_title, start_date, end_date, category, thumbnail"
-					+ " FROM Donations" + " ORDER BY end_date DESC";
+					+ " FROM Donations"						
+					+ " ORDER BY end_date DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-
+			
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Statistics s = new Statistics();
-				s.setStatus(rs.getString("donation_status"));
-				s.setTitle(rs.getString("donation_title"));
-				s.setStartDate(rs.getDate("start_date"));
-				s.setEndDate(rs.getDate("end_date"));
-				s.setCategory(rs.getString("category"));
-				s.setSrc(rs.getString("thumbnail"));
-
-				list.add(s);
+				Donations d = new Donations();
+				d.setStatus(rs.getString("donation_status"));
+				d.setTitle(rs.getString("donation_title"));
+				d.setStartDate(rs.getDate("start_date"));
+				d.setEndDate(rs.getDate("end_date"));
+				d.setCategory(rs.getString("category"));
+				d.setSrc(rs.getString("thumbnail"));
+				
+				list.add(d);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return list;
 	}
-
-	public List<Statistics> getMostDonationUsers() throws Exception {
+	
+	public List<UsersDonation> getMostDonationUsers()
+			throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<Statistics> list = new ArrayList<>();
+		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT TOP 5 name, email, donation_amount, user_donation_status, donation_date "
-					+ "FROM Users_Donation " + "WHERE user_donation_status = 3" + "ORDER BY donation_amount DESC";
+			String sql = "SELECT TOP 5 email, donation_amount, user_donation_status, donation_date "
+					+ "FROM Users_Donation "
+					+ "WHERE user_donation_status = 3"
+					+ "ORDER BY donation_amount DESC";
 
-			PreparedStatement stmt = connection.prepareStatement(sql);
-
+			PreparedStatement stmt = connection.prepareStatement(sql);		
+			
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Statistics s = new Statistics();
+				UsersDonation u = new UsersDonation();				
 
-				s.setName(rs.getString("name"));
-				s.setEmail(rs.getString("email"));
-				s.setDonationAmount(rs.getFloat("donation_amount"));
-				s.setUserDonationStatus(rs.getString("user_donation_status"));
-				s.setDonationDate(rs.getDate("donation_date"));
+				u.setName(rs.getString("name"));
+				u.setEmail(rs.getString("email"));				
+				u.setDonationAmount(rs.getFloat("donation_amount"));
+				u.setUserDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationDate(rs.getDate("donation_date"));			
 
-				list.add(s);
+				list.add(u);
 			}
 
 		} catch (SQLException ex) {
@@ -107,23 +111,22 @@ public class StatisticsDAO {
 		}
 		return list;
 	}
-
-	public List<Statistics> getCategory() throws Exception {
+	
+	public List<Donations> getCategory() throws Exception {
 		Connection connection = new DBContext().getConnection();
-		List<Statistics> list = new ArrayList<>();
+		List<Donations> list = new ArrayList<>();
 		try {
 			String sql = "SELECT category, COUNT(donation_title) AS posts FROM donations GROUP BY category";
 			PreparedStatement stmt = connection.prepareStatement(sql);
-
+			
 			ResultSet rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				Statistics s = new Statistics();
-
-				s.setCategory(rs.getString("category"));
-				s.setPosts(rs.getString("posts"));
-
-				list.add(s);
+			while (rs.next()) {		
+				Donations d = new Donations();
+				d.setCategory(rs.getString("category"));
+				d.setPosts(rs.getString("posts"));
+				
+				list.add(d);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -163,7 +166,7 @@ public class StatisticsDAO {
 		return list;
 	}
 
-	public List<Statistics> getDonationList() throws Exception {
+	public List<Statistics> getDonationStats() throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Statistics> list = new ArrayList<>();
 		try {
@@ -173,8 +176,9 @@ public class StatisticsDAO {
 					+ "ORDER BY end_date DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
+			
 			ResultSet rs = stmt.executeQuery();
-
+			this.noOfRecords = 0;
 			while (rs.next()) {
 				Statistics s = new Statistics();
 
@@ -183,17 +187,22 @@ public class StatisticsDAO {
 				s.setTitle(rs.getString("donation_title"));
 				s.setInsertDate(rs.getDate("insertDate"));
 				s.setTotalNeeded(rs.getFloat("total_needed"));
-				s.setCategory(rs.getString("category"));
 				s.setSrc(rs.getString("thumbnail"));
 				s.setDayDiff(rs.getInt("days_since_donation"));
 				s.setDonationAmount(rs.getFloat("donation_amount"));
 
 				list.add(s);
+				this.noOfRecords++;
 			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int getNoOfRecords() {
+		return noOfRecords;
+
 	}
 }

@@ -139,7 +139,7 @@
 		<div class="row">
 			<div class="col-md-12 ftco-animate">
 				<div class="carousel-cause owl-carousel">
-					<c:forEach var="donation" items="${DonationList}">
+					<c:forEach var="donation" items="${DonationStats}">
 						<div class="item">
 							<div class="cause-entry">
 								<a
@@ -239,7 +239,7 @@
 </section>
 
 <section class="ftco-gallery">
-	<c:forEach var="donation" items="${DonationList}" varStatus="row">
+	<c:forEach var="donation" items="${DonationStats}" varStatus="row">
 		<c:if test="${row.index % 4 == 0}">
 			<div class="d-md-flex">
 		</c:if>

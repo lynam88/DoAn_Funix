@@ -113,92 +113,7 @@ public class UsersDonationController extends HttpServlet {
 
 	}
 
-	private void userDonationMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// Sender's email and password
-		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "csfawleqxoaqlhur";
-
-		// Recipient's email address
-		final String toEmail = request.getParameter("toEmail");
-		
-		String userDonationStatus = request.getParameter("userDonationStatus");
-		if (userDonationStatus.equals("R")) userDonationStatus = "Từ chối";
-		if (userDonationStatus.equals("P")) userDonationStatus = "Đang chờ";
-		if (userDonationStatus.equals("A")) userDonationStatus = "Đã xác thực";
-
-		// Email subject and body
-		final String subject = "Thông báo cập nhật trạng thái quyên góp thành công";
-		final String body = "Chào bạn,<br/>"
-							+ "Chúng tôi xin gửi thông báo đến bạn rằng quyên góp của bạn đã được cập nhật thành công với trạng thái là " 
-							+ "<span style=\"color: red; font-weight: bold\">" + userDonationStatus + "</span><br/>"
-							+ "Chúng tôi xin chân thành cảm ơn sự đóng góp của bạn và hy vọng rằng chúng ta sẽ tiếp tục đồng hành cùng nhau trên con đường thiện nguyện.<br/>"
-							+ "Trân trọng,<br/>" + "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
-
-		// Load the logo image file
-		String fullPath = request.getServletContext().getRealPath("user/media/logo.jpg");
-		File file = new File(fullPath);
-		InputStream inputStream = new FileInputStream(file);
-		IOUtils.toByteArray(inputStream);
-
-		// Create the image attachment
-		MimeBodyPart imagePart = new MimeBodyPart();
-		imagePart.attachFile(file);
-		imagePart.setContentID("<image>");
-		imagePart.setDisposition(MimeBodyPart.INLINE);
-
-		// Create the message body and attach the image
-		MimeMultipart multipart = new MimeMultipart();
-		BodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent(body, "text/html; charset=UTF-8");
-		multipart.addBodyPart(messageBodyPart);
-		multipart.addBodyPart(imagePart);
-
-		// Create a new Properties object
-		Properties props = new Properties();
-
-		// Set the SMTP host and port to use for sending the email
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-
-		// Enable SMTP authentication and startTLS for secure communication
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-
-		// Set the trust protocol for the SMTP server
-		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-		// Set startTLS and SSL protocols
-		props.setProperty("mail.smtp.starttls.enable", "true");
-		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
-
-		// Create a new Authenticator for SMTP authentication
-		Authenticator auth = new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(fromEmail, password);
-			}
-		};
-
-		// Create a new email session using the Properties and Authenticator objects
-		Session session = Session.getInstance(props, auth);
-
-		// Create a new MIME message
-		MimeMessage msg = new MimeMessage(session);
-
-		// Set the email headers and content
-		msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-		msg.addHeader("format", "flowed");
-		msg.addHeader("Content-Transfer-Encoding", "8bit");
-		msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
-		msg.setReplyTo(InternetAddress.parse(fromEmail, false));
-		msg.setSubject(subject, "UTF-8");
-		msg.setContent(multipart, "text/html; charset=UTF-8");
-		msg.setSentDate(new Date());
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-
-		// Send the email and print a success message
-		Transport.send(msg);
-		System.out.println("Gửi mail thành công");		
-	}
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -326,6 +241,93 @@ public class UsersDonationController extends HttpServlet {
 		}
 	}
 
+	private void userDonationMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// Sender's email and password
+		final String fromEmail = "quytuthienlienhoa@gmail.com";
+		final String password = "csfawleqxoaqlhur";
+
+		// Recipient's email address
+		final String toEmail = request.getParameter("toEmail");
+		
+		String userDonationStatus = request.getParameter("userDonationStatus");
+		if (userDonationStatus.equals("R")) userDonationStatus = "Từ chối";
+		if (userDonationStatus.equals("P")) userDonationStatus = "Đang chờ";
+		if (userDonationStatus.equals("A")) userDonationStatus = "Đã xác thực";
+
+		// Email subject and body
+		final String subject = "Thông báo cập nhật trạng thái quyên góp thành công";
+		final String body = "Chào bạn,<br/>"
+							+ "Chúng tôi xin gửi thông báo đến bạn rằng quyên góp của bạn đã được cập nhật thành công với trạng thái là " 
+							+ "<span style=\"color: red; font-weight: bold\">" + userDonationStatus + "</span><br/>"
+							+ "Chúng tôi xin chân thành cảm ơn sự đóng góp của bạn và hy vọng rằng chúng ta sẽ tiếp tục đồng hành cùng nhau trên con đường thiện nguyện.<br/>"
+							+ "Trân trọng,<br/>" + "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
+
+		// Load the logo image file
+		String fullPath = request.getServletContext().getRealPath("user/media/logo.jpg");
+		File file = new File(fullPath);
+		InputStream inputStream = new FileInputStream(file);
+		IOUtils.toByteArray(inputStream);
+
+		// Create the image attachment
+		MimeBodyPart imagePart = new MimeBodyPart();
+		imagePart.attachFile(file);
+		imagePart.setContentID("<image>");
+		imagePart.setDisposition(MimeBodyPart.INLINE);
+
+		// Create the message body and attach the image
+		MimeMultipart multipart = new MimeMultipart();
+		BodyPart messageBodyPart = new MimeBodyPart();
+		messageBodyPart.setContent(body, "text/html; charset=UTF-8");
+		multipart.addBodyPart(messageBodyPart);
+		multipart.addBodyPart(imagePart);
+
+		// Create a new Properties object
+		Properties props = new Properties();
+
+		// Set the SMTP host and port to use for sending the email
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		// Enable SMTP authentication and startTLS for secure communication
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+
+		// Set the trust protocol for the SMTP server
+		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+		// Set startTLS and SSL protocols
+		props.setProperty("mail.smtp.starttls.enable", "true");
+		props.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+
+		// Create a new Authenticator for SMTP authentication
+		Authenticator auth = new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(fromEmail, password);
+			}
+		};
+
+		// Create a new email session using the Properties and Authenticator objects
+		Session session = Session.getInstance(props, auth);
+
+		// Create a new MIME message
+		MimeMessage msg = new MimeMessage(session);
+
+		// Set the email headers and content
+		msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+		msg.addHeader("format", "flowed");
+		msg.addHeader("Content-Transfer-Encoding", "8bit");
+		msg.setFrom(new InternetAddress(fromEmail, "Quỹ Từ Thiện Liên Hoa"));
+		msg.setReplyTo(InternetAddress.parse(fromEmail, false));
+		msg.setSubject(subject, "UTF-8");
+		msg.setContent(multipart, "text/html; charset=UTF-8");
+		msg.setSentDate(new Date());
+		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+
+		// Send the email and print a success message
+		Transport.send(msg);
+		System.out.println("Gửi mail thành công");		
+	}
+	
 	private void showDonationGuide(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("user/jsp/donationGuide.jsp").forward(request, response);

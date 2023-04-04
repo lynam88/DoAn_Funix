@@ -331,9 +331,9 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, Exception {	
-		List<Statistics> donationList = statisticsDAO.getDonationList();
-		session.setAttribute("DonationList", donationList);
+			throws ServletException, Exception {
+		List<Statistics> donationStats = statisticsDAO.getDonationStats();	
+		session.setAttribute("DonationStats", donationStats);
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
 		List<Statistics> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
@@ -345,11 +345,11 @@ public class UsersController extends HttpServlet {
 			throws Exception {
 		s = statisticsDAO.getStatistic();
 		request.setAttribute("statistics", s);
-		List<Statistics> firstTable = statisticsDAO.getMostRecentDonations();
+		List<Donations> firstTable = statisticsDAO.getMostRecentDonations();
 		request.setAttribute("MostRecentDonations", firstTable);
-		List<Statistics> secondTable = statisticsDAO.getMostDonationUsers();
+		List<UsersDonation> secondTable = statisticsDAO.getMostDonationUsers();
 		request.setAttribute("MostDonationUsers", secondTable);
-		List<Statistics> thirdTable = statisticsDAO.getCategory();
+		List<Donations> thirdTable = statisticsDAO.getCategory();
 		request.setAttribute("Category", thirdTable);
 		request.getRequestDispatcher("admin/jsp/index.jsp").forward(request, response);
 	}

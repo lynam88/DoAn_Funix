@@ -106,7 +106,7 @@
 	</div>
 </section>
 
-<section class="ftco-section-3 img"
+<%-- <section class="ftco-section-3 img"
 	style="background-image: url(${pageContext.request.contextPath}/template/user/images/bg_3.jpg);">
 	<div class="overlay"></div>
 	<div class="container">
@@ -136,6 +136,6 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> --%>
 
 <c:import url="footer.jsp"></c:import>

@@ -83,8 +83,8 @@ public class DonationsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Donations> list = new ArrayList<>();
 		try {
-			String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, category, thumbnail, COUNT(*) OVER() AS total"
-					+ " FROM Donations"
+			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
+					+ "FROM Donations D " + "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
 					+ " WHERE use_yn = 1"
 					+ " AND donation_title like ? ESCAPE '!'";
 			if (!searchStatus.equals("0")) {
@@ -93,6 +93,7 @@ public class DonationsDAO {
 			if (!category.equals("0")) {
 				sql += " AND category = ?";
 			}
+			sql += "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) ";
 			sql += " ORDER BY end_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
