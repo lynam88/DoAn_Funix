@@ -509,7 +509,7 @@
 		            $.ajax({
 		                type : 'POST',
 		                data: {
-		                	id: $('#donationId').val(),
+		                	donationId: $('#donationId').val(),
 		                	name : $('#name').val(),
 		                	phone : $('#phone').val(),
 		                	email : $('#email').val(),

@@ -393,7 +393,6 @@ public class UsersDonationController extends HttpServlet {
 			String transactionId = request.getParameter("transactionId");
 			int donationId = Integer.parseInt(request.getParameter("donationId"));
 			String donationAmount = request.getParameter("donationAmount").replaceAll(",", "");
-			;
 			Float donationAmountFloat = Utils.convertStringToFloat(donationAmount);
 
 			// Create new user object

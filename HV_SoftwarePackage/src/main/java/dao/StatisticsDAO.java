@@ -185,7 +185,7 @@ public class StatisticsDAO {
 			this.noOfRecords = 0;
 			while (rs.next()) {
 				Map<String, String> map = new HashMap<String, String>();
-
+				
 				map.put("donationId", String.valueOf(rs.getInt("donation_id")));
 				map.put("status", rs.getString("donation_status"));
 				map.put("title", rs.getString("donation_title"));
