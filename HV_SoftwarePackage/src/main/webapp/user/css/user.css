@@ -476,3 +476,7 @@
 	#make_donation_notify{
 		z-index: 1000;
 	}
+	
+	.donationBar{
+		width: 100%;
+	}

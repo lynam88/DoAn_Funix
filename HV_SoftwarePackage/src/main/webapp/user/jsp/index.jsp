@@ -55,7 +55,7 @@
 						<h3 class="mb-4">Ủng hộ Quỹ</h3>
 						<p>Hãy đóng góp để chung tay xây dựng cộng đồng.</p>
 						<p>
-							<a href="#" class="btn btn-white px-3 py-2 mt-2">Quyên Góp</a>
+							<a href="${pageContext.request.contextPath}/UsersDonationController?action=donations" class="btn btn-white px-3 py-2 mt-2">Quyên Góp</a>
 						</p>
 					</div>
 				</div>
@@ -142,30 +142,32 @@
 					<c:forEach var="donation" items="${DonationStats}">
 						<div class="item">
 							<div class="cause-entry">
+							<input type="hidden" value='${donation.donationId}' name="donationId">
 								<a
-									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}"
+									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${donation.donationId}"
 									class="img thumbnail"
 									style="background-image: url(${donation.src});"></a>
 								<div class="text p-3 p-md-4">
 									<h4>
 										<a
-											href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">
+											href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${donation.donationId}">
 											${donation.title} </a>
 									</h4>
 									<span class="donation-time mb-3 d-block"> Quyên góp mới
-										nhất cách đây <c:out value="${donation.dayDiff}"></c:out> ngày </span>
+										nhất cách đây <c:out value="${donation.dayDiff}"></c:out> ngày
+									</span>
 									<div class="progress custom-progress-success">
 										<div class="progress-bar bg-primary" role="progressbar"
-											style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+											style="width: ${((donation.donationAmount/donation.totalNeeded)*100)}%;"
 											aria-valuemax="100"></div>
 									</div>
-									
+
 									<div>
 										<span class="fund-raised d-block float-left leftText">
-											Đã quyên góp được <fmt:formatNumber type="number" pattern="#,##0"
-										value="${donation.donationAmount}"/> VNĐ trên tổng số tiền <fmt:formatNumber type="number" pattern="#,##0"
-										value="${donation.totalNeeded}" />
-											VNĐ
+											Đã quyên góp được <fmt:formatNumber type="number"
+												pattern="#,##0" value="${donation.donationAmount}" /> VNĐ
+											trên tổng số tiền <fmt:formatNumber type="number"
+												pattern="#,##0" value="${donation.totalNeeded}" /> VNĐ
 										</span>
 										<c:if test="${donation.status == 1}">
 											<a
@@ -175,7 +177,7 @@
 										</c:if>
 										<c:if test="${donation.status == 2}">
 											<a type="button" class="btn btn-primary float-right"
-												href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">Quyên
+												href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${donation.donationId}">Quyên
 												góp</a>
 										</c:if>
 									</div>
@@ -218,8 +220,7 @@
 									<p>
 										Quyên góp <span><fmt:formatNumber type="number"
 												pattern="0,000" value="${userDonation.donationAmount}" />
-											VNĐ</span> cho 
-											<a
+											VNĐ</span> cho <a
 											href="${pageContext.request.contextPath}/UsersDonationController?action=donations&category=${userDonation.category}">
 											<c:if test="${userDonation.category == 1}">Vì trẻ em </c:if>
 											<c:if test="${userDonation.category == 2}">Người Già, Người Khuyết Tật</c:if>

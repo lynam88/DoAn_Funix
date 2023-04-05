@@ -75,6 +75,7 @@
 				<div class="sidebar-box donationInfo">
 					<div class="item">
 						<div class="cause-entry">
+						<input type="hidden" value='${donation.donationId}' name="donationId">
 							<div class="row text p-3 p-md-4">
 								<div>
 									<h2 class="text-primary">Thông tin quyên góp</h2>
@@ -87,10 +88,10 @@
 								</div>
 								<span class="donation-time mb-3 d-block recentDonation"> Quyên góp mới
 										nhất cách đây <c:out value="${donation.dayDiff}"></c:out> ngày </span>
-								<div class="progress custom-progress-success">
+								<div class="progress custom-progress-success donationBar">
 									<div class="progress-bar bg-primary" role="progressbar"
-										style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-										aria-valuemax="100"></div>
+											style="width: ${((donation.donationAmount/donation.totalNeeded)*100)}%;"
+											aria-valuemax="100"></div>
 								</div>
 								<fmt:formatNumber type="number" pattern="#,##0"
 									value="${donation.totalNeeded}" var="myNum" />
@@ -114,8 +115,7 @@
 								</div>
 							</div>
 							<form class="row makeDonationForm" id="makeDonationForm">
-								<input type="hidden" value='${donation.donationId}' name="donationId">
-								<input type="hidden" value='${donation.title}' name="donationTitle">
+								<input type="hidden" value='${donation.donationId}' name="donationId">					
 								<div class="row">
 									<div class="col-md-6">
 										<div class="card-body p-md-5 leftDonation">

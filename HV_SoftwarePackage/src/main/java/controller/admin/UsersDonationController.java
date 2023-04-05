@@ -39,7 +39,6 @@ import dao.ExportService;
 import dao.StatisticsDAO;
 import dao.UsersDAO;
 import dao.UsersDonationDAO;
-import model.Donations;
 import model.Users;
 import model.UsersDonation;
 
@@ -52,7 +51,6 @@ import model.UsersDonation;
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class UsersDonationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DonationsDAO donationsDAO;
 	private UsersDAO usersDAO;
 	private UsersDonationDAO UsersDonationDAO;
 	private StatisticsDAO statisticsDAO;
@@ -67,7 +65,7 @@ public class UsersDonationController extends HttpServlet {
 
 	public void init() {
 		usersDAO = new UsersDAO();
-		donationsDAO = new DonationsDAO();
+		new DonationsDAO();
 		UsersDonationDAO = new UsersDonationDAO();
 		statisticsDAO = new StatisticsDAO();
 	}
@@ -360,7 +358,7 @@ public class UsersDonationController extends HttpServlet {
 
 	private void showDonationPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("donationId"));
 		Map<String, String> existingDonation = null;
 		try {
 			existingDonation = statisticsDAO.getDonation(id);

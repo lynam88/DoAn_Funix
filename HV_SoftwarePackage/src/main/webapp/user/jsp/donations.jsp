@@ -39,21 +39,21 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="cause-entry">
 						<a
-							href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}"
+							href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${donation.donationId}"
 							class="img donationThumbnail"
 							style="background-image: url(${donation.src});"></a>
 						<div class="text p-3 p-md-4">
 							<h4>
 								<a
-									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">
+									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${donation.donationId}">
 									${donation.title} </a>
 							</h4>
 							<span class="donation-time mb-3 d-block"> Quyên góp mới
 								nhất cách đây 0 ngày </span>
 							<div class="progress custom-progress-success">
 								<div class="progress-bar bg-primary" role="progressbar"
-									style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-									aria-valuemax="100"></div>
+											style="width: ${((donation.donationAmount/donation.totalNeeded)*100)}%;"
+											aria-valuemax="100"></div>
 							</div>
 							<fmt:formatNumber type="number" pattern="#,##0"
 								value="${donation.totalNeeded}" var="myNum" />
@@ -70,7 +70,7 @@
 								</c:if>
 								<c:if test="${donation.status == 2}">
 									<a type="button" class="btn btn-primary float-right"
-										href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">Quyên
+										href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${donation.donationId}">Quyên
 										góp</a>
 								</c:if>
 							</div>
