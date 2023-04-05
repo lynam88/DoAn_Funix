@@ -30,37 +30,13 @@
 		</div>
 	</div>
 </div>
-<!--Modal -->
-<div class="modal fade" id="makeDonationNotify" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="text-center" id="makeDonationMsg"
-					style="font-size: large; color: red;"></p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-
-	</div>
-</div>
-
 
 <section class="ftco-section ftco-degree-bg">
 	<div class="container-fluid" id="donationPost">
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Số thứ tự</th>
+					<th>STT</th>
 					<th>Tên đợt quyên góp</th>
 					<th>Số tiền</th>
 					<th>Trạng thái</th>
@@ -68,21 +44,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td><a href="detail.html">Đợt 1</a></td>
-					<td>10,000,000</td>
-					<td>Đã quyên góp</td>
-					<td>01/01/2023</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td><a href="detail.html">Đợt 2</a></td>
-					<td>5,000,000</td>
-					<td>Chưa quyên góp</td>
-					<td>05/01/2023</td>
-				</tr>
-				<!-- Thêm các hàng tương tự cho các đợt quyên góp khác -->
+				<c:forEach var="userDonation" items="${donationHistory}"
+					varStatus="loop">
+					<input type="hidden" value='${donation.donationId}' name="donationId">
+					<tr>						
+						<td>${loop.index + 1}</td>
+						<td><a href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&donationId=${userDonation.donationId}">${userDonation.donationTitle}</a></td>
+						<td><fmt:formatNumber type="number" pattern="0,000"
+													value="${userDonation.donationAmount}" /></td>
+						<c:if test="${userDonation.userDonationStatus == 1}">
+							<td><h6 class="badge badge-sm bg-gradient-warning">Từ chối </h6></td>
+						</c:if>
+						<c:if test="${userDonation.userDonationStatus == 2}">
+							<td><h6 class="badge badge-sm bg-gradient-secondary">Đang chờ </h6></td>
+						</c:if>
+						<c:if test="${userDonation.userDonationStatus == 3}">
+							<td><h6 class="badge badge-sm bg-gradient-success">Xác thực</td>
+						</c:if>
+						<td>${userDonation.donationDate}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 

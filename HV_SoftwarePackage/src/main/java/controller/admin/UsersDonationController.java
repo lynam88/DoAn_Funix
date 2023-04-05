@@ -397,7 +397,7 @@ public class UsersDonationController extends HttpServlet {
 
 			// Create new user object
 			UsersDonation u = new UsersDonation(name, email, phone, bank, transactionId, donationAmountFloat,
-					donationId);
+					donationId);		
 			if (sessionUser == null && phone != null && usersDAO.getUser(phone) != null) {
 				return "0";
 

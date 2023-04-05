@@ -34,6 +34,8 @@ import dao.DonationsDAO;
 import dao.StatisticsDAO;
 import dao.UsersDAO;
 import model.Users;
+import model.UsersDonation;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -59,7 +61,6 @@ public class UsersController extends HttpServlet {
 
 	public void init() {
 		usersDAO = new UsersDAO();
-		new DonationsDAO();
 		statisticsDAO = new StatisticsDAO();
 	}
 
@@ -116,7 +117,7 @@ public class UsersController extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {	
+			throws ServletException, IOException {
 		action = request.getParameter("action");
 		action = action == null ? "user" : action;
 		session = request.getSession();
@@ -151,6 +152,17 @@ public class UsersController extends HttpServlet {
 			break;
 		case "showResetPasswordPage":
 			showResetPasswordPage(request, response);
+			break;
+		case "donationHistory":			
+			if (sessionUser != null) {
+				donationHistory(request, response);
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			break;
 		case "showRecoverUserPage":
 			showRecoverUserPage(request, response);
@@ -210,6 +222,19 @@ public class UsersController extends HttpServlet {
 			doLogout(request, response);
 			break;
 		}
+	}
+
+	private void donationHistory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		 
+		String sessionEmail = sessionUser.getEmail();
+		 try {
+			List<UsersDonation> donationHistory = usersDAO.getDonationHistory(sessionEmail);
+			request.setAttribute("donationHistory", donationHistory);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("user/jsp/donationHistory.jsp");
+			dispatcher.forward(request, response);		 
 	}
 
 	private void showRecoverUserPage(HttpServletRequest request, HttpServletResponse response)
@@ -352,7 +377,7 @@ public class UsersController extends HttpServlet {
 	}
 
 	private void showUserPage(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, Exception {		
+			throws ServletException, Exception {
 		List<Map<String, String>> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
 		request.setAttribute("MostRecentDonationUsers", MostRecentDonationUsers);
 

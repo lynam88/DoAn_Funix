@@ -480,3 +480,18 @@
 	.donationBar{
 		width: 100%;
 	}
+	
+	.bg-gradient-warning {
+	  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+	  color: ivory;
+	}
+	
+	.bg-gradient-secondary {
+	  background: linear-gradient(to right, #bdc3c7, #2c3e50);
+	  color: ivory;
+	}
+	
+	.bg-gradient-success {
+	  background: linear-gradient(to right, #1abc9c, #2ecc71);
+	  color: ivory;
+	}

@@ -180,8 +180,7 @@
 												<div class="input-group">
 													<span class="input-group-text"><i
 														class='bx bxs-bank'></i></span> <input type="text" id="bank"
-														name="bank" class="form-control"
-														<c:if test="${user != null}">value="<c:out value='${user.bank}'/>"</c:if>>
+														name="bank" class="form-control">
 												</div>
 												<p id="bank_error">${bank_error}</p>
 											</div>

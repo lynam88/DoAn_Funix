@@ -126,7 +126,9 @@
 				  </a>
 				  <div class="dropdown-menu">				  
 				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=userInfo">Thông tin cá nhân</a>
-				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a>				    
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=showUpdatePassInfo">Đổi mật khẩu</a>
+				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=donationHistory">Lịch sử quyên góp</a>
+					<div class="dropdown-divider"></div>			    
 				    <a class="dropdown-item" href="${pageContext.request.contextPath}/UsersController?action=logout">Đăng xuất</a>
 				  </div>
 				</div>             
