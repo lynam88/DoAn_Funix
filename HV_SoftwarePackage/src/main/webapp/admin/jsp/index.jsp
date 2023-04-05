@@ -275,9 +275,7 @@
 			<div class="card">
 				<div class="card-header pb-0 p-3">
 					<h6 class="mb-0">
-						Hạng Mục Quyên Góp <a
-							href="${pageContext.request.contextPath}/UsersDonationController?action=UsersDonationList">(xem
-							thêm...)</a>
+						Hạng Mục Quyên Góp
 					</h6>
 				</div>
 				<div class="card-body p-3">

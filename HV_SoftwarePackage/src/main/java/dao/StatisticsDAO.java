@@ -11,6 +11,7 @@ import java.util.Map;
 
 import commons.Utils;
 import context.DBContext;
+import model.Donations;
 
 /**
  * Access donations in Database
@@ -60,8 +61,8 @@ public class StatisticsDAO {
 				// Format the date to dd/mm/yy
 				String startDate = Utils.formatDate(rs.getDate("start_date"));
 				map.put("startDate", startDate);
-				String endDate = Utils.formatDate(rs.getDate("start_date"));
-				map.put("startDate", endDate);
+				String endDate = Utils.formatDate(rs.getDate("end_date"));
+				map.put("endDate", endDate);
 				map.put("thumbnail", rs.getString("thumbnail"));
 
 				list.add(map);
@@ -163,8 +164,8 @@ public class StatisticsDAO {
 		try {
 			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
 					+ "FROM Donations D " + "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
-					+ "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE())"
 					+ (category.equals("0") ? "" : "WHERE category = ? ")
+					+ "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) "					
 					+ "ORDER BY end_date DESC "
 					+ ((pageNo != 0 && recordPerPage != 0) ? "OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY" : ""); 
 
@@ -181,6 +182,7 @@ public class StatisticsDAO {
 			}			
 
 			ResultSet rs = stmt.executeQuery();
+			this.noOfRecords = 0;
 			while (rs.next()) {
 				Map<String, String> map = new HashMap<String, String>();
 
@@ -197,6 +199,7 @@ public class StatisticsDAO {
 				map.put("donationAmount", String.valueOf(rs.getFloat("donation_amount")));
 
 				list.add(map);
+				this.noOfRecords++;
 			}
 
 		} catch (SQLException ex) {
@@ -207,6 +210,42 @@ public class StatisticsDAO {
 
 	public int getNoOfRecords() {
 		return noOfRecords;
+	}
+	
+	public Map<String, String> getDonation(int id) throws Exception {
+		Connection connection = new DBContext().getConnection();
+		Map<String, String> map = new HashMap<String, String>();
+		try {
+			String sql = "SELECT D.donation_id, donation_status, donation_title, donation_content, total_needed, category, thumbnail, insertDate, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
+					+ "FROM Donations D " 
+					+ "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
+					+ "WHERE D.donation_id = ? AND use_yn = 1 "
+					+ "GROUP BY D.donation_id, donation_status, donation_title, donation_content, total_needed, category, thumbnail, insertDate, DATEDIFF(day, donation_date, GETDATE()) ";					
+
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, id);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				map.put("donationId", String.valueOf(rs.getInt("donation_id")));
+				map.put("status", rs.getString("donation_status"));
+				map.put("title", rs.getString("donation_title"));
+				map.put("content", rs.getString("donation_content"));					
+				map.put("totalNeeded", String.valueOf(rs.getFloat("total_needed")));
+				map.put("category", rs.getString("category"));
+				map.put("src", rs.getString("thumbnail"));
+				// Format the date to dd/mm/yy
+				String insertDate = Utils.formatDate(rs.getDate("insertDate"));
+				map.put("insertDate", insertDate);
+				map.put("dayDiff", String.valueOf(rs.getInt("days_since_donation")));
+				map.put("donationAmount", String.valueOf(rs.getFloat("donation_amount")));
+
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return map;
 	}
 
 }

@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -35,6 +36,7 @@ import org.apache.commons.io.IOUtils;
 import commons.Utils;
 import dao.DonationsDAO;
 import dao.ExportService;
+import dao.StatisticsDAO;
 import dao.UsersDAO;
 import dao.UsersDonationDAO;
 import model.Donations;
@@ -53,10 +55,12 @@ public class UsersDonationController extends HttpServlet {
 	private DonationsDAO donationsDAO;
 	private UsersDAO usersDAO;
 	private UsersDonationDAO UsersDonationDAO;
+	private StatisticsDAO statisticsDAO;
 	private String action;
 	private String search;
 	private String searchString;
 	private String searchStatus;
+	List<Map<String, String>> donationStats;
 	private int page;
 	HttpSession session;
 	Object sessionUser;
@@ -65,6 +69,7 @@ public class UsersDonationController extends HttpServlet {
 		usersDAO = new UsersDAO();
 		donationsDAO = new DonationsDAO();
 		UsersDonationDAO = new UsersDonationDAO();
+		statisticsDAO = new StatisticsDAO();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -112,19 +117,19 @@ public class UsersDonationController extends HttpServlet {
 		}
 
 	}
-
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action = request.getParameter("action");
-		action = action == null ? "showMakeDonationPage" : action;
+		action = action == null ? "showMakeDonationPage" : action;		
 		try {
-			List<Donations> listDonations = donationsDAO.search("", "0", "0");
-			request.setAttribute("DonationList", listDonations);
+			donationStats = statisticsDAO.getDonationStats("0", 0, 0);
 		} catch (Exception e2) {
+			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+		request.setAttribute("DonationStats", donationStats);
 		session = request.getSession();
 		sessionUser = session.getAttribute("user");
 		switch (action) {
@@ -343,10 +348,10 @@ public class UsersDonationController extends HttpServlet {
 		request.setAttribute("category", category);
 		if (request.getParameter("page") != null)
 			page = Integer.parseInt(request.getParameter("page"));
-		donationsDAO.search("", "0", category);
-		int noOfRecord = donationsDAO.getNoOfRecords();
+		donationStats = statisticsDAO.getDonationStats(category, 0, 0);
+		int noOfRecord = statisticsDAO.getNoOfRecords();
 		int noOfPage = (int) Math.ceil(noOfRecord * 1.0 / recordPerPage);
-		List<Donations> listPerPage = donationsDAO.getRecord("", "0", category, page, recordPerPage);
+		List<Map<String, String>> listPerPage = statisticsDAO.getDonationStats(category, page, recordPerPage);
 		request.setAttribute("DonationList", listPerPage);
 		request.setAttribute("noOfPage", noOfPage);
 		request.setAttribute("currentPage", page);
@@ -356,9 +361,9 @@ public class UsersDonationController extends HttpServlet {
 	private void showDonationPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Donations existingDonation = null;
+		Map<String, String> existingDonation = null;
 		try {
-			existingDonation = donationsDAO.getDonation(id);
+			existingDonation = statisticsDAO.getDonation(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

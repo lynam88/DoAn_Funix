@@ -39,13 +39,13 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="cause-entry">
 						<a
-							href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.id}"
+							href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}"
 							class="img donationThumbnail"
 							style="background-image: url(${donation.src});"></a>
 						<div class="text p-3 p-md-4">
 							<h4>
 								<a
-									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.id}">
+									href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">
 									${donation.title} </a>
 							</h4>
 							<span class="donation-time mb-3 d-block"> Quyên góp mới
@@ -70,7 +70,7 @@
 								</c:if>
 								<c:if test="${donation.status == 2}">
 									<a type="button" class="btn btn-primary float-right"
-										href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.id}">Quyên
+										href="${pageContext.request.contextPath}/UsersDonationController?action=donationPost&id=${donation.donationId}">Quyên
 										góp</a>
 								</c:if>
 							</div>

@@ -61,7 +61,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<p class="text-left">
-					<fmt:formatDate pattern="dd/MM/yyyy" value="${donation.insertDate}" />
+					<c:out value="${donation.insertDate}"></c:out>
 				</p>
 			</div>
 		</div>
@@ -85,8 +85,8 @@
 										<p class="text-success font-weight-bold">Chưa Hoàn Thành</p>
 									</c:if>
 								</div>
-								<span class="donation-time mb-3 d-block recentDonation">
-									Quyên góp mới nhất cách đây 0 ngày </span>
+								<span class="donation-time mb-3 d-block recentDonation"> Quyên góp mới
+										nhất cách đây <c:out value="${donation.dayDiff}"></c:out> ngày </span>
 								<div class="progress custom-progress-success">
 									<div class="progress-bar bg-primary" role="progressbar"
 										style="width: 50%" aria-valuenow="50" aria-valuemin="0"
@@ -96,9 +96,11 @@
 									value="${donation.totalNeeded}" var="myNum" />
 								<div>
 									<span class="fund-raised d-block float-left leftText">
-										Đã quyên góp được 0 trên tổng số tiền <c:out value="${myNum}"></c:out>
-										VNĐ
-									</span>
+											Đã quyên góp được <fmt:formatNumber type="number" pattern="#,##0"
+										value="${donation.donationAmount}"/> VNĐ trên tổng số tiền <fmt:formatNumber type="number" pattern="#,##0"
+										value="${donation.totalNeeded}" />
+											VNĐ
+										</span>
 									<c:if test="${donation.status == 1}">
 										<a
 											href="${pageContext.request.contextPath}/UsersDonationController?action=donations"
@@ -112,7 +114,7 @@
 								</div>
 							</div>
 							<form class="row makeDonationForm" id="makeDonationForm">
-								<input type="hidden" value='${donation.id}' name="donationId">
+								<input type="hidden" value='${donation.donationId}' name="donationId">
 								<input type="hidden" value='${donation.title}' name="donationTitle">
 								<div class="row">
 									<div class="col-md-6">

@@ -33,10 +33,7 @@ import commons.RandomPasswordGenerator;
 import dao.DonationsDAO;
 import dao.StatisticsDAO;
 import dao.UsersDAO;
-import model.Donations;
 import model.Users;
-import model.UsersDonation;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -119,9 +116,7 @@ public class UsersController extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		int page = 1;
-		int recordPerPage = 6;
+			throws ServletException, IOException {	
 		action = request.getParameter("action");
 		action = action == null ? "user" : action;
 		session = request.getSession();
