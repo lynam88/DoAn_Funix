@@ -49,17 +49,20 @@
 									${donation.title} </a>
 							</h4>
 							<span class="donation-time mb-3 d-block"> Quyên góp mới
-								nhất cách đây 0 ngày </span>
+								nhất cách đây <c:out value="${donation.dayDiff}"></c:out> ngày
+							</span>
 							<div class="progress custom-progress-success">
 								<div class="progress-bar bg-primary" role="progressbar"
-											style="width: ${((donation.donationAmount/donation.totalNeeded)*100)}%;"
-											aria-valuemax="100"></div>
+									style="width: ${((donation.donationAmount/donation.totalNeeded)*100)}%;"
+									aria-valuemax="100"></div>
 							</div>
 							<fmt:formatNumber type="number" pattern="#,##0"
 								value="${donation.totalNeeded}" var="myNum" />
 							<div>
 								<span class="fund-raised d-block float-left leftText"> Đã
-									quyên góp được 0 trên tổng số tiền <c:out value="${myNum}"></c:out>
+									quyên góp được <fmt:formatNumber type="number" pattern="#,##0"
+										value="${donation.donationAmount}" /> VNĐ trên tổng số tiền <fmt:formatNumber
+										type="number" pattern="#,##0" value="${donation.totalNeeded}" />
 									VNĐ
 								</span>
 								<c:if test="${donation.status == 1}">

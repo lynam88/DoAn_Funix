@@ -10,6 +10,7 @@ import java.util.List;
 
 import context.DBContext;
 import model.Users;
+import model.UsersDonation;
 
 public class UsersDAO {
 
@@ -262,6 +263,49 @@ public class UsersDAO {
 
 		stmt.close();
 
+	}
+	
+	public List<UsersDonation> getDonationHistory(String email, int pageNo, int recordPerPage)
+			throws Exception {
+		Connection connection = new DBContext().getConnection();
+		List<UsersDonation> list = new ArrayList<>();
+		try {
+			String sql = "SELECT donation_amount, user_donation_status, donation_title, donation_date "
+					+ "FROM Users_Donation AS UD "
+					+ "LEFT JOIN Donations AS D "
+					+ "ON UD.donation_id = D.donation_id "
+					+ "WHERE email LIKE ? "				
+					+ "ORDER BY donation_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			int index = 1;	
+			stmt.setString(index++, "%" + email + "%");			
+			stmt.setInt(index++, pageNo);
+			stmt.setInt(index++, recordPerPage);
+			stmt.setInt(index++, recordPerPage);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				UsersDonation u = new UsersDonation();
+				
+				u.setUserDonationId(rs.getInt("user_donation_id"));
+				u.setName(rs.getString("name"));
+				u.setEmail(rs.getString("email"));
+				u.setPhone(rs.getString("phone"));				
+				u.setBank(rs.getString("bank"));
+				u.setTransactionId(rs.getString("transaction_id"));
+				u.setDonationAmount(rs.getFloat("donation_amount"));
+				u.setUserDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationTitle(rs.getString("donation_title"));;
+				u.setDonationDate(rs.getDate("donation_date"));			
+
+				list.add(u);
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return list;
 	}
 
 }
