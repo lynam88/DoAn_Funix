@@ -59,7 +59,7 @@
 							<td><h6 class="badge badge-sm bg-gradient-secondary">Đang chờ </h6></td>
 						</c:if>
 						<c:if test="${userDonation.userDonationStatus == 3}">
-							<td><h6 class="badge badge-sm bg-gradient-success">Xác thực</td>
+							<td><h6 class="badge badge-sm bg-gradient-success">Xác thực </h6></td>
 						</c:if>
 						<td><fmt:formatDate pattern="dd/MM/yyyy" value="${userDonation.donationDate}"/></td>
 					</tr>
