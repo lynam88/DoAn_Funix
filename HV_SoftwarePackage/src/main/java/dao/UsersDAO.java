@@ -20,11 +20,30 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role, status " + "FROM Users "
-					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
-					+ (searchRole.equals("1") ? "OR user_role = 0 " : "")
-					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ");
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, status FROM Users ";
+
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
+			    sql += "WHERE ";
+			    if (!character.isEmpty()) {
+			        sql += "name LIKE ? OR phone = ? OR address LIKE ?";
+			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
+			            sql += " AND ";
+			        }
+			    }
+			    if (!searchRole.equals("0")) {
+			        sql += "(user_role = ?";
+			        if (searchRole.equals("1")) {
+			            sql += " OR user_role = 0";
+			        }
+			        sql += ")";
+			        if (!searchStatus.equals("0")) {
+			            sql += " AND ";
+			        }
+			    }
+			    if (!searchStatus.equals("0")) {
+			        sql += "status = ?";
+			    }
+			}
 					
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -76,12 +95,33 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total "
-					+ "FROM Users " + (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
-					+ (searchRole.equals("1") ? "OR user_role = 0 " : "")
-					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ")
-					+ "ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";			
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total FROM Users ";
+			String whereClause = "";
+
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
+			    whereClause += "WHERE ";
+			    if (!character.isEmpty()) {
+			        whereClause += "name LIKE ? OR phone = ? OR address LIKE ?";
+			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
+			            whereClause += " AND ";
+			        }
+			    }
+			    if (!searchRole.equals("0")) {
+			        whereClause += "(user_role = ?";
+			        if (searchRole.equals("1")) {
+			            whereClause += " OR user_role = 0";
+			        }
+			        whereClause += ")";
+			        if (!searchStatus.equals("0")) {
+			            whereClause += " AND ";
+			        }
+			    }
+			    if (!searchStatus.equals("0")) {
+			        whereClause += "status = ?";
+			    }
+			}
+
+			sql += whereClause + " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";	
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;

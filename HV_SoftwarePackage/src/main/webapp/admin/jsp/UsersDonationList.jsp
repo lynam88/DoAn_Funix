@@ -163,14 +163,14 @@ if (notifyUsersDonationList != null) {
 												</div>
 											</td>
 											<!--Modal -->
-											<div class="modal" id="status_confirm" role="dialog">
+											<div class="modal" id="user_donation_status_confirm" role="dialog">
 												<div class="modal-dialog modal-dialog-centered"
 													tabindex="-1 role="document">
 													<!--Modal content -->
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal"
-																id="close_status_confirm">&times;</button>
+																id="close_user_donation_status_confirm">&times;</button>
 														</div>
 														<div class="modal-body">
 															<p style="font-size: large;">Bạn muốn chuyển trạng
@@ -178,15 +178,15 @@ if (notifyUsersDonationList != null) {
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-ok btn-danger"
-																id="ok_status_confirm" data-dismiss="modal"
+																id="ok_user_donation_status_confirm" data-dismiss="modal"
 																style="margin-bottom: 0;">Chấp nhận</button>
 															<button type="button" class="btn btn-default btn-success"
-																id="cancel_status_confirm" data-dismiss="modal">Hủy</button>
+																id="cancel_user_donation_status_confirm" data-dismiss="modal">Hủy</button>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="modal" id="status_notify" role="dialog">
+											<div class="modal" id="user_donation_status_notify" role="dialog">
 												<div class="modal-dialog">
 
 													<!-- Modal content-->
@@ -198,7 +198,7 @@ if (notifyUsersDonationList != null) {
 															</button>
 														</div>
 														<div class="modal-body">
-															<p class="text-center" id="status_msg"
+															<p class="text-center" id="user_donation_status_msg"
 																style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
 														</div>
 													</div>

@@ -20,7 +20,6 @@ import model.Users;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 
 /**
  * Servlet implementation class UsersController

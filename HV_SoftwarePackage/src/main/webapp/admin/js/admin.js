@@ -365,7 +365,7 @@
 		                location.reload();
 		            }, 3000);
 		        }      
-		    });
+		    });		
 		    
 		    $('#cancel_status_confirm, #close_status_confirm').click(function() {
 		        currentSwitch.prop('checked', !isChecked);
@@ -375,8 +375,7 @@
 		    $('#status_confirm').on('hide.bs.modal', function() {
 		        currentSwitch.prop('checked', !isChecked);
 		        $("#status_confirm").modal("hide");
-		    });
-		    
+		    });		    
 		});
 
 		/**
@@ -404,10 +403,10 @@
 		    userDonationId = button.parentNode.querySelectorAll('input')[0].value;
 		    toEmail = button.parentNode.querySelectorAll('input')[1].value;
 		    userDonationStatus = $(button).text();
-		    $("#status_confirm").modal("show");
+		    $("#user_donation_status_confirm").modal("show");
 		}
 		
-		$('#ok_status_confirm').click(function(){                  
+		$('#ok_user_donation_status_confirm').click(function(){                  
 		    try {
 		        $.ajax({
 		            type : 'POST',
@@ -417,10 +416,10 @@
 		            },
 		            url : '/HV_SoftwarePackage/UsersDonationController?action=updateStatus',
 		            success : function(responseText) {		            	
-		                $("#status_confirm").modal("hide");		                
+		                $("#user_donation_status_confirm").modal("hide");		                
 		                setTimeout(function() {                  
-		                    $("#status_notify").modal("show");
-		                    $("#status_msg").text(responseText);                        
+		                    $("#user_donation_status_notify").modal("show");
+		                    $("#user_donation_status_msg").text(responseText);                        
 		                }, 1000);                    
 		                setTimeout(function() {                        
 		                    location.reload();
@@ -443,10 +442,10 @@
 		                });
 		            },
 		            error: function(responseText){                     
-		                $("#status_confirm").modal("hide");
+		                $("#user_donation_status_confirm").modal("hide");
 		                setTimeout(function() {                  
-		                    $("#status_notify").modal("show");
-		                    $("#status_msg").text(responseText);                        
+		                    $("#user_donation_status_notify").modal("show");
+		                    $("#user_donation_status_msg").text(responseText);                        
 		                }, 1000);                    
 		                setTimeout(function() {                        
 		                    location.reload();
@@ -454,10 +453,10 @@
 		            },
 		        });
 		    } catch (e) {       
-		        $("#status_confirm").modal("hide");
+		        $("#user_donation_status_confirm").modal("hide");
 		        setTimeout(function() {                  
-		            $("#status_notify").modal("show");
-		            $("#status_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		            $("#user_donation_status_notify").modal("show");
+		            $("#user_donation_status_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
 		        }, 1000);                    
 		        setTimeout(function() {
 		            location.reload();
@@ -465,8 +464,8 @@
 		    }       
 		});
 		
-		$('#cancel_status_confirm, #close_status_confirm').click(function() {
-		    $("#status_confirm").modal("hide"); 
+		$('#cancel_user_donation_status_confirm, #close_user_donation_status_confirm').click(function() {
+		    $("#user_donation_status_confirm").modal("hide"); 
 		    var buttons = previousButton.parentNode.querySelectorAll('button');
 		    buttons.forEach(function(btn) {
 		    	btn.classList.remove('active');

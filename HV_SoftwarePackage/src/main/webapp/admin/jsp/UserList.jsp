@@ -8,10 +8,10 @@
 </c:import>
 
 <%
-	String notifyUsersDonationList = (String) request.getAttribute("notifyUsersDonationList");
-	String notifyStatusUsersDonationList = (String) request.getAttribute("notifyStatusUsersDonationList");
+	String notifyUserList = (String) request.getAttribute("notifyUserList");
+	String statusUserList = (String) request.getAttribute("statusUserList");
 
-	if (notifyUsersDonationList != null) {
+	if (notifyUserList != null) {
 %>
 <div class="modal" id="userDelModal" role="dialog">
 	<div class="modal-dialog">
@@ -26,7 +26,7 @@
 			</div>
 			<div class="modal-body">
 				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
+					style="font-size: large; color: red;"><%=notifyUserList%></p>
 			</div>
 		</div>
 
@@ -38,7 +38,7 @@
 			$("#userDelModal").modal("show");							
 		}, 500);
 		setTimeout(function() {			
-			var st = "<%=notifyStatusUsersDonationList%>";
+			var st = "<%=statusUserList%>";
 				$("#userDelModal").modal("hide");
 				if (st == "ok") {
 					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
@@ -143,11 +143,11 @@
 										<tr>
 											<c:choose>
 												<c:when test="${user.role == 0 || user.role == 1}">
-													<td><input type="checkbox" class="chk" name="chk"
+													<td class="text-center"><input type="checkbox" class="chk" name="chk"
 														disabled value="<c:out value='${user.email}'/>"></td>
 												</c:when>
 												<c:otherwise>
-													<td><input type="checkbox" class="chk" name="chk"
+													<td class="text-center"><input type="checkbox" class="chk" name="chk"
 														value="<c:out value='${user.email}'/>"></td>
 												</c:otherwise>
 											</c:choose>
@@ -253,7 +253,7 @@
 														</div>
 														<div class="modal-body">
 															<p class="text-center" id="status_msg"
-																style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
+																style="font-size: large; color: red;"><%=notifyUserList%></p>
 														</div>
 													</div>
 												</div>

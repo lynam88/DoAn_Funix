@@ -85,7 +85,7 @@
 					<tbody>
 					    <c:forEach var="donation" items="${DonationList}">
 					        <tr>
-					            <td><input type="checkbox" class="chk" name="chk"
+					            <td class="text-center"><input type="checkbox" class="chk" name="chk"
 					                value="<c:out value='${donation.id}' />"></td>
 					            <td> <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="complete" name="complete" disabled value="<c:out value='${donation.id}' />"
 					                <c:if test="${donation.status == 1}">checked</c:if>/> </div>
