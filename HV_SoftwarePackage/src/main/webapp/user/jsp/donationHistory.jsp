@@ -61,7 +61,7 @@
 						<c:if test="${userDonation.userDonationStatus == 3}">
 							<td><h6 class="badge badge-sm bg-gradient-success">Xác thực</td>
 						</c:if>
-						<td>${userDonation.donationDate}</td>
+						<td><fmt:formatDate pattern="dd/MM/yyyy" value="${userDonation.donationDate}"/></td>
 					</tr>
 				</c:forEach>
 			</tbody>

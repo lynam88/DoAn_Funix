@@ -204,8 +204,7 @@
 
 								<div class="text-center donationBtm">
 									<button class="btn btn-primary fa-lg gradient-custom-2 mb-3"
-										type="button" id="secondDonationBtn" onclick="makeDonation()">Quyên
-										góp</button>
+										type="button" id="secondDonationBtn" onclick="makeDonation()">Xác nhận</button>
 								</div>
 							</form>
 						</div>
