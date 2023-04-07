@@ -365,7 +365,7 @@
 		                location.reload();
 		            }, 3000);
 		        }      
-		    });		
+		    });	
 		    
 		    $('#cancel_status_confirm, #close_status_confirm').click(function() {
 		        currentSwitch.prop('checked', !isChecked);
@@ -374,7 +374,6 @@
 		    
 		    $('#status_confirm').on('hide.bs.modal', function() {
 		        currentSwitch.prop('checked', !isChecked);
-		        $("#status_confirm").modal("hide");
 		    });		    
 		});
 
@@ -471,4 +470,12 @@
 		    	btn.classList.remove('active');
 		    });	
 		    previousButton.classList.add('active');   
-		});		
+		});	
+		
+		$('#user_donation_status_confirm').on('hide.bs.modal', function() {
+			var buttons = previousButton.parentNode.querySelectorAll('button');
+		    buttons.forEach(function(btn) {
+		    	btn.classList.remove('active');
+		    });	
+		    previousButton.classList.add('active');  
+	    });	
