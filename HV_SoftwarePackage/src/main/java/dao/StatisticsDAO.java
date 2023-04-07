@@ -145,7 +145,7 @@ public class StatisticsDAO {
 				map.put("name", rs.getString("name"));
 				map.put("email", rs.getString("email"));
 				map.put("donationAmount", String.valueOf(rs.getFloat("donation_amount")));
-				map.put("dayDiff", String.valueOf(rs.getInt("days_since_donation")));		
+				map.put("dayDiff", String.valueOf(rs.getInt("days_since_donation")));
 				map.put("category", rs.getString("category"));
 				map.put("avatarPath", rs.getString("avatar_path"));
 
@@ -157,35 +157,44 @@ public class StatisticsDAO {
 		return list;
 	}
 
-	public List<Map<String, String>> getDonationStats(String category, int pageNo,
-			int recordPerPage) throws Exception {
+	public List<Map<String, String>> getDonationStats(String category, int pageNo, int recordPerPage) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Map<String, String>> list = new ArrayList<>();
 		try {
-			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
-					+ "FROM Donations D " + "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
-					+ (category.equals("0") ? "" : "WHERE category = ? ")
-					+ "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail, DATEDIFF(day, donation_date, GETDATE()) "					
-					+ "ORDER BY end_date DESC "
-					+ ((pageNo != 0 && recordPerPage != 0) ? "OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY" : ""); 
+			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, MAX(UD.donation_date), GETDATE()) AS days_since_donation, SUM(UD.donation_amount) AS donation_amount "
+					+ "FROM Donations D " + "LEFT JOIN ("
+					+ "    SELECT donation_id, MAX(donation_date) AS donation_date, SUM(donation_amount) AS donation_amount "
+					+ "    FROM Users_Donation " + "    GROUP BY donation_id "
+					+ ") UD ON D.donation_id = UD.donation_id ";
+
+			if (!category.equals("0")) {
+				sql += "WHERE category = ? ";
+			}
+
+			sql += "GROUP BY D.donation_id, donation_status, donation_title, insertDate, end_date, total_needed, category, thumbnail "
+					+ "ORDER BY end_date DESC ";
+
+			if (pageNo != 0 && recordPerPage != 0) {
+				sql += "OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
+			}
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
 			if (!category.equals("0")) {
 				stmt.setString(index++, category);
 			}
-			
+
 			if (pageNo != 0 && recordPerPage != 0) {
 				stmt.setInt(index++, pageNo);
 				stmt.setInt(index++, recordPerPage);
 				stmt.setInt(index++, recordPerPage);
-			}			
+			}
 
 			ResultSet rs = stmt.executeQuery();
 			this.noOfRecords = 0;
 			while (rs.next()) {
 				Map<String, String> map = new HashMap<String, String>();
-				
+
 				map.put("donationId", String.valueOf(rs.getInt("donation_id")));
 				map.put("status", rs.getString("donation_status"));
 				map.put("title", rs.getString("donation_title"));
@@ -211,16 +220,15 @@ public class StatisticsDAO {
 	public int getNoOfRecords() {
 		return noOfRecords;
 	}
-	
+
 	public Map<String, String> getDonation(int id) throws Exception {
 		Connection connection = new DBContext().getConnection();
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String sql = "SELECT D.donation_id, donation_status, donation_title, donation_content, total_needed, category, thumbnail, insertDate, DATEDIFF(day, donation_date, GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
-					+ "FROM Donations D " 
-					+ "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
+					+ "FROM Donations D " + "LEFT JOIN Users_Donation UD ON D.donation_id = UD.donation_id "
 					+ "WHERE D.donation_id = ? AND use_yn = 1 "
-					+ "GROUP BY D.donation_id, donation_status, donation_title, donation_content, total_needed, category, thumbnail, insertDate, DATEDIFF(day, donation_date, GETDATE()) ";					
+					+ "GROUP BY D.donation_id, donation_status, donation_title, donation_content, total_needed, category, thumbnail, insertDate, DATEDIFF(day, donation_date, GETDATE()) ";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -231,7 +239,7 @@ public class StatisticsDAO {
 				map.put("donationId", String.valueOf(rs.getInt("donation_id")));
 				map.put("status", rs.getString("donation_status"));
 				map.put("title", rs.getString("donation_title"));
-				map.put("content", rs.getString("donation_content"));					
+				map.put("content", rs.getString("donation_content"));
 				map.put("totalNeeded", String.valueOf(rs.getFloat("total_needed")));
 				map.put("category", rs.getString("category"));
 				map.put("src", rs.getString("thumbnail"));

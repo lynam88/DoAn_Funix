@@ -51,7 +51,6 @@ import model.UsersDonation;
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class UsersDonationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UsersDAO usersDAO;
 	private UsersDonationDAO UsersDonationDAO;
 	private StatisticsDAO statisticsDAO;
 	private String action;
@@ -64,7 +63,7 @@ public class UsersDonationController extends HttpServlet {
 	Object sessionUser;
 
 	public void init() {
-		usersDAO = new UsersDAO();
+		new UsersDAO();
 		new DonationsDAO();
 		UsersDonationDAO = new UsersDonationDAO();
 		statisticsDAO = new StatisticsDAO();
@@ -78,31 +77,29 @@ public class UsersDonationController extends HttpServlet {
 		sessionUser = (Users) session.getAttribute("user");
 		switch (action) {
 		case "makeDonation":
-			try {
-				String notifyMakeDonation = makeDonation(request, response);
-				response.setContentType("text/plain; charset=UTF-8");
-				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(notifyMakeDonation);
-				break;
-			} catch (SQLException e) {
+		    try {
+		        String notifyMakeDonation = makeDonation(request, response);
+		        response.setContentType("text/plain; charset=UTF-8");
+		        response.setCharacterEncoding("UTF-8");
+		        response.getWriter().write(notifyMakeDonation);
+		    } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			break;
+		    break;
 		case "UsersDonationSearch":
 			UsersDonationList(request, response);
 			break;
-		case "updateStatus":
-			String notifyStatus = null;
+		case "updateStatus":		
 			try {
-				notifyStatus = updateStatus(request, response);
+				String notifyStatus = updateStatus(request, response);
+				response.setContentType("text/plain; charset=UTF-8");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(notifyStatus);				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.setContentType("text/plain; charset=UTF-8");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(notifyStatus);
 			break;
 		case "userDonationMail":
 			try {
@@ -114,8 +111,7 @@ public class UsersDonationController extends HttpServlet {
 			break;
 		}
 
-	}
-	
+	}	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -164,13 +160,18 @@ public class UsersDonationController extends HttpServlet {
 	private String updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userDonationStatus = request.getParameter("userDonationStatus");
 		int userDonationId = Integer.parseInt(request.getParameter("userDonationId"));
+		String toEmail = request.getParameter("toEmail");
 
 		try {
 			UsersDonation ud = new UsersDonation(userDonationStatus, userDonationId);
-			UsersDonationDAO.updateStatus(ud);
-			return "Bạn đã cập nhật trạng thái quyên góp thành công";
+			if (((Users) sessionUser).getEmail().equals(toEmail)) {
+				return "Bạn không được cập nhật trạng thái quyên góp của chính mình.";
+			} else {
+				UsersDonationDAO.updateStatus(ud);
+				return "Bạn đã cập nhật trạng thái quyên góp thành công";
+			}
 		} catch (Exception e) {
-			return "Bạn đã cập nhật trạng thái quyên góp thất bại";
+			return "Có lỗi xảy ra vui lòng thử lại sau";
 		}
 
 	}
@@ -398,20 +399,14 @@ public class UsersDonationController extends HttpServlet {
 			// Create new user object
 			UsersDonation u = new UsersDonation(name, email, phone, bank, transactionId, donationAmountFloat,
 					donationId);		
-			if (sessionUser == null && phone != null && usersDAO.getUser(phone) != null) {
-				return "0";
-
-			} else if (sessionUser == null && usersDAO.getUser(email) != null) {
-				return "1";
-
-			} else {
-				// Insert user donation data to database
-				UsersDonationDAO.insertUsersDonation(u);
-				return "2";
-			}
+			
+			// Insert user donation data to database
+			UsersDonationDAO.insertUsersDonation(u);
+			return "Chúng tôi đã nhận được thông tin quyên góp của bạn. Chúng tôi sẽ kiểm tra và thông báo cho bạn bằng email. Xin cám ơn!";
+			
 
 		} catch (Exception e) {
-			return e.getMessage();
+			return "Có lỗi xảy ra, xin vui lòng thử lại sau.";
 		}
 	}
 }

@@ -251,7 +251,7 @@ public class UsersDAO {
 	public void deleteUser(List<Users> us) throws Exception {
 		Connection connection = new DBContext().getConnection();
 
-		String sql = "UPDATE Users SET use_yn = 0 WHERE email = ?";
+		String sql = "UPDATE Users SET user_use_yn = 0 WHERE email = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 
 		for (Users u : us) {

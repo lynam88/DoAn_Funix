@@ -411,7 +411,8 @@
 		            type : 'POST',
 		            data: {
 		                userDonationId : userDonationId,
-		                userDonationStatus : userDonationStatus,                                      
+		                userDonationStatus : userDonationStatus,     
+		                toEmail: toEmail,
 		            },
 		            url : '/HV_SoftwarePackage/UsersDonationController?action=updateStatus',
 		            success : function(responseText) {		            	

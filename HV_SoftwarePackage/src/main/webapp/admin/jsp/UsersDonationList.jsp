@@ -151,15 +151,15 @@ if (notifyUsersDonationList != null) {
 
 													<button type="button"
 														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 1}">active</c:if> "
-														onclick="activateButton(this)">R</button>
+														onclick="activateButton(this)" <c:if test="${sessionScope.user.email == user.email}">disabled</c:if>>R</button>
 
 													<button type="button"
 														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 2}">active</c:if> "
-														onclick="activateButton(this)">P</button>
+														onclick="activateButton(this)" <c:if test="${sessionScope.user.email == user.email}">disabled</c:if>>P</button>
 
 													<button type="button"
 														class="tri-state-toggle-button <c:if test="${user.userDonationStatus == 3}">active</c:if> "
-														onclick="activateButton(this)">A</button>
+														onclick="activateButton(this)" <c:if test="${sessionScope.user.email == user.email}">disabled</c:if>>A</button>
 												</div>
 											</td>
 											<!--Modal -->

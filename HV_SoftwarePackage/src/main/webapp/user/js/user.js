@@ -503,8 +503,6 @@
 			var check = validateDonation();
 			if(check) {
 			// Call ajax
-				 const phoneError = document.getElementById("phone_error");
-				 const emailError = document.getElementById("email_error");
 			 try {
 		            $.ajax({
 		                type : 'POST',
@@ -518,23 +516,19 @@
 		                	transactionId : $('#transactionId').val(),		                  
 		                },
 		                url : '/HV_SoftwarePackage/UsersDonationController?action=makeDonation',
-		                success : function(responseText) {	                	
-		                   if (responseText == "0") phoneError.innerHTML = "Số điện thoại này đã được đăng ký";
-		                   if (responseText == "1") emailError.innerHTML = "Email này đã được đăng ký";
-		                   if (responseText == "2") {
-		                	   setTimeout(function() {                  
-			                        $("#makeDonationNotify").modal("show");
-			                        $("#makeDonationMsg").text("Cảm ơn bạn đã quyên góp");	                        
-			                    }, 1000);                    
-			                    setTimeout(function() {	                    	
-			                        location.reload();
-			                    }, 3000);
-		                   }
+		                success : function(responseText) {	  
+	                	   setTimeout(function() {                  
+		                        $("#makeDonationNotify").modal("show");
+		                        $("#makeDonationMsg").text(responseText);	                        
+		                    }, 1000);                    
+		                    setTimeout(function() {	                    	
+		                        location.reload();
+		                    }, 7000);		                   
 		                },
-		                error: function(responseText){	                
+		                error: function(){	                
 		                    setTimeout(function() {                  
 		                    	  $("#makeDonationNotify").modal("show");
-			                        $("#makeDonationMsg").text("Quyên góp chưa thành công");	                        
+			                      $("#makeDonationMsg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");	                        
 		                    }, 1000);                    
 		                    setTimeout(function() {	                    	
 		                        location.reload();
@@ -542,9 +536,9 @@
 		                },
 		            });
 		        } catch (e) {	   
-		            setTimeout(function() {                  
+		            setTimeout(function(responseText) {                  
 		                $("#make_donation_notify").modal("show");
-		                $("#make_donation_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+		                $("#make_donation_msg").text(responseText);
 		            }, 1000);                    
 		            setTimeout(function() {
 		                location.reload();

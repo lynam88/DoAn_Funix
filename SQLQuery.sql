@@ -167,6 +167,11 @@ ADD CONSTRAINT df_User_role
 DEFAULT 2 FOR user_role;
 GO
 
+ALTER TABLE Users
+ADD CONSTRAINT df_User_Use_yn
+DEFAULT 1 FOR user_use_yn;
+GO
+
 INSERT INTO [dbo].[Users]
            ([name]
            ,[phone]
