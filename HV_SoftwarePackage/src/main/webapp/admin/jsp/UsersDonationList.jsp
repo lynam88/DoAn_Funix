@@ -206,6 +206,10 @@ if (notifyUsersDonationList != null) {
 											</div>
 											<td>
 												<div>
+													<input type="hidden" id="donationId"
+														value="${user.donationId}">
+													<input type="hidden" id="donationTitle"
+														value="${user.donationTitle}">
 													<div class="content hideContent">${user.donationTitle}</div>
 													<div class="show-more">
 														<a type="button" style="color: blue;">Hiển thị thêm</a>

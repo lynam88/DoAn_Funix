@@ -430,7 +430,9 @@
 		                    url: '/HV_SoftwarePackage/UsersDonationController?action=userDonationMail',
 		                    data: {
 		                    	userDonationId : userDonationId,
-				                userDonationStatus : userDonationStatus, 
+				                userDonationStatus : userDonationStatus,
+				                donationId: $('#donationId').val(),
+				                donationTitle: $('#donationTitle').val(),
 		                    	toEmail: toEmail,		    
 		                    },
 		                    success: function(response) {

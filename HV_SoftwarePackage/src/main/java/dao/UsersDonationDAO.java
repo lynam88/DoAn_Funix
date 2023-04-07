@@ -20,11 +20,11 @@ public class UsersDonationDAO {
 		Connection connection = new DBContext().getConnection();
 		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date "
+			String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, UD.donation_id, donation_title, donation_date "
 						+ "FROM Users_Donation AS UD "
 						+ "LEFT JOIN Donations AS D "
 						+ "ON UD.donation_id = D.donation_id "
-						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? ")
+						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ? ")
 						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -33,7 +33,8 @@ public class UsersDonationDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
-				stmt.setString(index++, character);
+				stmt.setString(index++,  "%" + character + "%");
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 			}
 
@@ -55,6 +56,7 @@ public class UsersDonationDAO {
 				u.setTransactionId(rs.getString("transaction_id"));
 				u.setDonationAmount(rs.getFloat("donation_amount"));
 				u.setUserDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationId(rs.getInt("donation_id"));
 				u.setDonationTitle(rs.getString("donation_title"));;
 				u.setDonationDate(rs.getDate("donation_date"));			
 
@@ -78,11 +80,11 @@ public class UsersDonationDAO {
 		Connection connection = new DBContext().getConnection();
 		List<UsersDonation> list = new ArrayList<>();
 		try {
-			String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date "
-					+ "FROM Users_Donation AS UD "
+			String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, UD.donation_id, donation_title, donation_date "
+					+ "FROM Users_Donation AS UD " 
 					+ "LEFT JOIN Donations AS D "
 					+ "ON UD.donation_id = D.donation_id "
-					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? ")
+					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ? ")
 					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ")
 					+ "ORDER BY donation_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
@@ -92,6 +94,7 @@ public class UsersDonationDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
+				stmt.setString(index++,  "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 			}
@@ -116,6 +119,7 @@ public class UsersDonationDAO {
 				u.setTransactionId(rs.getString("transaction_id"));
 				u.setDonationAmount(rs.getFloat("donation_amount"));
 				u.setUserDonationStatus(rs.getString("user_donation_status"));
+				u.setDonationId(rs.getInt("donation_id"));
 				u.setDonationTitle(rs.getString("donation_title"));;
 				u.setDonationDate(rs.getDate("donation_date"));			
 

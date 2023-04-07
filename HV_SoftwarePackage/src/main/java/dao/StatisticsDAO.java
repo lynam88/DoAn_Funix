@@ -26,8 +26,8 @@ public class StatisticsDAO {
 		try {
 			String sql = "SELECT (SELECT COUNT(*) FROM Donations) AS total_donations, "
 					+ "(SELECT COUNT(*) FROM Users) AS total_users, "
-					+ "(SELECT SUM(donation_amount) FROM Users_Donation WHERE donation_date = CONVERT(date, GETDATE())) AS total_donations_today, "
-					+ "(SELECT SUM(donation_amount) FROM Users_Donation) AS total_donation_amount";
+					+ "(SELECT SUM(donation_amount) FROM Users_Donation WHERE user_donation_status = 3 AND donation_date = CONVERT(date, GETDATE())) AS total_donations_today, "
+					+ "(SELECT SUM(donation_amount) FROM Users_Donation WHERE user_donation_status = 3) AS total_donation_amount";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -161,10 +161,13 @@ public class StatisticsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Map<String, String>> list = new ArrayList<>();
 		try {
-			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, MAX(UD.donation_date), GETDATE()) AS days_since_donation, SUM(UD.donation_amount) AS donation_amount "
-					+ "FROM Donations D " + "LEFT JOIN ("
+			String sql = "SELECT D.donation_id, donation_status, donation_title, insertDate, total_needed, category, thumbnail, DATEDIFF(day, MAX(donation_date), GETDATE()) AS days_since_donation, SUM(donation_amount) AS donation_amount "
+					+ "FROM Donations D " 
+					+ "LEFT JOIN ("
 					+ "    SELECT donation_id, MAX(donation_date) AS donation_date, SUM(donation_amount) AS donation_amount "
-					+ "    FROM Users_Donation " + "    GROUP BY donation_id "
+					+ "    FROM Users_Donation " 
+					+ "    WHERE user_donation_status = 3 " 
+					+ "    GROUP BY donation_id "
 					+ ") UD ON D.donation_id = UD.donation_id ";
 
 			if (!category.equals("0")) {

@@ -254,14 +254,23 @@ public class UsersDonationController extends HttpServlet {
 		final String toEmail = request.getParameter("toEmail");
 		
 		String userDonationStatus = request.getParameter("userDonationStatus");
+		String donationId= request.getParameter("donationId");
+		String donationTitle = request.getParameter("donationTitle");
+		
 		if (userDonationStatus.equals("R")) userDonationStatus = "Từ chối";
 		if (userDonationStatus.equals("P")) userDonationStatus = "Đang chờ";
 		if (userDonationStatus.equals("A")) userDonationStatus = "Đã xác thực";
+		
+		String serverName = request.getServerName();
+		int serverPort = request.getServerPort();
+		String contextPath = request.getContextPath();
 
 		// Email subject and body
 		final String subject = "Thông báo cập nhật trạng thái quyên góp thành công";
 		final String body = "Chào bạn,<br/>"
-							+ "Chúng tôi xin gửi thông báo đến bạn rằng quyên góp của bạn đã được cập nhật thành công với trạng thái là " 
+							+ "Chúng tôi xin gửi thông báo đến bạn rằng quyên góp của bạn cho đợt quyên góp: "
+							+ "<a href='http://" + serverName + ":" + serverPort + contextPath + "/UsersDonationController?action=donationPost&donationId=" + donationId + "'>" + donationTitle + "</a>"
+							+ " đã được cập nhật thành công với trạng thái là " 
 							+ "<span style=\"color: red; font-weight: bold\">" + userDonationStatus + "</span><br/>"
 							+ "Chúng tôi xin chân thành cảm ơn sự đóng góp của bạn và hy vọng rằng chúng ta sẽ tiếp tục đồng hành cùng nhau trên con đường thiện nguyện.<br/>"
 							+ "Trân trọng,<br/>" + "Ban quản trị của Quỹ Từ Thiện Liên Hoa.";
