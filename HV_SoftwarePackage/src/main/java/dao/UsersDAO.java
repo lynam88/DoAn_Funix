@@ -20,12 +20,11 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role, status FROM Users ";
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, status FROM Users WHERE user_use_yn = 1 ";
 
-			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
-			    sql += "WHERE ";
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {			    
 			    if (!character.isEmpty()) {
-			        sql += "name LIKE ? OR phone = ? OR address LIKE ?";
+			        sql += "AND (name LIKE ? OR phone = ? OR address LIKE ?) ";
 			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
 			            sql += " AND ";
 			        }
@@ -95,13 +94,12 @@ public class UsersDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
 		try {
-			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total FROM Users ";
+			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total FROM Users WHERE user_use_yn = 1 ";
 			String whereClause = "";
 
-			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
-			    whereClause += "WHERE ";
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {	
 			    if (!character.isEmpty()) {
-			        whereClause += "name LIKE ? OR phone = ? OR address LIKE ?";
+			        whereClause += "AND (name LIKE ? OR phone = ? OR address LIKE ?) ";
 			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
 			            whereClause += " AND ";
 			        }

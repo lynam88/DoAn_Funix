@@ -72,7 +72,7 @@ public class ManageUsersController extends HttpServlet {
 				case "UserSearch":
 					listUser(request, response);
 					break;
-				case "delete":
+				case "deleteUser":
 					String notifyDelete = deleteUser(request, response);
 					response.setContentType("text/plain; charset=UTF-8");
 					response.setCharacterEncoding("UTF-8");
@@ -146,7 +146,7 @@ public class ManageUsersController extends HttpServlet {
 
 			} else {
 				usersDAO.updateStatus(u);
-				return "Bạn đã cập nhật vai trò thành công.";
+				return "Bạn đã cập nhật trạng thái thành công.";
 			}
 		} catch (Exception e) {
 			throw new Exception(e);

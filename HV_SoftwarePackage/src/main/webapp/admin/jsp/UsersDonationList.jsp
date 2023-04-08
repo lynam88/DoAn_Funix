@@ -100,8 +100,7 @@ if (notifyUsersDonationList != null) {
 							class="fas fa-file-export"></i> Xuất File</a>
 					</div>
 					<div classs="text-right">
-						<p id="statusNote">Ghi chú: R: Rejected/Từ chối, P:
-							Pending/Đang chờ, A: Accepted/Đã xác thực</p>
+						<p id="statusNote">Ghi chú: R: Từ chối, P: Đang chờ, A: Đã xác thực</p>
 					</div>
 				</div>
 
@@ -110,7 +109,7 @@ if (notifyUsersDonationList != null) {
 						<form action="" method="post" id="formDel">
 							<input type="hidden" name="email" id="email" value="${email}">
 
-							<table class="table table-bordered" id="myTable">
+							<table class="table table-hover" id="myTable">
 								<thead class="text-center">
 									<tr>
 										<th style="width: 5%;">Họ và tên</th>

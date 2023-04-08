@@ -117,7 +117,7 @@
           <h6 class="font-weight-bolder text-white mb-0" id="str-pages2">Trang Chủ</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">          
-          <ul class="navbar-nav justify-content-end" style="padding-left: 75%;">
+          <ul class="navbar-nav justify-content-end" style="padding-left: 70%;">
           	<li class="nav-item d-flex align-items-center">
           		<div class="btn-group">
           		  <c:if test="${user.avatarPath != null }"><img src="${user.avatarPath}" alt="Avatar" class="avatar"></c:if>          			

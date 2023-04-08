@@ -125,7 +125,7 @@ if (notifyUserList != null) {
 					<div class="p-0">
 
 						<input type="hidden" name="email" id="email" value="${email}">
-						<table class="table table-bordered" id="myTable">
+						<table class="table table-hover" id="myTable">
 							<thead class="text-center">
 								<tr>
 									<th style="width: 2%;">Chọn</th>
@@ -324,7 +324,7 @@ if (notifyUserList != null) {
 										<p style="font-size: large;">Bạn thật sự muốn xóa?</p>
 									</div>
 									<div class="modal-footer">
-										<button type="submit" class="btn btn-ok btn-danger"
+										<button type="button" class="btn btn-ok btn-danger"
 											id="okUserDelete" data-dismiss="modal">Chấp nhận</button>
 										<button type="button" class="btn btn-default btn-success"
 											id="cancelUserDelete" data-dismiss="modal">Hủy</button>

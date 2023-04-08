@@ -25,7 +25,7 @@ public class StatisticsDAO {
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String sql = "SELECT (SELECT COUNT(*) FROM Donations) AS total_donations, "
-					+ "(SELECT COUNT(*) FROM Users) AS total_users, "
+					+ "(SELECT COUNT(*) FROM Users WHERE user_use_yn = 1) AS total_users, "
 					+ "(SELECT SUM(donation_amount) FROM Users_Donation WHERE user_donation_status = 3 AND donation_date = CONVERT(date, GETDATE())) AS total_donations_today, "
 					+ "(SELECT SUM(donation_amount) FROM Users_Donation WHERE user_donation_status = 3) AS total_donation_amount";
 
