@@ -223,11 +223,11 @@
     	}
     }
     
-/**
- * Js functions for user pages
- */
+	/**
+	 * Js functions for user pages
+	 */
 	//Delete button
-	$("#user_del").click(function(){
+	$("#userDel").click(function(){
 		var chks = document.querySelectorAll(".chk:checked");
 		var checked = [...chks].map(email => email.value).join(",");
 		
@@ -237,23 +237,56 @@
 				$("#checkMsg").modal("hide");
 			}, 2000);
 		} else {
-			$("#myModal").modal("show");				
+			$("#userDeleteConfirm").modal("show");				
 		}
 	})	
 
 	//Delete button
-	$('#ok_user_del').click(function(){
+	$('#okUserDelete').click(function(){
 		var chks = document.querySelectorAll(".chk:checked");
 		var checked = [...chks].map(email => email.value).join(",");
-		document.getElementById("formDel").action = "ManageUsersController?action=delete&email="+checked;
-		$("#myModal").modal("hide");
-	})			
+		try {
+            $.ajax({
+                type : 'POST',
+                data: {email: checked}, 
+                url : '/HV_SoftwarePackage/ManageUsersController?action=deleteUser',
+                success : function(responseText) {	                	
+                    $("#userDeleteConfirm").modal("hide");
+                    setTimeout(function() {                  
+                        $("#userDeleteNotify").modal("show");
+                        $("#userDeleteMsg").text(responseText);	                        
+                    }, 1000);                    
+                    setTimeout(function() {	                    	
+                        location.reload();
+                    }, 3000);
+                },
+                error: function(){	                
+                    $("#userDeleteConfirm").modal("hide");
+                    currentSwitch.prop('checked', isChecked);
+                    setTimeout(function() {                  
+                        $("#userDeleteNotify").modal("show");
+                        $("#userDeleteMsg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");	                        
+                    }, 1000);                    
+                    setTimeout(function() {	                    	
+                        location.reload();
+                    }, 3000);
+                },
+            });
+        } catch (e) {	   
+            $("#userDeleteConfirm").modal("hide");
+            currentSwitch.prop('checked', isChecked);
+            setTimeout(function(responseText) {                  
+                $("#userDeleteNotify").modal("show");
+                $("#userDeleteMsg").text(responseText);
+            }, 1000);                    
+            setTimeout(function() {
+                location.reload();
+            }, 3000);
+        }	       
+    });	
 	
-	$('#cancel_user_del').click(function(){		
-		$("#myModal").modal("hide");					
-	})
-	$('#close_user_del').click(function(){		
-		$("#myModal").modal("hide");					
+	$('#cancelUserDelete, #closeUserDelete').click(function(){		
+		$("#userDeleteConfirm").modal("hide");					
 	})
 	
 	//Switch role button
@@ -281,12 +314,12 @@
 	                        location.reload();
 	                    }, 3000);
 	                },
-	                error: function(responseText){	                
+	                error: function(){	                
 	                    $("#role_confirm").modal("hide");
 	                    currentSwitch.prop('checked', isChecked);
 	                    setTimeout(function() {                  
 	                        $("#role_notify").modal("show");
-	                        $("#role_msg").text(responseText);	                        
+	                        $("#role_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");	                        
 	                    }, 1000);                    
 	                    setTimeout(function() {	                    	
 	                        location.reload();
@@ -296,9 +329,9 @@
 	        } catch (e) {	   
 	            $("#role_confirm").modal("hide");
 	            currentSwitch.prop('checked', isChecked);
-	            setTimeout(function() {                  
+	            setTimeout(function(responseText) {                  
 	                $("#role_notify").modal("show");
-	                $("#role_msg").text("Có lỗi xảy ra, xin vui lòng thử lại sau.");
+	                $("#role_msg").text(responseText);
 	            }, 1000);                    
 	            setTimeout(function() {
 	                location.reload();

@@ -221,6 +221,10 @@
 	}
 
 	/* User List page */
+	#okUserDelete{
+		margin-top: 4%;
+	}
+	
 	#searchRole{
 		border: 1px solid #ccc;
 		border-radius: 19px;

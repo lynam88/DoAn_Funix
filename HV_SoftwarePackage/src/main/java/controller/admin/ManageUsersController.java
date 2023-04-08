@@ -73,19 +73,22 @@ public class ManageUsersController extends HttpServlet {
 					listUser(request, response);
 					break;
 				case "delete":
-					deleteUser(request, response);
+					String notifyDelete = deleteUser(request, response);
+					response.setContentType("text/plain; charset=UTF-8");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(notifyDelete);
 					break;
 				case "updateRole":
 					String notifyRole = updateRole(request, response);
-				    response.setContentType("text/plain; charset=UTF-8");
-				    response.setCharacterEncoding("UTF-8");
-				    response.getWriter().write(notifyRole);
+					response.setContentType("text/plain; charset=UTF-8");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(notifyRole);
 					break;
 				case "updateStatus":
 					String notifyStatus = updateStatus(request, response);
-				    response.setContentType("text/plain; charset=UTF-8");
-				    response.setCharacterEncoding("UTF-8");
-				    response.getWriter().write(notifyStatus);
+					response.setContentType("text/plain; charset=UTF-8");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(notifyStatus);
 					break;
 				}
 			} catch (Exception ex) {
@@ -137,13 +140,13 @@ public class ManageUsersController extends HttpServlet {
 			Users u = usersDAO.getUser(email);
 			if (sessionUser.getEmail().equals(u.getEmail())) {
 				return "Bạn không được cập nhật chính mình.";
-					
-			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {				
+
+			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {
 				return "Bạn không được cập nhật ADMIN.";
-								
+
 			} else {
 				usersDAO.updateStatus(u);
-				return  "Bạn đã cập nhật vai trò thành công.";				
+				return "Bạn đã cập nhật vai trò thành công.";
 			}
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -151,22 +154,21 @@ public class ManageUsersController extends HttpServlet {
 	}
 
 	private String updateRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String email = request.getParameter("email");		
+		String email = request.getParameter("email");
 
 		try {
 			Users u = usersDAO.getUser(email);
 			if (sessionUser.getEmail().equals(u.getEmail())) {
 				return "Bạn không được cập nhật chính mình.";
-					
-			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {				
+
+			} else if (sessionRole == 1 && (u.getRole() == 0 || u.getRole() == 1)) {
 				return "Bạn không được cập nhật ADMIN.";
-								
+
 			} else {
 				usersDAO.updateRole(u);
-				return  "Bạn đã cập nhật vai trò thành công.";				
+				return "Bạn đã cập nhật vai trò thành công.";
 			}
-		} catch (
-		Exception e) {
+		} catch (Exception e) {
 			return e.getMessage();
 		}
 
@@ -271,7 +273,7 @@ public class ManageUsersController extends HttpServlet {
 		}
 	}
 
-	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
+	private String deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, Exception {
 		String[] emails = request.getParameter("email").split(",");
 		List<Users> list = new ArrayList<Users>();
@@ -283,19 +285,15 @@ public class ManageUsersController extends HttpServlet {
 		}
 
 		if (list.size() == 0) {
-			request.setAttribute("notifyUserList", "Bạn không được phép xoá ADMIN.");
-			request.setAttribute("statusUserList", "Fail");
+			return "Bạn không được phép xoá ADMIN.";
 		} else {
 			try {
 				usersDAO.deleteUser(list);
-				request.setAttribute("notifyUserList", "Bạn đã xoá thành công.");
-				request.setAttribute("statusUserList", "ok");
+				return "Bạn đã xoá thành công.";
 			} catch (Exception e) {
-				request.setAttribute("notifyUserList", "Có lỗi xảy ra, xin vui lòng thử lại sau.");
-				request.setAttribute("statusUserList", "Fail");
+				return "Có lỗi xảy ra, xin vui lòng thử lại sau.";
 			}
 		}
-		request.getRequestDispatcher("admin/jsp/UserList.jsp").forward(request, response);
 	}
 
 }
