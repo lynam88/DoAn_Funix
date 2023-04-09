@@ -7,52 +7,6 @@
 	<c:param name="title" value="Danh Sách Người Dùng Quyên Góp"></c:param>
 </c:import>
 
-<%
-String notifyUsersDonationList = (String) request.getAttribute("notifyUsersDonationList");
-String notifyStatusUsersDonationList = (String) request.getAttribute("notifyStatusUsersDonationList");
-
-if (notifyUsersDonationList != null) {
-%>
-<div class="modal" id="userDonationDelModal" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="text-center" style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
-			</div>
-		</div>
-
-	</div>
-</div>
-
-<script>
-		setTimeout(function() {
-			$("#userDonationDelModal").modal("show");							
-		}, 500);
-		setTimeout(function() {			
-			var st = "<%=notifyStatusUsersDonationList%>";
-				$("#userDonationDelModal").modal("hide");
-				if (st == "ok") {
-					window.location.href = '/HV_SoftwarePackage/UsersDonationController?action=UsersDonationList';
-				} else {
-					// remove class modal-backdrop in
-					$(".modal-backdrop").removeClass("modal-backdrop in");
-					window.history.back();
-				}
-			}, 3000);
-</script>
-
-<%
-}
-%>
-
 <div class="container-fluid py-4">
 	<div class="row">
 		<div class="col-12">
@@ -198,7 +152,7 @@ if (notifyUsersDonationList != null) {
 														</div>
 														<div class="modal-body">
 															<p class="text-center" id="user_donation_status_msg"
-																style="font-size: large; color: red;"><%=notifyUsersDonationList%></p>
+																style="font-size: large; color: red;"></p>
 														</div>
 													</div>
 												</div>

@@ -7,52 +7,6 @@
 		value="Thông tin người dùng | Quỹ Từ Thiện Liên Hoa"></c:param>
 </c:import>
 
-<%
-String notifyUpdate = (String) request.getAttribute("notifyUpdate");
-String statusUpdate = (String) request.getAttribute("statusUpdate");
-
-if (notifyUpdate != null) {
-%>
-<div class="modal" id="updateModal" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifyUpdate%></p>
-			</div>
-		</div>
-
-	</div>
-</div>
-
-<script>
-		setTimeout(function() {
-			$("#updateModal").modal("show");
-		}, 500);
-		setTimeout(function() {
-			$('#updateModal').modal().hide();
-			var st = "<%=statusUpdate%>";
-				if (st == "OK") {
-					window.location.href = '/HV_SoftwarePackage/UsersController?action=updateUserInfo';
-				} else {
-					// remove class modal-backdrop in
-					$(".modal-backdrop").removeClass("modal-backdrop in");
-					window.history.back();
-				}
-			}, 3000);
-</script>
-<%
-}
-%>
-
 <div class="hero-wrap"
 	style="background-image: url('${pageContext.request.contextPath}/template/admin/assets/img/carousel-4.jpg');"
 	data-stellar-background-ratio="0.5">

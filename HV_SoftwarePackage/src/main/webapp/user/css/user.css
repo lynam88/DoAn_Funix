@@ -291,10 +291,17 @@
 		
 	@media (min-width: 1200px) { 
 		#contactMail{
-				margin-right: 0%;
-	    		margin-left: -5%;
+			margin-right: 0%;
+    		margin-left: -5%;
 		}
-	}		
+	}
+	
+	@media (max-width: 768px) { 		
+		.contactContent{
+			margin-bottom: 15%;
+		}	
+	}
+		
 		
 	/* Index Page */
 		

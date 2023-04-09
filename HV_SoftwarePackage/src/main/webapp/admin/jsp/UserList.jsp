@@ -7,53 +7,6 @@
 	<c:param name="title" value="Danh Sách Người Dùng"></c:param>
 </c:import>
 
-<%
-String notifyUserList = (String) request.getAttribute("notifyUserList");
-String statusUserList = (String) request.getAttribute("statusUserList");
-
-if (notifyUserList != null) {
-%>
-<div class="modal" id="userDelModal" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="text-center" id="insertMsg"
-					style="font-size: large; color: red;"><%=notifyUserList%></p>
-			</div>
-		</div>
-
-	</div>
-</div>
-
-<script>
-		setTimeout(function() {
-			$("#userDelModal").modal("show");							
-		}, 500);
-		setTimeout(function() {			
-			var st = "<%=statusUserList%>";
-				$("#userDelModal").modal("hide");
-				if (st == "ok") {
-					window.location.href = '/HV_SoftwarePackage/ManageUsersController?action=UserList';
-				} else {
-					// remove class modal-backdrop in
-					$(".modal-backdrop").removeClass("modal-backdrop in");
-					window.history.back();
-				}
-			}, 3000);
-</script>
-
-<%
-}
-%>
-
 <div class="container-fluid py-4">
 	<div class="row">
 		<div class="col-12">
@@ -258,7 +211,7 @@ if (notifyUserList != null) {
 													</div>
 													<div class="modal-body">
 														<p class="text-center" id="status_msg"
-															style="font-size: large; color: red;"><%=notifyUserList%></p>
+															style="font-size: large; color: red;"></p>
 													</div>
 												</div>
 											</div>
