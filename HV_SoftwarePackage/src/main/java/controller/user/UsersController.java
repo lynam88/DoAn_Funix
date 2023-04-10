@@ -28,9 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import commons.MD5Library;
-import commons.RandomPasswordGenerator;
-import dao.DonationsDAO;
+import commons.Utils;
 import dao.StatisticsDAO;
 import dao.UsersDAO;
 import model.Users;
@@ -104,10 +102,26 @@ public class UsersController extends HttpServlet {
 			doLogin(request, response);
 			break;
 		case "updateUserInfo":
-			updateUserInfo(request, response);
-			break;
+			if (sessionUser != null) {
+				updateUserInfo(request, response);
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			break;			
 		case "updatePassInfo":
-			updatePassInfo(request, response);
+			if (sessionUser != null) {
+				updatePassInfo(request, response);
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			break;
 		}
 	}
@@ -175,7 +189,13 @@ public class UsersController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			break;
 		case "user":
 			try {
@@ -218,8 +238,16 @@ public class UsersController extends HttpServlet {
 					e1.printStackTrace();
 				}
 			break;
-		case "logout":
-			doLogout(request, response);
+		case "logout":		
+			if (sessionUser != null) {
+				doLogout(request, response);
+			} else
+				try {
+					showUserPage(request, response);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			break;
 		}
 	}
@@ -258,9 +286,9 @@ public class UsersController extends HttpServlet {
 	private void updatePassInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String oldPass = request.getParameter("old-pass");
-		String oldPassDB = MD5Library.md5(oldPass);
+		String oldPassDB = Utils.md5(oldPass);
 		String newPass = request.getParameter("new-pass");
-		String newPassDB = MD5Library.md5(newPass);
+		String newPassDB = Utils.md5(newPass);
 		request.setAttribute("newPass", newPass);
 		String originPass = sessionUser.getPassword();
 
@@ -522,7 +550,7 @@ public class UsersController extends HttpServlet {
 			String password = request.getParameter("signupPass");
 			String passDB = null;
 			if (password != null) {
-				passDB = MD5Library.md5(password);
+				passDB = Utils.md5(password);
 			}
 
 			Part filePart = request.getPart("avatar");
@@ -596,8 +624,8 @@ public class UsersController extends HttpServlet {
 			}
 
 			// Generate a new password and update it in the database
-			final String newPass = RandomPasswordGenerator.regeneratePassword();
-			final String newpassDB = MD5Library.md5(newPass);
+			final String newPass = Utils.regeneratePassword();
+			final String newpassDB = Utils.md5(newPass);
 			usersDAO.updatePass(u, newpassDB);
 
 			// Email subject and body
@@ -706,7 +734,7 @@ public class UsersController extends HttpServlet {
 		String loginPass = request.getParameter("loginPass");
 		String passDB = null;
 		if (loginPass != null) {
-			passDB = MD5Library.md5(loginPass);
+			passDB = Utils.md5(loginPass);
 		}
 		// Create a new session for the user
 		session = request.getSession(true);

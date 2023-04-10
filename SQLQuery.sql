@@ -203,7 +203,7 @@ GO
 
 ALTER TABLE Users
 ADD CONSTRAINT df_status
-DEFAULT 1 FOR status;
+DEFAULT 2 FOR status;
 GO
 
 UPDATE Users SET status = 1;

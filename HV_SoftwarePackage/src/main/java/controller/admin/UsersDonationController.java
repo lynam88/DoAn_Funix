@@ -88,17 +88,26 @@ public class UsersDonationController extends HttpServlet {
 			}
 		    break;
 		case "UsersDonationSearch":
-			UsersDonationList(request, response);
-			break;
-		case "updateStatus":		
-			try {
-				String notifyStatus = updateStatus(request, response);
-				response.setContentType("text/plain; charset=UTF-8");
-				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(notifyStatus);				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (sessionUser != null && (((Users) sessionUser).getRole() == 0 || ((Users) sessionUser).getRole() == 1)) {
+				try {
+					UsersDonationList(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
+			break;			
+		case "updateStatus":	
+			if (sessionUser != null && (((Users) sessionUser).getRole() == 0 || ((Users) sessionUser).getRole() == 1)) {
+				try {
+					String notifyStatus = updateStatus(request, response);
+					response.setContentType("text/plain; charset=UTF-8");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(notifyStatus);				
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			break;
 		case "userDonationMail":
@@ -110,7 +119,6 @@ public class UsersDonationController extends HttpServlet {
 			}
 			break;
 		}
-
 	}	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -128,8 +136,15 @@ public class UsersDonationController extends HttpServlet {
 		sessionUser = session.getAttribute("user");
 		switch (action) {
 		case "UsersDonationList":
-			UsersDonationList(request, response);
-			break;
+			if (sessionUser != null && (((Users) sessionUser).getRole() == 0 || ((Users) sessionUser).getRole() == 1)) {
+				try {
+					UsersDonationList(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			break;	
 		case "showMakeDonationPage":
 			try {
 				showMakeDonationPage(request, response);

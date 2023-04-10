@@ -10,24 +10,20 @@
 			const loginPassError = document.getElementById("loginPass_error");
 			
 			if (!loginId) {
-				loginIdError.innerHTML = "Xin Điền Vào Số Điện Thoại Hoặc Email";
-				loginIdError.scrollIntoView();
+				loginIdError.innerHTML = "Xin Điền Vào Số Điện Thoại Hoặc Email";		
 				return false;
 			} else if (!validateEmail(loginId) && !validatePhone(loginId)) {
-				loginIdError.innerHTML = "Số Điện Thoại Hoặc Email Không Hợp Lệ";
-				loginIdError.scrollIntoView();
+				loginIdError.innerHTML = "Số Điện Thoại Hoặc Email Không Hợp Lệ";			
 				return false;
 			} else {
 				loginIdError.innerHTML =  "";
 			}
 			
 			if (!loginPass) {
-				loginPassError.innerHTML = "Xin Điền Vào Mật Khẩu";
-				loginPassError.scrollIntoView();
+				loginPassError.innerHTML = "Xin Điền Vào Mật Khẩu";		
 				return false;
 			} else if (loginPass.length < 8) {
-				loginPassError.innerHTML = "Mật Khẩu Phải Tối Thiểu 8 Ký Tự";
-				loginPassError.scrollIntoView();
+				loginPassError.innerHTML = "Mật Khẩu Phải Tối Thiểu 8 Ký Tự";		
 				return false;
 			} else {
 				loginPassError.innerHTML =  "";
