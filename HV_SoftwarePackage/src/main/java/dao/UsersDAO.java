@@ -24,7 +24,7 @@ public class UsersDAO {
 
 			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {			    
 			    if (!character.isEmpty()) {
-			        sql += "AND (name LIKE ? OR phone = ? OR address LIKE ?) ";
+			        sql += "AND (name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
 			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
 			            sql += " AND ";
 			        }
@@ -50,6 +50,7 @@ public class UsersDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 			}
 
@@ -99,7 +100,7 @@ public class UsersDAO {
 
 			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {	
 			    if (!character.isEmpty()) {
-			        whereClause += "AND (name LIKE ? OR phone = ? OR address LIKE ?) ";
+			        whereClause += "AND (name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
 			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
 			            whereClause += " AND ";
 			        }
@@ -127,6 +128,7 @@ public class UsersDAO {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 			}
 

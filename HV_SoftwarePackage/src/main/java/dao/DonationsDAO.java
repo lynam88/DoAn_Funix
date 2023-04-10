@@ -161,7 +161,7 @@ public class DonationsDAO {
 				+ "USING (VALUES (?, ?, ?, ?, ?, ?, ?, ?, GETDATE())) AS source (donation_status, donation_title, donation_content, start_date, end_date, total_needed, category, thumbnail, insertDate) "
 				+ "ON target.donation_title = source.donation_title " + "WHEN NOT MATCHED BY TARGET THEN "
 				+ "INSERT (donation_status, donation_title, donation_content, start_date, end_date, total_needed, category, thumbnail, insertDate) "
-				+ "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.category, source.thumbnail, GETDATE())";
+				+ "VALUES (source.donation_status, source.donation_title, source.donation_content, source.start_date, source.end_date, source.total_needed, source.category, source.thumbnail, GETDATE());";
 
 		PreparedStatement stmt = connection.prepareStatement(sql);
 

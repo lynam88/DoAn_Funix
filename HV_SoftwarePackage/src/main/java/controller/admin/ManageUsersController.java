@@ -95,7 +95,7 @@ public class ManageUsersController extends HttpServlet {
 				throw new ServletException(ex);
 			}
 		} else {
-			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/UsersController?action=user").forward(request, response);
 		}
 	}
 
@@ -129,7 +129,7 @@ public class ManageUsersController extends HttpServlet {
 				throw new ServletException(ex);
 			}
 		} else {
-			request.getRequestDispatcher("user/jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/UsersController?action=user").forward(request, response);
 		}
 	}
 

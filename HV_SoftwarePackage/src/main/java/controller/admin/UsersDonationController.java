@@ -94,8 +94,8 @@ public class UsersDonationController extends HttpServlet {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} 
-			}
+				} 						
+			} else request.getRequestDispatcher("/UsersController?action=user").forward(request, response);	
 			break;			
 		case "updateStatus":	
 			if (sessionUser != null && (((Users) sessionUser).getRole() == 0 || ((Users) sessionUser).getRole() == 1)) {
@@ -108,7 +108,7 @@ public class UsersDonationController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+			} else request.getRequestDispatcher("/UsersController?action=user").forward(request, response);		
 			break;
 		case "userDonationMail":
 			try {
@@ -143,7 +143,7 @@ public class UsersDonationController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+			} else request.getRequestDispatcher("/UsersController?action=user").forward(request, response);				
 			break;	
 		case "showMakeDonationPage":
 			try {
@@ -170,7 +170,7 @@ public class UsersDonationController extends HttpServlet {
 			exportUserDonation(request, response);
 			break;
 		}
-	}
+	}	
 
 	private String updateStatus(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userDonationStatus = request.getParameter("userDonationStatus");

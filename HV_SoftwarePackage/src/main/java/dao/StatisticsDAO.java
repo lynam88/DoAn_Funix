@@ -49,7 +49,7 @@ public class StatisticsDAO {
 		Connection connection = new DBContext().getConnection();
 		List<Map<String, String>> list = new ArrayList<>();
 		try {
-			String sql = "SELECT TOP 5 donation_title, start_date, end_date, thumbnail " + "FROM Donations "
+			String sql = "SELECT TOP 5 donation_title, start_date, end_date, thumbnail " + "FROM Donations WHERE use_yn = 1 "
 					+ "ORDER BY end_date DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -142,8 +142,7 @@ public class StatisticsDAO {
 			while (rs.next()) {
 				Map<String, String> map = new HashMap<String, String>();
 
-				map.put("name", rs.getString("name"));
-				map.put("email", rs.getString("email"));
+				map.put("name", rs.getString("name"));			
 				map.put("donationAmount", String.valueOf(rs.getFloat("donation_amount")));
 				map.put("dayDiff", String.valueOf(rs.getInt("days_since_donation")));
 				map.put("category", rs.getString("category"));

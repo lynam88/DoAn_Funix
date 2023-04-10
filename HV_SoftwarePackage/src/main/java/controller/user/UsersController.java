@@ -149,8 +149,8 @@ public class UsersController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		request.setAttribute("DonationStats", donationStats);
-		request.setAttribute("statistics", statistics);
+		session.setAttribute("DonationStats", donationStats);
+		session.setAttribute("statistics", statistics);
 		switch (action) {
 		case "contact":
 			showContact(request, response);
@@ -408,7 +408,6 @@ public class UsersController extends HttpServlet {
 			throws ServletException, Exception {
 		List<Map<String, String>> MostRecentDonationUsers = statisticsDAO.getMostRecentDonationUsers();
 		request.setAttribute("MostRecentDonationUsers", MostRecentDonationUsers);
-
 		request.getRequestDispatcher("user/jsp/index.jsp").forward(request, response);
 	}
 

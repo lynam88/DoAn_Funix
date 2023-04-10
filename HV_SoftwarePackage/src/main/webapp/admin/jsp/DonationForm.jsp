@@ -43,7 +43,7 @@ if (notifyDonation != null) {
 
 <script>
 
-		$("#donationModal").modal("show");
+		$('#donationModal').modal("show");
 		setTimeout(function() {
 			$('#donationModal').modal().hide();
 			var st = "<%=statusDonation%>";

@@ -210,8 +210,7 @@
 								style="background-image: url(${userDonation.avatarPath});"></div>
 							<div class="info ml-4">
 								<h3>
-									<c:out value="${userDonation.name}"></c:out>
-									<c:out value="${userDonation.email}"></c:out>
+									<c:out value="${userDonation.name}"></c:out>									
 								</h3>
 								<span class="position">Quyên góp cách đây <c:out
 										value="${userDonation.dayDiff}"></c:out> ngày
