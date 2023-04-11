@@ -60,7 +60,7 @@
 	<div class="container-fluid" id="donationPost">
 		<div class="row">
 			<div class="col-md-12">
-				<p class="text-left">
+				<p class="text-left insertDate">
 					<c:out value="${donation.insertDate}"></c:out>
 				</p>
 			</div>

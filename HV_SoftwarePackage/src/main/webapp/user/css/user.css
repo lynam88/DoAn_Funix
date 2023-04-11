@@ -331,6 +331,10 @@
 	}
 	
 	/* Donate Post Page */
+	.insertDate{
+		margin-left: 1%;
+	}
+	
 	.donationPost{
 		color:black;
 	}

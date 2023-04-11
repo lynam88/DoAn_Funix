@@ -22,24 +22,25 @@ public class UsersDAO {
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, status FROM Users WHERE user_use_yn = 1 ";
 
-			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {			    
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
+			    sql += "AND ";
 			    if (!character.isEmpty()) {
-			        sql += "AND (name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
-			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
-			            sql += " AND ";
-			        }
+			        sql += "(name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
 			    }
 			    if (!searchRole.equals("0")) {
+			        if (!character.isEmpty()) {
+			            sql += "AND ";
+			        }
 			        sql += "(user_role = ?";
 			        if (searchRole.equals("1")) {
 			            sql += " OR user_role = 0";
 			        }
-			        sql += ")";
-			        if (!searchStatus.equals("0")) {
-			            sql += " AND ";
-			        }
+			        sql += ") ";
 			    }
 			    if (!searchStatus.equals("0")) {
+			        if (!character.isEmpty() || !searchRole.equals("0")) {
+			            sql += "AND ";
+			        }
 			        sql += "status = ?";
 			    }
 			}
@@ -94,33 +95,34 @@ public class UsersDAO {
 			throws Exception {
 		Connection connection = new DBContext().getConnection();
 		List<Users> list = new ArrayList<>();
+		
 		try {
 			String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total FROM Users WHERE user_use_yn = 1 ";
-			String whereClause = "";
 
-			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {	
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
+			    sql += "AND ";
 			    if (!character.isEmpty()) {
-			        whereClause += "AND (name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
-			        if (!searchRole.equals("0") || !searchStatus.equals("0")) {
-			            whereClause += " AND ";
-			        }
+			        sql += "(name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
 			    }
 			    if (!searchRole.equals("0")) {
-			        whereClause += "(user_role = ?";
+			        if (!character.isEmpty()) {
+			            sql += "AND ";
+			        }
+			        sql += "(user_role = ?";
 			        if (searchRole.equals("1")) {
-			            whereClause += " OR user_role = 0";
+			            sql += " OR user_role = 0";
 			        }
-			        whereClause += ")";
-			        if (!searchStatus.equals("0")) {
-			            whereClause += " AND ";
-			        }
+			        sql += ") ";
 			    }
 			    if (!searchStatus.equals("0")) {
-			        whereClause += "status = ?";
+			        if (!character.isEmpty() || !searchRole.equals("0")) {
+			            sql += "AND ";
+			        }
+			        sql += "status = ?";
 			    }
 			}
 
-			sql += whereClause + " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";	
+			sql +=  " ORDER BY registration_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
