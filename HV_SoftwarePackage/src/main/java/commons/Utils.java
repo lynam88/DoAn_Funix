@@ -3,20 +3,20 @@
 This is a utility class that contains common methods for the project.
 */
 package commons;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 
 public class Utils {
-	
+
 	/**
-	 * Converts a string representation of a date in the format "yyyy-MM-dd" to a Date object.
+	 * Converts a string representation of a date in the format "yyyy-MM-dd" to a
+	 * Date object.
 	 * 
 	 * @param strDate the string representation of the date
 	 * @return a Date object
@@ -43,7 +43,8 @@ public class Utils {
 	}
 
 	/**
-	 * Converts a string representation of a floating-point number to a Float object.
+	 * Converts a string representation of a floating-point number to a Float
+	 * object.
 	 * 
 	 * @param value the string representation of the floating-point number
 	 * @return a Float object
@@ -56,19 +57,6 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	/**
-	 * Converts a floating-point number to a string representation in currency format.
-	 * 
-	 * @param value the floating-point number to convert
-	 * @return a string representation of the number in currency format
-	 */
-	public static String convertFloatToCurrency(float value) {
-		Locale locale = new Locale("vi", "VN");
-		NumberFormat format = NumberFormat.getCurrencyInstance(locale);
-		return format.format(value);
-
 	}
 
 	/**
