@@ -26,21 +26,24 @@ public class ExportService {
  
         try {
         	Connection connection = new DBContext().getConnection();
-        	String sql = "SELECT * FROM Donations WHERE donation_title like ? AND use_yn = 1";
+        	String sql = "SELECT donation_id, donation_content, donation_status, donation_title, start_date, end_date, category, thumbnail, COUNT(*) OVER() AS total"
+					+ " FROM Donations" + " WHERE use_yn = 1" + " AND donation_title like ? ESCAPE '!'";
 			if (!searchStatus.equals("0")) {
-			    sql += " AND donation_status = ?";
+				sql += " AND donation_status = ?";
 			}
 			if (!category.equals("0")) {
-			    sql += " AND category = ?";
+				sql += " AND category = ?";
 			}
+			sql += " ORDER BY end_date DESC";
+
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, "%" + character + "%");
 			int index = 2;
 			if (!searchStatus.equals("0")) {
-			    stmt.setString(index++, searchStatus);
+				stmt.setString(index++, searchStatus);
 			}
 			if (!category.equals("0")) {
-			    stmt.setString(index++, category);
+				stmt.setString(index++, category);
 			}
 			ResultSet rs = stmt.executeQuery();
  
@@ -72,28 +75,49 @@ public class ExportService {
 
        try {
 	       	Connection connection = new DBContext().getConnection();
-	       	String sql = "SELECT * "
-					+ "FROM Users "
-					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR address LIKE ? ")
-					+ (searchRole.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_role = ? ")
-					+ (searchRole.equals("1") ? "OR user_role = 0 " : "")
-					+ (searchStatus.equals("0") ? "" : ((character.isEmpty() && searchRole.equals("0")) ? "WHERE " : "AND ") + "status = ? ");
-	
+	       	String sql = "SELECT name, phone, email, address, registration_date, user_role, status, COUNT(*) OVER() AS total FROM Users WHERE user_use_yn = 1 ";
+
+			if (!character.isEmpty() || !searchRole.equals("0") || !searchStatus.equals("0")) {
+			    sql += "AND ";
+			    if (!character.isEmpty()) {
+			        sql += "(name LIKE ? OR phone = ? OR address LIKE ? OR email LIKE ?) ";
+			    }
+			    if (!searchRole.equals("0")) {
+			        if (!character.isEmpty()) {
+			            sql += "AND ";
+			        }
+			        sql += "(user_role = ?";
+			        if (searchRole.equals("1")) {
+			            sql += " OR user_role = 0";
+			        }
+			        sql += ") ";
+			    }
+			    if (!searchStatus.equals("0")) {
+			        if (!character.isEmpty() || !searchRole.equals("0")) {
+			            sql += "AND ";
+			        }
+			        sql += "status = ?";
+			    }
+			}
+
+			sql +=  " ORDER BY registration_date DESC";
+
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
-	
+
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
 				stmt.setString(index++, "%" + character + "%");
+				stmt.setString(index++, "%" + character + "%");
 			}
-	
+
 			if (!searchRole.equals("0")) {
 				stmt.setString(index++, searchRole);
-			}
+			}			
 			
-			if (!searchRole.equals("0")) {
-				stmt.setString(index++, searchRole);
+			if (!searchStatus.equals("0")) {
+				stmt.setString(index++, searchStatus);
 			}
 	
 			ResultSet rs = stmt.executeQuery();
@@ -126,12 +150,13 @@ public class ExportService {
 
        try {
 	       	Connection connection = new DBContext().getConnection();
-	       	String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, donation_title, donation_date "
-					+ "FROM Users_Donation AS UD "
+	       	String sql = "SELECT user_donation_id, name, email, phone, bank, transaction_id, donation_amount, user_donation_status, UD.donation_id, donation_title, donation_date "
+					+ "FROM Users_Donation AS UD " 
 					+ "LEFT JOIN Donations AS D "
 					+ "ON UD.donation_id = D.donation_id "
-					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? ")
-					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
+					+ (character.isEmpty() ? "" : "WHERE (name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ?) ")
+					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ")
+					+ "ORDER BY donation_date DESC";
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			int index = 1;
@@ -139,10 +164,11 @@ public class ExportService {
 			if (!character.isEmpty()) {
 				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, character);
-				stmt.setString(index++, character);
+				stmt.setString(index++,  "%" + character + "%");
+				stmt.setString(index++, "%" + character + "%");
 				stmt.setString(index++, "%" + character + "%");
 			}
-	
+
 			if (!searchStatus.equals("0")) {
 				stmt.setString(index++, searchStatus);
 			}

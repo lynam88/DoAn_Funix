@@ -24,7 +24,7 @@ public class UsersDonationDAO {
 						+ "FROM Users_Donation AS UD "
 						+ "LEFT JOIN Donations AS D "
 						+ "ON UD.donation_id = D.donation_id "
-						+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ? ")
+						+ (character.isEmpty() ? "" : "WHERE (name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ?) ")
 						+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ");
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -84,7 +84,7 @@ public class UsersDonationDAO {
 					+ "FROM Users_Donation AS UD " 
 					+ "LEFT JOIN Donations AS D "
 					+ "ON UD.donation_id = D.donation_id "
-					+ (character.isEmpty() ? "" : "WHERE name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ? ")
+					+ (character.isEmpty() ? "" : "WHERE (name LIKE ? OR phone = ? OR email LIKE ? OR bank LIKE ? OR donation_title LIKE ?) ")
 					+ (searchStatus.equals("0") ? "" : (character.isEmpty() ? "WHERE " : "AND ") + "user_donation_status = ? ")
 					+ "ORDER BY donation_date DESC OFFSET (? - 1) * ? ROWS FETCH NEXT ? ROWS ONLY";
 

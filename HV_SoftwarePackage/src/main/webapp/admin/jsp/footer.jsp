@@ -176,7 +176,7 @@
 	
 	<script>
 	//Thời gian	
-	if (location.search.split('action=')[1].endsWith("t")) {
+	if (location.search.split('action=')[1].endsWith("t") || location.search.split('action=')[1].endsWith("h")) {
 	  function updateTime() {
 	    var today = new Date();
 	    var weekday = new Array(7);
