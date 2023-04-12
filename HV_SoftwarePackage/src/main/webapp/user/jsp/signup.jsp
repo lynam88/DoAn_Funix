@@ -104,7 +104,7 @@ if (notifySignup != null) {
 											<label for="email">Email: <span class="require">*</span></label>
 											<div class="input-group">
 												<span class="input-group-text"><i
-													class="bx bx-envelope"></i></span> <input type="email" id="email"
+													class="bx bx-envelope"></i></span> <input type="text" id="email"
 													name="email" class="form-control"
 													placeholder="Xin nhập email"
 													value="<c:out value='${inputUser.email}'/>">

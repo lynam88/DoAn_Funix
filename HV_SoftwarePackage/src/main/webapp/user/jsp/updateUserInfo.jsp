@@ -140,8 +140,7 @@ if (notifyUpdate != null) {
 													class="bx bx-envelope"></i></span> <input type="email" id="email"
 													name="email" class="form-control"
 													placeholder="Xin nhập email"
-													value="<c:out value='${user.email}'/>">
-													<input type="hidden" name="originEmail"	value="<c:out value='${originEmail}'/>">
+													value="<c:out value='${user.email}'/>">													
 											</div>
 											<p id="email_error">${email_error}</p>
 										</div>										

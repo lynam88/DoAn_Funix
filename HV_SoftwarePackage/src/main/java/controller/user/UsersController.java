@@ -332,6 +332,7 @@ public class UsersController extends HttpServlet {
 			byte[] address_Bytes = address.getBytes(StandardCharsets.ISO_8859_1);
 			address = new String(address_Bytes, StandardCharsets.UTF_8);
 			String originEmail = sessionUser.getEmail();
+			String originPhone = sessionUser.getPhone();
 
 			Part filePart = request.getPart("avatar");
 			long fileSize = filePart.getSize();
@@ -350,7 +351,10 @@ public class UsersController extends HttpServlet {
 			// Create new user object
 			Users u = new Users(name, phone, email, avatarPath, address);
 			if (usersDAO.getUser(email) != null && !email.equals(originEmail)) {
-				request.setAttribute("email_error", "Email này đã được đăng ký");
+				request.setAttribute("email_error", email + " đã được đăng ký");
+
+			} else if (usersDAO.getUser(phone) != null && !phone.equals(originPhone)) {
+				request.setAttribute("phone_error", phone + " đã được đăng ký");
 
 			} else {
 				// Insert user data to database
