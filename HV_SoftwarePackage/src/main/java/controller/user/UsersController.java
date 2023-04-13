@@ -428,8 +428,15 @@ public class UsersController extends HttpServlet {
 
 	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
-		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "mzmvtyzzkitqyyac";
+//		final String fromEmail = "quytuthienlienhoa@gmail.com";
+//		final String password = "mzmvtyzzkitqyyac";
+		
+		//Backup email
+		final String fromEmail = "lienhoatuthien@gmail.com";
+		final String password = "abbuzzexrsivmouw";
+		
+//		final String fromEmail = "lienhoaquytuthien@gmail.com";
+//		final String password = "czkpoetmcanxnqup";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("email");
@@ -605,8 +612,15 @@ public class UsersController extends HttpServlet {
 	 */
 	private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
-		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "mzmvtyzzkitqyyac";
+//		final String fromEmail = "quytuthienlienhoa@gmail.com";
+//		final String password = "mzmvtyzzkitqyyac";
+		
+		//Backup email
+		final String fromEmail = "lienhoatuthien@gmail.com";
+		final String password = "abbuzzexrsivmouw";
+		
+//		final String fromEmail = "lienhoaquytuthien@gmail.com";
+//		final String password = "czkpoetmcanxnqup";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("email");
