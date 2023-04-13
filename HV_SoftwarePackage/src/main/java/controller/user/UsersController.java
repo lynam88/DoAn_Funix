@@ -359,6 +359,7 @@ public class UsersController extends HttpServlet {
 			} else {
 				// Insert user data to database
 				usersDAO.updateUser(u, originEmail);
+				u.setRole(sessionUser.getRole());
 				session.setAttribute("user", u);
 				request.setAttribute("notifyUpdate", "Cập nhật thành công.");
 				request.setAttribute("statusUpdate", "OK");
@@ -428,7 +429,7 @@ public class UsersController extends HttpServlet {
 	private void recoverUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
 		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "csfawleqxoaqlhur";
+		final String password = "mzmvtyzzkitqyyac";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("email");
@@ -605,7 +606,7 @@ public class UsersController extends HttpServlet {
 	private void resetPassword(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
 		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "csfawleqxoaqlhur";
+		final String password = "mzmvtyzzkitqyyac";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("email");

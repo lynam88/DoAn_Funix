@@ -263,7 +263,7 @@ public class UsersDonationController extends HttpServlet {
 	private void userDonationMail(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Sender's email and password
 		final String fromEmail = "quytuthienlienhoa@gmail.com";
-		final String password = "csfawleqxoaqlhur";
+		final String password = "mzmvtyzzkitqyyac";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("toEmail");
