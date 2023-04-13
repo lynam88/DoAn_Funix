@@ -433,10 +433,13 @@ public class UsersController extends HttpServlet {
 		
 		//Backup email
 		final String fromEmail = "lienhoatuthien@gmail.com";
-		final String password = "abbuzzexrsivmouw";
+		final String password = "xsooydgrvsdpdrod";
 		
 //		final String fromEmail = "lienhoaquytuthien@gmail.com";
 //		final String password = "czkpoetmcanxnqup";
+		
+//		final String fromEmail = "lotusdonation@gmail.com";
+//		final String password = "xnigiynpyalvxmhy";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("email");
@@ -617,10 +620,13 @@ public class UsersController extends HttpServlet {
 		
 		//Backup email
 		final String fromEmail = "lienhoatuthien@gmail.com";
-		final String password = "abbuzzexrsivmouw";
+		final String password = "xsooydgrvsdpdrod";
 		
 //		final String fromEmail = "lienhoaquytuthien@gmail.com";
 //		final String password = "czkpoetmcanxnqup";
+		
+//		final String fromEmail = "lotusdonation@gmail.com";
+//		final String password = "xnigiynpyalvxmhy";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("email");

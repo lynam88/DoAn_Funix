@@ -266,11 +266,14 @@ public class UsersDonationController extends HttpServlet {
 //		final String password = "mzmvtyzzkitqyyac";
 		
 		//Backup email
-		final String fromEmail = "lienhoatuthien@gmail.com";
-		final String password = "abbuzzexrsivmouw";
+//		final String fromEmail = "lienhoatuthien@gmail.com";
+//		final String password = "xsooydgrvsdpdrod";
 		
-//		final String fromEmail = "lienhoaquytuthien@gmail.com";
-//		final String password = "czkpoetmcanxnqup";
+		final String fromEmail = "lienhoaquytuthien@gmail.com";
+		final String password = "czkpoetmcanxnqup";
+		
+//		final String fromEmail = "lotusdonation@gmail.com";
+//		final String password = "xnigiynpyalvxmhy";
 
 		// Recipient's email address
 		final String toEmail = request.getParameter("toEmail");
